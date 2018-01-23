@@ -1,0 +1,18 @@
+[ 2018-01-15T17:00:15+08:00 ] 127.0.0.1 /luomansi/index.php/Index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000092s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002645s ]
+ERR: 无法加载模块:Index
+
+[ 2018-01-15T17:00:34+08:00 ] 127.0.0.1 /luomansi/index.php/Index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000027s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000590s ]
+ERR: 无法加载模块:Index
+
+[ 2018-01-15T17:01:21+08:00 ] 127.0.0.1 /luomansi/index.php/Index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000077s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001294s ]
+ERR: 无法加载模块:Index
+

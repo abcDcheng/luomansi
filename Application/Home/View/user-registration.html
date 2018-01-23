@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户登记资料</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- JQ -->
+    <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+    <!--移动端版本兼容 -->
+    <script type="text/javascript" src='http://assets.yangyue.com.cn/js/mobile.js'></script>
+    <script type="text/javascript" src="http://assets.yangyue.com.cn/js/jQuery.cityselect.full.min.js"></script>
+    <script type="text/javascript" src='js/main.js'></script>
+    <script type="text/javascript" src='http://assets.yangyue.com.cn/js/ZArea.min.js'></script>
+	<!-- 自适应屏幕 -->
+	<script type="text/javascript">
+	    $(function(){
+	        wHeight=$(window).height();
+	        if(wHeight<975){
+	            wHeight=975;
+	            }
+	        $('.page').height(wHeight).css('background-position','center '+(wHeight-1334)/2+'px');
+	        $('.h832').css('padding-top',(wHeight-975)/2+'px');
+	    })
+	</script>
+
+	
+</head>
+<body>
+
+<div class="wrap">
+    
+    <!-- 用户登记资料 -->
+    <ul class="registration">
+    	<li>
+    		<div class="name-item">
+    			<span>姓<em></em>名：</span>
+    		</div>
+    		<div class="push-item">
+    			<input type="text" placeholder='请填写你的姓名'>
+    		</div>
+    	</li>
+    	<li>
+    		<div class="name-item">
+    			<span>手机号：</span>
+    		</div>
+    		<div class="push-item">
+    			<input type="text" placeholder='请填写你的手机号'>
+    		</div>
+    	</li>
+    	<li>
+    		<div class="name-item">
+    			<span>地<em></em>址：</span>
+    		</div>
+    		<div class="push-item">
+                <input id="area" type="text" placeholder="请选择地区" onfocus="this.blur();"></input>
+    		</div>
+    	</li>
+    	<li>
+    		<div class="name-item">
+    			<textarea placeholder='请填写你的详细地址'></textarea>
+    		</div>
+    	</li>
+    </ul>
+	
+</div>
+
+<script type="text/javascript">
+    $(function(){
+
+        new ZArea('#area');
+    })
+
+</script>
+
+</body>
+</html>
