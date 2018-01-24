@@ -109,7 +109,7 @@ em,i,small{font-style: normal;}
 .personal-center-message li div{position: relative;}
 .personal-center-message li div img{position: absolute;top:50%;left: 50%;transform: translate3d(-50%,-50%,0);-webkit-transform: translate3d(-50%,-50%,0);}
 .personal-center-flex-1{box-flex: 1;-webkit-box-flex: 1;height: 40px;text-align: center;}
-.personal-center-flex-3{box-flex: 3;-webkit-box-flex: 3;max-width: 400px;}
+.personal-center-flex-3{box-flex: 3;-webkit-box-flex: 3;width: 390px;}
 .personal-center em{display: inline-block;width: 1em;}
 .personal-modify-bg{position: relative;width: 750px;margin: 0 auto 0;display: none;}
 .personal-modify{position: relative;width: 750px;margin: 0 auto 0;padding-top: 30px;}
