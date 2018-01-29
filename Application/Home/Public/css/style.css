@@ -69,22 +69,25 @@ em,i,small{font-style: normal;}
 .query-nav{width: 750px;height: 115px;margin: 0 auto 0;display: -webkit-box;display: box;}
 .query-nav li{box-sizing:border-box;-webkit-box-sizing:border-box;position: relative;box-flex: 1;-webkit-box-flex: 1;line-height: 115px;text-align: center;font-size: 32px;color: #434343;}
 .query-nav .query-nav-active{color: #0b4268;border-bottom: 7px #0b4268 solid;font-weight: 800;transition:0.5s all;-wei-transition:0.5s all;}
-.query-content{background-color: #ffffff;padding-bottom: 30px;}
+.query-content{background-color: #eeeeee;padding-bottom: 30px;}
 .query-list-style{width: 750px;margin: 0 auto 0;display: none;}
-.query-list-style li{padding: 15px 25px;border-bottom:1px #e3e3e3 solid;box-sizing:border-box;-webkit-box-sizing:border-box;overflow: hidden;}
+.query-list-style li{padding: 25px 0;border-bottom:2px #e3e3e3 solid;border-top:2px #e3e3e3 solid;box-sizing:border-box;-webkit-box-sizing:border-box;overflow: hidden;margin-top: 20px;background-color: #ffffff;}
 .query-list-style li p{font-size: 32px;color: #ff0000;padding-left: 43px;background: url(../img/notice-icon.png) left center no-repeat;}
 .query-list-style li textarea{width: 688px;height: 275px;box-sizing:border-box;-webkit-box-sizing:border-box;border-radius: 15px;border:1px #434343 solid;font-size: 32px;padding: 25px;outline: none;}
 .query-list-img-bg{box-sizing:border-box;-webkit-box-sizing:border-box;position: relative;width: 168px;height: 168px;border:2px #eeeeee solid;float: left;}
 .query-list-img-bg img{position: absolute;height: 95%;top:50%;left: 50%;transform: translate3d(-50%,-50%,0);-webkit-transform: translate3d(-50%,-50%,0);}
-.query-list-message{box-sizing:border-box;-webkit-box-sizing:border-box;position: relative;width: 390px;height: 168px;float: left;margin-left: 20px;}
+
+/*modfiy 2018-01-29*/
+.query-list-message{box-sizing:border-box;-webkit-box-sizing:border-box;position: relative;width: 100%;height: 168px;padding: 0 25px;overflow: hidden;margin-bottom: 20px;}
 .query-list-message h5{font-weight: 500;font-size: 32px;color: #434343;}
 .query-list-message h3{font-weight: 500;font-size: 23px;color: #434343;position: absolute;bottom: 5px;left: 0;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;width: 100%;box-sizing:border-box;-webkit-box-sizing:border-box;padding-left: 33px;background: url(../img/notice-icon2.png) left center no-repeat;}
 .query-list-message i{font-size: 23px;color: #7d7d7d;display: block;margin-top: 10px;}
-.query-list-message h4{font-weight: 500;font-size: 32px;color: #434343;position: absolute;bottom: 5px;left: 0;}
+.query-list-message h4{font-weight: 500;font-size: 32px;color: #434343;position: absolute;bottom: 5px;left: 25px;}
 .query-list-message a{font-weight: 500;font-size: 32px;color: #434343;position: absolute;bottom: 5px;right: -120px;text-decoration: none;}
+.query-list-message .btn-seeData{position: absolute;bottom: 5px;right: 25px;font-size: 30px;color: #00a0e9;padding-right: 30px;background: url(../img/icon14.png) right center no-repeat;}
 .query-list-message p{font-size: 23px;color: #7d7d7d;display: block;margin-top: 5px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .query-list-message .edit{font-weight: 500;font-size: 32px;color: #00b7ee;position: absolute;bottom: 5px;right: 0px;text-decoration: underline;padding-left: 35px;background: url(../img/icon10.png) left center no-repeat;}
-.query-list-state{float: left;margin-left: 20px;position: relative;height: 168px;}
+.query-list-state{position: absolute;top:0;right: 20px;}
 .query-list-state .deteleBtn{position: absolute;height: 168px;line-height: 168px;color: #ff0000;font-size: 32px;width: 100px;text-align: center;}
 .query-state-btn{font-size: 23px;padding: 10px 15px;border-radius: 20px;border:0;outline: none;color: #ffffff;}
 .query-state-1{background-color: #72c73e;}
@@ -93,6 +96,18 @@ em,i,small{font-style: normal;}
 .no-information{width: 750px;margin: 0 auto 0;background-color: #ffffff;padding: 100px 0;display: none;}
 .no-information img{display: block;margin: 0 auto 0;}
 .query-not-through-reason{display: none;background-color: #ffffff;}
+
+.query-product{display: none;}
+.product-item{padding: 20px 25px;overflow: hidden;}
+.product-img{box-sizing:border-box;-webkit-box-sizing:border-box;width: 90px;height: 90px;border:2px #eeeeee solid;    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    text-align: center;float: left;}
+.product-img img{height: 85%;}
+.product-item .product-words{font-size: 28px;height: 90px;line-height: 90px;color: #535353;float: left;margin-left: 20px;}
+.btn-stop{display: block;text-align: right;font-size: 30px;color: #00a0e9;padding-right: 30px;background: url(../img/icon15.png) right center no-repeat;margin-bottom: 25px;margin-right: 25px;}
+.remarks{padding: 20px 20px 0;font-size: 24px;color: #7d7d7d;}
 
 
 /*=====================================*/
