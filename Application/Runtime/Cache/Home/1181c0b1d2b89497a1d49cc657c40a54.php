@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<link rel="stylesheet" type="text/css" href="__CSS__/style.css">
+	<link rel="stylesheet" type="text/css" href="/luomansi/Application/Home/Public/css/style.css">
     <!-- JQ -->
-    <script type="text/javascript" src="__JS__/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/luomansi/Application/Home/Public/js/jquery-1.11.0.min.js"></script>
     <!--移动端版本兼容 -->
-    <script type="text/javascript" src='__JS__/mobile.js'></script>
-    <script type="text/javascript" src='__JS__/main.js'></script>
+    <script type="text/javascript" src='/luomansi/Application/Home/Public/js/mobile.js'></script>
+    <script type="text/javascript" src='/luomansi/Application/Home/Public/js/main.js'></script>
 	<!-- 自适应屏幕 -->
 	<script type="text/javascript">
 	    $(function(){
@@ -101,21 +101,21 @@
 
 	<!-- 底部导航 -->
 	<div class="footer-nav">
-		<a href="<{:U('Shop/index')}>" class="footer-nav-item">
-			<img src="__IMAGES__/nav1.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/nav1-active.png" alt="" class="footer-nav-imgActive">
+		<a href="<?php echo U('Shop/index');?>" class="footer-nav-item">
+			<img src="/luomansi/Application/Home/Public/img/nav1.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<{:U('Order/index')}>" class="footer-nav-item line2">
-			<img src="__IMAGES__/nav2.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/nav2-active.png" alt="" class="footer-nav-imgActive">
+		<a href="<?php echo U('Order/index');?>" class="footer-nav-item line2">
+			<img src="/luomansi/Application/Home/Public/img/nav2.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/nav2-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<{:U('Shopcar/index')}>" class="footer-nav-item line2  footer-nav-itemActive">
-			<img src="__IMAGES__/nav3.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/nav3-active.png" alt="" class="footer-nav-imgActive">
+		<a href="<?php echo U('Shopcar/index');?>" class="footer-nav-item line2  footer-nav-itemActive">
+			<img src="/luomansi/Application/Home/Public/img/nav3.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/nav3-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<{:U('Person/index')}>" class="footer-nav-item line2">
-			<img src="__IMAGES__/nav4.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/nav4-active.png" alt="" class="footer-nav-imgActive">
+		<a href="<?php echo U('Person/index');?>" class="footer-nav-item line2">
+			<img src="/luomansi/Application/Home/Public/img/nav4.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/nav4-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 	</div>
 </div>

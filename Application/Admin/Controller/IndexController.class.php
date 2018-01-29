@@ -6,13 +6,13 @@ class IndexController extends Controller {
     	if (isset($_SESSION['admin_id'])) {
     		$this->display();
     	} else {
-    		$this->error("未登录","/Login/index",1);
+    		$this->error("未登录",U("Login/index"),1);
     	}
     }
 
     public function loginout(){
     	//session('admin_id', null);
     	session_destroy();
-        $this->success('退出成功!', '/login.html','login');
+        $this->success('退出成功!', U("Login/index"),'login');
     }
 }

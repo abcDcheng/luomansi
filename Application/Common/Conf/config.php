@@ -12,7 +12,8 @@ return array(
 
 	// 开启路由
    // 'URL_ROUTER_ON'   => true,
-    
+    // 显示页面Trace信息
+	'SHOW_PAGE_TRACE' =>true,
 	// URL模式
     'URL_MODEL' => 1,
 

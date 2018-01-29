@@ -1,0 +1,195 @@
+[ 2018-01-26T13:50:15+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000074s ]
+INFO: [ app_init ] --END-- [ RunTime:0.032763s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.020046s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.020376s ]
+
+[ 2018-01-26T13:50:16+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000039s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000826s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000962s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001132s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000163s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000338s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.063553s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.063743s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.030484s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.030648s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.011233s ]
+INFO: [ app_end ] --END-- [ RunTime:0.011505s ]
+
+[ 2018-01-26T13:50:19+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000055s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001118s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000783s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000937s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000102s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000239s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008666s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008790s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000494s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000602s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000701s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000794s ]
+
+[ 2018-01-26T13:52:10+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000572s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000725s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000819s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0596s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'a123456' AND `group` = 2 LIMIT 1   [ RunTime:0.0013s ]
+SQL: UPDATE `saleman_sys_admin` SET `login_num`=login_num+1 WHERE `id` = 3 [ RunTime:0.1225s ]
+
+[ 2018-01-26T13:52:11+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000023s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000539s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000625s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000726s ]
+SQL: SHOW COLUMNS FROM `saleman_goods_permission` [ RunTime:0.0381s ]
+SQL: SELECT `goodsInfoId` FROM `saleman_goods_permission` WHERE `salemanId` = 3 LIMIT 1   [ RunTime:0.0009s ]
+SQL: SELECT id,goodsName 
+                            FROM saleman_goods
+                            WHERE id
+                            IN (
+                            SELECT DISTINCT goodsId
+                            FROM saleman_goods_info
+                            WHERE id
+                            IN (1,2,3,4,7,10,11,20)
+                            ) order by id asc [ RunTime:0.0606s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000249s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000469s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.119023s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.119331s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001365s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001679s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002707s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003141s ]
+
+[ 2018-01-26T14:10:51+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsInfo.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000039s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000848s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001097s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001297s ]
+SQL: select id,goodsColor,colorCode,hand,falseLock from saleman_goods_info where goodsId=1 and id in (1,2,3,4,7,10,11,20) [ RunTime:0.0006s ]
+
+[ 2018-01-26T14:13:04+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/shopping-cart.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000029s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000879s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000784s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000898s ]
+ERR: 非法操作:shopping-cart
+
+[ 2018-01-26T15:14:40+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000025s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000619s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001392s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001530s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0039s ]
+SQL: SELECT `id` FROM `saleman_goods` LIMIT 1   [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000097s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000214s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008422s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008538s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000632s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000773s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000943s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001037s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/product1.jpg
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000039s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001194s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/product3.jpg
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000044s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000840s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/no-information.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000041s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000860s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/product2.jpg
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000040s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000891s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/icon13.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000042s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001065s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/nav1.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000048s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000894s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/nav2.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000042s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000835s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/nav2-active.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000039s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000724s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/nav1-active.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000038s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000805s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/nav3.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000045s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000891s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/nav3-active.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000045s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001593s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/nav4-active.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000542s ]
+
+[ 2018-01-26T15:14:41+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shopcar/img/nav4.png
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000040s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000947s ]
+
