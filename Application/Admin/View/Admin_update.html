@@ -108,7 +108,7 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<{:U('Admin/add')}>" id="form" class="layui-form layui-form-pane">
+            <form action="<{:U('Admin/update')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
                     <h5>详情页</h5>
                     <div class="sc_title_btn">
@@ -119,31 +119,38 @@
                 <div class="fadeInUp animated">
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
+                            <input name="id" value="<{$id}>" type="hidden"/>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">用户名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="s4-16" errormsg="用户名至少4个字符!" nullmsg="请输入用户名!">
+                                    <input type="text" name="username" class="layui-input" autocomplete="off" value="<{$info['username']}>" disabled='disabled'/>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">密码</label>
+                                <label class="layui-form-label">重置密码</label>
                                 <div class="layui-input-block">
-                                    <input id="pwd" type="password" name="pwd" placeholder="密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label label-required">确认密码</label>
-                                <div class="layui-input-block">
-                                    <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!">
+                                    <input name="repwd" type="checkbox" value="1">(不重置密码则不必勾选此项，若重置则默认密码为123456，再由改账户人员自行修改)
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">类别</label>
                                 <div class="layui-input-block">
-                                    <select name="group" placeholder="类别" class="layui-select">
+                                    <select id="group" name="group" class="layui-select">
                                         <option value="2">订单专员</option>
                                         <option value="3">客服专员</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">状态</label>
+                                <div class="layui-input-block">
+                                    <{if condition="$info['is_status'] eq 1"}>
+                                    <input name="status" type="radio" value="1" title="使用中" checked="checked"/>
+                                    <input name="status" type="radio" value="0" title="禁用"/>
+                                    <{else /}>
+                                    <input name="status" type="radio" value="1" title="使用中"/>
+                                    <input name="status" type="radio" value="0" title="禁用" checked="checked"/>
+                                    <{/if}>
                                 </div>
                             </div>
                         </div>
@@ -155,15 +162,11 @@
 </div>
 <script>
     UE.getEditor('content');
-
-    $('#save').click(function(){
-        var pwd = $('#pwd').val();
-        var repwd = $('#repwd').val();
-        if (pwd != repwd) {
-            alert('两次输入的密码不一致');
-            return false;
-        }
+    $(function(){
+        var group = parseInt(<{$info['group']}>);
+        $('#group').val(group);
     });
+    
 </script>
 </body>
 </html>

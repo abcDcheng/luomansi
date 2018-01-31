@@ -27,7 +27,8 @@ layui.use(['element','layer','form','laydate'], function(){
         ajaxPost:true,
         callback:function(data){
             if (data.code == 1) {
-                //alert(data.url);
+                alert(data.msg);
+                //console.log(data.url);
                 window.location.href = data.url;
             } else {
                 alert(data.msg);

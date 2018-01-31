@@ -12,7 +12,7 @@ class ShopController extends Controller {
                 //var_dump($goodsInfoId);
                 session('goodsInfoId',$goodsInfoId['goodsinfoid']);
                 $Model_Data = M();
-                $goods = $Model_Data->query("SELECT id,goodsName,hand,falseLock 
+                $goods = $Model_Data->query("SELECT id,goodsName,hasHand,hasLock 
                             FROM saleman_goods
                             WHERE id
                             IN (
@@ -20,10 +20,16 @@ class ShopController extends Controller {
                             FROM saleman_goods_info
                             WHERE id
                             IN (".$goodsInfoId['goodsinfoid'].")
-                            ) order by id asc");
+                            ) and status = 1 order by id asc");
             }
             //$goods = $Model_Data->order('id asc')->getField('id,goodsName');
             //var_dump($goods);
+            $model = array();
+            foreach ($goods as $key => $value) {
+                $model[$value['id']] = array('hasHand'=>$value['hashand'],'hasLock'=>$value['haslock']);
+            }
+            //var_dump($model);
+            $this->assign('model',$model);
             $this->assign('goods',$goods);
             $this->display();
         } else {
@@ -48,7 +54,7 @@ class ShopController extends Controller {
                 }
             }
             $Model_Data = M();
-            $goodsInfo = $Model_Data->query("select id,goodsColor,colorCode,hand,falseLock from saleman_goods_info where goodsId=$goodsId and id in ($goodsInfoId)");
+            $goodsInfo = $Model_Data->query("select id,goodsColor,colorCode,hand,falseLock from saleman_goods_info where goodsId=$goodsId and id in ($goodsInfoId) and status=1");
             if (!empty($goodsInfo)) {
                 $res = array('info'=>$goodsInfo,'code'=>1,'msg'=>'');
                 //var_dump($res);
@@ -67,6 +73,7 @@ class ShopController extends Controller {
         if (isset($_SESSION['admin_id']) && IS_AJAX) {
             $admin_id = intval($_SESSION['admin_id']);
             $goodsId = intval(I('goodsId'));
+            $goodsName = intval(I('goodsName'));
             $goodsColor = I('goodsColor');
             $hasHand = intval(I('hasHand'));
             $hand = intval(I('hand'));
@@ -88,11 +95,12 @@ class ShopController extends Controller {
                 $this->error("商品数量必须大于0且为整数");
                 exit();
             }
-            $info = array('salemanId'=>$admin_id,'goodsId'=>$goodsId,'goodsModel'=>$goodsModel,'enTime'=>date('Y-m-d H:i:s'));
+            $goodsImg = M('goods')->where('id='.$goodsId)->getField('goodsImg');
+            $info = array('salemanId'=>$admin_id,'goodsId'=>$goodsId,'goodsName'=>$goodsName,'goodsImg'=>$goodsImg,'goodsModel'=>$goodsModel,'goodsNum'=>$goodsNum,'enTime'=>date('Y-m-d H:i:s'));
             $Model_Data = M('shopcar');
             $res = $Model_Data->add($info);
             if ($res) {
-                $this->success('已添加进购物车');
+                $this->success('已将产品添至购物车');
             } else {
                 $this->error("添加失败");
             }

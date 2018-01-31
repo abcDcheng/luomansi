@@ -36,7 +36,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>siteCMS站点管理框架</title>
+    <title>后台专员管理</title>
 </head>
 <body>
 
@@ -116,35 +116,9 @@
             <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<{:U('Admin/add')}>"><i class="layui-icon"></i> 新增</a>        </div>
         </div>
-<!--         <div class="sc_search layui-clear">
-    <form method="get" action="/page/index.html?spm=m-1-5" class="layui-form sc_search_form">
-        <div class="layui-input-inline">
-            <input type="text" name="keyword" placeholder="请输入标题名称" value="" class="layui-input">
-        </div>
-        <div class="layui-inline">
-            <div class="layui-input-inline">
-                <input type="text" name="start_time" placeholder="起始时间" value="" class="layui-input sc_form_date" readonly="" lay-key="1">
-            </div>
-            -
-            <div class="layui-input-inline">
-                <input type="text" name="end_time" placeholder="结束时间" value="" class="layui-input sc_form_date" readonly="" lay-key="2">
-            </div>
-        </div>
-        <button class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
-    </form>
-</div> -->
         <div class="fadeInUp animated">
             <form id="form-list" class="layui-form">
                 <input type="hidden" name="nid" value="5">
-<!--                 <div class="sc_mobile" style="display: none;">
-    <div class="layui-input-inline">
-        <select name="news_nid" lay-filter="category">
-            <option value="0">若无需求，可不选！</option>
-            <option value="1" disabled=""> 首页</option><option value="2" disabled=""> 关于</option><option value="3" disabled=""> 新闻</option><option value="5" disabled="">&nbsp;&nbsp;&nbsp;&nbsp;├ 公告</option><option value="6">&nbsp;&nbsp;&nbsp;&nbsp;├ 资讯</option><option value="4" disabled=""> 产品</option>                    </select><div class="layui-unselect layui-form-select"><div class="layui-select-title"><input type="text" placeholder="请选择" value="若无需求，可不选！" readonly="" class="layui-input layui-unselect"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="0" class="layui-this">若无需求，可不选！</dd><dd lay-value="1" class=" layui-disabled"> 首页</dd><dd lay-value="2" class=" layui-disabled"> 关于</dd><dd lay-value="3" class=" layui-disabled"> 新闻</dd><dd lay-value="5" class=" layui-disabled">&nbsp;&nbsp;&nbsp;&nbsp;├ 公告</dd><dd lay-value="6" class="">&nbsp;&nbsp;&nbsp;&nbsp;├ 资讯</dd><dd lay-value="4" class=" layui-disabled"> 产品</dd></dl></div>
-    </div>
-    <button class="layui-btn layui-btn-disabled btn-mobile" data-action="/Page/mobile.html?spm=m-1-5" disabled="">确定</button>
-    <button class="layui-btn layui-btn-danger" data-action="/Page/delete.html?spm=m-1-5">删除选中</button>
-</div> -->
                 <table class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
                         <col>
@@ -156,7 +130,6 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <!-- <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" class="list-check-box"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></th> -->
                             <th>账号</th>
                             <th>类型</th>
                             <th>状态</th>
@@ -167,10 +140,6 @@
                     <tbody>
                     <{foreach name="info" item="value"}>
                         <tr>
-                            <!-- <td>
-                                <input type="checkbox" name="id[]" value="<{$value.id}>" lay-skin="primary" class="list-check-box">
-                                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
-                            </td> -->
                             <td class="layui-elip"><{$value.username}></td>
                             <td class="layui-elip"><{$value.groupName}></td>
                             <{if condition="$value.is_status eq 1"}>
@@ -180,41 +149,15 @@
                             <{/if}>
                             <td><{$value.createtime}></td>
                             <td>
-                                <a data-url="#" data-title="编辑">编辑</a>
+                                <a href="<{:U('Admin/update?id='.$value['id'])}>" data-title="编辑">编辑</a>
                                 <span class="sc_explode">|</span>
-                                <a data-confirm="#">删除</a>
+                                <a class="deleteId" data-confirm="#" value="<{$value.id}>">删除</a>
                             </td>
                         </tr>
                     <{/foreach}>
-                        <!-- <tr>
-                            <td>
-                                <input type="checkbox" name="id[]" value="15" lay-skin="primary" class="list-check-box">
-                                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
-                            </td>
-                            <td class="layui-elip">admin</td>
-                            <td class="layui-elip">超级管理员</td>
-                            <td>2018-01-10 23:13:58
-                            </td>
-                            <td>
-                                <a data-url="/Page/update.html?id=15&amp;spm=m-1-5" data-title="编辑">编辑</a>
-                                <span class="sc_explode">|</span>
-                                <a data-confirm="/Page/delete.html?id=15&amp;spm=m-1-5">删除</a>
-                            </td>
-                        </tr> -->
                     </tbody>
                 </table>
             </form>
-            <!-- <div class="layui-clear">
-                <div class="fr">
-                    <div class="sc_pages">
-                        <ul class="pagination">  
-                            <li><span class="current">1</span></li>
-                            <li><a class="num" data-url="/Page/index/spm/m-1-5/p/2.html" href="/Page/index/spm/m-1-5/p/2.html">2</a></li>
-                            <li><a class="next" data-url="/Page/index/spm/m-1-5/p/2.html" href="/Page/index/spm/m-1-5/p/2.html">下一页</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
     <script>
@@ -226,26 +169,7 @@
                 ,type: 'datetime'
             });
         });
-        layui.form.on('checkbox(allChoose)', function(data){
-            var child = $(data.elem).parents('table').find('input[type="checkbox"]');
-            child.each(function(index, item){
-                item.checked = data.elem.checked;
-            });
-            if ($('.layui-table').find('.list-check-box').is(':checked')) {
-                $('.sc_search').hide(300,function(){$('.sc_mobile').show(300);});
-            } else {
-                $('.sc_mobile').hide(300,function(){$('.sc_search').show(300);});
-            };
-            layui.form.render('checkbox');
-        });
-        $('.sc_mobile').hide();
-        layui.form.on('checkbox', function(data){
-            if ($('.layui-table').find('.list-check-box').is(':checked')) {
-                $('.sc_search').hide(300,function(){$('.sc_mobile').show(300);});
-            } else {
-                $('.sc_mobile').hide(300,function(){$('.sc_search').show(300);});
-            };
-        });
+
     });
     
     </script>
@@ -253,4 +177,38 @@
     </div>
 </div>
 </body>
+
+<script type="text/javascript">
+    $(function(){
+        $('.deleteId').click(function(){
+            if (confirm('确定删除该账户吗？')) {
+                var id = $(this).attr('value');
+                //alert(id);
+                $('.meng00').show();
+                $.ajax({
+                    url : "<{:U('Admin/del')}>",
+                    type : "post",
+                    data : {id:id},
+                    dataType : "json",
+                    timeout : 10000,
+                    success : function(data){
+                        $('.meng00').hide();
+                        if (data.code == 1) {
+                            alert('删除成功');
+                            window.location.reload();
+                        } else {
+                            alert(data.msg);
+                        }
+                    },
+                    error : function(data){
+                        $('.meng00').hide();
+                        if (data.status == 'timeout') {
+                            alert('连接超时，请重试');
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
 </html>

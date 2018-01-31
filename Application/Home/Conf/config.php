@@ -6,5 +6,6 @@ return array(
 		'__CSS__'		=> __ROOT__.'/Application/Home/Public/css',
 		'__JS__'		=> __ROOT__.'/Application/Home/Public/js',
 		'__IMAGES__'	=> __ROOT__.'/Application/Home/Public/img',
+		'__UPLOADS__'	=> __ROOT__.'/Application/Upload',
 	)
 );

@@ -9,11 +9,17 @@ class ShopcarController extends Controller {
 	    	$goods = $Model_data->order('id asc')->getField('id,goodsImg,goodsName');
 	 		$Model_data = M('shopcar');
 	 		$shopcar = $Model_data->where(array('salemanId'=>$admin_id,'orderId'=>0))->order('id asc')->getField('id,goodsId,goodsModel,goodsNum,enTime');
-	 		if (empty($shopcar)) {
+	 		if (!empty($shopcar)) {
+                $hasShop = 1;
 	 			foreach ($shopcar as $key => $value) {
-	 				$shopcar[$key]['goodsImg'] = __UPLOAD__.$goods[$shopcar[$key]['goodsId']];
+	 				$shopcar[$key]['goodsImg'] = $goods[$shopcar[$key]['goodsid']]['goodsimg'];
+                    $shopcar[$key]['goodsName'] = $goods[$shopcar[$key]['goodsid']]['goodsname'];
 	 			}
-	 		}
+	 		} else {
+                $hasShop = 0;
+            }
+            //var_dump($shopcar);
+            $this->assign('hasShop',$hasShop);
 	 		$this->assign('shopcar',$shopcar);
 	    	//var_dump($goods);
 	        $this->display();
@@ -23,8 +29,8 @@ class ShopcarController extends Controller {
     }
 
     public function goodsDel(){
-    	if (isset($_SESSION['admin_id']) && isset($_GET['i'])) {
-    		$id = intval(I('i'));
+    	if (isset($_SESSION['admin_id']) && isset($_GET['delId'])) {
+    		$id = intval(I('delId'));
     		if ($id) {
     			$Model_data = M('shopcar');
     			$res = $Model_data->delete($id);
@@ -48,32 +54,35 @@ class ShopcarController extends Controller {
     		$bak = I('bak');
     		$orderCode = $this->getCode();
     		$Model_data = M();
-    		$saleman = $Model_data->query("select name,phone,address from saleman_sys_admin where id=$admin_id limit 1");
-    		if (!empty($saleman)) {
-    			$id = $Model_data->table('saleman_order')->
-    				  data(array('salemanId' => $admin_id,
-    				  			 'saleman'   => $saleman[0]['name'],
-    				  			 'phone'     => $saleman[0]['phone'],
-    				  			 'address'   => $saleman[0]['address'],
-    				  			 'orderCode' => $orderCode,
-    				  			 'orderBak'	 => $bak,
-    				  			 'enTime'    => date('Y-m-d H:i:s')
-    				  ))->add();
-    			if ($id) {
-    				$res = $Model_data->table('saleman_shopcar')->where(array('salemanId'=>$admin_id,'orderId'=>0))->setField('orderId',$id);
-    				if ($res) {
-    					$this->success('下单成功，请等待客服受理');
-    				} else {
-    					$this->error('下单失败，请检查购物车是否有商品');
-    				}
-    			} else {
-    				$this->error('下单失败，请重试');
-    			}
-    		} else {
-    			$this->error('查不到用户信息，请重新登录');
-    		}
-
-    		
+            $count = $Model_data->table('saleman_shopcar')->where(array('salemanId'=>$admin_id,'orderId'=>0))->count();
+            if ($count > 0) {
+                $saleman = $Model_data->query("select name,phone,address from saleman_sys_admin where id=$admin_id limit 1");
+                if (!empty($saleman)) {
+                    $id = $Model_data->table('saleman_order')->
+                          data(array('salemanId' => $admin_id,
+                                     'saleman'   => $saleman[0]['name'],
+                                     'phone'     => $saleman[0]['phone'],
+                                     'address'   => $saleman[0]['address'],
+                                     'orderCode' => $orderCode,
+                                     'orderBak'  => $bak,
+                                     'enTime'    => date('Y-m-d H:i:s')
+                          ))->add();
+                    if ($id) {
+                        $res = $Model_data->table('saleman_shopcar')->where(array('salemanId'=>$admin_id,'orderId'=>0))->setField('orderId',$id);
+                        if ($res) {
+                            $this->success('下单成功，请等待客服受理');
+                        } else {
+                            $this->error('下单失败，请检查购物车是否有商品');
+                        }
+                    } else {
+                        $this->error('下单失败，请重试');
+                    }
+                } else {
+                    $this->error('查不到用户信息，请重新登录');
+                }
+            } else {
+                $this->error('您的购物车是空的，请先添加产品或前往订单查询确认是否已下单');
+            }
     	}
     }
 

@@ -1,0 +1,40 @@
+[ 2018-01-30T16:15:57+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000803s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001357s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0039s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'a123456' AND `group` = 2 LIMIT 1   [ RunTime:0.0006s ]
+
+[ 2018-01-30T16:16:03+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000574s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001053s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0037s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'a123456' AND `group` = 2 LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-01-30T16:16:34+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001628s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002382s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0040s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'a123456' AND `group` = 1 LIMIT 1   [ RunTime:0.0005s ]
+SQL: UPDATE `saleman_sys_admin` SET `login_num`=login_num+1 WHERE `id` = 3 [ RunTime:0.1513s ]
+
+[ 2018-01-30T16:16:34+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/index.html
+ERR: 1054:Unknown column 'hand' in 'field list'
+ [ SQL语句 ] : SELECT id,goodsName,hand,falseLock 
+                            FROM saleman_goods
+                            WHERE id
+                            IN (
+                            SELECT DISTINCT goodsId
+                            FROM saleman_goods_info
+                            WHERE id
+                            IN (1,2,3,4,7,10,11,20)
+                            ) order by id asc
+
+[ 2018-01-30T16:18:19+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsInfo.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000767s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001259s ]
+SQL: select id,goodsColor,colorCode,hand,falseLock from saleman_goods_info where goodsId=2 and id in (1,2,3,4,7,10,11,20) [ RunTime:0.0005s ]
+

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<link rel="stylesheet" type="text/css" href="/luomansi/Application/Home/Public/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/luomansi/Application/Home/Public/css/style1.css">
     <!-- JQ -->
     <script type="text/javascript" src="/luomansi/Application/Home/Public/js/jquery-1.11.0.min.js"></script>
     <!--移动端版本兼容 -->
@@ -39,63 +39,37 @@
 		<!-- 购物车内容 -->
 		<div class="query-content">
 			<ul class="query-list-style" style="display:block;">
-				<li>
+			<?php if($hasShop == 1): if(is_array($shopcar)): foreach($shopcar as $key=>$value): ?><li>
 					<div class="query-list-img-bg">
-						<img src="img/product1.jpg" alt="">
+						<img src="/luomansi/Application/Upload/<?php echo ($value["goodsImg"]); ?>" alt="">
 					</div>
 					<div class="query-list-message">
-						<h5>DD1智能锁-真金假锁</h5>
-						<i>2018-01-02  12:30 23 </i>
-						<h4>数量：1</h4>
-						<a href="javascript:;" class="edit">编辑</a>
+						<h5><?php echo ($value["goodsName"]); ?>-<?php echo ($value["goodsmodel"]); ?></h5>
+						<i><?php echo ($value["entime"]); ?></i>
+						<h4>数量：<?php echo ($value["goodsnum"]); ?></h4>
+						<!-- <a href="javascript:;" class="edit">编辑</a> -->
 					</div>
 					<div class="query-list-state">
-						<a href="javascript:;" class="deteleBtn">删除</a>
+						<a href="<?php echo U('shopcar/goodsDel?delId='.$value['id']);?>" class="deteleBtn">删除</a>
 					</div>
-				</li>
+				</li><?php endforeach; endif; ?>
 				<li>
-					<div class="query-list-img-bg">
-						<img src="img/product2.jpg" alt="">
-					</div>
-					<div class="query-list-message">
-						<h5>DD1智能锁-真金假锁</h5>
-						<i>2018-01-02  12:30 23 </i>
-						<h4>数量：1</h4>
-						<a href="javascript:;" class="edit">编辑</a>
-					</div>
-					<div class="query-list-state">
-						<a href="javascript:;" class="deteleBtn">删除</a>
-					</div>
+					<textarea id="bak" placeholder='备注:'></textarea>
 				</li>
-				<li>
-					<div class="query-list-img-bg">
-						<img src="img/product3.jpg" alt="">
-					</div>
-					<div class="query-list-message">
-						<h5>DD1智能锁-真金假锁</h5>
-						<i>2018-01-02  12:30 23 </i>
-						<h4>数量：1</h4>
-						<a href="javascript:;" class="edit">编辑</a>
-					</div>
-					<div class="query-list-state">
-						<a href="javascript:;" class="deteleBtn">删除</a>
-					</div>
-				</li>
-				<li>
-					<textarea placeholder='备注:'></textarea>
-				</li>
-				<div class="no-information">
-					<img src="img/no-information.png" alt="">
-				</div>
+				<button class="shopping-cart-btn">确认提交</button>
+			<?php else: ?>
+				<div class="no-information" style="display: block;">
+					<img src="/luomansi/Application/Home/Public/img/no-information.png" alt="">
+				</div><?php endif; ?>
 			</ul>
 
-			<button class="shopping-cart-btn">确认提交</button>
+			
 		</div>
 	</div>
 
 	<!-- 提交成功 -->
 	<div class="successBg">
-		<img src="img/icon13.png" alt="" class="icon13">
+		<img src="/luomansi/Application/Home/Public/img/icon13.png" alt="" class="icon13">
 	</div>
 
 
@@ -120,14 +94,60 @@
 	</div>
 </div>
 
-
+<style type="text/css">
+    .meng00{display:none;z-index:9999;width: 100%;height: 100%;position: fixed;left: 0;top:0;background:url('/luomansi/Application/Home/Public/img/15.gif') center center no-repeat rgba(0,0,0,0.8);}
+</style>
+<div class="meng00"></div>
 <script type="text/javascript">
 	$(function(){
 
 		$('.shopping-cart-btn').click(function(){
+			if (confirm('确定提交本订单吗？')) {
+				var bak = $('#bak').val();
+				// alert(bak);
+				// return false;
+				$('.meng00').show();
+				$.ajax({
+					url : "<?php echo U('Shopcar/orderRecord');?>",
+		            type : "post",
+		            data : {bak:bak},
+		            dataType : "json",
+		            timeout : 5000,
+		            success : function(data) {
+		            	if (data.code == 1) {
+		            		$('.shopping-cart').hide();
+							$('.successBg').show();
+							setTimeout(function(){
+								window.location.href = "<?php echo U('Order/index');?>";
+							},2000);
+		            	} else {
+		            		alert(data.msg);
+		            	}
+		            	$('.meng00').hide();
+		            },
+		            error:function(data){
+		            	if (data.status == 'timeout') {
+		            		alert('连接超时，请重试');
+		            	}
+		            	$('.meng00').hide();
+		            }
+				});
+				
+			}
 
-			$('.shopping-cart').hide();
-			$('.successBg').show();
+
+
+		});
+
+
+		$('.addBtn').click(function(){
+			window.location.href = "<?php echo U('Shop/index');?>";
+		});
+
+		$('.query-list-state a').click(function(){
+			if (!confirm('确定删除该产品吗？')) {
+				return false;
+			}
 		});
 	})
 </script>

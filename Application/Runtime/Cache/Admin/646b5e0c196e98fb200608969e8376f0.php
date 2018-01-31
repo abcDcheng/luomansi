@@ -112,9 +112,9 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
-            <h5>管理员账号管理</h5>
+            <h5>产品管理</h5>
             <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<?php echo U('Admin/add');?>"><i class="layui-icon"></i> 新增</a>        </div>
+                <a class="layui-btn layui-btn-sm" href="<?php echo U('Goods/add');?>"><i class="layui-icon"></i> 新增</a>        </div>
         </div>
         <div class="fadeInUp animated">
             <form id="form-list" class="layui-form">
@@ -130,23 +130,23 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>账号</th>
-                            <th>类型</th>
+                            <th>产品图</th>
+                            <th>产品名</th>
                             <th>状态</th>
-                            <th>创建时间</th>
+                            <th>规格</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php if(is_array($info)): foreach($info as $key=>$value): ?><tr>
-                            <td class="layui-elip"><?php echo ($value["username"]); ?></td>
-                            <td class="layui-elip"><?php echo ($value["groupName"]); ?></td>
-                            <?php if($value["is_status"] == 1): ?><td class="layui-elip" style="color:green">使用中</td>
+                            <td class="layui-elip"><img height="70" src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>"></td>
+                            <td class="layui-elip"><?php echo ($value["goodsname"]); ?></td>
+                            <?php if($value["status"] == 1): ?><td class="layui-elip" style="color:green">上架中</td>
                             <?php else: ?>
-                                <td class="layui-elip" style="color:red">禁用</td><?php endif; ?>
-                            <td><?php echo ($value["createtime"]); ?></td>
+                                <td class="layui-elip" style="color:red">已下架</td><?php endif; ?>
+                            <td><a href="<?php echo U('Goods/goodsModel?id='.$value['id']);?>">查看规格</a></td>
                             <td>
-                                <a href="<?php echo U('Admin/update?id='.$value['id']);?>" data-title="编辑">编辑</a>
+                                <a href="<?php echo U('Goods/update?id='.$value['id']);?>" data-title="编辑">编辑</a>
                                 <span class="sc_explode">|</span>
                                 <a class="deleteId" data-confirm="#" value="<?php echo ($value["id"]); ?>">删除</a>
                             </td>
@@ -177,12 +177,12 @@
 <script type="text/javascript">
     $(function(){
         $('.deleteId').click(function(){
-            if (confirm('确定删除该账户吗？')) {
+            if (confirm('确定删除该产品吗？')) {
                 var id = $(this).attr('value');
                 //alert(id);
                 $('.meng00').show();
                 $.ajax({
-                    url : "<?php echo U('Admin/del');?>",
+                    url : "<?php echo U('Goods/del');?>",
                     type : "post",
                     data : {id:id},
                     dataType : "json",

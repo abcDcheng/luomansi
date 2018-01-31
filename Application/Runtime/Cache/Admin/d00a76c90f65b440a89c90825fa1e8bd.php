@@ -113,7 +113,7 @@
                     <h5>详情页</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <button class='layui-btn layui-btn-sm layui-btn-primary' onclick="window.history.back();return false;"><i class="layui-icon">&#x1006;</i> 返回</button>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Admin/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">

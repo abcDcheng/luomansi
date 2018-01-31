@@ -36,29 +36,8 @@
 		<!-- 下订单列表 -->
 		<ul class="order-list">
 		<?php if(is_array($goods)): foreach($goods as $key=>$value): ?><li>
-				<a href="javascript:;" value="<?php echo ($value["id"]); ?>"><?php echo ($value["goodsname"]); ?></a>
+				<a href="javascript:;" value="<?php echo ($value["id"]); ?>" hand="<?php echo ($value["hashand"]); ?>" falseLock="<?php echo ($value["haslock"]); ?>"><?php echo ($value["goodsname"]); ?></a>
 			</li><?php endforeach; endif; ?>
-			<!-- <li>
-				<a href="javascript:;">DD1智能锁</a>
-			</li>
-			<li>
-				<a href="javascript:;">DD1智能锁</a>
-			</li>
-			<li>
-				<a href="javascript:;">DD1智能锁</a>
-			</li>
-			<li>
-				<a href="javascript:;">DD1智能锁</a>
-			</li>
-			<li>
-				<a href="javascript:;">DD1智能锁</a>
-			</li>
-			<li>
-				<a href="javascript:;">DD1智能锁</a>
-			</li>
-			<li>
-				<a href="javascript:;">DD1智能锁</a>
-			</li> -->
 		</ul>
 		<!-- 下订单详情 -->
 		<div class="order-date-bg">
@@ -78,30 +57,6 @@
 						<!-- <span class='active' value='红古'>
 							<i style='background-color: #7f2d00;'></i>
 							红<em></em>古
-						</span>
-						<span value='青古'>
-							<i style='background-color: #cce198;'></i>
-							青<em></em>古
-						</span>
-						<span value='白金'>
-							<i style='background-color: #d1c0a5;'></i>
-							白<em></em>金
-						</span>
-						<span value='黑宝石'>
-							<i style='background-color: #211916;'></i>
-							宝石黑
-						</span>
-						<span style='font-size:25px;padding:17.5px 13px;' value='奥斯卡金'>
-							<i style='background-color: #fff100;'></i>
-							奥斯卡金
-						</span>
-						<span value='红古铜'>
-							<i style='background-color: #7d0000;'></i>
-							红古铜
-						</span>
-						<span value='珍珠铬'>
-							<i style='background-color: #eeeeee;'></i>
-							珍珠铬
 						</span> -->
 					</div>
 				</li>
@@ -117,8 +72,6 @@
 						<strong class='hand'></strong>
 					</p>
 					<label class="handChoice">
-						<!-- <small class='active' value='带下拉手'>带下拉手</small>
-						<small value='不带下拉手'>不带下拉手</small> -->
 					</label>
 				</li>
 				<li id="falseLock">
@@ -127,14 +80,12 @@
 						<strong class='lock'></strong>
 					</p>
 					<label class="lockChoice">
-						<!-- <small class='active' value='带假锁'>带假锁</small>
-						<small value='不带假锁'>不带假锁</small> -->
 					</label>
 				</li>
 				<li>
 					<p>
 						<span>数<em></em><em></em>量：</span>
-						<input type="number" value="10">
+						<input id="goodsNum" type="number" value="10">
 					</p>
 				</li>
 			</ul>
@@ -174,12 +125,23 @@
 <script type="text/javascript">
 	
 $(function(){
+	//var model = <?php echo json_encode($model);?>;
+	//console.log(model);
+	var info = [];
 	var colorArr = [];
+	var hasHandCode = 0;
+	var hasHand = 0;
+	var hasLockCode = 0;
+	var hasLock = 0;
+	var goodsId = 0;
 	var hand = ['带下拉手','不带下拉手'];
 	var falseLock = ['带假锁','不带假锁'];
 	/*打开订单详情*/
 	$('.order-list li a').click(function(){
-		var goodsId = parseInt($(this).attr("value"));
+		goodsId = parseInt($(this).attr("value"));
+		hasHandCode = parseInt($(this).attr("hand"));
+		hasLockCode = parseInt($(this).attr("falseLock"));
+		colorArr = [];
 		var goodsName = $(this).text();
 		$('.chioceColor,.handChoice,.lockChoice').empty();
 		$('.meng00').show();
@@ -191,7 +153,8 @@ $(function(){
             timeout : 5000,
             success : function(data){
             	if (data.code == 1) {
-            		var info = data.info;
+            		info = data.info;
+            		//加载颜色
             		for (var i = 0;i < info.length;i++) {
             			if ($.inArray(info[i]['goodscolor'],colorArr) != -1) {
             				//console.log(info[i]['goodscolor']+"--"+colorArr);
@@ -201,7 +164,19 @@ $(function(){
             				colorArr.push(info[i]['goodscolor']);
             			}
             		}
-
+            		if (hasHandCode) {
+            			$('#hand').show();
+            		} else {
+            			$('#hand').hide();
+            			hasHand = 0;
+            		}
+            		if (hasLockCode) {
+            			$('#falseLock').show();
+            		} else {
+            			$('#falseLock').hide();
+            			hasLock = 0;
+            		}
+            		$('.chioceColor span:first').click();
             		$('#goods').text(goodsName);
 					$('.order-list').hide();
 					$('.order-date-bg').show();
@@ -229,6 +204,48 @@ $(function(){
 
 		var thisValue = $(this).attr('value');
 		$('.carColor').text(thisValue);
+		var handsArr = [];
+		var lockArr = [];
+		for (var i = 0;i < info.length;i++) {
+			if (info[i]['goodscolor'] == thisValue) {
+				if (hasHandCode && $.inArray(info[i]['hand'],handsArr) == -1) {
+					handsArr.push(info[i]['hand']);
+				}
+				if (hasLockCode && $.inArray(info[i]['falselock'],handsArr) == -1) {
+					lockArr.push(info[i]['falselock']);
+				}
+			}
+		}
+		//alert(thisValue);
+		//console.log(info);
+		//alert(hasHandCode+"  "+hasLockCode);
+		//alert(handsArr);
+		//alert(lockArr);
+		if (hasHandCode) {
+			$('.handChoice').empty();
+			handsArr.sort();
+			for (var j = 0;j < handsArr.length;j++) {
+				if (handsArr[j] == 1) {
+					$('.handChoice').append("<small value='1'>带下拉手</small>");
+				} else {
+					$('.handChoice').append("<small value='0'>不带下拉手</small>");
+				}
+			}
+			$('.handChoice small:first').click();
+		}
+
+		if (hasLockCode) {
+			$('.lockChoice').empty();
+			lockArr.sort();
+			for (var j = 0;j < lockArr.length;j++) {
+				if (lockArr[j] == 1) {
+					$('.lockChoice').append("<small value='1'>带假锁</small>");
+				} else {
+					$('.lockChoice').append("<small value='0'>不带假锁</small>");
+				}
+			}
+			$('.lockChoice small:first').click();
+		}
 	});
 
 	/*是否带下拉手*/
@@ -237,7 +254,7 @@ $(function(){
 		$('.handChoice small').removeClass('active');
 		$(this).addClass('active');
 
-		var thisValue = $(this).attr('value');
+		var thisValue = $(this).html();
 		$('.hand').text(thisValue);
 	});
 
@@ -247,20 +264,54 @@ $(function(){
 		$('.lockChoice small').removeClass('active');
 		$(this).addClass('active');
 
-		var thisValue = $(this).attr('value');
+		var thisValue = $(this).html();
 		$('.lock').text(thisValue);
 	});
 
+	//确认订单
 	$('.order-date-btn').click(function(){
+		if (!goodsId) {
+			alert('请选择产品');
+			return false;
+		}
+		var goodsNum = $('#goodsNum').val();
+		if (isNaN(goodsNum) && goodsNum <=0) {
+			alert('订购的数量必须为整数且大于0');
+			return false;
+		}
+		var Ccolor = $(".chioceColor").find('.active').attr('value');
+		if (hasHandCode) {
+			var Chand = $('.handChoice').find('.active').attr('value');
+		} else {
+			var Chand = 0;
+		}
+		if (hasLockCode) {
+			var Clock = $('.lockChoice').find('.active').attr('value');
+		} else {
+			var Clock = 0;
+		}
+		console.log(Ccolor+''+Chand+Clock);
+		//return false;
 		$('.meng00').show();
 		$.ajax({
 			url : "<?php echo U('Shop/goodsRecord');?>",
             type : "post",
-            data : {goodsId:goodsId},
+            data : {goodsId:goodsId,goodsColor:Ccolor,hasHand:hasHandCode,hand:Chand,hasLock:hasLockCode,falseLock:Clock,goodsNum:goodsNum},
             dataType : "json",
             timeout : 5000,
             success : function(data){
-
+            	if (data.code == 1) {
+            		alert(data.msg);
+            		//window.location.href="<?php echo U('Shopcar/index');?>";
+            	} else {
+            		alert(data.msg);
+            	}
+            	$('.meng00').hide();
+            },
+            error:function(data){
+            	if (data.status == 'timeout') {
+            		alert('连接超时，请重试');
+            	}
             	$('.meng00').hide();
             }
 		});

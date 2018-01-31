@@ -165,6 +165,7 @@
 				}
 				var oldpwd = hex_md5($('#oldpwd').val());
 				newpwd = hex_md5(newpwd);
+				$(this).val("修改中...").attr('disable',true);
 				$.ajax({
 					url : "<?php echo U('Person/changePwd');?>",
 		            type : "post",
@@ -177,7 +178,14 @@
 							$('.modify-success').show();
 		            	} else {
 		            		alert(data.msg);
+		            		$('.personal-modify-btn').val("确认修改").removeAttr('disable');
 		            	}
+		            },
+		            error : function(data){
+		            	if (data.status == 'timeout') {
+		            		alert("连接超时，请重试");
+		            	}
+		            	$('.personal-modify-btn').val("确认修改").removeAttr('disable');
 		            }
 				});
 			} else {

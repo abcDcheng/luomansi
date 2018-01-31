@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>代理商登录</title>
+	<title>安装管理登录</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -99,26 +99,26 @@
 
 				return false;
 			}
-			$(this).val("登录中...").attr('disabled',true);
+			$(this).val("登录中...").attr('disable',true);
 			$.ajax({
-				url : "<?php echo U('Login/login');?>",
+				url : "<?php echo U('Login/serviceAdmin');?>",
 	            type : "post",
 	            data : {username:username,password : password},
 	            dataType : "json",
 	            timeout : 5000,
 	            success : function(data){
 	            	if (data.code == 1) {
-	            		window.location.href = "<?php echo U('Shop/index');?>";
+	            		window.location.href = '<?php echo U('Install/index');?>';
 	            	} else {
 	            		alert(data.msg);
-	            		$('.sign-in-btn').val("登录").removeAttr('disabled');
+	            		$('.sign-in-btn').val("登录").removeAttr('disable');
 	            	}
 	            },
 	            error : function(data){
 	            	if (data.status == 'timeout') {
 	            		alert("连接超时，请重试");
 	            	}
-	            	$('.sign-in-btn').val("登录").removeAttr('disabled');
+	            	$('.sign-in-btn').val("登录").removeAttr('disable');
 	            }
 			});
 			

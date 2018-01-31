@@ -10,5 +10,6 @@ return array(
 		'__CSS__'		=> __ROOT__.'/Application/Admin/Public/css',
 		'__JS__'		=> __ROOT__.'/Application/Admin/Public/js',
 		'__IMAGES__'	=> __ROOT__.'/Application/Admin/Public/images',
+		'__UPLOADS__'	=> __ROOT__.'/Application/Upload/',
 	)
 );

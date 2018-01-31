@@ -18,6 +18,20 @@
     <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/font-awesome.min.css">
     <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/animate.css">
     <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/sitecms.css">
+    <style type="text/css">
+        .colorCode{
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            border-radius: 2px;
+            position: relative;
+            top: 5px
+        }
+
+        #title th{
+            font-weight: bold;
+        }
+    </style>
     <script src="/luomansi/Application/Admin/Public/plugs/layui/layui.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.config.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.all.js"></script>
@@ -36,7 +50,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>后台专员管理</title>
+    <title><?php echo ($goods["goodsname"]); ?>-产品规格</title>
 </head>
 <body>
 
@@ -112,9 +126,9 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
-            <h5>管理员账号管理</h5>
+            <h5><?php echo ($goods["goodsname"]); ?>-产品规格</h5>
             <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<?php echo U('Admin/add');?>"><i class="layui-icon"></i> 新增</a>        </div>
+                <a class="layui-btn layui-btn-sm" href="<?php echo U('Goods/add');?>"><i class="layui-icon"></i> 新增</a>        </div>
         </div>
         <div class="fadeInUp animated">
             <form id="form-list" class="layui-form">
@@ -122,31 +136,35 @@
                 <table class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
                         <col>
+                        <?php if($goods["hashand"] == 1): ?><col><?php endif; ?>
+                        <?php if($goods["haslock"] == 1): ?><col><?php endif; ?>
                         <col>
-                        <col>
-                        <col>
-                        <col width="160">
                         <col width="150">
                     </colgroup>
                     <thead>
-                        <tr>
-                            <th>账号</th>
-                            <th>类型</th>
+                        <tr id="title">
+                            <th>颜色</th>
+                            <?php if($goods["hashand"] == 1): ?><th>下拉手</th><?php endif; ?>
+                            <?php if($goods["haslock"] == 1): ?><th>假锁</th><?php endif; ?>
                             <th>状态</th>
-                            <th>创建时间</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php if(is_array($info)): foreach($info as $key=>$value): ?><tr>
-                            <td class="layui-elip"><?php echo ($value["username"]); ?></td>
-                            <td class="layui-elip"><?php echo ($value["groupName"]); ?></td>
-                            <?php if($value["is_status"] == 1): ?><td class="layui-elip" style="color:green">使用中</td>
+                            <td class="layui-elip"><i class="colorCode" style="background-color:<?php echo ($value["colorcode"]); ?>"></i>&nbsp;<?php echo ($value["goodscolor"]); ?></td>
+                            <?php if($goods["hashand"] == 1): if($value["hand"] == 1): ?><td class="layui-elip">带下拉手</td>
+                                <?php else: ?>
+                                    <td class="layui-elip">不带下拉手</td><?php endif; endif; ?>
+                            <?php if($goods["haslock"] == 1): if($value["falselock"] == 1): ?><td class="layui-elip">假锁</td>
+                                <?php else: ?>
+                                    <td class="layui-elip">-</td><?php endif; endif; ?>
+                            <?php if($value["status"] == 1): ?><td class="layui-elip" style="color:green">上架中</td>
                             <?php else: ?>
-                                <td class="layui-elip" style="color:red">禁用</td><?php endif; ?>
-                            <td><?php echo ($value["createtime"]); ?></td>
+                                <td class="layui-elip" style="color:red">已下架</td><?php endif; ?>
+                            
                             <td>
-                                <a href="<?php echo U('Admin/update?id='.$value['id']);?>" data-title="编辑">编辑</a>
+                                <a href="<?php echo U('Goods/update?id='.$value['id']);?>" data-title="编辑">编辑</a>
                                 <span class="sc_explode">|</span>
                                 <a class="deleteId" data-confirm="#" value="<?php echo ($value["id"]); ?>">删除</a>
                             </td>
@@ -177,12 +195,12 @@
 <script type="text/javascript">
     $(function(){
         $('.deleteId').click(function(){
-            if (confirm('确定删除该账户吗？')) {
+            if (confirm('确定删除该产品规格吗？')) {
                 var id = $(this).attr('value');
                 //alert(id);
                 $('.meng00').show();
                 $.ajax({
-                    url : "<?php echo U('Admin/del');?>",
+                    url : "<?php echo U('Goods/del');?>",
                     type : "post",
                     data : {id:id},
                     dataType : "json",

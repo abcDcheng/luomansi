@@ -1,0 +1,264 @@
+[ 2018-01-30T13:51:05+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Login/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000919s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001515s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0087s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'sitecms' LIMIT 1   [ RunTime:0.0009s ]
+SQL: UPDATE `saleman_sys_admin` SET `login_num`=login_num+1 WHERE `id` = 1 [ RunTime:0.1241s ]
+
+[ 2018-01-30T14:05:58+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000554s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001030s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0029s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='' ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('','d41d8cd98f00b204e9800998ecf8427e','3','2018-01-30 14:05:58') [ RunTime:0.1539s ]
+
+[ 2018-01-30T14:08:50+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000841s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001417s ]
+
+[ 2018-01-30T14:11:51+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update/id/5.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001312s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002147s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0033s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=0 ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-01-30T14:12:50+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update/id/5.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000834s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001469s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0033s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=0 ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-01-30T14:13:48+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update/id/5.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002051s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004594s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0040s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=0 ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-01-30T14:19:05+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000954s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001554s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0053s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=0 ) LIMIT 1   [ RunTime:0.0025s ]
+
+[ 2018-01-30T14:19:55+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000799s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001297s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0038s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=5 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `saleman_sys_admin` SET `password`='e10adc3949ba59abbe56e057f20f883e',`group`='3',`is_status`='0' WHERE ( id=5 ) [ RunTime:0.2209s ]
+
+[ 2018-01-30T14:20:11+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000791s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001426s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0035s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=5 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: UPDATE `saleman_sys_admin` SET `password`='e10adc3949ba59abbe56e057f20f883e',`group`='2',`is_status`='1' WHERE ( id=5 ) [ RunTime:0.1645s ]
+
+[ 2018-01-30T14:20:20+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000853s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001486s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0044s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=5 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `saleman_sys_admin` SET `password`='e10adc3949ba59abbe56e057f20f883e',`group`='3',`is_status`='1' WHERE ( id=5 ) [ RunTime:0.1444s ]
+
+[ 2018-01-30T14:33:52+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/delete.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000812s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001430s ]
+ERR: 非法操作:delete
+
+[ 2018-01-30T14:39:24+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/delete.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000889s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001461s ]
+ERR: 非法操作:delete
+
+[ 2018-01-30T14:40:21+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/del.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.007147s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.007691s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0046s ]
+SQL: DELETE FROM `saleman_sys_admin` WHERE ( id=7 ) [ RunTime:0.1104s ]
+
+[ 2018-01-30T14:41:08+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000585s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001171s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0051s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='ab12345' ) LIMIT 1   [ RunTime:0.0010s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('ab12345','dc483e80a7a0bd9ef71d8cf973673924','3','2018-01-30 14:41:08') [ RunTime:0.1002s ]
+
+[ 2018-01-30T14:46:44+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001381s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002275s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0040s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='ab12345' ) LIMIT 1   [ RunTime:0.0005s ]
+
+[ 2018-01-30T14:46:49+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000904s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001693s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0062s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='ab123456' ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('ab123456','e10adc3949ba59abbe56e057f20f883e','2','2018-01-30 14:46:48') [ RunTime:0.2876s ]
+
+[ 2018-01-30T14:47:55+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Login/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000822s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001374s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0032s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'sitecms' LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `saleman_sys_admin` SET `login_num`=login_num+1 WHERE `id` = 1 [ RunTime:0.3938s ]
+
+[ 2018-01-30T14:53:31+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Login/login
+ERR: 非法操作:login
+
+[ 2018-01-30T14:53:46+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Login/index
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000846s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001419s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0032s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'sitecms' LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `saleman_sys_admin` SET `login_num`=login_num+1 WHERE `id` = 1 [ RunTime:0.1516s ]
+
+[ 2018-01-30T14:54:58+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000919s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001792s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0082s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='admin3' ) LIMIT 1   [ RunTime:0.0006s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('admin3','e10adc3949ba59abbe56e057f20f883e','2','2018-01-30 14:54:58') [ RunTime:0.1746s ]
+
+[ 2018-01-30T14:55:57+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002515s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004049s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0092s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='b12346' ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('b12346','dc483e80a7a0bd9ef71d8cf973673924','2','2018-01-30 14:55:57') [ RunTime:0.1208s ]
+
+[ 2018-01-30T14:56:34+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001517s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002658s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0049s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='av11111' ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('av11111','e10adc3949ba59abbe56e057f20f883e','2','2018-01-30 14:56:34') [ RunTime:0.1121s ]
+
+[ 2018-01-30T14:58:27+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002009s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003424s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0031s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='av111112' ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('av111112','e10adc3949ba59abbe56e057f20f883e','2','2018-01-30 14:58:27') [ RunTime:0.1432s ]
+
+[ 2018-01-30T14:58:42+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002729s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003899s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0032s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='av111112' ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-01-30T14:59:04+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000622s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001325s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0032s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='av111112' ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-01-30T15:07:18+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000933s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001838s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0041s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='a12345678' ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('a12345678','e10adc3949ba59abbe56e057f20f883e','2','2018-01-30 15:07:18') [ RunTime:0.1349s ]
+
+[ 2018-01-30T15:08:47+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000772s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001528s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0037s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='bb12345' ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('bb12345','e10adc3949ba59abbe56e057f20f883e','3','2018-01-30 15:08:46') [ RunTime:0.5446s ]
+
+[ 2018-01-30T15:09:01+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/del.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001670s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002622s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0038s ]
+SQL: DELETE FROM `saleman_sys_admin` WHERE ( id=14 ) [ RunTime:0.1461s ]
+
+[ 2018-01-30T15:09:06+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/del.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002248s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003973s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0050s ]
+SQL: DELETE FROM `saleman_sys_admin` WHERE ( id=13 ) [ RunTime:0.2123s ]
+
+[ 2018-01-30T15:10:28+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000790s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001325s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0039s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=15 ) LIMIT 1   [ RunTime:0.0006s ]
+
+[ 2018-01-30T15:10:54+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001147s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001811s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0036s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=15 ) LIMIT 1   [ RunTime:0.0017s ]
+SQL: UPDATE `saleman_sys_admin` SET `password`='e10adc3949ba59abbe56e057f20f883e',`group`='2',`is_status`='1' WHERE ( id=15 ) [ RunTime:0.1467s ]
+
+[ 2018-01-30T15:11:44+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000749s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001261s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0046s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=12 ) LIMIT 1   [ RunTime:0.0009s ]
+SQL: UPDATE `saleman_sys_admin` SET `password`='e10adc3949ba59abbe56e057f20f883e',`group`='2',`is_status`='1' WHERE ( id=12 ) [ RunTime:0.1540s ]
+
+[ 2018-01-30T15:12:12+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001011s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001600s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0068s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=9 ) LIMIT 1   [ RunTime:0.0011s ]
+SQL: UPDATE `saleman_sys_admin` SET `password`='e10adc3949ba59abbe56e057f20f883e',`group`='2',`is_status`='0' WHERE ( id=9 ) [ RunTime:0.1941s ]
+
+[ 2018-01-30T15:12:46+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001264s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002080s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0074s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=9 ) LIMIT 1   [ RunTime:0.0024s ]
+SQL: UPDATE `saleman_sys_admin` SET `password`='e10adc3949ba59abbe56e057f20f883e',`group`='3',`is_status`='0' WHERE ( id=9 ) [ RunTime:0.1425s ]
+
+[ 2018-01-30T15:12:57+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000887s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001492s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0049s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE ( id=9 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: UPDATE `saleman_sys_admin` SET `password`='e10adc3949ba59abbe56e057f20f883e',`group`='3',`is_status`='1' WHERE ( id=9 ) [ RunTime:0.3217s ]
+
+[ 2018-01-30T16:07:02+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goodsmodel/index/id/1.html
+ERR: 无法加载控制器:Goodsmodel
+
+[ 2018-01-30T16:07:35+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/goodsModel/id/1.html
+ERR: 1146:Table 'luomansi.saleman_' doesn't exist
+ [ SQL语句 ] : SELECT `goodsColor`,`colorCode`,`hand`,`falseLock`,`status` FROM `saleman_` WHERE ( goodsId=1 ) ORDER BY id asc 
+

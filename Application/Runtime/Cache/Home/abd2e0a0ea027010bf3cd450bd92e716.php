@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -7,17 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" type="text/css" href="__CSS__/style1.css">
+    <link rel="stylesheet" type="text/css" href="/luomansi/Application/Home/Public/css/style1.css">
     <!-- JQ -->
-    <script type="text/javascript" src="__JS__/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/luomansi/Application/Home/Public/js/jquery-1.11.0.min.js"></script>
     <!--移动端版本兼容 -->
-    <script type="text/javascript" src='__JS__/mobile.js'></script>
-    <script src="__JS__/iscroll-zoom.js"></script>
-	<script src="__JS__/hammer.js"></script>
-	<script src="__JS__/lrz.all.bundle.js"></script>
-	<script src="__JS__/jquery.photoClip.min.js"></script>
-    <script type="text/javascript" src='__JS__/main.js'></script>
-    <script type="text/javascript" src='__JS__/maintain.js'></script>
+    <script type="text/javascript" src='/luomansi/Application/Home/Public/js/mobile.js'></script>
+    <script src="/luomansi/Application/Home/Public/js/iscroll-zoom.js"></script>
+	<script src="/luomansi/Application/Home/Public/js/hammer.js"></script>
+	<script src="/luomansi/Application/Home/Public/js/lrz.all.bundle.js"></script>
+	<script src="/luomansi/Application/Home/Public/js/jquery.photoClip.min.js"></script>
+    <script type="text/javascript" src='/luomansi/Application/Home/Public/js/main.js'></script>
+    <script type="text/javascript" src='/luomansi/Application/Home/Public/js/maintain.js'></script>
 	<!-- 自适应屏幕 -->
 	<script type="text/javascript">
 	    $(function(){
@@ -43,7 +43,7 @@
 		<ul class="maintain-executable maintain-style" style="display:block;">
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5>DD1智能锁-真金假锁</h5>
@@ -59,7 +59,7 @@
 			</li>
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5>DD1智能锁-真金假锁</h5>
@@ -75,7 +75,7 @@
 			</li>
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5>DD1智能锁-真金假锁</h5>
@@ -94,7 +94,7 @@
 		<div class="maintain-executable-date-wrap maintain-date-wrap" >
 			<div class="maintain-executable-date">
 				<div class="maintain-executable-date-img">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<h5>DD1智能锁-真金假锁</h5>
 				<span>张先生   12345566677</span>
@@ -107,7 +107,7 @@
 		<ul class="maintain-ing maintain-style">
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5>DD1智能锁-真金假锁</h5>
@@ -123,7 +123,7 @@
 			</li>
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5>DD1智能锁-真金假锁</h5>
@@ -139,7 +139,7 @@
 			</li>
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5>DD1智能锁-真金假锁</h5>
@@ -171,7 +171,7 @@
 		<ul class="maintain-complete maintain-style">
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5>DD1智能锁-真金假锁</h5>
@@ -187,7 +187,7 @@
 			</li>
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5>DD1智能锁-真金假锁</h5>
@@ -203,7 +203,7 @@
 			</li>
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5>DD1智能锁-真金假锁</h5>
@@ -222,7 +222,7 @@
 		<div class="maintain-complete-date-wrap maintain-date-wrap">
 			<div class="maintain-executable-date">
 				<div class="maintain-executable-date-img">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<h5>DD1智能锁-真金假锁</h5>
 				<span>张先生   12345566677</span>
@@ -231,8 +231,8 @@
 				<i class='complete-btn'>已完成</i>
 
 				<div class="maintain-complete-imgbg">
-					<img src="__IMAGES__/complete-img.jpg" alt="" class="complete-img">
-					<img src="__IMAGES__/icon12.png" alt="" class="icon12">
+					<img src="/luomansi/Application/Home/Public/img/complete-img.jpg" alt="" class="complete-img">
+					<img src="/luomansi/Application/Home/Public/img/icon12.png" alt="" class="icon12">
 				</div>
 			</div>
 		</div>
@@ -244,16 +244,16 @@
 	<!-- 底部导航 -->
 	<div class="footer-nav maintain-nav">
 		<a href="javascript:;" class="footer-nav-item footer-nav-itemActive">
-			<img src="__IMAGES__/maintain-nav1.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/maintain-nav1-active.png" alt="" class="footer-nav-imgActive">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav1.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 		<a href="javascript:;" class="footer-nav-item line2">
-			<img src="__IMAGES__/maintain-nav2.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/maintain-nav2-active.png" alt="" class="footer-nav-imgActive">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav2.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav2-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 		<a href="javascript:;" class="footer-nav-item line2">
-			<img src="__IMAGES__/maintain-nav3.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/maintain-nav3-active.png" alt="" class="footer-nav-imgActive">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav3.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav3-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 	</div>
 
