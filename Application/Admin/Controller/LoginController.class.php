@@ -16,6 +16,7 @@ class LoginController extends Controller {
             $Model_Data->where(array('id'=>$user['id']))->setInc('login_num');
             session('admin_id', $user['id']);
             session('group',$user['group']);
+            session('username',$user['username']);
             $this->success('登录成功', U('Index/index'),'login');
     	} else {
     		$this->display();

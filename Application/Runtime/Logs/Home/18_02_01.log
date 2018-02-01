@@ -1,0 +1,7 @@
+[ 2018-02-01T16:43:33+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/serviceAdmin.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002857s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004888s ]
+SQL: SHOW COLUMNS FROM `saleman_service_admin` [ RunTime:0.0033s ]
+SQL: SELECT * FROM `saleman_service_admin` WHERE `username` = '13555555555' LIMIT 1   [ RunTime:0.0004s ]
+

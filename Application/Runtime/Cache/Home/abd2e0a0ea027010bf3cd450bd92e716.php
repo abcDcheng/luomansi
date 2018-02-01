@@ -41,54 +41,23 @@
 		
 		<!-- 可执行订单 -->
 		<ul class="maintain-executable maintain-style" style="display:block;">
-			<li>
+			<?php if(is_array($info)): foreach($info as $k=>$value): ?><li>
 				<div class="query-list-img-bg">
 					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
+					<h5><?php echo ($value["goods"]); ?></h5>
+					<p><?php echo ($value["name"]); ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo ($value["phone"]); ?></p>
+					<p><?php echo ($value["address"]); ?></p>
+					<h3>维护内容：<?php echo ($value["msg"]); ?></h3>
 				</div>
 				<div class="query-list-state">
 					<button class="query-state-btn maintain-executable-state-1">执行维护</button>
 				</div>
 				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-1">执行维护</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-1">执行维护</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
+				<a href="javascript:;" class="maintain-data-btn" value="<?php echo ($k); ?>">查看详情>></a>
+			</li><?php endforeach; endif; ?>
+			
 		</ul>
 		<!-- 可执行订单详情 -->
 		<div class="maintain-executable-date-wrap maintain-date-wrap" >
@@ -103,141 +72,6 @@
 			</div>
 			<button class="maintain-executable-date-btn">执行维护</button>
 		</div>
-		<!-- 订单执行中 -->
-		<ul class="maintain-ing maintain-style">
-			<li>
-				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">点击完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">点击完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">点击完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-		</ul>
-		<!-- 上传图片 -->
-		<div class="maintain-upload" >
-			<div class="maintain-upload-content">
-				<div class="maintain-upload-img">
-					
-					<div id="clipArea"></div>
-					<img src="" alt="" class="uploadImg">
-					<input type="file" id="file">
-				</div>
-
-				<button class="upload-btn" id="clipBtn">确认上传</button>
-			</div>
-		</div>
-		<!-- 订单已完成 -->
-		<ul class="maintain-complete maintain-style">
-			<li>
-				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">已完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">已完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">已完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-		</ul>
-		<!-- 订单已完成详情 -->
-		<div class="maintain-complete-date-wrap maintain-date-wrap">
-			<div class="maintain-executable-date">
-				<div class="maintain-executable-date-img">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
-				</div>
-				<h5>DD1智能锁-真金假锁</h5>
-				<span>张先生   12345566677</span>
-				<p>广东省广州市天河区天河北路...</p>
-				<small>维护内容：锁芯坏了，换锁芯...</small>
-				<i class='complete-btn'>已完成</i>
-
-				<div class="maintain-complete-imgbg">
-					<img src="/luomansi/Application/Home/Public/img/complete-img.jpg" alt="" class="complete-img">
-					<img src="/luomansi/Application/Home/Public/img/icon12.png" alt="" class="icon12">
-				</div>
-			</div>
-		</div>
-		
-
 	</div>
 
 
@@ -262,7 +96,7 @@
 <script type="text/javascript">
 	
 	$(function(){
-
+		var info = <?php echo json_encode($info);?>;
 		$('.maintain-nav .footer-nav-item').click(function(){
 
 			var _this = $(this).index();
