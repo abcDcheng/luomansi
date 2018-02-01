@@ -81,7 +81,7 @@ class AdminController extends Controller {
                         $this->display();
                     }
                 } else {
-                    $this->error("查无该账户数据",U("Admin/index").$id,3);
+                    $this->error("查无该账户数据",U("Admin/index"),3);
                 }
             } else {
                 $this->error("查无数据",U("Admin/index"),3);

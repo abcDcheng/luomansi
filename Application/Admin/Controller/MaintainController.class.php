@@ -9,7 +9,7 @@ class MaintainController extends Controller {
             } else {
                 $page = 1;
             }
-            $data = 'status!=2 ';
+            $data = 'status!=1 ';
             if (isset($_REQUEST['startTime']) && $_REQUEST['startTime'] !='') {
                 $data .= " and enTime>'".$_REQUEST['startTime']."'";
             }
@@ -119,9 +119,13 @@ class MaintainController extends Controller {
                     }
                     if ($status == 2) {
                         $data['serviceStatus'] = 1;
-                    } else {
-                        $data['status'] = $status;
+                        $data['serEndTime'] = "0000-00-00 00:00:00";
+                        $data['endTime'] = "0000-00-00 00:00:00";
+                    } elseif ($status == 1) {
+                        $data['endTime'] = date('Y-m-d H:i:s');
                     }
+                    $data['status'] = $status;
+                    
                     $res = $Model_data->table('saleman_maintain')->where('id='.$id)->data($data)->save();
                     if ($res) {
                         $this->success('修改成功',U('Maintain/index'));
@@ -149,7 +153,18 @@ class MaintainController extends Controller {
 
     public function del(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
-            
+            if (isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                $Model_data = M('maintain');
+                $res = $Model_data->where('id='.$id)->delete();
+                if ($res === false) {
+                    $this->error('数据删除失败，请刷新页面重试');
+                } elseif ($res === 0) {
+                    $this->error('查无该数据，请刷新页面检查');
+                } else {
+                    $this->success('删除成功',U("Login/index"));
+                }
+            }
         }
     }
 
@@ -239,6 +254,37 @@ class MaintainController extends Controller {
             }
         } else {
             $this->error("未登录或未授权",U("Login/index"),1);
+        }
+    }
+
+    //完成订单历史数据
+    public function history(){
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
+            if (isset($_REQUEST['p'])) {
+                $page = intval(I('p'));
+            } else {
+                $page = 1;
+            }
+            $data = 'status=1 ';
+            if (isset($_REQUEST['startTime']) && $_REQUEST['startTime'] !='') {
+                $data .= " and enTime>'".$_REQUEST['startTime']."'";
+            }
+            if (isset($_REQUEST['endTime']) && $_REQUEST['endTime'] !='') {
+                $data .= " and enTime<'".$_REQUEST['endTime']."'";
+            }
+            if (isset($_REQUEST['saleman']) && $_REQUEST['saleman'] !='') {
+                $data .= " and saleman='".$_REQUEST['saleman']."'";
+            }
+            $pageNum = 12;
+            $username = $_SESSION['username'];
+            $Model_data = M('maintain');
+            $info = $Model_data->where($data)->order('id desc')->limit($pageNum,($page-1)*$pageNum)->select();
+            $count = $Model_data->count();
+            $Pages = new \Think\Page($count, $pageNum);
+            $pageHtml = $Pages -> show();
+            $this->assign('page',$pageHtml);
+            $this->assign('info',$info);
+            $this->display();
         }
     }
 }

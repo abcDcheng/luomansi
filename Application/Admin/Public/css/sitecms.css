@@ -147,7 +147,7 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 .from_item_image .img_item{width:180px;height:180px;display:inline-block;margin:10px 0 0 10px;}
 .from_item_image .img_item:hover{background-size:contain;cursor:zoom-in;}
 .from_item_image .img_item span{padding:0 8px;float:left;background:rgba(0,0,0,0.5);color:#eee;}
-.from_item_image .img_item img{float:left;width:180px;height:156px;}
+.from_item_image .img_item img{float:left;width:300px;height:190px;}
 .from_item_image .img_item:hover span{display:none;}
 /* Validform style */
 .Validform_checktip{padding-right: 10px;position: absolute;top: 0;right: 0;line-height: 38px;}

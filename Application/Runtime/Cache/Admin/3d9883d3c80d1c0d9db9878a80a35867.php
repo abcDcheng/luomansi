@@ -62,52 +62,52 @@
                 </dd>
             </dl>
         </ul>
-        <div class="layui-tab-content">
-            <div class="sc_title"></div>
-            <div class="layui-tab-item layui-show">
-                <menu class="sc_side_main">
-                    <ul class="sc_side_menu">
-                        <li class="layui-nav-item"><a data-title="系统首页" class="active">系统首页</a></li>
-                    </ul>
-                </menu>
-            </div>
-            <div class="layui-tab-item">
-                <menu class="sc_side_main">
-                    <ul class="sc_side_menu">
-                        <li class="layui-nav-item"><a data-title="文章列表">文章列表</a></li>
-                        <li class="layui-nav-item"><a data-title="文章子栏目">&nbsp;&nbsp;&nbsp;&nbsp;├ 文章子栏目</a></li>
-                        <li class="layui-nav-item"><a data-title="文章分类">&nbsp;&nbsp;&nbsp;&nbsp;├ 文章分类</a></li>
-                        <li class="layui-nav-item"><a data-title="单页编辑">单页编辑</a></li>
-                        <li class="layui-nav-item"><a data-title="产品列表">产品列表</a></li>
-                        <li class="layui-nav-item"><a data-title="链接列表">链接列表</a></li>
-                        <li class="layui-nav-item"><a data-title="招聘列表">招聘列表</a></li>
-                        <li class="layui-nav-item"><a data-title="下载列表">下载列表</a></li>
-                    </ul>
-                </menu>
-            </div>
-            <div class="layui-tab-item">
-                <menu class="sc_side_main">
-                    <ul class="sc_side_menu">
-                        <li class="layui-nav-item"><a data-title="站点配置">站点配置</a></li>
-                        <li class="layui-nav-item"><a data-title="导航管理">导航管理</a></li>
-                        <li class="layui-nav-item"><a data-title="幻灯片管理">幻灯片管理</a></li>
-                        <li class="layui-nav-item"><a data-title="留言管理">留言管理</a></li>
-                        <li class="layui-nav-item"><a data-title="会员列表">会员列表</a></li>
-                        <li class="layui-nav-item"><a data-title="订单管理">订单管理</a></li>
-                    </ul>
-                </menu>
-            </div>
-            <div class="layui-tab-item">
-                <menu class="sc_side_main">
-                    <ul class="sc_side_menu">
-                        <li class="layui-nav-item"><a data-title="系统配置">系统配置</a></li>
-                        <li class="layui-nav-item"><a data-title="模型管理">模型管理</a></li>
-                        <li class="layui-nav-item"><a data-title="管理员列表">管理员列表</a></li>
-                        <li class="layui-nav-item"><a data-title="节点管理">节点管理</a></li>
-                    </ul>
-                </menu>
-            </div>
-        </div>
+<!--         <div class="layui-tab-content">
+    <div class="sc_title"></div>
+    <div class="layui-tab-item layui-show">
+        <menu class="sc_side_main">
+            <ul class="sc_side_menu">
+                <li class="layui-nav-item"><a data-title="系统首页" class="active">系统首页</a></li>
+            </ul>
+        </menu>
+    </div>
+    <div class="layui-tab-item">
+        <menu class="sc_side_main">
+            <ul class="sc_side_menu">
+                <li class="layui-nav-item"><a data-title="文章列表">文章列表</a></li>
+                <li class="layui-nav-item"><a data-title="文章子栏目">&nbsp;&nbsp;&nbsp;&nbsp;├ 文章子栏目</a></li>
+                <li class="layui-nav-item"><a data-title="文章分类">&nbsp;&nbsp;&nbsp;&nbsp;├ 文章分类</a></li>
+                <li class="layui-nav-item"><a data-title="单页编辑">单页编辑</a></li>
+                <li class="layui-nav-item"><a data-title="产品列表">产品列表</a></li>
+                <li class="layui-nav-item"><a data-title="链接列表">链接列表</a></li>
+                <li class="layui-nav-item"><a data-title="招聘列表">招聘列表</a></li>
+                <li class="layui-nav-item"><a data-title="下载列表">下载列表</a></li>
+            </ul>
+        </menu>
+    </div>
+    <div class="layui-tab-item">
+        <menu class="sc_side_main">
+            <ul class="sc_side_menu">
+                <li class="layui-nav-item"><a data-title="站点配置">站点配置</a></li>
+                <li class="layui-nav-item"><a data-title="导航管理">导航管理</a></li>
+                <li class="layui-nav-item"><a data-title="幻灯片管理">幻灯片管理</a></li>
+                <li class="layui-nav-item"><a data-title="留言管理">留言管理</a></li>
+                <li class="layui-nav-item"><a data-title="会员列表">会员列表</a></li>
+                <li class="layui-nav-item"><a data-title="订单管理">订单管理</a></li>
+            </ul>
+        </menu>
+    </div>
+    <div class="layui-tab-item">
+        <menu class="sc_side_main">
+            <ul class="sc_side_menu">
+                <li class="layui-nav-item"><a data-title="系统配置">系统配置</a></li>
+                <li class="layui-nav-item"><a data-title="模型管理">模型管理</a></li>
+                <li class="layui-nav-item"><a data-title="管理员列表">管理员列表</a></li>
+                <li class="layui-nav-item"><a data-title="节点管理">节点管理</a></li>
+            </ul>
+        </menu>
+    </div>
+</div> -->
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
@@ -136,15 +136,6 @@
         <div class="fadeInUp animated">
             <form id="form-list" class="layui-form">
                 <input type="hidden" name="nid" value="5">
-<!--                 <div class="sc_mobile" style="display: none;">
-    <div class="layui-input-inline">
-        <select name="news_nid" lay-filter="category">
-            <option value="0">若无需求，可不选！</option>
-            <option value="1" disabled=""> 首页</option><option value="2" disabled=""> 关于</option><option value="3" disabled=""> 新闻</option><option value="5" disabled="">&nbsp;&nbsp;&nbsp;&nbsp;├ 公告</option><option value="6">&nbsp;&nbsp;&nbsp;&nbsp;├ 资讯</option><option value="4" disabled=""> 产品</option>                    </select><div class="layui-unselect layui-form-select"><div class="layui-select-title"><input type="text" placeholder="请选择" value="若无需求，可不选！" readonly="" class="layui-input layui-unselect"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="0" class="layui-this">若无需求，可不选！</dd><dd lay-value="1" class=" layui-disabled"> 首页</dd><dd lay-value="2" class=" layui-disabled"> 关于</dd><dd lay-value="3" class=" layui-disabled"> 新闻</dd><dd lay-value="5" class=" layui-disabled">&nbsp;&nbsp;&nbsp;&nbsp;├ 公告</dd><dd lay-value="6" class="">&nbsp;&nbsp;&nbsp;&nbsp;├ 资讯</dd><dd lay-value="4" class=" layui-disabled"> 产品</dd></dl></div>
-    </div>
-    <button class="layui-btn layui-btn-disabled btn-mobile" data-action="/Page/mobile.html?spm=m-1-5" disabled="">确定</button>
-    <button class="layui-btn layui-btn-danger" data-action="/Page/delete.html?spm=m-1-5">删除选中</button>
-</div> -->
                 <table class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
                         <col>
@@ -179,26 +170,11 @@
                                 <td class="layui-elip" style="color:red">禁用</td><?php endif; ?>
                             <td><?php echo ($value["createtime"]); ?></td>
                             <td>
-                                <a data-url="#" data-title="编辑">编辑</a>
+                                <a href="<?php echo U('Saleman/update?id='.$value['id']);?>" data-title="编辑">编辑</a>
                                 <span class="sc_explode">|</span>
                                 <a data-confirm="#">删除</a>
                             </td>
                         </tr><?php endforeach; endif; ?>
-                        <!-- <tr>
-                            <td>
-                                <input type="checkbox" name="id[]" value="15" lay-skin="primary" class="list-check-box">
-                                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
-                            </td>
-                            <td class="layui-elip">admin</td>
-                            <td class="layui-elip">超级管理员</td>
-                            <td>2018-01-10 23:13:58
-                            </td>
-                            <td>
-                                <a data-url="/Page/update.html?id=15&amp;spm=m-1-5" data-title="编辑">编辑</a>
-                                <span class="sc_explode">|</span>
-                                <a data-confirm="/Page/delete.html?id=15&amp;spm=m-1-5">删除</a>
-                            </td>
-                        </tr> -->
                     </tbody>
                 </table>
             </form>
@@ -232,14 +208,14 @@
         //     };
         //     layui.form.render('checkbox');
         // });
-        $('.sc_mobile').hide();
-        layui.form.on('checkbox', function(data){
-            if ($('.layui-table').find('.list-check-box').is(':checked')) {
-                $('.sc_search').hide(300,function(){$('.sc_mobile').show(300);});
-            } else {
-                $('.sc_mobile').hide(300,function(){$('.sc_search').show(300);});
-            };
-        });
+        // $('.sc_mobile').hide();
+        // layui.form.on('checkbox', function(data){
+        //     if ($('.layui-table').find('.list-check-box').is(':checked')) {
+        //         $('.sc_search').hide(300,function(){$('.sc_mobile').show(300);});
+        //     } else {
+        //         $('.sc_mobile').hide(300,function(){$('.sc_search').show(300);});
+        //     };
+        // });
     });
     
     </script>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <!--
 * @Author: defaultFish
 * @Date:   2017-12-12 00:00:00
@@ -14,19 +14,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="__PLUGS__/layui/css/layui.css">
-    <link rel="stylesheet" href="__CSS__/font-awesome.min.css">
-    <link rel="stylesheet" href="__CSS__/animate.css">
-    <link rel="stylesheet" href="__CSS__/sitecms.css">
-    <script src="__PLUGS__/layui/layui.js"></script>
-    <script src="__PLUGS__/ueditor/ueditor.config.js"></script>
-    <script src="__PLUGS__/ueditor/ueditor.all.js"></script>
-    <!-- <script src="__PLUGS__/static/base/js/jquery.cookie.js"></script> -->
-    <script src="__JS__/jquery.min.js"></script>
-    <!-- <script src="__PLUGS__/uploadify/jquery.uploadify.min.js"></script> -->
-    <script src="__JS__/validform.js"></script>
-    <script src="__JS__/sitecms.js"></script>
-    <script src="__PLUGS__/layui/lay/modules/laydate.js"></script>
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/plugs/layui/css/layui.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/animate.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/sitecms.css">
+    <script src="/luomansi/Application/Admin/Public/plugs/layui/layui.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.config.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.all.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/static/base/js/jquery.cookie.js"></script> -->
+    <script src="/luomansi/Application/Admin/Public/js/jquery.min.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/uploadify/jquery.uploadify.min.js"></script> -->
+    <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
+    <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
     <!-- 让IE8/9支持媒体查询 -->
 	<!--[if lt IE 9]>
 		<script src="./js/html5shiv.min.js"></script>
@@ -40,7 +40,7 @@
     <div class="layui-tab sc_side_tab" lay-filter="nav">
         <ul class="layui-tab-title">
             <li class="layui-this">
-                <div class="sc_side_manage" style="background-image:url('__IMAGES__/male.png');"></div>
+                <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
                 admin
             </li>
             <li><span><i class="fa fa-desktop"></i></span>内容管理</li>
@@ -62,18 +62,18 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<{:U('Goods/goodsAdd')}>" id="form" class="layui-form layui-form-pane">
+            <form action="<?php echo U('Goods/goodsAdd');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
                     <h5>详情页</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Admin/index')}>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Admin/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
-                        <input type="hidden" name="id" value="<{$goods.id}>">
+                        <input type="hidden" name="id" value="<?php echo ($goods["id"]); ?>">
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品名</label>
                                 <div class="layui-input-block">

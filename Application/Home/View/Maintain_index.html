@@ -15,9 +15,9 @@
     <script src="__JS__/iscroll-zoom.js"></script>
 	<script src="__JS__/hammer.js"></script>
 	<script src="__JS__/lrz.all.bundle.js"></script>
-	<script src="__JS__/jquery.photoClip.min.js"></script>
+	<!-- <script src="__JS__/jquery.photoClip.min.js"></script> -->
     <script type="text/javascript" src='__JS__/main.js'></script>
-    <script type="text/javascript" src='__JS__/maintain.js'></script>
+    <!-- <script type="text/javascript" src='__JS__/maintain.js'></script> -->
 	<!-- 自适应屏幕 -->
 	<script type="text/javascript">
 	    $(function(){
@@ -53,7 +53,7 @@
 					<h3>维护内容：<{$value.msg}></h3>
 				</div>
 				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-1">执行维护</button>
+					<button class="query-state-btn maintain-executable-state-1" value="<{$k}>">执行维护</button>
 				</div>
 				<span class='lineColor'></span>
 				<a href="javascript:;" class="maintain-data-btn" value="<{$k}>">查看详情>></a>
@@ -67,12 +67,12 @@
 				<div class="maintain-executable-date-img">
 					<img src="__IMAGES__/product1.jpg" alt="">
 				</div>
-				<h5>DD1智能锁-真金假锁</h5>
-				<span>张先生   12345566677</span>
-				<p>广东省广州市天河区天河北路...</p>
-				<strong>维护内容：锁芯坏了，换锁芯...</strong>
+				<h5 id="goods"></h5>
+				<span id="namephone"></span>
+				<p id="address"></p>
+				<strong id="msg"></strong>
 			</div>
-			<button class="maintain-executable-date-btn">执行维护</button>
+			<button id="service" class="maintain-executable-date-btn">执行维护</button>
 		</div>
 	</div>
 
@@ -83,11 +83,11 @@
 			<img src="__IMAGES__/maintain-nav1.png" alt="" class="footer-nav-img">
 			<img src="__IMAGES__/maintain-nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<{:U('Maintain/index')}>" class="footer-nav-item line2">
+		<a href="<{:U('Maintain/service')}>" class="footer-nav-item line2">
 			<img src="__IMAGES__/maintain-nav2.png" alt="" class="footer-nav-img">
 			<img src="__IMAGES__/maintain-nav2-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<{:U('Maintain/index')}>" class="footer-nav-item line2">
+		<a href="<{:U('Maintain/complete')}>" class="footer-nav-item line2">
 			<img src="__IMAGES__/maintain-nav3.png" alt="" class="footer-nav-img">
 			<img src="__IMAGES__/maintain-nav3-active.png" alt="" class="footer-nav-imgActive">
 		</a>
@@ -99,37 +99,62 @@
 	
 	$(function(){
 		var info = <{:json_encode($info)}>;
-		$('.maintain-data-btn').click(function(){
-
-
+		var orderId = 0;
+		$('#service').click(function(){
+			if (orderId) {
+				if (confirm('确定开始执行该订单的维护吗')) {
+					$(this).text('提交中...').attr('disabled',true);
+					$.ajax({
+						url : "<{:U('Maintain/startService')}>",
+			            type : "post",
+			            data : {orderId:orderId},
+			            dataType : "json",
+			            timeout : 5000,
+			            success : function(data){
+			            	$('#service').text('执行维护').removeAttr('disabled');
+			            	if (data.code == 1) {
+			            		window.location.href = "<{:U('Maintain/service')}>";
+			            	} else {
+			            		alert(data.msg);
+			            	}
+			            },
+			            error : function(data){
+			            	if (data.status == 'timeout') {
+			            		alert('请求超时，请确认网络良好并重试');
+			            	}
+			            	$('#service').text('执行维护').removeAttr('disabled');
+			            }
+					});
+				}
+			} else {
+				alert('请选择要维护的订单');
+				return false;
+			}
 		});
 
-		// $('.maintain-nav .footer-nav-item').click(function(){
-
-		// 	var _this = $(this).index();
-
-		// 	$('.maintain .maintain-style').hide();
-		// 	$('.maintain .maintain-style').eq(_this).show();
-
-		// });
-
 		/*<!-- 可执行订单详情 -->*/
-		$('.maintain-executable a').click(function(){
+		$('.maintain-executable a,.query-state-btn').click(function(){
+			var i = $(this).attr('value');
+			orderId = info[i]['id'];
+			$('#goods').text(info[i]['goods']);
+			$('#namephone').html(info[i]['name']+"&nbsp;&nbsp;&nbsp;&nbsp;"+info[i]['phone']);
+			$('#address').text(info[i]['address']);
+			$('#msg').text('维护内容：'+info[i]['msg']);
 			$('.maintain-executable').hide();
 			$('.maintain-executable-date-wrap').show();
 		});
 
 		/*<!-- 上传图片 -->*/
-		$('.maintain-ing a').click(function(){
-			$('.maintain-ing').hide();
-			$('.maintain-upload').show();
-		});
+		// $('.maintain-ing a').click(function(){
+		// 	$('.maintain-ing').hide();
+		// 	$('.maintain-upload').show();
+		// });
 
-		/*<!-- 订单已完成详情 -->*/
-		$('.maintain-complete a').click(function(){
-			$('.maintain-complete').hide();
-			$('.maintain-complete-date-wrap').show();
-		});
+		// /*<!-- 订单已完成详情 -->*/
+		// $('.maintain-complete a').click(function(){
+		// 	$('.maintain-complete').hide();
+		// 	$('.maintain-complete-date-wrap').show();
+		// });
 
 	})
 

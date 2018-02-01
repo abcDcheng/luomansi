@@ -124,6 +124,7 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col width="100">
                         <col width="120">
                         <col>
@@ -138,6 +139,7 @@
                             <th>客户姓名</th>
                             <th>联系方式</th>
                             <th>详细地址</th>
+                            <th>产品名称</th>
                             <th>信息描述</th>
                             <th>创建时间</th>
                             <th>负责代理商</th>
@@ -153,16 +155,17 @@
                             <td class="layui-elip"><?php echo ($value["name"]); ?></td>
                             <td class="layui-elip"><?php echo ($value["phone"]); ?></td>
                             <td class="layui-elip"><?php echo ($value["address"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["goods"]); ?></td>
                             <td class="layui-elip"><?php echo ($value["msg"]); ?></td>
                             <td class="layui-elip"><?php echo ($value["entime"]); ?></td>
                             <td class="layui-elip"><?php echo ($value["saleman"]); ?></td>
-                            <td class="layui-elip"><?php echo ($value["servicerName"]); ?></td>
-                            <?php if($value["status"] == 0): ?><td class="layui-elip" style="color:red">未维护</td>
-                            <?php elseif($value["status"] == 1): ?>
+                            <td class="layui-elip"><?php echo ($value["servicename"]); ?></td>
+                            <?php if($value["servicestatus"] == 0): ?><td class="layui-elip" style="color:red">未维护</td>
+                            <?php elseif($value["servicestatus"] == 1): ?>
                                 <td class="layui-elip" style="color:orange">维护中</td>
                             <?php else: ?>
-                                <td class="layui-elip" style="color:green">已维护</td><?php endif; ?>
-                            <td class="layui-elip"><?php echo ($value["sertime"]); ?></td>
+                                <td class="layui-elip" style="color:green">已完成</td><?php endif; ?>
+                            <td class="layui-elip"><?php echo ($value["serendtime"]); ?></td>
                             <td>
                                 <a href="<?php echo U('Maintain/update?id='.$value['id']);?>" data-title="编辑">编辑</a>
                                 <span class="sc_explode">|</span>

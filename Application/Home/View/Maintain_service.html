@@ -17,7 +17,7 @@
 	<script src="__JS__/lrz.all.bundle.js"></script>
 	<script src="__JS__/jquery.photoClip.min.js"></script>
     <script type="text/javascript" src='__JS__/main.js'></script>
-    <script type="text/javascript" src='__JS__/maintain.js'></script>
+    <!-- <script type="text/javascript" src='__JS__/maintain.js'></script> -->
 	<!-- 自适应屏幕 -->
 	<script type="text/javascript">
 	    $(function(){
@@ -38,122 +38,39 @@
     
     <!-- 订单维护 -->
 	<div class="maintain">
-		
-		<!-- 可执行订单 -->
-		<ul class="maintain-executable maintain-style" style="display:block;">
-			<li>
-				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-1">执行维护</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-1">执行维护</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-1">执行维护</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-		</ul>
 		<!-- 可执行订单详情 -->
 		<div class="maintain-executable-date-wrap maintain-date-wrap" >
 			<div class="maintain-executable-date">
 				<div class="maintain-executable-date-img">
 					<img src="__IMAGES__/product1.jpg" alt="">
 				</div>
-				<h5>DD1智能锁-真金假锁</h5>
-				<span>张先生   12345566677</span>
-				<p>广东省广州市天河区天河北路...</p>
-				<strong>维护内容：锁芯坏了，换锁芯...</strong>
+				<h5 id="goods"></h5>
+				<span id="namephone"></span>
+				<p id="address"></p>
+				<strong id="msg"></strong>
 			</div>
-			<button class="maintain-executable-date-btn">执行维护</button>
+			<button id="return" class="maintain-executable-date-btn">返回</button>
 		</div>
 		<!-- 订单执行中 -->
-		<ul class="maintain-ing maintain-style">
-			
+		<ul class="maintain-ing maintain-style" style="display:block;">
+			<{foreach name="info" item="value" key='k'}>
 			<li>
 				<div class="query-list-img-bg">
 					<img src="__IMAGES__/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
+					<h5><{$value.goods}></h5>
+					<p><{$value.name}>&nbsp;&nbsp;&nbsp;&nbsp;<{$value.phone}></p>
+					<p><{$value.address}></p>
+					<h3>维护内容：<{$value.msg}></h3>
 				</div>
 				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">点击完成</button>
+					<button class="query-state-btn maintain-executable-state-2" value="<{$value.id}>">点击完成</button>
 				</div>
 				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
+				<a href="javascript:;" class="maintain-data-btn" value="<{$k}>">查看详情>></a>
 			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">点击完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">点击完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
+			<{/foreach}>
 		</ul>
 		<!-- 上传图片 -->
 		<div class="maintain-upload" >
@@ -166,75 +83,7 @@
 				</div>
 
 				<button class="upload-btn" id="clipBtn">确认上传</button>
-			</div>
-		</div>
-		<!-- 订单已完成 -->
-		<ul class="maintain-complete maintain-style">
-			<li>
-				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">已完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">已完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-			<li>
-				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
-				</div>
-				<div class="query-list-message">
-					<h5>DD1智能锁-真金假锁</h5>
-					<p>张先生   12345566677</p>
-					<p>广东省广州市天河区天河北路...</p>
-					<h3>维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯维护内容：锁芯坏了，换锁芯</h3>
-				</div>
-				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-2">已完成</button>
-				</div>
-				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn">查看详情>></a>
-			</li>
-		</ul>
-		<!-- 订单已完成详情 -->
-		<div class="maintain-complete-date-wrap maintain-date-wrap">
-			<div class="maintain-executable-date">
-				<div class="maintain-executable-date-img">
-					<img src="__IMAGES__/product1.jpg" alt="">
-				</div>
-				<h5>DD1智能锁-真金假锁</h5>
-				<span>张先生   12345566677</span>
-				<p>广东省广州市天河区天河北路...</p>
-				<small>维护内容：锁芯坏了，换锁芯...</small>
-				<i class='complete-btn'>已完成</i>
-
-				<div class="maintain-complete-imgbg">
-					<img src="__IMAGES__/complete-img.jpg" alt="" class="complete-img">
-					<img src="__IMAGES__/icon12.png" alt="" class="icon12">
-				</div>
+				<button class="upload-btn" id="complete">确认提交</button>
 			</div>
 		</div>
 		
@@ -248,48 +97,115 @@
 			<img src="__IMAGES__/maintain-nav1.png" alt="" class="footer-nav-img">
 			<img src="__IMAGES__/maintain-nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<{:U('Maintain/index')}>" class="footer-nav-item footer-nav-itemActive">
+		<a href="<{:U('Maintain/service')}>" class="footer-nav-item footer-nav-itemActive">
 			<img src="__IMAGES__/maintain-nav2.png" alt="" class="footer-nav-img">
 			<img src="__IMAGES__/maintain-nav2-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<{:U('Maintain/index')}>" class="footer-nav-item line2">
+		<a href="<{:U('Maintain/complete')}>" class="footer-nav-item line2">
 			<img src="__IMAGES__/maintain-nav3.png" alt="" class="footer-nav-img">
 			<img src="__IMAGES__/maintain-nav3-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 	</div>
 
 </div>
-
+<style type="text/css">
+    .meng00{display:none;z-index:9999;width: 100%;height: 100%;position: fixed;left: 0;top:0;background:url('__IMAGES__/15.gif') center center no-repeat rgba(0,0,0,0.8);}
+</style>
+<div class="meng00"></div>
 <script type="text/javascript">
 	
 	$(function(){
-
-		$('.maintain-nav .footer-nav-item').click(function(){
-
-			var _this = $(this).index();
-
-			$('.maintain .maintain-style').hide();
-			$('.maintain .maintain-style').eq(_this).show();
-
-		});
-
+		var info = <{:json_encode($info)}>;
+		var orderId = 0;
+		var imgUrl = '';
 		/*<!-- 可执行订单详情 -->*/
-		$('.maintain-executable a').click(function(){
-			$('.maintain-executable').hide();
+		$('.maintain-data-btn').click(function(){
+			var i = $(this).attr('value');
+			orderId = info[i]['id'];
+			$('#goods').text(info[i]['goods']);
+			$('#namephone').html(info[i]['name']+"&nbsp;&nbsp;&nbsp;&nbsp;"+info[i]['phone']);
+			$('#address').text(info[i]['address']);
+			$('#msg').text('维护内容：'+info[i]['msg']);
+			$('.maintain-ing').hide();
 			$('.maintain-executable-date-wrap').show();
 		});
 
-		/*<!-- 上传图片 -->*/
-		$('.maintain-ing a').click(function(){
+		$('#return').click(function(){
+			$('.maintain-ing').show();
+			$('.maintain-executable-date-wrap').hide();
+		});
+
+		$('.query-state-btn').click(function(){
+			orderId = $(this).attr('value');
 			$('.maintain-ing').hide();
 			$('.maintain-upload').show();
 		});
+
+		/*<!-- 上传图片 -->*/
+		// $('.maintain-ing a').click(function(){
+			
+		// });
 
 		/*<!-- 订单已完成详情 -->*/
 		$('.maintain-complete a').click(function(){
 			$('.maintain-complete').hide();
 			$('.maintain-complete-date-wrap').show();
 		});
+
+	var clipArea = new bjj.PhotoClip("#clipArea", {
+		size: [600, 380],
+		outputSize: [600, 380],
+		file: "#file",
+		view: "#view",
+		ok: "#clipBtn",
+		loadStart: function() {
+			console.log("照片读取中");
+		},
+		loadComplete: function() {
+			console.log("照片读取完成");
+		},
+		clipFinish: function(dataURL) {
+			// console.log(dataURL);
+			imgUrl = dataURL;
+			$('.uploadImg').attr('src',dataURL);
+		}
+	});
+
+	$('#file').click(function(){
+		$(this).hide();
+		$('.uploadImg').attr('src','');
+	});
+	$('.upload-btn').click(function(){
+		$('#file').show();
+	})
+
+	$('#complete').click(function(){
+		if (!imgUrl) {
+			alert('请上传现场图片 ');
+			return false;
+		}
+		if (confirm('确定提交吗？')) {
+			$('.meng00').show();
+			$.ajax({
+				url : "<{:U('Maintain/completeService')}>",
+	            type : "post",
+	            data : {orderId:orderId,imgUrl:imgUrl},
+	            dataType : "json",
+	            timeout : 15000,
+	            success : function(data) {
+	            	$('.meng00').hide();
+	            	if (data.code == 1) {
+	            		alert(data.msg);
+	            		window.location.href = "<{:U('Maintain/complete')}>";
+	            	} else {
+	            		alert(data.msg);
+	            	}
+	            }
+			});
+		}
+	});
+
+
 
 	})
 

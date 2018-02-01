@@ -39,8 +39,9 @@
     <!-- 订单维护 -->
 	<div class="maintain">
 		
-		<!-- 可执行订单 -->
-		<ul class="maintain-executable maintain-style" style="display:block;">
+
+		<!-- 订单已完成 -->
+		<ul class="maintain-complete maintain-style" style="display: block">
 			<?php if(is_array($info)): foreach($info as $k=>$value): ?><li>
 				<div class="query-list-img-bg">
 					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
@@ -52,15 +53,14 @@
 					<h3>维护内容：<?php echo ($value["msg"]); ?></h3>
 				</div>
 				<div class="query-list-state">
-					<button class="query-state-btn maintain-executable-state-1" value="<?php echo ($k); ?>">执行维护</button>
+					<button class="query-state-btn maintain-executable-state-2">已完成</button>
 				</div>
 				<span class='lineColor'></span>
 				<a href="javascript:;" class="maintain-data-btn" value="<?php echo ($k); ?>">查看详情>></a>
 			</li><?php endforeach; endif; ?>
-			
 		</ul>
-		<!-- 可执行订单详情 -->
-		<div class="maintain-executable-date-wrap maintain-date-wrap" >
+		<!-- 订单已完成详情 -->
+		<div class="maintain-complete-date-wrap maintain-date-wrap">
 			<div class="maintain-executable-date">
 				<div class="maintain-executable-date-img">
 					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
@@ -69,15 +69,23 @@
 				<span id="namephone"></span>
 				<p id="address"></p>
 				<strong id="msg"></strong>
+
+				<div class="maintain-complete-imgbg">
+					<img id="img" src="/luomansi/Application/Home/Public/img/complete-img.jpg" alt="" class="complete-img">
+					<img src="/luomansi/Application/Home/Public/img/icon12.png" alt="" class="icon12">
+				</div>
+				<button id="return" class="maintain-executable-date-btn">返回</button>
 			</div>
-			<button id="service" class="maintain-executable-date-btn">执行维护</button>
+
 		</div>
+		
+
 	</div>
 
 
 	<!-- 底部导航 -->
 	<div class="footer-nav maintain-nav">
-		<a href="<?php echo U('Maintain/index');?>" class="footer-nav-item footer-nav-itemActive">
+		<a href="<?php echo U('Maintain/index');?>" class="footer-nav-item line2">
 			<img src="/luomansi/Application/Home/Public/img/maintain-nav1.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/maintain-nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
@@ -85,7 +93,7 @@
 			<img src="/luomansi/Application/Home/Public/img/maintain-nav2.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/maintain-nav2-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<?php echo U('Maintain/complete');?>" class="footer-nav-item line2">
+		<a href="<?php echo U('Maintain/complete');?>" class="footer-nav-item footer-nav-itemActive">
 			<img src="/luomansi/Application/Home/Public/img/maintain-nav3.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/maintain-nav3-active.png" alt="" class="footer-nav-imgActive">
 		</a>
@@ -96,63 +104,25 @@
 <script type="text/javascript">
 	
 	$(function(){
-		var info = <?php echo json_encode($info);?>;
-		var orderId = 0;
-		$('#service').click(function(){
-			if (orderId) {
-				if (confirm('确定开始执行该订单的维护吗')) {
-					$(this).text('提交中...').attr('disabled',true);
-					$.ajax({
-						url : "<?php echo U('Maintain/startService');?>",
-			            type : "post",
-			            data : {orderId:orderId},
-			            dataType : "json",
-			            timeout : 5000,
-			            success : function(data){
-			            	$('#service').text('执行维护').removeAttr('disabled');
-			            	if (data.code == 1) {
-			            		window.location.href = "<?php echo U('Maintain/service');?>";
-			            	} else {
-			            		alert(data.msg);
-			            	}
-			            },
-			            error : function(data){
-			            	if (data.status == 'timeout') {
-			            		alert('请求超时，请确认网络良好并重试');
-			            	}
-			            	$('#service').text('执行维护').removeAttr('disabled');
-			            }
-					});
-				}
-			} else {
-				alert('请选择要维护的订单');
-				return false;
-			}
-		});
 
-		/*<!-- 可执行订单详情 -->*/
-		$('.maintain-executable a,.query-state-btn').click(function(){
+		var info = <?php echo json_encode($info);?>;
+		var imgSrc = '/luomansi/Application/Upload'+'/';
+		/*<!-- 订单已完成详情 -->*/
+		$('.maintain-complete a').click(function(){
 			var i = $(this).attr('value');
-			orderId = info[i]['id'];
 			$('#goods').text(info[i]['goods']);
 			$('#namephone').html(info[i]['name']+"&nbsp;&nbsp;&nbsp;&nbsp;"+info[i]['phone']);
 			$('#address').text(info[i]['address']);
+			$('#img').attr('src',imgSrc+info[i]['comimg']);
 			$('#msg').text('维护内容：'+info[i]['msg']);
-			$('.maintain-executable').hide();
-			$('.maintain-executable-date-wrap').show();
+			$('.maintain-complete').hide();
+			$('.maintain-complete-date-wrap').show();
 		});
 
-		/*<!-- 上传图片 -->*/
-		// $('.maintain-ing a').click(function(){
-		// 	$('.maintain-ing').hide();
-		// 	$('.maintain-upload').show();
-		// });
-
-		// /*<!-- 订单已完成详情 -->*/
-		// $('.maintain-complete a').click(function(){
-		// 	$('.maintain-complete').hide();
-		// 	$('.maintain-complete-date-wrap').show();
-		// });
+		$('#return').click(function(){
+			$('.maintain-complete').show();
+			$('.maintain-complete-date-wrap').hide();
+		});
 
 	})
 

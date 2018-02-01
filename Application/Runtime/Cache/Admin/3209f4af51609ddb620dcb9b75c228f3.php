@@ -99,6 +99,12 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label label-required">产品名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goods" class="layui-input" autocomplete="off" datatype="s2-255" errormsg="请输入正确的产品名称" placeholder="产品名称" nullmsg="请输入产品名称!" value="<?php echo ($info["goods"]); ?>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label label-required">维护信息</label>
                                 <div class="layui-input-block">
                                     <textarea id="msg" name="msg" class="layui-textarea"  placeholder="维护信息"><?php echo ($info["msg"]); ?></textarea>
@@ -117,9 +123,18 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">维护人员</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="serviceName" class="layui-input" autocomplete="off" value="<?php echo ($info["serviceName"]); echo ($info["servicePhone"]); ?>" disabled="disabled">
+                                    <input type="text" name="serviceName" class="layui-input" autocomplete="off" value="<?php echo ($info["servicename"]); echo ($info["servicePhone"]); ?>" disabled="disabled">
                                 </div>
                             </div>
+                            <?php if($info['servicestatus'] == 2 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
+                                <div class="img_label">
+                                    <label>现场照片</label>
+                                </div>
+                                <div id="thumb_view" class="img_item transition">
+                                    <img src="/luomansi/Application/Upload//<?php echo ($info['comimg']); ?>">
+                                    
+                                </div>
+                            </div><?php endif; ?>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">回访状态</label>
                                 <div class="layui-input-block">

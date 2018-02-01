@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <!--
 * @Author: defaultFish
 * @Date:   2017-12-12 00:00:00
@@ -14,20 +14,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="__PLUGS__/layui/css/layui.css">
-    <link rel="stylesheet" href="__CSS__/font-awesome.min.css">
-    <link rel="stylesheet" href="__CSS__/animate.css">
-    <link rel="stylesheet" href="__CSS__/sitecms.css">
-    <script src="__PLUGS__/layui/layui.js"></script>
-    <script src="__PLUGS__/ueditor/ueditor.config.js"></script>
-    <script src="__PLUGS__/ueditor/ueditor.all.js"></script>
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/plugs/layui/css/layui.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/animate.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/sitecms.css">
+    <script src="/luomansi/Application/Admin/Public/plugs/layui/layui.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.config.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.all.js"></script>
     
-    <!-- <script src="__PLUGS__/static/base/js/jquery.cookie.js"></script> -->
-    <script src="__JS__/jquery.min.js"></script>
-    <!-- <script src="__PLUGS__/uploadify/jquery.uploadify.min.js"></script> -->
-    <script src="__JS__/validform.js"></script>
-    <script src="__JS__/sitecms.js"></script>
-    <script src="__PLUGS__/layui/lay/modules/laydate.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/static/base/js/jquery.cookie.js"></script> -->
+    <script src="/luomansi/Application/Admin/Public/js/jquery.min.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/uploadify/jquery.uploadify.min.js"></script> -->
+    <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
+    <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
     
     <!-- <link id="layuicss-layer" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/layer/default/layer.css?v=3.1.0" media="all">
     <link id="layuicss-laydate" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/laydate/default/laydate.css?v=5.0.9" media="all"> -->
@@ -44,7 +44,7 @@
     <div class="layui-tab sc_side_tab" lay-filter="nav">
         <ul class="layui-tab-title">
             <li class="layui-this">
-                <div class="sc_side_manage" style="background-image:url('__IMAGES__/male.png');"></div>
+                <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
                 
             </li>
             <li><span><i class="fa fa-desktop"></i></span>内容管理</li>
@@ -113,11 +113,24 @@
         <div class="sc_body">
         <div class="sc_title sc_body_title">
             <h5>维护管理</h5>
-            <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<{:U('Maintain/add')}>"><i class="layui-icon"></i> 新增</a>        </div>
+            <!-- <div class="sc_title_btn">
+                <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/add');?>"><i class="layui-icon"></i> 新增</a>        </div> -->
         </div>
         <div class="fadeInUp animated">
             <form id="form-list" class="layui-form">
+                <div class="layui-input-inline">
+                    
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" name="start_time" placeholder="起始时间" class="layui-input sc_form_date" readonly="">
+                    </div>
+                    -
+                    <div class="layui-input-inline">
+                        <input type="text" name="end_time" placeholder="结束时间" class="layui-input sc_form_date" readonly="">
+                    </div>
+                </div>
+                <button class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
                 <input type="hidden" name="nid" value="5">
                 <table class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
@@ -150,39 +163,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <{foreach name="info" item="value"}>
-                        <tr>
-                            <td class="layui-elip"><{$value.username}></td>
-                            <td class="layui-elip"><{$value.name}></td>
-                            <td class="layui-elip"><{$value.phone}></td>
-                            <td class="layui-elip"><{$value.address}></td>
-                            <td class="layui-elip"><{$value.goods}></td>
-                            <td class="layui-elip"><{$value.msg}></td>
-                            <td class="layui-elip"><{$value.entime}></td>
-                            <td class="layui-elip"><{$value.saleman}></td>
-                            <td class="layui-elip"><{$value.servicename}></td>
-                            <{if condition="$value.servicestatus eq 0"}>
-                                <td class="layui-elip" style="color:red">未维护</td>
-                            <{elseif condition="$value.servicestatus eq 1" /}>
+                    <?php if(is_array($info)): foreach($info as $key=>$value): ?><tr>
+                            <td class="layui-elip"><?php echo ($value["username"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["name"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["phone"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["address"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["goods"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["msg"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["entime"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["saleman"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["servicename"]); ?></td>
+                            <?php if($value["servicestatus"] == 0): ?><td class="layui-elip" style="color:red">未维护</td>
+                            <?php elseif($value["servicestatus"] == 1): ?>
                                 <td class="layui-elip" style="color:orange">维护中</td>
-                            <{else /}>
-                                <td class="layui-elip" style="color:green">已完成</td>
-                            <{/if}>
-                            <td class="layui-elip"><{$value.serendtime}></td>
+                            <?php else: ?>
+                                <td class="layui-elip" style="color:green">已完成</td><?php endif; ?>
+                            <td class="layui-elip"><?php echo ($value["serendtime"]); ?></td>
                             <td>
-                                <a href="<{:U('Maintain/update?id='.$value['id'])}>" data-title="编辑">编辑</a>
-                                <span class="sc_explode">|</span>
-                                <a class="deleteId" data-confirm="#" value="<{$value.id}>">删除</a>
+                                <a href="<?php echo U('Maintain/update?id='.$value['id']);?>" data-title="编辑">编辑</a>
+                                <span class="sc_explode">
                             </td>
-                        </tr>
-                    <{/foreach}>
+                        </tr><?php endforeach; endif; ?>
                     </tbody>
                 </table>
             </form>
             <div class="layui-clear">
                 <div class="fr">
                     <div class="sc_pages">
-                        <{$page}>
+                        <?php echo ($page); ?>
                     </div>
                 </div>
             </div>
@@ -214,7 +222,7 @@
                 //alert(id);
                 $('.meng00').show();
                 $.ajax({
-                    url : "<{:U('Maintain/del')}>",
+                    url : "<?php echo U('Maintain/del');?>",
                     type : "post",
                     data : {id:id},
                     dataType : "json",

@@ -275,3 +275,45 @@ INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000808s ]
 INFO: [ app_begin ] --END-- [ RunTime:0.001447s ]
 ERR: 非法操作:loginout
 
+[ 2018-02-01T22:04:29+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Login/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000622s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001166s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0042s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'sitecms' LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `saleman_sys_admin` SET `login_num`=login_num+1 WHERE `id` = 1 [ RunTime:0.6074s ]
+
+[ 2018-02-01T22:17:57+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Maintain/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002487s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003043s ]
+SQL: SHOW COLUMNS FROM `saleman_maintain` [ RunTime:0.0053s ]
+SQL: UPDATE `saleman_maintain` SET `name`='张三',`phone`='13546754567',`address`='广州市海珠区',`goods`='',`msg`='锁坏了。',`enTime`='2018-02-01 22:17:57',`status`='1' WHERE ( id=1 ) [ RunTime:0.1722s ]
+
+[ 2018-02-01T22:23:53+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Maintain/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000779s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001334s ]
+SQL: SHOW COLUMNS FROM `saleman_maintain` [ RunTime:0.0244s ]
+SQL: UPDATE `saleman_maintain` SET `name`='张三',`phone`='13546754567',`address`='广州市海珠区',`goods`='',`msg`='锁坏了。',`enTime`='2018-02-01 22:23:52',`serviceStatus`='1',`status`='2' WHERE ( id=1 ) [ RunTime:1.1749s ]
+
+[ 2018-02-01T22:26:23+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Maintain/update.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000749s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001306s ]
+SQL: SHOW COLUMNS FROM `saleman_maintain` [ RunTime:0.0049s ]
+SQL: UPDATE `saleman_maintain` SET `name`='张三',`phone`='13546754567',`address`='广州市海珠区',`goods`='DD1智能锁',`msg`='锁坏了。',`enTime`='2018-02-01 22:26:23',`serviceStatus`='1',`status`='2' WHERE ( id=1 ) [ RunTime:0.1372s ]
+
+[ 2018-02-01T23:51:17+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Admin/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001222s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002236s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0036s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='' ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('','d41d8cd98f00b204e9800998ecf8427e','0','2018-02-01 23:51:16') [ RunTime:0.2505s ]
+
+[ 2018-02-01T23:52:48+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Saleman/add.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000808s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001399s ]
+

@@ -42,6 +42,7 @@ class GoodsController extends Controller {
                 
             } else {
                 $this->display();
+                
             }
         } else {
             $this->error("未登录或未授权",U("Login/index"),1);
@@ -60,6 +61,7 @@ class GoodsController extends Controller {
                     $this->assign('goods',$goods[$id]);
                     $goodsInfo = $Model_data->table('saleman_goods_info')->where('goodsId='.$id)->order('id asc')->getField('id,goodsColor,colorCode,hand,falseLock,status');
                     //var_dump($goodsInfo);
+                    $this->assign('id',$id);
                     $this->assign('info',$goodsInfo);
                     $this->display();
                 } else {
@@ -69,6 +71,28 @@ class GoodsController extends Controller {
             }
         } else {
             $this->error("未登录或未授权",U("Login/index"),1);
+        }
+    }
+
+    public function modelAdd(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+            if (IS_AJAX) {
+
+            } else {
+                if (isset($_GET['id'])) {
+                    $id = intval(I('id'));
+                    $Model_data = M('goods');
+                    $goods = $Model_data->where('id='.$id)->find();
+                    if (!empty($goods)) {
+                        $this->assign('goods',$goods);
+                        $this->display();
+                    } else {
+                        $this->error('查不到产品数据',U('Goods/index'),3);
+                    }
+                } else {
+                    $this->error('查不到产品数据',U('Goods/index'),3);
+                }
+            }
         }
     }
 }

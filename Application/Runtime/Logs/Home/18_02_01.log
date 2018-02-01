@@ -5,3 +5,176 @@ INFO: [ app_begin ] --END-- [ RunTime:0.004888s ]
 SQL: SHOW COLUMNS FROM `saleman_service_admin` [ RunTime:0.0033s ]
 SQL: SELECT * FROM `saleman_service_admin` WHERE `username` = '13555555555' LIMIT 1   [ RunTime:0.0004s ]
 
+[ 2018-02-01T19:08:15+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/serviceAdmin.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000691s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001231s ]
+SQL: SHOW COLUMNS FROM `saleman_service_admin` [ RunTime:0.0699s ]
+SQL: SELECT * FROM `saleman_service_admin` WHERE `username` = '13555555555' LIMIT 1   [ RunTime:0.0013s ]
+
+[ 2018-02-01T19:52:08+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/startService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000768s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001318s ]
+SQL: SHOW COLUMNS FROM `saleman_maintain` [ RunTime:0.0039s ]
+SQL: UPDATE `saleman_maintain` SET `serviceStatus`='1',`serStartTime`='2018-02-01 19:52:08' WHERE `serviceId` = 1 AND `id` = 1 [ RunTime:0.2028s ]
+
+[ 2018-02-01T20:57:42+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000854s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001600s ]
+NOTIC: [2] mkdir() [<a href='function.mkdir'>function.mkdir</a>]: No such file or directory D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 60 行.
+NOTIC: [2] file_put_contents(/luomansi/Application/Upload/) [<a href='function.file-put-contents'>function.file-put-contents</a>]: failed to open stream: No such file or directory D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 65 行.
+
+[ 2018-02-01T20:59:43+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000824s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001386s ]
+NOTIC: [2] mkdir() [<a href='function.mkdir'>function.mkdir</a>]: No such file or directory D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 60 行.
+
+[ 2018-02-01T21:00:55+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001653s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002315s ]
+NOTIC: [2] mkdir() [<a href='function.mkdir'>function.mkdir</a>]: No such file or directory D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 61 行.
+
+[ 2018-02-01T21:02:17+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000869s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001987s ]
+NOTIC: [2] mkdir() [<a href='function.mkdir'>function.mkdir</a>]: No such file or directory D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 61 行.
+
+[ 2018-02-01T21:04:30+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000760s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001830s ]
+
+[ 2018-02-01T21:05:17+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001790s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002425s ]
+
+[ 2018-02-01T21:07:49+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001264s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002323s ]
+
+[ 2018-02-01T21:10:45+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000764s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001384s ]
+
+[ 2018-02-01T21:11:25+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002217s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003922s ]
+
+[ 2018-02-01T21:18:08+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000652s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001280s ]
+
+[ 2018-02-01T21:20:12+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000747s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001417s ]
+
+[ 2018-02-01T21:22:43+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000807s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001403s ]
+
+[ 2018-02-01T21:25:06+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001215s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002147s ]
+
+[ 2018-02-01T21:26:13+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002976s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.004472s ]
+NOTIC: [2] file_put_contents(127.0.0.1/luomansi/Application/Upload/) [<a href='function.file-put-contents'>function.file-put-contents</a>]: failed to open stream: No such file or directory D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 65 行.
+
+[ 2018-02-01T21:27:11+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001491s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002440s ]
+
+[ 2018-02-01T21:28:23+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000627s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001191s ]
+
+[ 2018-02-01T21:28:49+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000822s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001528s ]
+
+[ 2018-02-01T21:30:40+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000840s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001503s ]
+
+[ 2018-02-01T21:31:48+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000977s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001521s ]
+
+[ 2018-02-01T21:33:29+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.003843s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.007702s ]
+NOTIC: [2] mkdir() [<a href='function.mkdir'>function.mkdir</a>]: No such file or directory D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 60 行.
+
+[ 2018-02-01T21:36:44+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000790s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001458s ]
+NOTIC: [8] Use of undefined constant APP_PUSH - assumed 'APP_PUSH' D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 57 行.
+NOTIC: [2] mkdir() [<a href='function.mkdir'>function.mkdir</a>]: No such file or directory D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 60 行.
+
+[ 2018-02-01T21:38:15+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000698s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001308s ]
+NOTIC: [2] file_put_contents(127.0.0.1/luomansi/Application/Upload/) [<a href='function.file-put-contents'>function.file-put-contents</a>]: failed to open stream: No such file or directory D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 62 行.
+
+[ 2018-02-01T21:41:15+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000799s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001377s ]
+NOTIC: [2] file_put_contents(/Application/Upload/maintain/lms_1517492475932.jpg) [<a href='function.file-put-contents'>function.file-put-contents</a>]: failed to open stream: No such file or directory D:\wamp\www\luomansi\Application\Home\Controller\MaintainController.class.php 第 62 行.
+
+[ 2018-02-01T21:41:48+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000889s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001425s ]
+
+[ 2018-02-01T21:45:42+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002473s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003550s ]
+SQL: SHOW COLUMNS FROM `saleman_maintain` [ RunTime:0.0036s ]
+SQL: UPDATE `saleman_maintain` SET `serviceStatus`='2',`comImg`='maintain/lms_1517492742862.jpg',`serEndTime`='2018-02-01 21:45:42' WHERE `serviceId` = 1 AND `id` = 0 [ RunTime:0.0003s ]
+
+[ 2018-02-01T21:47:13+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001890s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003039s ]
+SQL: SHOW COLUMNS FROM `saleman_maintain` [ RunTime:0.0061s ]
+SQL: UPDATE `saleman_maintain` SET `serviceStatus`='2',`comImg`='maintain/lms_1517492833328.jpg',`serEndTime`='2018-02-01 21:47:13' WHERE `serviceId` = 1 AND `id` = 0 [ RunTime:0.0004s ]
+
+[ 2018-02-01T21:48:13+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001099s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002064s ]
+SQL: SHOW COLUMNS FROM `saleman_maintain` [ RunTime:0.0066s ]
+SQL: UPDATE `saleman_maintain` SET `serviceStatus`='2',`comImg`='maintain/lms_1517492893544.jpg',`serEndTime`='2018-02-01 21:48:13' WHERE `serviceId` = 1 AND `id` = 0 [ RunTime:0.0003s ]
+
+[ 2018-02-01T21:51:00+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Maintain/completeService.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001370s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002193s ]
+SQL: SHOW COLUMNS FROM `saleman_maintain` [ RunTime:0.0035s ]
+SQL: UPDATE `saleman_maintain` SET `serviceStatus`='2',`comImg`='maintain/lms_1517493060865.jpg',`serEndTime`='2018-02-01 21:51:00' WHERE `serviceId` = 1 AND `id` = 1 [ RunTime:0.1911s ]
+
