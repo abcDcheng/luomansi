@@ -53,17 +53,16 @@
                 <dl class="layui-nav-child">
 
 				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
-				<dd><a href="#">人员管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
 				<!-- <dd><a href="#">历史订单</a></dd> -->
-				<dd><a href="#">安装管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
-				<dd><a href="#">维护统计</a></dd>
 				<?php } elseif ($group == 2) { ?>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<?php } elseif ($group == 3) { ?>	
-				<dd><a href="#">安装管理</a></dd>
-				<dd><a href="#">安装统计</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
@@ -73,8 +72,8 @@
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
-				<dd><a href="#">安装管理</a></dd>
-				<dd><a href="#">安装统计</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } } ?>
@@ -113,6 +112,7 @@
                     </div>
                 </div>
                 <button id="cx" class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
+                <button id="dl" class="layui-btn layui-btn-danger sc_btn_search">下载</button>
                 <input type="hidden" name="nid" value="5">
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
@@ -247,7 +247,7 @@
                 tableHtml += '<td class="layui-elip">'+order[key]['orderbak']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">';
                 tableHtml += '<span style="color:green">已受理</span>';
                 
-                tableHtml+='</td><td class="layui-elip">'+order[key]['statustime']+'</td><td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a class="deleteId" data-confirm="#" value="'+key+'">下载</a></td></tr>';
+                tableHtml+='</td><td class="layui-elip">'+order[key]['statustime']+'</td><td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a href="/luomansi/index.php/Admin/Order/download/mod/index/id/'+key+'" data-confirm="#" value="'+key+'">下载</a></td></tr>';
                 //<br/><a class="deleteId" data-confirm="#" value="'+key+'">删除</a>
             }
             $('#body').append(tableHtml);
@@ -333,7 +333,7 @@
 
     $('#body').on('click','.orderUpdate',function(){
         var id = $(this).attr('value');
-        window.location.href="/luomansi/index.php/Admin/Order/update/id/"+id;
+        window.location.href="/luomansi/index.php/Admin/Order/update/mod/history/id/"+id;
     });
 
     $('.deleteId').click(function(){
@@ -365,6 +365,15 @@
             });
         }
     });
+    //导出excel
+    $('#dl').click(function(e){
+        e.preventDefault();
+        str = "";
+        str += '&&saleman=' + saleman;
+        str += '&&firsttime=' + firsttime;
+        str += '&&lasttime=' + lasttime;
+        window.location.href="/luomansi/index.php/Admin/Order/download?mod=history"+str;
+    }); 
     });
 </script>
 </html>

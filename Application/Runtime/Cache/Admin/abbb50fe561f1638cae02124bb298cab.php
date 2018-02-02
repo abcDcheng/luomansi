@@ -53,11 +53,10 @@
                 <dl class="layui-nav-child">
 
 				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
-				<dd><a href="#">人员管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
 				<!-- <dd><a href="#">历史订单</a></dd> -->
-				<dd><a href="#">安装管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
-				<dd><a href="#">维护统计</a></dd>
 				<?php } elseif ($group == 2) { ?>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
@@ -245,7 +244,7 @@
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
                 tableHtml += '<td class="layui-elip">'+order[key]['msg']+'</td>';
-                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a class="deleteId" data-confirm="#" value="'+key+'">下载</a></td></tr>';
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a href="/luomansi/index.php/Admin/Install/download/mod/index/id/'+key+'" class="download" data-confirm="#" value="'+key+'">下载</a></td></tr>';
             }
             $('#body').append(tableHtml);
             var val=parseInt(data['page']);

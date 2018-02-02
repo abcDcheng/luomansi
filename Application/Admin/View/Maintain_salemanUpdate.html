@@ -33,7 +33,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>siteCMS站点管理框架</title>
+    <title>维护管理</title>
 </head>
 <body>
 
@@ -45,7 +45,7 @@
         <div class="sc_body">
             <form action="<{:U('Maintain/salemanUpdate')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>详情页</h5>
+                    <h5>维护管理</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Maintain/salemanIndex')}>"><i class="layui-icon">&#x1006;</i> 返回</a>
@@ -56,31 +56,31 @@
                         <div class="sc_editor_content">
                             <input name="id" type="hidden" value="<{$info.id}>" />
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">创建人员</label>
+                                <label class="layui-form-label">创建人员</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="username" class="layui-input" autocomplete="off" value="<{$info.username}>" disabled="disabled">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">客户姓名</label>
+                                <label class="layui-form-label">客户姓名</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名"  value="<{$info.name}>" disabled="disabled">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">联系方式</label>
+                                <label class="layui-form-label">联系方式</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="phone" class="layui-input" autocomplete="off" value="<{$info.phone}>" disabled="disabled">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">详细地址</label>
+                                <label class="layui-form-label">详细地址</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="address" class="layui-input" autocomplete="off" value="<{$info.address}>" disabled="disabled">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">维护信息</label>
+                                <label class="layui-form-label">维护信息</label>
                                 <div class="layui-input-block">
                                     <textarea id="msg" name="msg" class="layui-textarea"  placeholder="维护信息" disabled="disabled"><{$info.msg}></textarea>
                                 </div>
@@ -97,6 +97,28 @@
                                 </div>
                                 <input name="oldServicer" type="hidden" value="<{$info.serviceid}>">
                             </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">回访状态</label>
+                                <div class="layui-input-block">
+                                <{if condition="$info.status eq 2"}>
+                                    <input type="text" name="status" class="layui-input" autocomplete="off" value="服务异常" disabled="disabled">
+                                <{else if condition="$info.status eq 1"}>
+                                <input type="text" name="status" class="layui-input" autocomplete="off" value="已回访" disabled="disabled">
+                                <{else /}>
+                                <input type="text" name="status" class="layui-input" autocomplete="off" value="已回访" disabled="disabled">
+                                <{/if}>
+                                </div>
+                            </div>
+                            <{if condition="$info['servicestatus'] eq 2 and $info['comimg'] neq ''"}>
+                            <div class="layui-form-item from_item_image">
+                                <div class="img_label">
+                                    <label>现场照片</label>
+                                </div>
+                                <div id="thumb_view" class="img_item transition">
+                                    <img src="__UPLOADS__/<{$info['comimg']}>">
+                                </div>
+                            </div>
+                            <{/if}>
                         </div>
                     </section>
                 </div>

@@ -23,11 +23,20 @@ class LoginController extends Controller {
     }
 
     public function installLogin() {
-        $this->display();
+        if (isset($_SESSION['service_id'])) {
+            redirect(U("Install/index"));
+        } else {
+            $this->display();
+        }
+        
     }
 
     public function maintainLogin() {
-        $this->display();
+        if (isset($_SESSION['service_id'])) {
+            redirect(U("Maintain/index"));
+        } else {
+            $this->display();
+        }
     }
 
     public function serviceAdmin() {

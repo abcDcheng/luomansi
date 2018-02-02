@@ -36,7 +36,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>代理商账号管理</title>
+    <title>下属员工管理</title>
 </head>
 <body>
 
@@ -47,27 +47,10 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
-            <h5>代理商账号管理</h5>
+            <h5>下属员工管理</h5>
             <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<{:U('Saleman/add')}>"><i class="layui-icon"></i> 新增</a>        </div>
+                <a class="layui-btn layui-btn-sm" href="<{:U('Saleman/staffAdd')}>"><i class="layui-icon"></i> 新增</a>        </div>
         </div>
-<!--         <div class="sc_search layui-clear">
-    <form method="get" action="/page/index.html?spm=m-1-5" class="layui-form sc_search_form">
-        <div class="layui-input-inline">
-            <input type="text" name="keyword" placeholder="请输入标题名称" value="" class="layui-input">
-        </div>
-        <div class="layui-inline">
-            <div class="layui-input-inline">
-                <input type="text" name="start_time" placeholder="起始时间" value="" class="layui-input sc_form_date" readonly="" lay-key="1">
-            </div>
-            -
-            <div class="layui-input-inline">
-                <input type="text" name="end_time" placeholder="结束时间" value="" class="layui-input sc_form_date" readonly="" lay-key="2">
-            </div>
-        </div>
-        <button class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
-    </form>
-</div> -->
         <div class="fadeInUp animated">
             <form id="form-list" class="layui-form">
                 <input type="hidden" name="nid" value="5">
@@ -77,15 +60,14 @@
                         <col>
                         <col>
                         <col>
-                        <col width="160">
-                        <col width="150">
+                        <col>
+                        <col>
                     </colgroup>
                     <thead>
                         <tr>
-                            <!-- <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" class="list-check-box"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></th> -->
                             <th>账号</th>
                             <th>姓名</th>
-                            <th>联系方式</th>
+                            <th>身份证</th>
                             <th>状态</th>
                             <th>创建时间</th>
                             <th>操作</th>
@@ -94,36 +76,25 @@
                     <tbody>
                     <{foreach name="info" item="value"}>
                         <tr>
-                            <!-- <td>
-                                <input type="checkbox" name="id[]" value="<{$value.id}>" lay-skin="primary" class="list-check-box">
-                                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
-                            </td> -->
                             <td class="layui-elip"><{$value.username}></td>
                             <td class="layui-elip"><{$value.name}></td>
-                            <td class="layui-elip"><{$value.phone}></td>
-                            <{if condition="$value.is_status eq 1"}>
+                            <td class="layui-elip"><{$value.idcard}></td>
+                            <{if condition="$value.status eq 1"}>
                                 <td class="layui-elip" style="color:green">使用中</td>
                             <{else /}>
                                 <td class="layui-elip" style="color:red">禁用</td>
                             <{/if}>
-                            <td><{$value.createtime}></td>
+                            <td><{$value.entime}></td>
                             <td>
-                                <a href="<{:U('Saleman/update?id='.$value['id'])}>" data-title="编辑">编辑</a>
+                                <a href="<{:U('Saleman/staffUpdate?id='.$value['id'])}>" data-title="编辑">编辑</a>
                                 <span class="sc_explode">|</span>
-                                <a data-confirm="#">删除</a>
+                                <a class="deleteId" data-confirm="#" value="<{$value.id}>">删除</a>
                             </td>
                         </tr>
                     <{/foreach}>
                     </tbody>
                 </table>
             </form>
-            <div class="layui-clear">
-                <div class="fr">
-                    <div class="sc_pages">
-                        <{$page}>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <script>
@@ -135,13 +106,24 @@
                 ,type: 'datetime'
             });
         });
+
+    });
+    
+    </script>
+    </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+    $(function(){
         $('.deleteId').click(function(){
             if (confirm('确定删除该账户吗？')) {
                 var id = $(this).attr('value');
                 //alert(id);
                 $('.meng00').show();
                 $.ajax({
-                    url : "<{:U('Saleman/del')}>",
+                    url : "<{:U('Saleman/staffDel')}>",
                     type : "post",
                     data : {id:id},
                     dataType : "json",
@@ -164,31 +146,6 @@
                 });
             }
         });
-        // layui.form.on('checkbox(allChoose)', function(data){
-        //     var child = $(data.elem).parents('table').find('input[type="checkbox"]');
-        //     child.each(function(index, item){
-        //         item.checked = data.elem.checked;
-        //     });
-        //     if ($('.layui-table').find('.list-check-box').is(':checked')) {
-        //         $('.sc_search').hide(300,function(){$('.sc_mobile').show(300);});
-        //     } else {
-        //         $('.sc_mobile').hide(300,function(){$('.sc_search').show(300);});
-        //     };
-        //     layui.form.render('checkbox');
-        // });
-        // $('.sc_mobile').hide();
-        // layui.form.on('checkbox', function(data){
-        //     if ($('.layui-table').find('.list-check-box').is(':checked')) {
-        //         $('.sc_search').hide(300,function(){$('.sc_mobile').show(300);});
-        //     } else {
-        //         $('.sc_mobile').hide(300,function(){$('.sc_search').show(300);});
-        //     };
-        // });
     });
-    
-    </script>
-    </div>
-    </div>
-</div>
-</body>
+</script>
 </html>

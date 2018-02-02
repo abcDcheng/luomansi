@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <!--
 * @Author: defaultFish
 * @Date:   2017-12-12 00:00:00
@@ -14,42 +14,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="__PLUGS__/layui/css/layui.css">
-    <link rel="stylesheet" href="__CSS__/font-awesome.min.css">
-    <link rel="stylesheet" href="__CSS__/animate.css">
-    <link rel="stylesheet" href="__CSS__/sitecms.css">
-    <script src="__PLUGS__/layui/layui.js"></script>
-    <script src="__PLUGS__/ueditor/ueditor.config.js"></script>
-    <script src="__PLUGS__/ueditor/ueditor.all.js"></script>
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/plugs/layui/css/layui.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/animate.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/sitecms.css">
+    <script src="/luomansi/Application/Admin/Public/plugs/layui/layui.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.config.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.all.js"></script>
     
-    <!-- <script src="__PLUGS__/static/base/js/jquery.cookie.js"></script> -->
-    <script src="__JS__/jquery.min.js"></script>
-    <!-- <script src="__PLUGS__/uploadify/jquery.uploadify.min.js"></script> -->
-    <script src="__JS__/validform.js"></script>
-    <script src="__JS__/sitecms.js"></script>
-    <script src="__PLUGS__/layui/lay/modules/laydate.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/static/base/js/jquery.cookie.js"></script> -->
+    <script src="/luomansi/Application/Admin/Public/js/jquery.min.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/uploadify/jquery.uploadify.min.js"></script> -->
+    <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
+    <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
     
     <!-- <link id="layuicss-layer" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/layer/default/layer.css?v=3.1.0" media="all">
     <link id="layuicss-laydate" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/laydate/default/laydate.css?v=5.0.9" media="all"> -->
     <!-- 让IE8/9支持媒体查询 -->
-    <!--[if lt IE 9]>
-        <script src="./js/html5shiv.min.js"></script>
-        <script src="./js/respond.min.js"></script>
-    <![endif]-->
-    <title>维护管理</title>
+	<!--[if lt IE 9]>
+		<script src="./js/html5shiv.min.js"></script>
+		<script src="./js/respond.min.js"></script>
+	<![endif]-->
+    <title>新用户管理</title>
 </head>
 <body>
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    <{include file="Menu:index" /}>
+    
+    <ul class="layui-tab-title">
+        <li class="layui-this">
+            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            
+        </li>
+        <dl class="layui-nav layui-nav-tree sc_side_more">
+            <dd class="layui-nav-item layui-nav-itemed">
+                <dl class="layui-nav-child">
+
+				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
+				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
+				<!-- <dd><a href="#">历史订单</a></dd> -->
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
+				<?php } elseif ($group == 2) { ?>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
+				<?php } elseif ($group == 3) { ?>	
+				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
+				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
+				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
+				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
+				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<?php } } ?>
+				<dd><a href="<?php echo U('Index/pwd');?>">密码修改</a></dd>
+				<dd><a id="loginout" href="<?php echo U('Index/loginout');?>">退出登录</a></dd>
+                </dl> 
+            </dd>
+        </dl>
+    </ul>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
-            <h5>维护管理</h5>
+            <h5>新用户管理</h5>
             <!-- <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<{:U('Maintain/add')}>"><i class="layui-icon"></i> 新增</a>        </div> -->
+                <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/add');?>"><i class="layui-icon"></i> 新增</a>        </div> -->
         </div>
         <div class="fadeInUp animated">
             <div id="form-list" class="layui-form">
@@ -57,14 +97,7 @@
                     
                 </div>
                 <div class="layui-inline">
-                    <div class="layui-input-inline">
-                        <select name="saleman" id="saleman">
-                            <option value="">选择代理商</option>
-                            <{foreach name="saleman" item="value" }>
-                            <option value="<{$value.salemanid}>"><{$value.saleman}>(<{$value.salemanphone}>)</option>
-                            <{/foreach}>
-                        </select>
-                    </div>
+                    
                     <div class="layui-input-inline">
                         <input id="firsttime" type="text" name="start_time" placeholder="起始时间" value="" class="layui-input sc_form_date" readonly="">
                     </div>
@@ -77,31 +110,28 @@
                 <input type="hidden" name="nid" value="5">
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
-                        <col width="80">
                         <col width="100">
-                        <col width="150">
+                        <col width="100">
+                        <col width="100">
                         <col width="100">
                         <col>
-                        <col width="150">
-                        <col width="100">
-                        <col width="100">
-                        <col width="100">
-                        <col width="100">
-                        <col width="60">
+                        <col>
+                        <col>
+                        <col>
+                        <col>
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>客户姓名</th>
+                            <th>安装人员</th>
+                            <th>手机</th>
+                            <th>新用户姓名</th>
                             <th>联系方式</th>
+                            <th>地区</th>
                             <th>详细地址</th>
-                            <th>维护产品</th>
-                            <th>维护信息</th>
-                            <th>创建时间</th>
-                            <th>负责代理商</th>
-                            <th>维护人员</th>
-                            <th>维护状态</th>
-                            <th>回访状态</th>
-                            <th>操作</th>
+                            <th>完成时间</th>
+                            <th>状态</th>
+                            <!-- <th>回访时间</th> -->
+                            <th>信息反馈</th>
                         </tr>
                     </thead>
                     <tbody id="body">
@@ -183,7 +213,7 @@
         //contentType:false,
         type: "post",
         timeout:5000,//设置超时时间为5秒
-        url: "<{:U('Maintain/index')}>",
+        url: "<?php echo U('Saleman/installIndex');?>",
         data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page},
         dataType: "json",
         success:function(data){
@@ -197,23 +227,15 @@
             var tableHtml = '';
             var order = data['order'];
             for(key in order){
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip">'+order[key]['msg']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['servicename']+'</td>';
+                tableHtml += '<tr><td class="layui-elip">'+order[key]['sername']+'</td><td class="layui-elip">'+order[key]['serphone']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['area']+'</td><td class="layui-elip">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['entime']+'</td>';
                 
-                if (parseInt(order[key]['servicestatus']) == 2) {
-                    tableHtml += '<td class="layui-elip"><span style="color:green">已维护</span></td>';
-                } else if (parseInt(order[key]['servicestatus']) == 1) {
-                    tableHtml += '<td class="layui-elip"><span style="color:orange">维护中</span></td>';
-                } else {
-                    tableHtml += '<td class="layui-elip"><span style="color:red">未维护</span></td>';
-                }
-                if (parseInt(order[key]['status']) == 2) {
-                    tableHtml += '<td class="layui-elip"><span style="color:red">服务异常</span></td>';
-                } else if (parseInt(order[key]['status']) == 1) {
-                    tableHtml += '<td class="layui-elip"><span style="color:green">已完成</span></td>';
+                if (parseInt(order[key]['status'])) {
+                    tableHtml += '<td class="layui-elip"><span style="color:green">已回访</span></td>';
                 } else {
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
-                tableHtml+='<td><a class="maintainUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><a class="maintaindel" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
+                tableHtml += '<td class="layui-elip">'+order[key]['msg']+'</td>';
+                
             }
             $('#body').append(tableHtml);
             var val=parseInt(data['page']);
@@ -296,40 +318,7 @@
     }
     fenye(1);
 
-    $('#body').on('click','.maintainUpdate',function(){
-        var id = $(this).attr('value');
-        window.location.href="/luomansi/index.php/Admin/Maintain/update/mod/index/id/"+id;
-    });
 
-    $('#body').on('click','maintaindel',function(){
-        if (confirm('确定删除该数据吗？')) {
-            var id = $(this).attr('value');
-            //alert(id);
-            $('.meng00').show();
-            $.ajax({
-                url : "<{:U('Maintain/del')}>",
-                type : "post",
-                data : {id:id},
-                dataType : "json",
-                timeout : 10000,
-                success : function(data){
-                    $('.meng00').hide();
-                    if (data.code == 1) {
-                        alert('删除成功');
-                        window.location.reload();
-                    } else {
-                        alert(data.msg);
-                    }
-                },
-                error : function(data){
-                    $('.meng00').hide();
-                    if (data.status == 'timeout') {
-                        alert('连接超时，请重试');
-                    }
-                }
-            });
-        }
-    });
     });
 </script>
 </html>

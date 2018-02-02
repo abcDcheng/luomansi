@@ -27,13 +27,13 @@
     <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
     <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
-    <!-- <script src="/luomansi/Application/Admin/Public/js/jquery.photoClip.min.js"></script> -->
+
     <!-- 让IE8/9支持媒体查询 -->
 	<!--[if lt IE 9]>
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>新增产品</title>
+    <title>新增员工</title>
 </head>
 <body>
 
@@ -52,8 +52,9 @@
 				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
 				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
 				<!-- <dd><a href="#">历史订单</a></dd> -->
-				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
+				<dd><a href="#">安装管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
+				<dd><a href="#">维护统计</a></dd>
 				<?php } elseif ($group == 2) { ?>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
@@ -83,53 +84,46 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<?php echo U('Goods/goodsAdd');?>" id="form" class="layui-form layui-form-pane" enctype="multipart/form-data">
+            <form action="<?php echo U('Saleman/staffAdd');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>新增产品</h5>
+                    <h5>新增员工</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Goods/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Saleman/staff');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
-                        <input type="hidden" name="id" value="<?php echo ($goods["id"]); ?>">
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">产品名</label>
+                                <label class="layui-form-label label-required">用户名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goodsname" class="layui-input" autocomplete="off" placeholder="产品名" datatype="s1-16" errormsg="产品名至少1个字符!" nullmsg="请输入产品名!">
+                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">产品图片</label>
+                                <label class="layui-form-label label-required">密码</label>
                                 <div class="layui-input-block">
-                                    <button type="button" class="layui-btn" id="test1">
-                                      <i class="layui-icon">&#xe67c;</i>上传图片
-                                    </button>
-                                    <span id="phototext"></span>
-                                    <input id="photo" type="hidden" name="photo"/>
+                                    <input id="pwd" type="password" name="pwd" placeholder="密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">下拉手</label>
+                                <label class="layui-form-label label-required">确认密码</label>
                                 <div class="layui-input-block">
-                                    <input name="hand" type="radio" value="1" title="有" checked="checked"/>
-                                    <input name="hand" type="radio" value="0" title="无"/>
+                                    <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">假锁</label>
+                                <label class="layui-form-label label-required">姓名</label>
                                 <div class="layui-input-block">
-                                    <input name="falseLock" type="radio" value="1" title="有" checked="checked"/>
-                                    <input name="falseLock" type="radio" value="0" title="无"/>
+                                    <input type="text" name="name" placeholder="姓名" class="layui-input" autocomplete="off" datatype="*1-10" errormsg="请输入正确姓名" nullmsg="请输入姓名!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label label-required">身份证</label>
                                 <div class="layui-input-block">
-                                    注：这里的下拉手和假锁选项表示产品是否具有该属性，若选择“无”则代理商下单时不会显示该属性。
+                                    <input id="idcard" type="text" name="IDcard" placeholder="身份证" class="layui-input" autocomplete="off" datatype="*18-18" errormsg="请输入正确身份证" nullmsg="请输入身份证!">
                                 </div>
-                                
                             </div>
                         </div>
                     </section>
@@ -140,42 +134,32 @@
 </div>
 <script>
     UE.getEditor('content');
-$(function(){
-    //$('.colpick').css('z-index',9999);
+
     $('#save').click(function(){
-        var photo = $('#photo').val();
-        if (!photo) {
-            alert('请上传图片');
+        var pwd = $('#pwd').val();
+        var repwd = $('#repwd').val();
+        var name=$.trim($('#username').val());
+        var idcard = $.trim($('#idcard').val());
+        if(name){
+            //判断手机格式
+            if(!(/^1[0-9]\d{9,9}$/.test(name))){ 
+                alert('用户名必须为手机号');
+                return false;
+            }
+        }else{
+            alert("请输入您的手机号码");
+            return false;
+        }
+        if (pwd != repwd) {
+            alert('两次输入的密码不一致');
+            return false;
+        }
+        //判断身份证格式
+        if(!(/^\d{17}[0-9X]$/.test(idcard))){ 
+            alert('身份证号不正确');
             return false;
         }
     });
-    layui.use('upload', function(){
-      var upload = layui.upload;
-       
-      //执行实例
-      var uploadInst = upload.render({
-        elem: '#test1' //绑定元素
-        ,url: '<?php echo U('Goods/photoUpload');?>' //上传接口
-        ,before: function(res,index,upload){
-          //上传完毕回调
-          $('#phototext').text('文件上传中...').css('color','black');;
-        }
-        ,done: function(res,index,upload){
-            //上传完毕回调
-            if (res.code == 1) {
-                $('#phototext').text('文件上传成功！').css('color','green');
-                $('#photo').val("goods/"+res.savepath+res.savename);
-            } else {
-                $('#phototext').text('文件上传失败！').css('color','red');
-            }
-        }
-        ,error: function(){
-          //请求异常回调
-        }
-      });
-    });
-});
-    
 </script>
 </body>
 </html>

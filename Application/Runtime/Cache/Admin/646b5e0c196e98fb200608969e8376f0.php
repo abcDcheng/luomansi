@@ -53,32 +53,31 @@
                 <dl class="layui-nav-child">
 
 				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
-				<dd><a href="#">人员管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
 				<!-- <dd><a href="#">历史订单</a></dd> -->
-				<dd><a href="#">安装管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
-				<dd><a href="#">维护统计</a></dd>
 				<?php } elseif ($group == 2) { ?>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
-				<dd><a href="<?php echo U('Order/index');?>">历史订单</a></dd>
+				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<?php } elseif ($group == 3) { ?>	
-				<dd><a href="#">安装管理</a></dd>
-				<dd><a href="#">安装统计</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
-				<dd><a href="<?php echo U('Saleman/service');?>">代理商人员</a></dd>
+				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
-				<dd><a href="<?php echo U('Order/index');?>">历史订单</a></dd>
-				<dd><a href="#">安装管理</a></dd>
-				<dd><a href="#">安装统计</a></dd>
+				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } } ?>
-				<dd><a href="#">密码修改</a></dd>
+				<dd><a href="<?php echo U('Index/pwd');?>">密码修改</a></dd>
 				<dd><a id="loginout" href="<?php echo U('Index/loginout');?>">退出登录</a></dd>
                 </dl> 
             </dd>
@@ -122,7 +121,7 @@
                                 <td class="layui-elip" style="color:red">已下架</td><?php endif; ?>
                             <td><a href="<?php echo U('Goods/goodsModel?id='.$value['id']);?>">查看规格</a></td>
                             <td>
-                                <a href="<?php echo U('Goods/update?id='.$value['id']);?>" data-title="编辑">编辑</a>
+                                <a href="<?php echo U('Goods/goodsUpdate?id='.$value['id']);?>" data-title="编辑">编辑</a>
                                 <span class="sc_explode">|</span>
                                 <a class="deleteId" data-confirm="#" value="<?php echo ($value["id"]); ?>">删除</a>
                             </td>

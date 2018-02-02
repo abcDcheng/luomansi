@@ -33,7 +33,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>后台专员信息修改</title>
+    <title>员工信息更新</title>
 </head>
 <body>
 
@@ -43,12 +43,12 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<{:U('Admin/update')}>" id="form" class="layui-form layui-form-pane">
+            <form action="<{:U('Saleman/staffUpdate')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>专员信息修改</h5>
+                    <h5>员工信息更新</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Admin/index')}>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Saleman/staff')}>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
@@ -58,28 +58,37 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">用户名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="username" class="layui-input" autocomplete="off" value="<{$info['username']}>" disabled='disabled'/>
+                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!" value="<{$info.username}>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label">重置密码</label>
+                                <label class="layui-form-label">密码</label>
                                 <div class="layui-input-block">
-                                    <input name="repwd" type="checkbox" value="1">(不重置密码则不必勾选此项，若重置则默认密码为123456，再由改账户人员自行修改)
+                                    <input id="pwd" type="password" name="pwd" placeholder="密码" class="layui-input" autocomplete="off" >
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">类别</label>
+                                <label class="layui-form-label">确认密码</label>
                                 <div class="layui-input-block">
-                                    <select id="group" name="group" class="layui-select">
-                                        <option value="2">订单专员</option>
-                                        <option value="3">客服专员</option>
-                                    </select>
+                                    <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">姓名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="name" placeholder="姓名" class="layui-input" autocomplete="off" datatype="*1-10" errormsg="请输入正确姓名" nullmsg="请输入姓名!" value="<{$info.name}>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">身份证</label>
+                                <div class="layui-input-block">
+                                    <input id="idcard" type="text" name="IDcard" placeholder="身份证" class="layui-input" autocomplete="off" datatype="*18-18" errormsg="请输入正确身份证" nullmsg="请输入身份证!" value="<{$info.idcard}>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">状态</label>
                                 <div class="layui-input-block">
-                                    <{if condition="$info['is_status'] eq 1"}>
+                                    <{if condition="$info['status'] eq 1"}>
                                     <input name="status" type="radio" value="1" title="使用中" checked="checked"/>
                                     <input name="status" type="radio" value="0" title="禁用"/>
                                     <{else /}>
@@ -87,6 +96,11 @@
                                     <input name="status" type="radio" value="0" title="禁用" checked="checked"/>
                                     <{/if}>
                                 </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block" style="color: red">
+                            注：若不修改密码则不需填密码框。
+                            </div>
                             </div>
                         </div>
                     </section>
@@ -97,11 +111,35 @@
 </div>
 <script>
     UE.getEditor('content');
-    $(function(){
-        var group = parseInt(<{$info['group']}>);
-        $('#group').val(group);
+
+    $('#save').click(function(){
+        var pwd = $('#pwd').val();
+        var repwd = $('#repwd').val();
+        var name=$.trim($('#username').val());
+        var idcard = $.trim($('#idcard').val());
+        if(name){
+            //判断手机格式
+            if(!(/^1[0-9]\d{9,9}$/.test(name))){ 
+                alert('用户名必须为手机号');
+                return false;
+            }
+        }else{
+            alert("请输入您的手机号码");
+            return false;
+        }
+        if (pwd || repwd) {
+            if (pwd != repwd) {
+                alert('两次输入的密码不一致');
+                return false;
+            }
+        }
+        
+        //判断身份证格式
+        if(!(/^\d{17}[0-9X]$/.test(idcard))){ 
+            alert('身份证号不正确');
+            return false;
+        }
     });
-    
 </script>
 </body>
 </html>

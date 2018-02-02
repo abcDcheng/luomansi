@@ -27,19 +27,20 @@
     <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
     <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
-    <!-- <script src="/luomansi/Application/Admin/Public/js/jquery.photoClip.min.js"></script> -->
+    <script src="/luomansi/Application/Admin/Public/js/colpick.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/colpick.css" type="text/css"/>
     <!-- 让IE8/9支持媒体查询 -->
 	<!--[if lt IE 9]>
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>新增产品</title>
+    <title><?php echo ($goods["goodsname"]); ?>规格添加</title>
 </head>
 <body>
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+        
     <ul class="layui-tab-title">
         <li class="layui-this">
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
@@ -83,53 +84,65 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<?php echo U('Goods/goodsAdd');?>" id="form" class="layui-form layui-form-pane" enctype="multipart/form-data">
+            <form action="<?php echo U('Goods/modelAdd');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>新增产品</h5>
+                    <h5><?php echo ($goods["goodsname"]); ?>规格添加</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Goods/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Goods/goodsmodel?id='.$goods['id']);?>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
-                        <input type="hidden" name="id" value="<?php echo ($goods["id"]); ?>">
+                            <input type="hidden" name="id" value="<?php echo ($goods["id"]); ?>">
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goodsname" class="layui-input" autocomplete="off" placeholder="产品名" datatype="s1-16" errormsg="产品名至少1个字符!" nullmsg="请输入产品名!">
+                                    <input type="text" name="goodsname" class="layui-input" autocomplete="off" value="<?php echo ($goods["goodsname"]); ?>" disabled="disabled">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">产品图片</label>
+                                <label class="layui-form-label label-required">颜色</label>
                                 <div class="layui-input-block">
-                                    <button type="button" class="layui-btn" id="test1">
-                                      <i class="layui-icon">&#xe67c;</i>上传图片
-                                    </button>
-                                    <span id="phototext"></span>
-                                    <input id="photo" type="hidden" name="photo"/>
-                                </div>
+                                    <input type="text" name="color" class="layui-input" autocomplete="off" placeholder="颜色" datatype="s1-16" errormsg="颜色名至少1个字符!" nullmsg="请输入颜色名!">
+                              </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label label-required">颜色代码</label>
+                                <div class="layui-input-block">
+                                    <input id="colorCode" type="text" name="colorCode" class="layui-input" autocomplete="off" placeholder="颜色代码">
+                                    <input id="picker" type="button" name="colpick" value="选取颜色"/>
+                              </div>
+                            </div>
+                            <?php if($goods["hashand"] == 1): ?><div class="layui-form-item">
                                 <label class="layui-form-label label-required">下拉手</label>
                                 <div class="layui-input-block">
                                     <input name="hand" type="radio" value="1" title="有" checked="checked"/>
                                     <input name="hand" type="radio" value="0" title="无"/>
                                 </div>
                             </div>
-                            <div class="layui-form-item">
+                            <?php else: ?>
+                            <input type="hidden" name="hand" value="0"><?php endif; ?>
+                            <?php if($goods["haslock"] == 1): ?><div class="layui-form-item">
                                 <label class="layui-form-label label-required">假锁</label>
                                 <div class="layui-input-block">
                                     <input name="falseLock" type="radio" value="1" title="有" checked="checked"/>
                                     <input name="falseLock" type="radio" value="0" title="无"/>
                                 </div>
                             </div>
+                            <?php else: ?>
+                            <input type="hidden" name="falseLock" value="0"><?php endif; ?>
                             <div class="layui-form-item">
+                                <label class="layui-form-label">代理商权限</label>
                                 <div class="layui-input-block">
-                                    注：这里的下拉手和假锁选项表示产品是否具有该属性，若选择“无”则代理商下单时不会显示该属性。
+                                      <input lay-filter="allChoose" name="allChoose" type="checkbox" checked="checked" class="list-check-box" value="1" level="1"/>
+                                      <span style="font-weight: bold;">全选</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                      <input class="gBtn" type="button" value="展开">
                                 </div>
-                                
+                                <div class="layui-input-block salemanBlock" style="display: none;margin-left: 150px;">
+                                    <?php if(is_array($saleman)): foreach($saleman as $key=>$salemanInfo): ?><input name="saleman[]" type="checkbox" checked="checked" value="<?php echo ($salemanInfo['id']); ?>" class="list-check-box" level="2"/><?php echo ($salemanInfo['name']); ?>(<?php echo ($salemanInfo['phone']); ?>)<br/><?php endforeach; endif; ?>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -141,38 +154,58 @@
 <script>
     UE.getEditor('content');
 $(function(){
-    //$('.colpick').css('z-index',9999);
-    $('#save').click(function(){
-        var photo = $('#photo').val();
-        if (!photo) {
-            alert('请上传图片');
-            return false;
+    $('#picker').colpick({
+        onSubmit:function(hsb,hex,rgb,el){
+            $('#colorCode').val('#'+hex);
         }
     });
-    layui.use('upload', function(){
-      var upload = layui.upload;
-       
-      //执行实例
-      var uploadInst = upload.render({
-        elem: '#test1' //绑定元素
-        ,url: '<?php echo U('Goods/photoUpload');?>' //上传接口
-        ,before: function(res,index,upload){
-          //上传完毕回调
-          $('#phototext').text('文件上传中...').css('color','black');;
+    $('.colpick').css('z-index',9999);
+    $('.gBtn').click(function(){
+
+        var text = $(this).val();
+        if (text == '展开') {
+            $(this).val('收起');
+            $('.salemanBlock').slideDown(100);
+        } else {
+            $(this).val('展开');
+            $('.salemanBlock').slideUp(100);
         }
-        ,done: function(res,index,upload){
-            //上传完毕回调
-            if (res.code == 1) {
-                $('#phototext').text('文件上传成功！').css('color','green');
-                $('#photo').val("goods/"+res.savepath+res.savename);
-            } else {
-                $('#phototext').text('文件上传失败！').css('color','red');
+        
+    });
+
+    layui.use(['layer', 'form'], function(){
+        var form = layui.form;
+        form.on('checkbox', function(data){
+            if ($(data.elem).attr('level') == 1) {
+                var child = $(data.elem).parents().siblings('.salemanBlock').find('input[type="checkbox"]');
+                child.each(function(index, item){
+                    item.checked = data.elem.checked;
+                });
+            } else if ($(data.elem).attr('level') == 2) {
+                var parent = $(data.elem).parent().prev().find('input[type="checkbox"]');
+                if (data.elem.checked) {
+                    parent.each(function(index, item){
+                        item.checked = data.elem.checked;
+                    });
+                } else {
+                    var tmp = 0;
+                    $(data.elem).siblings('input[type="checkbox"]').each(function(index, item){
+                        console.log(item.checked);
+                        if (item.checked) {
+                            tmp = 1;
+                        }
+                    });
+                    if (!tmp) {
+                        parent.each(function(index, item){
+                            item.checked = data.elem.checked;
+                        });
+                    }
+                }
             }
-        }
-        ,error: function(){
-          //请求异常回调
-        }
-      });
+            
+            
+            layui.form.render('checkbox');
+        });
     });
 });
     

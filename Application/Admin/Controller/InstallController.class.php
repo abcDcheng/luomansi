@@ -2,6 +2,7 @@
 namespace Admin\Controller;
 use Think\Controller;
 class InstallController extends Controller {
+    //安装管理页
     public function index(){
     	if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
             if (IS_AJAX) {
@@ -56,6 +57,7 @@ class InstallController extends Controller {
     	}
     }
 
+    //安装回访更新
     public function update(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
             if (isset($_REQUEST['mod'])) {
@@ -111,6 +113,7 @@ class InstallController extends Controller {
         }
     }
 
+    //安装统计
     public function history(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
             if (IS_AJAX) {
@@ -163,5 +166,102 @@ class InstallController extends Controller {
         } else {
             $this->error("未登录或未授权",U("Login/index"),1);
         }     
+    }
+
+    //导出
+    public function download(){
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
+            import("Org.Util.PHPExcel");
+            import("Org.Util.PHPExcel.Writer.Excel5");
+            import("Org.Util.PHPExcel.IOFactory.php");
+            
+            if (isset($_GET['id'])) {
+                $csql = '1 ';
+                $id = intval(I('id'));
+                $csql .= ' and id='.$id;
+            } else {
+                $csql = 'status = 1 ';
+                if(isset($_GET['saleman'])){
+                    $saleman=intval($_GET['saleman']);
+                    if($saleman){
+                        $csql.="and salemanId='$saleman' ";
+                    }
+                }
+                if(isset($_GET['firsttime'])){
+                    $firsttime=$_GET['firsttime'];
+                    if($firsttime){
+                        $firsttime=str_replace(".", "-", $firsttime);
+                        $csql.="and enTime>='$firsttime' ";
+                    }
+                }
+                if(isset($_GET['lasttime'])){
+                    $lastttime=$_GET['lasttime'];
+                    if($lastttime){
+                        $lastttime=str_replace(".", "-", $lastttime);
+                        $lastttime=strtotime($lastttime)+86400;
+                        $lastttime=date("Y-m-d",$lastttime);
+                        $csql.="and enTime<='$lastttime' ";
+                    }
+                }
+            }
+            $Model_data = M('install');
+            $info = $Model_data->where($csql)->order('enTime desc')->select();
+            if (!empty($info)) {
+                //var_dump($info);
+                $date = date("Y_m_d",time());
+                $fileName .= "_{$date}.xls";
+                //创建PHPExcel对象，注意，不能少了\
+                $objPHPExcel = new \PHPExcel();
+                $objProps = $objPHPExcel->getProperties();
+                $headArr = array('安装人员','手机','归属代理商','新用户姓名','联系方式','地区','详细地址','完成时间','回访状态','信息反馈','回访人员','回访时间');
+                //设置表头
+                $key = ord("A");
+                foreach($headArr as $v){
+                    $colum = chr($key);
+                    $objPHPExcel->setActiveSheetIndex(0) ->setCellValue($colum.'1', $v);
+                    $key += 1;
+                }
+                $i = 2;
+                //$objActSheet = $objPHPExcel->getActiveSheet();
+                foreach($info as $key => $row){ //行写入
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$i,$row['sername']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$i,$row['serphone']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$i,$row['saleman']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$i,$row['name']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$i,$row['phone']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$i,$row['area']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$i,$row['address']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$i,$row['entime']);
+                    if ($row['status']) {
+                        $status = '已回访';
+                    } else {
+                        $status = '未回访';
+                    }
+                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$i,$status);
+                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$i,$row['msg']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$i,$row['statususer']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$i,$row['statustime']);
+                    $i++;
+                }
+                //保存excel—2007格式
+                $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+                $filename="安装管理统计".date("Y-m-d").".xlsx";
+                //或者$objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 非2007格式
+                header("Pragma: public");
+                header("Expires: 0");
+                header("Cache-Control:must-revalidate, post-check=0, pre-check=0");
+                header("Content-Type:application/force-download");
+                header("Content-Type:application/vnd.ms-execl");
+                header("Content-Type:application/octet-stream");
+                header("Content-Type:application/download");
+                header('Content-Disposition:attachment;filename="'.$filename);
+                header("Content-Transfer-Encoding:binary");
+                $objWriter->save("php://output");
+            } else {
+                $this->error('查无数据');
+            }
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),1);
+        }
     }
 }

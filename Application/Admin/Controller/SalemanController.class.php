@@ -3,7 +3,7 @@ namespace Admin\Controller;
 use Think\Controller;
 class SalemanController extends Controller {
     public function index(){
-        if (isset($_SESSION['admin_id'])) {
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99 ) {
             if (isset($_GET['p'])) {
                 $page = intval(I('p'));
             } else {
@@ -27,7 +27,7 @@ class SalemanController extends Controller {
             $this->error("未登录",U("Login/index"),1);
         }
     }
-
+    //新增代理商账户
     public function add(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
@@ -81,7 +81,7 @@ class SalemanController extends Controller {
             $this->error("不可用的授权",U("Login/index"),3);
         }
     }
-
+    //修改代理商账户
     public function update(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (isset($_REQUEST['id'])) {
@@ -163,7 +163,7 @@ class SalemanController extends Controller {
         }
     }
 
-    //删除账户 
+    //删除代理商账户 
     public function del(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
@@ -189,6 +189,138 @@ class SalemanController extends Controller {
         }
     }
 
+    public function staff(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
+            $admin_id = $_SESSION['admin_id'];
+            $Model_data = M('ServiceAdmin');
+            $info = $Model_data->where('salemanId='.$admin_id)->getField('id,username,name,phone,IDcard,status,enTime');
+            $this->assign('info',$info);
+            $this->display();
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),1);
+        }
+    }
+    //新增代理商下属人员账户
+    public function staffAdd(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
+            if (IS_AJAX) {
+                $admin_id = intval($_SESSION['admin_id']);
+                $Model_data = M('ServiceAdmin');
+                $count = $Model_data->where("salemanId='$admin_id'")->count();
+                if ($count>=5) {
+                    $this->error('每位代理商限定只能有5个下属人员账户');
+                }
+                $username = I('username');
+                $pwd = md5(I('pwd'));
+                $name = I('name');
+                $phone = I('phone');
+                $IDcard = I('IDcard');
+                
+                $count = $Model_data->where("username='$username'")->count();
+                if ($count > 0) {
+                    $this->error('该用户名已存在',U('Admin/index'));
+                } else {
+                    $saleman = M('SysAdmin')->where('id='.$admin_id)->find();
+                    if (!empty($saleman)) {
+                            $insertData = array('username'=>$username,
+                                        'password'=>$pwd,
+                                        'name'=>$name,
+                                        'phone'=>$username,
+                                        'IDcard'=>$IDcard,
+                                        'salemanId'=>$admin_id,
+                                        'saleman'=>$saleman['name'],
+                                        'salemanPhone'=>$saleman['phone'],
+                                        'status'=>1,
+                                        'enTime'=>date('Y-m-d H:i:s'));
+                        //var_dump($insertData);
+                        $res = $Model_data->add($insertData);
+                        if ($res) {
+                            $this->success('提交成功',U('Saleman/staff'),'add');
+                        } else {
+                            $this->error('添加失败，请重试或联系技术人员解决');
+                        }
+                    } else {
+                        $this->error('查不到您的信息，请重新登录');
+                    }
+
+                }
+                
+            } else {
+                $this->display();
+            }
+        } else {
+            $this->error("不可用的授权",U("Login/index"),3);
+        }
+    }
+    //修改代理商下属人员账户
+    public function staffUpdate(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
+            if (isset($_REQUEST['id'])) {
+                $id = intval(I('id'));
+                if (IS_AJAX) {
+                    $repwd = intval(I('pwd'));
+                    $username = trim(I('username'));
+                    $name = I('name');
+                    $idcard = I('IDcard');
+                    $modelId = I('goodsInfo');
+                    $status = intval(I('status'));
+                    $data = array(
+                                  'name'=>$name,
+                                  'username'=>$username,
+                                  'phone'=>$username,
+                                  'IDcard'=>$idcard,
+                                  'status'=>$status);
+                    if ($pwd) {
+                        $data['password'] = md5($repwd);
+                    }
+                    $Model_data = M('ServiceAdmin');
+                    $res = $Model_data->where('id='.$id)->save($data);
+                    if ($res === false) {
+                        $this->error('数据更新失败，请重试或联系技术人员解决');
+                    } else {
+                        $this->success('更新成功',U("Saleman/staff"));
+                    }
+                } else {
+                    $Model_data = M('ServiceAdmin');
+                    $info = $Model_data->where('id='.$id)->find();
+                    $this->assign('id',$id);
+                    $this->assign('info',$info);
+                    $this->display();
+                }
+                
+            } else {
+                $this->error("查无数据",U("Admin/index"),3);
+            }
+        } else {
+            $this->error("不可用的授权",U("Login/index"),3);
+        }
+    }
+
+    //删除代理商下属人员账户 
+    public function staffDel(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
+            if (IS_AJAX) {
+                if (isset($_POST['id'])) {
+                    $id = intval(I('id'));
+                    $Model_data = M('ServiceAdmin');
+                    $res = $Model_data->where('id='.$id)->delete();
+                    if ($res === false) {
+                        $this->error('数据删除失败，请刷新页面重试');
+                    } elseif ($res === 0) {
+                        $this->error('查无该账户数据，请刷新页面检查');
+                    } else {
+                        
+                        $this->success('删除成功',U("Login/index"));
+                    }
+                } else {
+                    $this->error("查无数据",U("Admin/index"),3);
+                }
+            } else {
+                $this->error("不可用的授权",U("Admin/index"),3);
+            }
+        }
+    }    
+    //获取产品信息
     public function getGoods(){
         $Model_data = M();
         $ids = array();
@@ -224,5 +356,51 @@ class SalemanController extends Controller {
         }
 
         return $goods;
+    }
+    public function installIndex(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
+            $admin_id = $_SESSION['admin_id'];
+            if (IS_AJAX) {
+                $csql='';
+                $ra=array();
+                $page=1;
+                
+                if(isset($_POST['firsttime'])){
+                    $firsttime=$_POST['firsttime'];
+                    if($firsttime){
+                        $firsttime=str_replace(".", "-", $firsttime);
+                        $csql.="and enTime>='$firsttime' ";
+                    }
+                    
+                }
+                if(isset($_POST['lasttime'])){
+                    $lastttime=$_POST['lasttime'];
+                    if($lastttime){
+                        $lastttime=str_replace(".", "-", $lastttime);
+                        $lastttime=strtotime($lastttime)+86400;
+                        $lastttime=date("Y-m-d",$lastttime);
+                        $csql.="and enTime<='$lastttime' ";
+                    }
+                }
+                if(isset($_POST['page'])){
+                    $page=$_POST['page'];
+                }
+                //echo $csql;
+                $pageNum = 2;
+                $first=$pageNum*($page - 1);
+                $Model_data = M();
+                $count = $Model_data->table('saleman_install')->where('salemanId='.$admin_id.' '.$csql)->count();
+                $order = $Model_data->table('saleman_install')->where('salemanId='.$admin_id.' '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,serName,serPhone,name,phone,area,address,enTime,status,msg,statusTime');
+                
+                $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
+                //var_dump($res);
+                $this->ajaxReturn($res);
+            } else {
+                $this->display();
+            }
+            
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),1);
+        }
     }
 }

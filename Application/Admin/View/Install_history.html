@@ -74,6 +74,7 @@
                     </div>
                 </div>
                 <button id="cx" class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
+                <button id="dl" class="layui-btn layui-btn-danger sc_btn_search">下载</button>
                 <input type="hidden" name="nid" value="5">
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
@@ -148,7 +149,7 @@
         var lasttime='';
         var str='';
         var page = 1;
-        var saleman = '';
+        var saleman = 0;
         $('#cx').click(function(){
             //re= /,|\(|\)|#|'|"|=|;|>|<|%|\\/i;
             saleman = $('#saleman').val();
@@ -161,7 +162,7 @@
             }             
             str='';
             fenye(1);
-    });
+        });
     $('.fenye').click(function(){
 
         var f=$(this).attr("value");
@@ -323,6 +324,15 @@
             });
         }
     });
+    //导出excel
+    $('#dl').click(function(e){
+        e.preventDefault();
+        str = "";
+        str += '&&saleman=' + saleman;
+        str += '&&firsttime=' + firsttime;
+        str += '&&lasttime=' + lasttime;
+        window.location.href="/luomansi/index.php/Admin/Install/download?mod=history"+str;
+        }); 
     });
 </script>
 </html>

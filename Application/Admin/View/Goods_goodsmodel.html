@@ -63,7 +63,7 @@
         <div class="sc_title sc_body_title">
             <h5><{$goods.goodsname}>-产品规格</h5>
             <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<{:U('Goods/modelAdd?id='.$id)}>"><i class="layui-icon"></i> 新增</a>        </div>
+                <a class="layui-btn layui-btn-sm" href="<{:U('Goods/modelAdd?id='.$id)}>"><i class="layui-icon"></i> 新增</a> <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Goods/index')}>"><i class="layui-icon">&#x1006;</i> 返回</a>       </div>
         </div>
         <div class="fadeInUp animated">
             <form id="form-list" class="layui-form">
@@ -118,7 +118,7 @@
                             <{/if}>
                             
                             <td>
-                                <a href="<{:U('Goods/update?id='.$value['id'])}>" data-title="编辑">编辑</a>
+                                <a href="<{:U('Goods/modelUpdate?id='.$value['id'])}>" data-title="编辑">编辑</a>
                                 <span class="sc_explode">|</span>
                                 <a class="deleteId" data-confirm="#" value="<{$value.id}>">删除</a>
                             </td>
@@ -155,7 +155,7 @@
                 //alert(id);
                 $('.meng00').show();
                 $.ajax({
-                    url : "<{:U('Goods/del')}>",
+                    url : "<{:U('Goods/modelDel')}>",
                     type : "post",
                     data : {id:id},
                     dataType : "json",

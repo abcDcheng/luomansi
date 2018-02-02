@@ -53,11 +53,10 @@
                 <dl class="layui-nav-child">
 
 				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
-				<dd><a href="#">人员管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
 				<!-- <dd><a href="#">历史订单</a></dd> -->
-				<dd><a href="#">安装管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
-				<dd><a href="#">维护统计</a></dd>
 				<?php } elseif ($group == 2) { ?>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
@@ -113,6 +112,7 @@
                     </div>
                 </div>
                 <button id="cx" class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
+                <button id="dl" class="layui-btn layui-btn-danger sc_btn_search">下载</button>
                 <input type="hidden" name="nid" value="5">
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
@@ -187,7 +187,7 @@
         var lasttime='';
         var str='';
         var page = 1;
-        var saleman = '';
+        var saleman = 0;
         $('#cx').click(function(){
             //re= /,|\(|\)|#|'|"|=|;|>|<|%|\\/i;
             saleman = $('#saleman').val();
@@ -200,7 +200,7 @@
             }             
             str='';
             fenye(1);
-    });
+        });
     $('.fenye').click(function(){
 
         var f=$(this).attr("value");
@@ -362,6 +362,15 @@
             });
         }
     });
+    //导出excel
+    $('#dl').click(function(e){
+        e.preventDefault();
+        str = "";
+        str += '&&saleman=' + saleman;
+        str += '&&firsttime=' + firsttime;
+        str += '&&lasttime=' + lasttime;
+        window.location.href="/luomansi/index.php/Admin/Install/download?mod=history"+str;
+        }); 
     });
 </script>
 </html>

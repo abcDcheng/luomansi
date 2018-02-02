@@ -83,7 +83,7 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<?php echo U('Goods/goodsAdd');?>" id="form" class="layui-form layui-form-pane" enctype="multipart/form-data">
+            <form action="<?php echo U('Goods/goodsUpdate');?>" id="form" class="layui-form layui-form-pane" enctype="multipart/form-data">
                 <div class="sc_title sc_body_title">
                     <h5>新增产品</h5>
                     <div class="sc_title_btn">
@@ -98,7 +98,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goodsname" class="layui-input" autocomplete="off" placeholder="产品名" datatype="s1-16" errormsg="产品名至少1个字符!" nullmsg="请输入产品名!">
+                                    <input type="text" name="goodsname" class="layui-input" autocomplete="off" placeholder="产品名" datatype="s1-16" errormsg="产品名至少1个字符!" nullmsg="请输入产品名!" value="<?php echo ($goods["goodsname"]); ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -108,21 +108,28 @@
                                       <i class="layui-icon">&#xe67c;</i>上传图片
                                     </button>
                                     <span id="phototext"></span>
-                                    <input id="photo" type="hidden" name="photo"/>
+                                    <input id="photo" type="hidden" name="photo" value="<?php echo ($goods["goodsimg"]); ?>"/><br/>
+                                    <img id="img" style="width: 100px;height: 100px" src="/luomansi/Application/Upload//<?php echo ($goods["goodsimg"]); ?>"/>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">下拉手</label>
                                 <div class="layui-input-block">
-                                    <input name="hand" type="radio" value="1" title="有" checked="checked"/>
+                                    <?php if($goods["hashand"] == 1): ?><input name="hand" type="radio" value="1" title="有" checked="checked"/>
                                     <input name="hand" type="radio" value="0" title="无"/>
+                                    <?php else: ?>
+                                    <input name="hand" type="radio" value="1" title="有"/>
+                                    <input name="hand" type="radio" value="0" title="无" checked="checked"/><?php endif; ?>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">假锁</label>
                                 <div class="layui-input-block">
-                                    <input name="falseLock" type="radio" value="1" title="有" checked="checked"/>
+                                    <?php if($goods["haslock"] == 1): ?><input name="falseLock" type="radio" value="1" title="有" checked="checked"/>
                                     <input name="falseLock" type="radio" value="0" title="无"/>
+                                    <?php else: ?>
+                                    <input name="falseLock" type="radio" value="1" title="有"/>
+                                    <input name="falseLock" type="radio" value="0" title="无" checked="checked"/><?php endif; ?>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -165,6 +172,7 @@ $(function(){
             if (res.code == 1) {
                 $('#phototext').text('文件上传成功！').css('color','green');
                 $('#photo').val("goods/"+res.savepath+res.savename);
+                $('#img').attr('src','/luomansi/Application/Upload//'+"goods/"+res.savepath+res.savename).show();
             } else {
                 $('#phototext').text('文件上传失败！').css('color','red');
             }

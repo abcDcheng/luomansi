@@ -1,0 +1,266 @@
+[ 2018-02-03T00:19:52+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/modelAdd/id/2.html
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group=1 ) ORDER BY id asc' at line 1
+ [ SQL语句 ] : SELECT `id`,`name`,`phone` FROM `saleman_sys_admin` WHERE ( group=1 ) ORDER BY id asc 
+
+[ 2018-02-03T00:44:17+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/modelAdd.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000841s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001521s ]
+NOTIC: [8] Undefined variable: goodsColor D:\wamp\www\luomansi\Application\Admin\Controller\GoodsController.class.php 第 87 行.
+SQL: SHOW COLUMNS FROM `saleman_goods_info` [ RunTime:0.0043s ]
+ERR: 1048:Column 'goodsColor' cannot be null
+ [ SQL语句 ] : INSERT INTO `saleman_goods_info` (`goodsId`,`goodsColor`,`colorCode`,`hand`,`falseLock`,`status`,`enTime`) VALUES ('2',NULL,'#ff1c49','0','1','1','2018-02-03 00:44:17')
+ERR: 1048:Column 'goodsColor' cannot be null
+ [ SQL语句 ] : INSERT INTO `saleman_goods_info` (`goodsId`,`goodsColor`,`colorCode`,`hand`,`falseLock`,`status`,`enTime`) VALUES ('2',NULL,'#ff1c49','0','1','1','2018-02-03 00:44:17')
+
+[ 2018-02-03T00:44:48+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/modelAdd.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000711s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001286s ]
+SQL: SHOW COLUMNS FROM `saleman_goods_info` [ RunTime:0.0045s ]
+SQL: INSERT INTO `saleman_goods_info` (`goodsId`,`goodsColor`,`colorCode`,`hand`,`falseLock`,`status`,`enTime`) VALUES ('2','鲜红','#ff1c49','0','1','1','2018-02-03 00:44:48') [ RunTime:0.2187s ]
+SQL: update saleman_goods_permission 
+                        set goodsInfoId = concat_ws(',',goodsInfoId,33) 
+                        where salemanId in (3,6) [ RunTime:0.1104s ]
+ERR: :
+ [ SQL语句 ] : update saleman_goods_permission 
+                        set goodsInfoId = concat_ws(',',goodsInfoId,33) 
+                        where salemanId in (3,6)
+ERR: :
+ [ SQL语句 ] : update saleman_goods_permission 
+                        set goodsInfoId = concat_ws(',',goodsInfoId,33) 
+                        where salemanId in (3,6)
+
+[ 2018-02-03T00:53:55+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/update/id/2.html
+ERR: 非法操作:update
+
+[ 2018-02-03T01:08:18+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/update/id/9.html
+ERR: 非法操作:update
+
+[ 2018-02-03T01:12:19+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/modelAdd.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000777s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001372s ]
+SQL: SHOW COLUMNS FROM `saleman_goods_info` [ RunTime:0.0044s ]
+SQL: INSERT INTO `saleman_goods_info` (`goodsId`,`goodsColor`,`colorCode`,`hand`,`falseLock`,`status`,`enTime`) VALUES ('2','鲜红','#f74a36','1','0','1','2018-02-03 01:12:18') [ RunTime:0.1799s ]
+
+[ 2018-02-03T01:13:43+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/modelUpdate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000743s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001332s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000648s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000761s ]
+
+[ 2018-02-03T01:20:10+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/modelUpdate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001677s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003114s ]
+NOTIC: [8] Undefined variable: falseLock D:\wamp\www\luomansi\Application\Admin\Controller\GoodsController.class.php 第 141 行.
+SQL: SHOW COLUMNS FROM `saleman_goods_info` [ RunTime:0.0110s ]
+SQL: UPDATE `saleman_goods_info` SET `goodsColor`='鲜红',`colorCode`='#ff1c49',`hand`='1',`falseLock`=NULL,`status`='1',`enTime`='2018-02-03 01:20:10' WHERE ( id=33 ) [ RunTime:0.2003s ]
+
+[ 2018-02-03T01:25:02+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/modelDel.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000723s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001329s ]
+SQL: SHOW COLUMNS FROM `saleman_goods_info` [ RunTime:0.0101s ]
+SQL: DELETE FROM `saleman_goods_info` WHERE ( id=33 ) [ RunTime:0.4991s ]
+
+[ 2018-02-03T02:06:19+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/goodsAdd.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000717s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001275s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0050s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_sys_admin` WHERE ( username='' ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: INSERT INTO `saleman_sys_admin` (`username`,`password`,`group`,`createTime`) VALUES ('','d41d8cd98f00b204e9800998ecf8427e','0','2018-02-03 02:06:19') [ RunTime:0.1568s ]
+
+[ 2018-02-03T02:08:23+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/goodsAdd.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000736s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001293s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000638s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000738s ]
+
+[ 2018-02-03T02:13:04+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001334s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002218s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001396s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001639s ]
+
+[ 2018-02-03T02:13:44+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000725s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001222s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000640s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000887s ]
+
+[ 2018-02-03T02:17:52+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001164s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001967s ]
+NOTIC: [8] Undefined variable: _FILE D:\wamp\www\luomansi\Application\Admin\Controller\GoodsController.class.php 第 182 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000820s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000981s ]
+
+[ 2018-02-03T02:19:02+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001053s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001964s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001977s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002339s ]
+
+[ 2018-02-03T02:22:53+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000842s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001469s ]
+
+[ 2018-02-03T02:23:40+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001230s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001910s ]
+
+[ 2018-02-03T02:24:36+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001026s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003821s ]
+NOTIC: [2] call_user_func() expects parameter 1 to be a valid callback, no array or string given D:\wamp\www\luomansi\ThinkPHP\Library\Think\Upload.class.php 第 170 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001424s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001614s ]
+
+[ 2018-02-03T02:25:51+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000793s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001269s ]
+NOTIC: [2] call_user_func() expects parameter 1 to be a valid callback, no array or string given D:\wamp\www\luomansi\ThinkPHP\Library\Think\Upload.class.php 第 170 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000811s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000960s ]
+
+[ 2018-02-03T02:32:12+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001715s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002734s ]
+NOTIC: [2] call_user_func() expects parameter 1 to be a valid callback, no array or string given D:\wamp\www\luomansi\ThinkPHP\Library\Think\Upload.class.php 第 170 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001945s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002177s ]
+
+[ 2018-02-03T02:34:29+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001143s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002181s ]
+NOTIC: [2] call_user_func() expects parameter 1 to be a valid callback, no array or string given D:\wamp\www\luomansi\ThinkPHP\Library\Think\Upload.class.php 第 170 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000743s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000867s ]
+
+[ 2018-02-03T02:34:55+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000725s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001237s ]
+NOTIC: [2] call_user_func() expects parameter 1 to be a valid callback, no array or string given D:\wamp\www\luomansi\ThinkPHP\Library\Think\Upload.class.php 第 170 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000940s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001097s ]
+
+[ 2018-02-03T02:42:15+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000649s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001128s ]
+NOTIC: [2] call_user_func() expects parameter 1 to be a valid callback, no array or string given D:\wamp\www\luomansi\ThinkPHP\Library\Think\Upload.class.php 第 170 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000792s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000921s ]
+
+[ 2018-02-03T02:44:06+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000646s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001090s ]
+NOTIC: [2] call_user_func() expects parameter 1 to be a valid callback, no array or string given D:\wamp\www\luomansi\ThinkPHP\Library\Think\Upload.class.php 第 170 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000641s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000760s ]
+
+[ 2018-02-03T02:48:54+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/goodsAdd.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000797s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001427s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0045s ]
+SQL: INSERT INTO `saleman_goods` (`goodsName`,`goodsImg`,`hasHand`,`hasLock`) VALUES ('DD4智能锁','goods/2018-02-03/5a74b176ae893.jpg','1','0') [ RunTime:0.1509s ]
+
+[ 2018-02-03T02:55:18+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/del.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000894s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001441s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0068s ]
+SQL: DELETE FROM `saleman_goods` WHERE ( id=4 ) [ RunTime:0.1798s ]
+SQL: SHOW COLUMNS FROM `saleman_goods_info` [ RunTime:0.0066s ]
+SQL: DELETE FROM `saleman_goods_info` WHERE ( goodsId=4 ) [ RunTime:0.0005s ]
+
+[ 2018-02-03T03:06:13+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/update/id/1.html
+ERR: 非法操作:update
+
+[ 2018-02-03T03:09:43+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000698s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001299s ]
+NOTIC: [2] call_user_func() expects parameter 1 to be a valid callback, no array or string given D:\wamp\www\luomansi\ThinkPHP\Library\Think\Upload.class.php 第 170 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001022s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001172s ]
+
+[ 2018-02-03T03:09:53+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/goodsAdd.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001118s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001768s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0049s ]
+SQL: INSERT INTO `saleman_goods` (`goodsName`,`goodsImg`,`hasHand`,`hasLock`,`enTime`) VALUES ('DD1智能锁','goods/2018-02-03/5a74b777a3360.jpg','0','1','2018-02-03 03:09:53') [ RunTime:0.1873s ]
+
+[ 2018-02-03T03:10:23+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/photoUpload.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000673s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001192s ]
+NOTIC: [2] call_user_func() expects parameter 1 to be a valid callback, no array or string given D:\wamp\www\luomansi\ThinkPHP\Library\Think\Upload.class.php 第 170 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000869s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001038s ]
+
+[ 2018-02-03T03:10:26+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/goodsUpdate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000706s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001380s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0041s ]
+
+[ 2018-02-03T03:11:39+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/goodsUpdate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000753s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001295s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0042s ]
+SQL: UPDATE `saleman_goods` SET `goodsName`='DD4智能锁',`goodsImg`='goods/2018-02-03/5a74b79f036cf.jpg',`hasHand`='1',`hasLock`='0',`enTime`='2018-02-03 03:11:39' WHERE ( id=5 ) [ RunTime:0.2116s ]
+
+[ 2018-02-03T03:12:23+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Goods/goodsUpdate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000783s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001373s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0073s ]
+SQL: UPDATE `saleman_goods` SET `goodsName`='DD4智能锁',`goodsImg`='goods/2018-02-03/5a74b79f036cf.jpg',`hasHand`='1',`hasLock`='0',`enTime`='2018-02-03 03:12:23' WHERE ( id=5 ) [ RunTime:0.1582s ]
+
+[ 2018-02-03T03:16:22+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Order/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001438s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002403s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0093s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( status!=1  ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0075s ]
+SQL: SELECT `id`,`salemanId`,`saleman`,`orderCode`,`phone`,`address`,`orderBak`,`enTime`,`status`,`msg`,`statusTime` FROM `saleman_order` WHERE ( status!=1  ) ORDER BY enTime desc LIMIT 0,2   [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `saleman_shopcar` [ RunTime:0.0083s ]
+SQL: SELECT * FROM `saleman_shopcar` WHERE ( orderId in (1) )  [ RunTime:0.0007s ]
+

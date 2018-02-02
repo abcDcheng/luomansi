@@ -104,7 +104,7 @@ class AdminController extends Controller {
                     } elseif ($res === 0) {
                         $this->error('查无该账户数据，请刷新页面检查');
                     } else {
-                        $this->success('删除成功',U("Login/index"));
+                        $this->success('删除成功',U("Admin/index"));
                     }
                 } else {
                     $this->error("查无数据",U("Admin/index"),3);

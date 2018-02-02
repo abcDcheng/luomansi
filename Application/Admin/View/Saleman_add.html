@@ -94,7 +94,10 @@
                                 <label class="layui-form-label">可下单产品</label>
                                 <{foreach name="goods" item="value"}>
                                     <div class="layui-input-block">
-                                    <input lay-filter="allChoose" name="goods" type="checkbox" checked="checked" class="list-check-box" value="<{$value.id}>" level="1"/><span style="font-weight: bold;"><{$value.goodsname}></span>&nbsp;&nbsp;&nbsp;&nbsp;<input class="gBtn" type="button" value="展开" code="<{$value.id}>"></div>
+                                      <input lay-filter="allChoose" name="goods" type="checkbox" checked="checked" class="list-check-box" value="<{$value.id}>" level="1"/>
+                                      <span style="font-weight: bold;"><{$value.goodsname}></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                      <input class="gBtn" type="button" value="展开" code="<{$value.id}>">
+                                    </div>
                                     <div class="layui-input-block goodsInfo<{$value.id}>" style="display: none;margin-left: 150px;">
                                         <{foreach name='value.model' item='info'}>
                                             <input name="goodsInfo[]" type="checkbox" checked="checked" value="<{$info[0]}>" class="list-check-box model<{$value.id}>" level="2"/><{$info[1]}><br/>

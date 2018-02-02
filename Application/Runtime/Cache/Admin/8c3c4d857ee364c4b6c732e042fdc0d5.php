@@ -39,26 +39,47 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-        <ul class="layui-tab-title">
-            <li class="layui-this">
-                <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
-                admin
-            </li>
-            <li><span><i class="fa fa-desktop"></i></span>内容管理</li>
-            <li><span><i class="fa fa-cog"></i></span>站点设置</li>
-            <li><span><i class="fa fa-cogs"></i></span>系统设置</li>
-            <dl class="layui-nav layui-nav-tree sc_side_more">
-                <dd class="layui-nav-item layui-nav-itemed">
-                    <a></a>
-                    <dl class="layui-nav-child">
-                        <dd><a data-title="修改密码">修改密码</a></dd>
-                        <dd><a data-title="修改资料">修改资料</a></dd>
-                        <dd><a data-title="清除缓存">清除缓存</a></dd>
-                        <dd><a href="login.html">退出登录</a></dd>
-                    </dl>
-                </dd>
-            </dl>
-        </ul>
+    
+    <ul class="layui-tab-title">
+        <li class="layui-this">
+            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            
+        </li>
+        <dl class="layui-nav layui-nav-tree sc_side_more">
+            <dd class="layui-nav-item layui-nav-itemed">
+                <dl class="layui-nav-child">
+
+				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
+				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
+				<!-- <dd><a href="#">历史订单</a></dd> -->
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
+				<?php } elseif ($group == 2) { ?>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
+				<?php } elseif ($group == 3) { ?>	
+				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
+				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
+				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
+				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
+				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<?php } } ?>
+				<dd><a href="<?php echo U('Index/pwd');?>">密码修改</a></dd>
+				<dd><a id="loginout" href="<?php echo U('Index/loginout');?>">退出登录</a></dd>
+                </dl> 
+            </dd>
+        </dl>
+    </ul>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
@@ -75,31 +96,31 @@
                         <div class="sc_editor_content">
                             <input name="id" type="hidden" value="<?php echo ($info["id"]); ?>" />
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">创建人员</label>
+                                <label class="layui-form-label">创建人员</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="username" class="layui-input" autocomplete="off" value="<?php echo ($info["username"]); ?>" disabled="disabled">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">客户姓名</label>
+                                <label class="layui-form-label">客户姓名</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名"  value="<?php echo ($info["name"]); ?>" disabled="disabled">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">联系方式</label>
+                                <label class="layui-form-label">联系方式</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="phone" class="layui-input" autocomplete="off" value="<?php echo ($info["phone"]); ?>" disabled="disabled">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">详细地址</label>
+                                <label class="layui-form-label">详细地址</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="address" class="layui-input" autocomplete="off" value="<?php echo ($info["address"]); ?>" disabled="disabled">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">维护信息</label>
+                                <label class="layui-form-label">维护信息</label>
                                 <div class="layui-input-block">
                                     <textarea id="msg" name="msg" class="layui-textarea"  placeholder="维护信息" disabled="disabled"><?php echo ($info["msg"]); ?></textarea>
                                 </div>
@@ -114,6 +135,24 @@
                                 </div>
                                 <input name="oldServicer" type="hidden" value="<?php echo ($info["serviceid"]); ?>">
                             </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">回访状态</label>
+                                <div class="layui-input-block">
+                                <?php if($info["status"] == 2): ?><input type="text" name="status" class="layui-input" autocomplete="off" value="服务异常" disabled="disabled">
+                                <{else if condition="$info.status eq 1"}>
+                                <input type="text" name="status" class="layui-input" autocomplete="off" value="已回访" disabled="disabled">
+                                <?php else: ?>
+                                <input type="text" name="status" class="layui-input" autocomplete="off" value="已回访" disabled="disabled"><?php endif; ?>
+                                </div>
+                            </div>
+                            <?php if($info['servicestatus'] == 2 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
+                                <div class="img_label">
+                                    <label>现场照片</label>
+                                </div>
+                                <div id="thumb_view" class="img_item transition">
+                                    <img src="/luomansi/Application/Upload//<?php echo ($info['comimg']); ?>">
+                                </div>
+                            </div><?php endif; ?>
                         </div>
                     </section>
                 </div>

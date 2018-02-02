@@ -39,7 +39,7 @@ class OrderController extends Controller {
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_order')->where('status!=1 '.$csql)->count();
-                $order = $Model_data->table('saleman_order')->where('status!=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,salemanId,saleman,orderCode,phone,address,orderBak,enTime,status,msg,statusTime');;
+                $order = $Model_data->table('saleman_order')->where('status!=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,salemanId,saleman,orderCode,phone,address,orderBak,enTime,status,msg,statusTime');
                 //var_dump($res);
                 if (!empty($order)) {
                     $ids = array();
@@ -197,5 +197,121 @@ class OrderController extends Controller {
         } else {
             $this->error("未登录或未授权",U("Login/index"),1);
         }        
+    }
+
+    //导出
+    public function download(){
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 2)) {
+            import("Org.Util.PHPExcel");
+            import("Org.Util.PHPExcel.Writer.Excel5");
+            import("Org.Util.PHPExcel.IOFactory.php");
+            
+            if (isset($_GET['id'])) {
+                $csql = '1 ';
+                $id = intval(I('id'));
+                $csql .= ' and id='.$id;
+            } else {
+                $csql = 'status = 1 ';
+                if(isset($_GET['saleman'])){
+                    $saleman=intval($_GET['saleman']);
+                    if($saleman){
+                        $csql.="and salemanId='$saleman' ";
+                    }
+                }
+                if(isset($_GET['firsttime'])){
+                    $firsttime=$_GET['firsttime'];
+                    if($firsttime){
+                        $firsttime=str_replace(".", "-", $firsttime);
+                        $csql.="and enTime>='$firsttime' ";
+                    }
+                }
+                if(isset($_GET['lasttime'])){
+                    $lastttime=$_GET['lasttime'];
+                    if($lastttime){
+                        $lastttime=str_replace(".", "-", $lastttime);
+                        $lastttime=strtotime($lastttime)+86400;
+                        $lastttime=date("Y-m-d",$lastttime);
+                        $csql.="and enTime<='$lastttime' ";
+                    }
+                }
+            }
+            $Model_data = M('order');
+            $info = $Model_data->where($csql)->order('enTime desc')->getField('id,salemanId,saleman,orderCode,phone,address,orderBak,enTime,status,msg,statusTime');
+            if (!empty($info)) {
+                $ids = array();
+                foreach($info as $key=>$value){
+                    $ids[] = $key;
+                    $info[$key]['detail'] = array();
+                }
+                $ids = implode(',', $ids);
+                $Model_data = M();
+                $shop = $Model_data->table('saleman_shopcar')->where("orderId in ($ids)")->select();
+                for($j = 0;$j < count($shop);$j++){
+                    $info[$shop[$j]['orderid']]['detail'][] = $shop[$j];
+                }
+                //var_dump($info);
+                //创建PHPExcel对象，注意，不能少了\
+                $objPHPExcel = new \PHPExcel();
+                $objProps = $objPHPExcel->getProperties();
+                $headArr = array('订单号','代理商','联系方式','送货地址','订单详情','订单备注','下单时间','受理状态','受理时间','信息反馈','回访人员');
+                //设置表头
+                $key = ord("A");
+                foreach($headArr as $v){
+                    $colum = chr($key);
+                    $objPHPExcel->setActiveSheetIndex(0) ->setCellValue($colum.'1', $v);
+                    $key += 1;
+                }
+                $i = 2;
+                //$objActSheet = $objPHPExcel->getActiveSheet();
+                foreach($info as $key => $row){ //行写入
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$i,$row['ordercode']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$i,$row['saleman']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$i,$row['phone']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$i,$row['address']);
+                    $detail = array();
+                    for($j=0;$j<count($row['detail']);$j++){
+                        $model = $row['detail'][$j]['goodsname']."-".$row['detail'][$j]['goodsmodel']." X".$row['detail'][$j]['goodsnum'];
+                        $detail[] = $model;
+                    } 
+                    $detailStr = implode("\n",$detail);
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$i,$detailStr);
+                    $objPHPExcel->getActiveSheet()->getStyle('E'.$i)->getAlignment()->setWrapText(true);
+                    $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(40);
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$i,$row['orderbak']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$i,$row['entime']);
+                    if ($row['status'] == 2) {
+                        $status = '未通过';
+                    } elseif ($row['status'] == 1) {
+                        $status = '已受理';
+                    } else {
+                        $status = '未受理';
+                    }
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$i,$status);
+                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$i,$row['statustime']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$i,$row['msg']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$i,$row['statususer']);
+                    
+                    $i++;
+                }
+                //保存excel—2007格式
+                $objWriter = new \PHPExcel_Writer_Excel2007($objPHPExcel);
+                $filename="代理商订单统计".date("Y-m-d").".xlsx";
+                //或者$objWriter = new PHPExcel_Writer_Excel5($objPHPExcel); 非2007格式
+                header("Pragma: public");
+                header("Expires: 0");
+                header("Cache-Control:must-revalidate, post-check=0, pre-check=0");
+                header("Content-Type:application/force-download");
+                header("Content-Type:application/vnd.ms-execl");
+                header("Content-Type:application/octet-stream");
+                header("Content-Type:application/download");
+                header('Content-Disposition:attachment;filename="'.$filename);
+                header("Content-Transfer-Encoding:binary");
+                $objWriter->save("php://output");
+            } else {
+                $this->error('查无数据');
+            }
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),1);
+        }
     }
 }

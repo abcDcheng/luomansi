@@ -19,33 +19,96 @@ class GoodsController extends Controller {
     public function goodsAdd(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
-                $username = I('username');
-                $pwd = md5(I('pwd'));
-                $group = intval(I('group'));
-                $Model_data = M('SysAdmin');
-                $count = $Model_data->where("username='$username'")->count();
-                if ($count > 0) {
-                    $this->error('该用户名已存在',U('Admin/index'));
+                $photo = I('photo');
+                $goodsname = I('goodsname');
+                $hand = I('hand');
+                $falseLock = I('falseLock');
+                $Model_data = M('goods');
+                $data = array('goodsName'=>$goodsname,
+                              'goodsImg'=>$photo,
+                              'hasHand'=>$hand,
+                              'hasLock'=>$falseLock,
+                              'enTime'=>date('Y-m-d H:i:s')
+                        );
+                $res = $Model_data->data($data)->add();
+                if ($res) {
+                    $this->success('添加成功',U('Goods/index'));
                 } else {
-                    $insertData = array('username'=>$username,
-                                        'password'=>$pwd,
-                                        'group'=>$group,
-                                        'createTime'=>date('Y-m-d H:i:s'));
-                    //var_dump($insertData);
-                    $res = $Model_data->add($insertData);
-                    if ($res) {
-                        $this->success('提交成功',U('Admin/index'),'add');
-                    } else {
-                        $this->error('添加失败，请重试或联系技术人员解决');
-                    }
+                    $this->error('添加失败',U('Goods/index'));
                 }
-                
             } else {
                 $this->display();
                 
             }
         } else {
             $this->error("未登录或未授权",U("Login/index"),1);
+        }
+    }
+
+    public function goodsUpdate(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+            if (isset($_REQUEST['id'])) {
+                $id = intval(I('id'));
+                if (IS_AJAX) {
+                    $photo = I('photo');
+                    $goodsname = I('goodsname');
+                    $hand = I('hand');
+                    $falseLock = I('falseLock');
+                    $Model_data = M('goods');
+                    $data = array('goodsName'=>$goodsname,
+                                  'goodsImg'=>$photo,
+                                  'hasHand'=>$hand,
+                                  'hasLock'=>$falseLock,
+                                  'enTime'=>date('Y-m-d H:i:s')
+                            );
+                    $res = $Model_data->where('id='.$id)->data($data)->save();
+                    if ($res) {
+                        $this->success('修改成功',U('Goods/index'));
+                    } else {
+                        $this->error('修改失败',U('Goods/index'));
+                    }
+                } else {
+                    $goods = M('goods')->where('id='.$id)->find();
+                    if (!empty($goods)) {
+                        $this->assign('goods',$goods);
+                        $this->display();
+                    } else {
+                        $this->error("查无产品数据",U("Goods/index"),3);
+                    }
+                    
+                    
+                }
+            } else {
+                $this->error('未知参数',U('Goods/index'));
+            }
+            
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),1);
+        }        
+    }
+
+    //删除产品
+    public function del(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+            if (IS_AJAX) {
+                if (isset($_POST['id'])) {
+                    $id = intval(I('id'));
+                    $Model_data = M('Goods');
+                    $res = $Model_data->where('id='.$id)->delete();
+                    if ($res === false) {
+                        $this->error('数据删除失败，请刷新页面重试');
+                    } elseif ($res === 0) {
+                        $this->error('查无该账户数据，请刷新页面检查');
+                    } else {
+                        M('goodsInfo')->where('goodsId='.$id)->delete();
+                        $this->success('删除成功');
+                    }
+                } else {
+                    $this->error("查无数据",U("Goods/index"),3);
+                }
+            } else {
+                $this->error("未知的操作",U("Goods/index"),3);
+            }
         }
     }
 
@@ -77,13 +140,42 @@ class GoodsController extends Controller {
     public function modelAdd(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
-
+                $goodsId = intval(I('id'));
+                $color = I('color');
+                $colorCode = I('colorCode');
+                $saleman = I('saleman');
+                $hand = I('hand');
+                $falseLock = I('falseLock');
+                $data = array('goodsId'=>$goodsId,
+                              'goodsColor'=>$color,
+                              'colorCode'=>$colorCode,
+                              'hand'=>$hand,
+                              'falseLock'=>$falseLock,
+                              'status'=>1,
+                              'enTime'=>date('Y-m-d H:i:s')
+                    );
+                $Model_data = M();
+                $res = $Model_data->table('saleman_goods_info')->data($data)->add();
+                if ($res) {
+                    if (!empty($saleman)) {
+                        $saleman = implode(',', $saleman);
+                        $res = $Model_data->execute("update saleman_goods_permission 
+                        set goodsInfoId = concat_ws(',',goodsInfoId,$res) 
+                        where salemanId in ($saleman)");
+                    }
+                    $this->success('添加成功',U('Goods/goodsModel?id='.$goodsId));
+                } else {
+                    $this->error('添加失败，请重试或联系技术人员解决');
+                }
             } else {
                 if (isset($_GET['id'])) {
                     $id = intval(I('id'));
                     $Model_data = M('goods');
                     $goods = $Model_data->where('id='.$id)->find();
                     if (!empty($goods)) {
+                        $Model_data = M('SysAdmin');
+                        $saleman = $Model_data->where('`group`=1')->order('id asc')->getField('id,name,phone');
+                        $this->assign('saleman',$saleman);
                         $this->assign('goods',$goods);
                         $this->display();
                     } else {
@@ -93,6 +185,95 @@ class GoodsController extends Controller {
                     $this->error('查不到产品数据',U('Goods/index'),3);
                 }
             }
+        }
+    }
+
+    public function modelUpdate(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+            if (isset($_REQUEST['id'])) {
+                $id = intval(I('id'));
+                if (IS_AJAX) {
+                    $color = I('color');
+                    $colorCode = I('colorCode');
+                    $hand = I('hand');
+                    $status = I('status');
+                    $data = array(
+                              'goodsColor'=>$color,
+                              'colorCode'=>$colorCode,
+                              'hand'=>$hand,
+                              'falseLock'=>$falseLock,
+                              'status'=>$status,
+                              'enTime'=>date('Y-m-d H:i:s')
+                    );
+                    $Model_data = M('goodsInfo');
+                    $res = $Model_data->where('id='.$id)->data($data)->save();
+                    if ($res) {
+                        $goodsId = intval(I('goodsId'));
+                        $this->success('数据修改成功',U('Goods/goodsModel?id='.$goodsId));
+                    }
+                } else {
+                    $Model_data = M();
+                    $model = $Model_data->table('saleman_goods_info')->where('id='.$id)->find();
+                    if (!empty($model)) {
+                        $goods = $Model_data->table('saleman_goods')->where('id='.$model['goodsid'])->find();
+                        if (!empty($goods)) {
+                            $this->assign('goods',$goods);
+                            $this->assign('model',$model);
+                            $this->display();
+                        } else {
+                            $this->error('查不到产品数据',U('Goods/index'),3);
+                        }
+                    } else {
+                        $this->error('查不到产品数据',U('Goods/index'),3);
+                    }
+                }
+            } else {
+                $this->error('查不到产品数据',U('Goods/index'),3);
+            }
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),1);
+        }
+    }
+
+    public function modelDel(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+            if (IS_AJAX) {
+                if (isset($_POST['id'])) {
+                    $id = intval(I('id'));
+                    $Model_data = M('GoodsInfo');
+                    $res = $Model_data->where('id='.$id)->delete();
+                    if ($res === false) {
+                        $this->error('数据删除失败，请刷新页面重试');
+                    } elseif ($res === 0) {
+                        $this->error('查无该账户数据，请刷新页面检查');
+                    } else {
+                        $this->success('删除成功');
+                    }
+                } else {
+                    $this->error("查无数据",U("Goods/index"),3);
+                }
+            } else {
+                $this->error("未知的操作",U("Goods/index"),3);
+            }
+        } else {
+            $this->error("您未授权做此操作",U("Goods/index"),3);
+        }
+    }
+
+    public function photoUpload(){
+        $upload = new \Think\Upload();// 实例化上传类
+        $upload->maxSize   =     3145728 ;// 设置附件上传大小
+        $upload->exts      =     array('jpg', 'png', 'jpeg');// 设置附件上传类型
+        $upload->rootPath  =      './Application/Upload/goods/'; // 设置附件上传根目录
+        $upload->savePath  =     ''; // 设置附件上传（子）目录
+
+        // 上传单个文件 
+        $info   =   $upload->uploadOne($_FILES['file']);
+        if(!$info) {// 上传错误提示错误信息
+            $this->error($upload->getError());
+        }else{// 上传成功 获取上传文件信息
+            $info['code'] = 1;
+            echo json_encode($info);
         }
     }
 }

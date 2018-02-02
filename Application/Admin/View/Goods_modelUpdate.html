@@ -44,7 +44,7 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<{:U('Goods/modelAdd')}>" id="form" class="layui-form layui-form-pane">
+            <form action="<{:U('Goods/modelUpdate')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
                     <h5><{$goods.goodsname}>规格添加</h5>
                     <div class="sc_title_btn">
@@ -55,7 +55,8 @@
                 <div class="fadeInUp animated">
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
-                            <input type="hidden" name="id" value="<{$goods.id}>">
+                            <input type="hidden" name="id" value="<{$model.id}>">
+                            <input type="hidden" name="goodsId" value="<{$goods.id}>">
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品名</label>
                                 <div class="layui-input-block">
@@ -65,13 +66,13 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">颜色</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="color" class="layui-input" autocomplete="off" placeholder="颜色" datatype="s1-16" errormsg="颜色名至少1个字符!" nullmsg="请输入颜色名!">
+                                    <input type="text" name="color" class="layui-input" autocomplete="off" placeholder="颜色" datatype="s1-16" errormsg="颜色名至少1个字符!" nullmsg="请输入颜色名!" value="<{$model.goodscolor}>">
                               </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">颜色代码</label>
                                 <div class="layui-input-block">
-                                    <input id="colorCode" type="text" name="colorCode" class="layui-input" autocomplete="off" placeholder="颜色代码">
+                                    <input id="colorCode" type="text" name="colorCode" class="layui-input" autocomplete="off" placeholder="颜色代码" value="<{$model.colorcode}>">
                                     <input id="picker" type="button" name="colpick" value="选取颜色"/>
                               </div>
                             </div>
@@ -79,8 +80,13 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">下拉手</label>
                                 <div class="layui-input-block">
+                                    <{if condition="$model.hand eq 1"}>
                                     <input name="hand" type="radio" value="1" title="有" checked="checked"/>
                                     <input name="hand" type="radio" value="0" title="无"/>
+                                    <{else /}>
+                                    <input name="hand" type="radio" value="1" title="有"/>
+                                    <input name="hand" type="radio" value="0" title="无" checked="checked"/>
+                                    <{/if}>
                                 </div>
                             </div>
                             <{else /}>
@@ -90,24 +96,28 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">假锁</label>
                                 <div class="layui-input-block">
+                                    <{if condition="$model.falselock eq 1"}>
                                     <input name="falseLock" type="radio" value="1" title="有" checked="checked"/>
                                     <input name="falseLock" type="radio" value="0" title="无"/>
+                                    <{else /}>
+                                    <input name="falseLock" type="radio" value="1" title="有"/>
+                                    <input name="falseLock" type="radio" value="0" title="无" checked="checked"/>
+                                    <{/if}>
                                 </div>
                             </div>
                             <{else /}>
                             <input type="hidden" name="falseLock" value="0">
                             <{/if}>
                             <div class="layui-form-item">
-                                <label class="layui-form-label">代理商权限</label>
+                                <label class="layui-form-label label-required">状态</label>
                                 <div class="layui-input-block">
-                                      <input lay-filter="allChoose" name="allChoose" type="checkbox" checked="checked" class="list-check-box" value="1" level="1"/>
-                                      <span style="font-weight: bold;">全选</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                      <input class="gBtn" type="button" value="展开">
-                                </div>
-                                <div class="layui-input-block salemanBlock" style="display: none;margin-left: 150px;">
-                                    <{foreach name='saleman' item='salemanInfo'}>
-                                        <input name="saleman[]" type="checkbox" checked="checked" value="<{$salemanInfo['id']}>" class="list-check-box" level="2"/><{$salemanInfo['name']}>(<{$salemanInfo['phone']}>)<br/>
-                                    <{/foreach}>
+                                    <{if condition="$model['status'] eq 1"}>
+                                    <input name="status" type="radio" value="1" title="上架中" checked="checked"/>
+                                    <input name="status" type="radio" value="0" title="已下架"/>
+                                    <{else /}>
+                                    <input name="status" type="radio" value="1" title="上架中"/>
+                                    <input name="status" type="radio" value="0" title="已下架" checked="checked"/>
+                                    <{/if}>
                                 </div>
                             </div>
                         </div>
@@ -126,6 +136,13 @@ $(function(){
         }
     });
     $('.colpick').css('z-index',9999);
+    $('#save').click(function(){
+        var colorCode = $('#colorCode').val();
+        if (!colorCode) {
+            alert('请选择颜色编码');
+            return false;
+        }
+    });
     $('.gBtn').click(function(){
 
         var text = $(this).val();
@@ -139,40 +156,7 @@ $(function(){
         
     });
 
-    layui.use(['layer', 'form'], function(){
-        var form = layui.form;
-        form.on('checkbox', function(data){
-            if ($(data.elem).attr('level') == 1) {
-                var child = $(data.elem).parents().siblings('.salemanBlock').find('input[type="checkbox"]');
-                child.each(function(index, item){
-                    item.checked = data.elem.checked;
-                });
-            } else if ($(data.elem).attr('level') == 2) {
-                var parent = $(data.elem).parent().prev().find('input[type="checkbox"]');
-                if (data.elem.checked) {
-                    parent.each(function(index, item){
-                        item.checked = data.elem.checked;
-                    });
-                } else {
-                    var tmp = 0;
-                    $(data.elem).siblings('input[type="checkbox"]').each(function(index, item){
-                        console.log(item.checked);
-                        if (item.checked) {
-                            tmp = 1;
-                        }
-                    });
-                    if (!tmp) {
-                        parent.each(function(index, item){
-                            item.checked = data.elem.checked;
-                        });
-                    }
-                }
-            }
-            
-            
-            layui.form.render('checkbox');
-        });
-    });
+
 });
     
 </script>

@@ -206,7 +206,7 @@
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
                 tableHtml += '<td class="layui-elip">'+order[key]['msg']+'</td>';
-                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a class="deleteId" data-confirm="#" value="'+key+'">下载</a></td></tr>';
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a href="/luomansi/index.php/Admin/Install/download/mod/index/id/'+key+'" class="download" data-confirm="#" value="'+key+'">下载</a></td></tr>';
             }
             $('#body').append(tableHtml);
             var val=parseInt(data['page']);
