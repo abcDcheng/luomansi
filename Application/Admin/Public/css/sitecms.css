@@ -39,11 +39,11 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 .sc_login_content dd p{padding-right: 30px;text-align: right;}
 /* sitecms layout */
 .layui-layout-admin{height:100%;}
-.layui-layout-admin .layui-body{top: 0;bottom: 0;left: 70px;overflow: inherit;}
+.layui-layout-admin .layui-body{top: 0;bottom: 0;left: 80px;overflow: inherit;}
 /* sitecms side_tab */
 .sc_side_tab{margin:0;}
 .sc_side_tab .layui-nav-bar{display:none}
-.sc_side_tab .layui-tab-title{position:fixed;top:0;bottom:0;left:0;z-index: 999;width:80px;height:100%;background-color:#2bb0d4}
+.sc_side_tab .layui-tab-title{position:fixed;top:0;bottom:0;left:0;z-index: 999;width:90px;height:100%;background-color:#2bb0d4}
 .sc_side_tab .layui-tab-title li{display:block;padding:15px 0;color:#fff;font-size:12px;line-height:1}
 .sc_side_tab .layui-tab-title li span{display:block;margin-bottom:10px}
 .sc_side_tab .layui-tab-title li span i{font-size:24px}
@@ -70,7 +70,7 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 .sc_side_more .layui-nav-child,
 .sc_side_more .layui-this,
 .sc_side_more .layui-this a{background: none!important;}
-.sc_side_more .layui-nav-child a{padding:0;font-size:12px;color:#fff;text-align:center}
+.sc_side_more .layui-nav-child a{padding:0;font-size:12px;color:#fff;margin-left: 10px;}
 /* sitecms body */
 .sc_body{min-width: 736px;padding: 68px 15px;}
 .sc_title{border-bottom:1px solid #ddd;color:inherit;margin-bottom:0;min-height:48px;background-color:#f9f9f9;}
@@ -124,7 +124,7 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 .sc_pages li>a{color:#000;border:1px solid #ccc}
 .sc_pages li>a:focus,
 .sc_pages li>a:hover{text-decoration:none;}
-.sc_pages li>span{color:#ccc;border:1px solid #ccc;cursor:not-allowed}
+.sc_pages li>span{color:#ccc;border:1px solid #ccc;/* cursor:not-allowed */}
 .sc_pages:after,
 .sc_pages:before{content:"";display:table}
 .pages_search{display: inline-block;margin: 0 5px;line-height: 26px;width: 40px;height: 26px;}

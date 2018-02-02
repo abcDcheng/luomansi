@@ -47,7 +47,7 @@ class AdminController extends Controller {
                 $this->display();
             }
         } else {
-            $this->error("不可用的授权",U("Login/index"),3);
+            $this->error("未授权",U("Login/index"),3);
         }
     }
 
@@ -87,7 +87,7 @@ class AdminController extends Controller {
                 $this->error("查无数据",U("Admin/index"),3);
             }
         } else {
-            $this->error("不可用的授权",U("Login/index"),3);
+            $this->error("未授权",U("Login/index"),3);
         }
     }
 
@@ -110,8 +110,43 @@ class AdminController extends Controller {
                     $this->error("查无数据",U("Admin/index"),3);
                 }
             } else {
-                $this->error("不可用的授权",U("Admin/index"),3);
+                $this->error("未授权",U("Admin/index"),3);
             }
+        }
+    }
+
+    public function servicer(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+            if (IS_AJAX) {
+                $csql='';
+                $ra=array();
+                $page=1;
+                if(isset($_POST['saleman'])){
+                    $saleman=intval($_POST['saleman']);
+                    if($saleman){
+                        $csql.="and salemanId='$saleman' ";
+                    }
+                }
+                if(isset($_POST['page'])){
+                    $page=$_POST['page'];
+                }
+                //echo $csql;
+                $pageNum = 2;
+                $first=$pageNum*($page - 1);
+                $Model_data = M();
+                $count = $Model_data->table('saleman_service_admin')->where('1 '.$csql)->count();
+                $order = $Model_data->table('saleman_service_admin')->where('1 '.$csql)->order('salemanId asc')->limit($first,$pageNum)->getField('id,salemanId,saleman,username,name,IDcard,status,enTime');
+                $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
+                //var_dump($res);
+                $this->ajaxReturn($res);
+            } else {
+                $Model_data = M('ServiceAdmin');
+                $saleman = $Model_data->group('salemanId')->getField('salemanId,saleman,salemanPhone');
+                $this->assign('saleman',$saleman);
+                $this->display();
+            }
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),3);
         }
     }
 }

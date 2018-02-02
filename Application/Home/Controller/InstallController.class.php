@@ -15,6 +15,11 @@ class InstallController extends Controller {
     	if (isset($_SESSION['service_id']) && IS_AJAX) {
     		$service_id = intval($_SESSION['service_id']);
     		if ($service_id) {
+                $Model_data = M('ServiceAdmin');
+                $info = $Model_data->where('id='.$serviceId)->find();
+                if (empty($info)) {
+                    $this->error('查无安装人员信息，请重新登录重试');
+                }
     			$name = I('name');
 	    		$phone = I('phone');
 	    		$area = I('area');
@@ -24,6 +29,11 @@ class InstallController extends Controller {
                               'phone'     => $phone,
 	    					  'area'	  => $area,
 	    					  'address'	  => $address,
+                              'salemanId' => $info['salemanid'],
+                              'saleman'   => $info['saleman'],
+                              'salemanPhone'=>$info['salemanphone'],
+                              'serName'   => $info['name'],
+                              'serPhone'  => $info['phone'],
 	    					  'enTime'	  => date('Y-m-d H:i:s')
 	    					  );
 	    		$res = M('install')->add($data);

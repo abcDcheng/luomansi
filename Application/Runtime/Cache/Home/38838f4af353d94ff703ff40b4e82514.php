@@ -128,6 +128,7 @@ $(function(){
 	//var model = <?php echo json_encode($model);?>;
 	//console.log(model);
 	var info = [];
+	var goodsName = '';
 	var colorArr = [];
 	var hasHandCode = 0;
 	var hasHand = 0;
@@ -142,7 +143,7 @@ $(function(){
 		hasHandCode = parseInt($(this).attr("hand"));
 		hasLockCode = parseInt($(this).attr("falseLock"));
 		colorArr = [];
-		var goodsName = $(this).text();
+		goodsName = $(this).text();
 		$('.chioceColor,.handChoice,.lockChoice').empty();
 		$('.meng00').show();
 		$.ajax({
@@ -296,7 +297,7 @@ $(function(){
 		$.ajax({
 			url : "<?php echo U('Shop/goodsRecord');?>",
             type : "post",
-            data : {goodsId:goodsId,goodsColor:Ccolor,hasHand:hasHandCode,hand:Chand,hasLock:hasLockCode,falseLock:Clock,goodsNum:goodsNum},
+            data : {goodsId:goodsId,goodsName:goodsName,goodsColor:Ccolor,hasHand:hasHandCode,hand:Chand,hasLock:hasLockCode,falseLock:Clock,goodsNum:goodsNum},
             dataType : "json",
             timeout : 5000,
             success : function(data){

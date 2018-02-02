@@ -39,27 +39,48 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-        <ul class="layui-tab-title">
-            <li class="layui-this">
-                <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
-                admin
-            </li>
-            <li><span><i class="fa fa-desktop"></i></span>内容管理</li>
-            <li><span><i class="fa fa-cog"></i></span>站点设置</li>
-            <li><span><i class="fa fa-cogs"></i></span>系统设置</li>
-            <dl class="layui-nav layui-nav-tree sc_side_more">
-                <dd class="layui-nav-item layui-nav-itemed">
-                    <a></a>
-                    <dl class="layui-nav-child">
-                        <dd><a data-title="修改密码">修改密码</a></dd>
-                        <dd><a data-title="修改资料">修改资料</a></dd>
-                        <dd><a data-title="清除缓存">清除缓存</a></dd>
-                        <dd><a href="login.html">退出登录</a></dd>
-                    </dl>
-                </dd>
-            </dl>
-        </ul>
-        
+    
+    <ul class="layui-tab-title">
+        <li class="layui-this">
+            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            
+        </li>
+        <dl class="layui-nav layui-nav-tree sc_side_more">
+            <dd class="layui-nav-item layui-nav-itemed">
+                <dl class="layui-nav-child">
+
+				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
+				<dd><a href="#">人员管理</a></dd>
+				<!-- <dd><a href="#">历史订单</a></dd> -->
+				<dd><a href="#">安装管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
+				<dd><a href="#">维护统计</a></dd>
+				<?php } elseif ($group == 2) { ?>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
+				<?php } elseif ($group == 3) { ?>	
+				<dd><a href="#">安装管理</a></dd>
+				<dd><a href="#">安装统计</a></dd>
+				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/service');?>">代理商人员</a></dd>
+				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
+				<dd><a href="#">安装管理</a></dd>
+				<dd><a href="#">安装统计</a></dd>
+				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<?php } } ?>
+				<dd><a href="#">密码修改</a></dd>
+				<dd><a id="loginout" href="<?php echo U('Index/loginout');?>">退出登录</a></dd>
+                </dl> 
+            </dd>
+        </dl>
+    </ul>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
@@ -111,7 +132,7 @@
                               </div>
                           </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">可下单产品</label>
+                                <label class="layui-form-label">可下单产品</label>
                                 <?php if(is_array($goods)): foreach($goods as $key=>$value): ?><div class="layui-input-block">
                                     <input lay-filter="allChoose" name="goods" type="checkbox" checked="checked" class="list-check-box" value="<?php echo ($value["id"]); ?>" level="1"/><span style="font-weight: bold;"><?php echo ($value["goodsname"]); ?></span>&nbsp;&nbsp;&nbsp;&nbsp;<input class="gBtn" type="button" value="展开" code="<?php echo ($value["id"]); ?>"></div>
                                     <div class="layui-input-block goodsInfo<?php echo ($value["id"]); ?>" style="display: none;margin-left: 150px;">

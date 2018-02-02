@@ -4,34 +4,56 @@ use Think\Controller;
 class MaintainController extends Controller {
     public function index(){
     	if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
-            if (isset($_REQUEST['p'])) {
-                $page = intval(I('p'));
+            if (IS_AJAX) {
+                $csql='';
+                $ra=array();
+                $page=1;
+                if(isset($_POST['saleman'])){
+                    $saleman=intval($_POST['saleman']);
+                    if($saleman){
+                        $csql.="and salemanId='$saleman' ";
+                    }
+                }
+                if(isset($_POST['firsttime'])){
+                    $firsttime=$_POST['firsttime'];
+                    if($firsttime){
+                        $firsttime=str_replace(".", "-", $firsttime);
+                        $csql.="and enTime>='$firsttime' ";
+                    }
+                    
+                }
+                if(isset($_POST['lasttime'])){
+                    $lastttime=$_POST['lasttime'];
+                    if($lastttime){
+                        $lastttime=str_replace(".", "-", $lastttime);
+                        $lastttime=strtotime($lastttime)+86400;
+                        $lastttime=date("Y-m-d",$lastttime);
+                        $csql.="and enTime<='$lastttime' ";
+                    }
+                }
+                if(isset($_POST['page'])){
+                    $page=$_POST['page'];
+                }
+                //echo $csql;
+                $pageNum = 2;
+                $first=$pageNum*($page - 1);
+                $Model_data = M();
+                $count = $Model_data->table('saleman_maintain')->where('status!=1 '.$csql)->count();
+                $order = $Model_data->table('saleman_maintain')->where('status!=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,name,phone,address,goods,enTime,serviceName,serviceStatus,status,msg');
+                
+                $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
+                //var_dump($res);
+                $this->ajaxReturn($res);
             } else {
-                $page = 1;
+                $Model_data = M('maintain');
+                $saleman = $Model_data->where('status!=1')->group('salemanId')->getField('salemanId,saleman,salemanPhone');
+                $this->assign('saleman',$saleman);
+                $this->display();
             }
-            $data = 'status!=1 ';
-            if (isset($_REQUEST['startTime']) && $_REQUEST['startTime'] !='') {
-                $data .= " and enTime>'".$_REQUEST['startTime']."'";
-            }
-            if (isset($_REQUEST['endTime']) && $_REQUEST['endTime'] !='') {
-                $data .= " and enTime<'".$_REQUEST['endTime']."'";
-            }
-            if (isset($_REQUEST['saleman']) && $_REQUEST['saleman'] !='') {
-                $data .= " and saleman='".$_REQUEST['saleman']."'";
-            }
-            $pageNum = 12;
-            $username = $_SESSION['username'];
-            $Model_data = M('maintain');
-            $info = $Model_data->where($data)->order('id desc')->limit($pageNum,($page-1)*$pageNum)->select();
-            $count = $Model_data->count();
-            $Pages = new \Think\Page($count, $pageNum);
-            $pageHtml = $Pages -> show();
-            $this->assign('page',$pageHtml);
-            $this->assign('info',$info);
-    		$this->display();
-    	} else {
-    		$this->error("未登录或未授权",U("Login/index"),1);
-    	}
+            
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),1);
+        }
     }
 
     public function add(){

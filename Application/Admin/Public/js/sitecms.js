@@ -1,18 +1,8 @@
 $(function(){
     $("#loginout").click(function(e){
-    e.preventDefault();
-    if (confirm("确定退出吗？")) {
-        $.ajax({
-            url : "loginout",
-            type : "post",
-            data : {loginout : 1},
-            dataType : "json",
-            timeout : 5000,
-            success : function(data){
-                alert('成功退出');
-                window.location.href="../Login/index";
-            }
-        });
+    
+    if (!confirm("确定退出吗？")) {
+        return false;
     }
 });
 });

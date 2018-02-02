@@ -33,38 +33,19 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>siteCMS站点管理框架</title>
+    <title>维护管理</title>
 </head>
 <body>
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-        <ul class="layui-tab-title">
-            <li class="layui-this">
-                <div class="sc_side_manage" style="background-image:url('__IMAGES__/male.png');"></div>
-                admin
-            </li>
-            <li><span><i class="fa fa-desktop"></i></span>内容管理</li>
-            <li><span><i class="fa fa-cog"></i></span>站点设置</li>
-            <li><span><i class="fa fa-cogs"></i></span>系统设置</li>
-            <dl class="layui-nav layui-nav-tree sc_side_more">
-                <dd class="layui-nav-item layui-nav-itemed">
-                    <a></a>
-                    <dl class="layui-nav-child">
-                        <dd><a data-title="修改密码">修改密码</a></dd>
-                        <dd><a data-title="修改资料">修改资料</a></dd>
-                        <dd><a data-title="清除缓存">清除缓存</a></dd>
-                        <dd><a href="login.html">退出登录</a></dd>
-                    </dl>
-                </dd>
-            </dl>
-        </ul>
+    <{include file="Menu:index" /}>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
             <form action="<{:U('Maintain/update')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>详情页</h5>
+                    <h5>维护管理</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Maintain/index')}>"><i class="layui-icon">&#x1006;</i> 返回</a>
@@ -135,7 +116,6 @@
                                 </div>
                                 <div id="thumb_view" class="img_item transition">
                                     <img src="__UPLOADS__/<{$info['comimg']}>">
-                                    
                                 </div>
                             </div>
                             <{/if}>

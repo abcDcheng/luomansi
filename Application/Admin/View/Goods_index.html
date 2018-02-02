@@ -42,26 +42,7 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-        <ul class="layui-tab-title">
-            <li class="layui-this">
-                <div class="sc_side_manage" style="background-image:url('__IMAGES__/male.png');"></div>
-                
-            </li>
-            <li><span><i class="fa fa-desktop"></i></span>内容管理</li>
-            <li><span><i class="fa fa-cog"></i></span>站点设置</li>
-            <li><span><i class="fa fa-cogs"></i></span>系统设置</li>
-            <dl class="layui-nav layui-nav-tree sc_side_more">
-                <dd class="layui-nav-item layui-nav-itemed">
-                    <a></a>
-                    <dl class="layui-nav-child">
-                        <dd><a data-title="修改密码">修改密码</a></dd>
-                        <dd><a data-title="修改资料">修改资料</a></dd>
-                        <dd><a data-title="清除缓存">清除缓存</a></dd>
-                        <dd><a id="loginout">退出登录</a></dd>
-                    </dl>
-                </dd>
-            </dl>
-        </ul>
+    <{include file="Menu:index" /}>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
