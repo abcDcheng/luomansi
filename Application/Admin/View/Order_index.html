@@ -186,16 +186,19 @@
         data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page},
         dataType: "json",
         success:function(data){
-            $('#an').text(data[0]);
+            //$('#an').text(data[0]);
             $('#body').empty();
             if(data['num']!=0){   
                 var page=Math.ceil(data['num']/data['pageNum']);         
                 // for(var i=1;i<data.length-1;i++){
                 //     $('#body').append(data[i]);
                 // }
-            var tableHtml = '';
+            
+            var tableHtml2 = '';
             var order = data['order'];
             for(key in order){
+                var tableHtml = '';
+
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['address']+'</td>';
                 var detail = '';
                 for(var i=0;i<order[key]['detail'].length;i++){
@@ -214,8 +217,9 @@
                 
                 tableHtml+='</td><td class="layui-elip">'+order[key]['statustime']+'</td><td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a href="/luomansi/index.php/Admin/Order/download/mod/index/id/'+key+'" data-confirm="#" value="'+key+'">下载</a></td></tr>';
                 //<br/><a class="deleteId" data-confirm="#" value="'+key+'">删除</a>
+                tableHtml2 = tableHtml+tableHtml2;
             }
-            $('#body').append(tableHtml);
+            $('#body').append(tableHtml2);
             var val=parseInt(data['page']);
             //alert(val);
             switch(val){

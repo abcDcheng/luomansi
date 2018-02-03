@@ -91,7 +91,6 @@ class SalemanController extends Controller {
                 if (!empty($info)) {
                     if (IS_AJAX) {
                         $repwd = intval(I('repwd'));
-                        $group = intval(I('group'));
                         $name = I('name');
                         $phone = I('phone');
                         $address = I('address');
@@ -178,6 +177,8 @@ class SalemanController extends Controller {
                     } else {
                         $Model_data = M('ServiceAdmin');
                         $res = $Model_data->where('salemanId='.$id)->delete();
+                        $Model_data = M('GoodsPermission');
+                        $res = $Model_data->where('salemanId='.$id)->delete();
                         $this->success('删除成功',U("Login/index"));
                     }
                 } else {
@@ -258,7 +259,8 @@ class SalemanController extends Controller {
             if (isset($_REQUEST['id'])) {
                 $id = intval(I('id'));
                 if (IS_AJAX) {
-                    $repwd = intval(I('pwd'));
+                    $pwd = I('pwd');
+
                     $username = trim(I('username'));
                     $name = I('name');
                     $idcard = I('IDcard');
@@ -271,7 +273,7 @@ class SalemanController extends Controller {
                                   'IDcard'=>$idcard,
                                   'status'=>$status);
                     if ($pwd) {
-                        $data['password'] = md5($repwd);
+                        $data['password'] = md5($pwd);
                     }
                     $Model_data = M('ServiceAdmin');
                     $res = $Model_data->where('id='.$id)->save($data);

@@ -196,6 +196,7 @@ class GoodsController extends Controller {
                     $color = I('color');
                     $colorCode = I('colorCode');
                     $hand = I('hand');
+                    $falseLock = I('falseLock');
                     $status = I('status');
                     $data = array(
                               'goodsColor'=>$color,

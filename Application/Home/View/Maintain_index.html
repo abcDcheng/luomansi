@@ -73,6 +73,7 @@
 				<strong id="msg"></strong>
 			</div>
 			<button id="service" class="maintain-executable-date-btn">执行维护</button>
+			<button id="return" class="maintain-executable-date-btn">返回</button>
 		</div>
 	</div>
 
@@ -143,7 +144,10 @@
 			$('.maintain-executable').hide();
 			$('.maintain-executable-date-wrap').show();
 		});
-
+		$('#return').click(function(){
+			$('.maintain-executable').show();
+			$('.maintain-executable-date-wrap').hide();
+		});
 		/*<!-- 上传图片 -->*/
 		// $('.maintain-ing a').click(function(){
 		// 	$('.maintain-ing').hide();

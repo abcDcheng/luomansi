@@ -196,9 +196,10 @@
                 // for(var i=1;i<data.length-1;i++){
                 //     $('#body').append(data[i]);
                 // }
-            var tableHtml = '';
+            var tableHtml2 = '';
             var order = data['order'];
             for(key in order){
+                var tableHtml = '';
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['sername']+'</td><td class="layui-elip">'+order[key]['serphone']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['area']+'</td><td class="layui-elip">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['entime']+'</td>';
                 
                 if (parseInt(order[key]['status'])) {
@@ -208,8 +209,9 @@
                 }
                 tableHtml += '<td class="layui-elip">'+order[key]['msg']+'</td>';
                 tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a class="deleteId" data-confirm="#" value="'+key+'">下载</a></td></tr>';
+                tableHtml2 = tableHtml+tableHtml2;
             }
-            $('#body').append(tableHtml);
+            $('#body').append(tableHtml2);
             var val=parseInt(data['page']);
             //alert(val);
             switch(val){

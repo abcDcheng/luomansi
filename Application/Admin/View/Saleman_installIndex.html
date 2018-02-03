@@ -184,9 +184,10 @@
                 // for(var i=1;i<data.length-1;i++){
                 //     $('#body').append(data[i]);
                 // }
-            var tableHtml = '';
+            var tableHtml2 = '';
             var order = data['order'];
             for(key in order){
+                var tableHtml = '';
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['sername']+'</td><td class="layui-elip">'+order[key]['serphone']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['area']+'</td><td class="layui-elip">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['entime']+'</td>';
                 
                 if (parseInt(order[key]['status'])) {
@@ -195,9 +196,9 @@
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
                 tableHtml += '<td class="layui-elip">'+order[key]['msg']+'</td>';
-                
+                tableHtml2 = tableHtml+tableHtml2;
             }
-            $('#body').append(tableHtml);
+            $('#body').append(tableHtml2);
             var val=parseInt(data['page']);
             //alert(val);
             switch(val){

@@ -32,11 +32,12 @@ class LoginController extends Controller {
     }
 
     public function maintainLogin() {
-        if (isset($_SESSION['service_id'])) {
-            redirect(U("Maintain/index"));
-        } else {
-            $this->display();
-        }
+        $this->display();
+        // if (isset($_SESSION['service_id'])) {
+        //     redirect(U("Maintain/index"));
+        // } else {
+            
+        // }
     }
 
     public function serviceAdmin() {

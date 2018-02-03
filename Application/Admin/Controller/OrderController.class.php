@@ -35,12 +35,13 @@ class OrderController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 2;
+                $pageNum = 8;
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_order')->where('status!=1 '.$csql)->count();
                 $order = $Model_data->table('saleman_order')->where('status!=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,salemanId,saleman,orderCode,phone,address,orderBak,enTime,status,msg,statusTime');
-                //var_dump($res);
+                //echo $Model_data->getLastSql();
+                //var_dump($order);
                 if (!empty($order)) {
                     $ids = array();
                     foreach($order as $key=>$value){
@@ -58,6 +59,7 @@ class OrderController extends Controller {
                 $this->ajaxReturn($res);
             } else {
                 $Model_data = M('order');
+                $Model_data->where('isNew=0')->data(array('isNew'=>1))->save();
                 $saleman = $Model_data->where('status!=2')->group('salemanId')->getField('salemanId,saleman,phone');
                 $this->assign('saleman',$saleman);
                 $this->display();
@@ -166,7 +168,7 @@ class OrderController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 2;
+                $pageNum = 8;
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_order')->where('status=1 '.$csql)->count();

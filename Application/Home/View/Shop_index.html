@@ -199,6 +199,7 @@ $(function(){
 	});
 
 	/*选择颜色*/
+	var colorValue = '';
 	$('.chioceColor').on('click','span',function(){
 	//$('.chioceColor span').click(function(){
 
@@ -206,6 +207,7 @@ $(function(){
 		$(this).addClass('active');
 
 		var thisValue = $(this).attr('value');
+		colorValue = thisValue;
 		$('.carColor').text(thisValue);
 		var handsArr = [];
 		var lockArr = [];
@@ -214,9 +216,10 @@ $(function(){
 				if (hasHandCode && $.inArray(info[i]['hand'],handsArr) == -1) {
 					handsArr.push(info[i]['hand']);
 				}
-				if (hasLockCode && $.inArray(info[i]['falselock'],handsArr) == -1) {
+				if (hasLockCode && $.inArray(info[i]['falselock'],lockArr) == -1) {
 					lockArr.push(info[i]['falselock']);
 				}
+				//console.log(info[i]['falselock']);
 			}
 		}
 		//alert(thisValue);
@@ -237,7 +240,7 @@ $(function(){
 			$('.handChoice small:first').click();
 		}
 
-		if (hasLockCode) {
+		if (hasLockCode && !hasHandCode) {
 			$('.lockChoice').empty();
 			lockArr.sort();
 			for (var j = 0;j < lockArr.length;j++) {
@@ -259,6 +262,28 @@ $(function(){
 
 		var thisValue = $(this).html();
 		$('.hand').text(thisValue);
+		var handValue = $(this).attr('value');
+		var lockArr = [];
+		for (var i = 0;i < info.length;i++) {
+			if (info[i]['goodscolor'] == colorValue && info[i]['hand'] == handValue) {
+				if (hasLockCode && $.inArray(info[i]['falselock'],lockArr) == -1) {
+					lockArr.push(info[i]['falselock']);
+				}
+				//console.log(info[i]['falselock']);
+			}
+		}
+		if (hasLockCode) {
+			$('.lockChoice').empty();
+			lockArr.sort();
+			for (var j = 0;j < lockArr.length;j++) {
+				if (lockArr[j] == 1) {
+					$('.lockChoice').append("<small value='1'>带假锁</small>");
+				} else {
+					$('.lockChoice').append("<small value='0'>不带假锁</small>");
+				}
+			}
+			$('.lockChoice small:first').click();
+		}
 	});
 
 	/*是否带加锁*/
@@ -278,7 +303,7 @@ $(function(){
 			return false;
 		}
 		var goodsNum = $('#goodsNum').val();
-		if (isNaN(goodsNum) && goodsNum <=0) {
+		if (isNaN(goodsNum) || goodsNum <=0) {
 			alert('订购的数量必须为整数且大于0');
 			return false;
 		}
@@ -293,7 +318,7 @@ $(function(){
 		} else {
 			var Clock = 0;
 		}
-		console.log(Ccolor+''+Chand+Clock);
+		//console.log(Ccolor+''+Chand+Clock);
 		//return false;
 		$('.meng00').show();
 		$.ajax({

@@ -36,7 +36,7 @@ class InstallController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 2;
+                $pageNum = 12;
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_install')->where('status!=1 '.$csql)->count();
@@ -47,6 +47,7 @@ class InstallController extends Controller {
                 $this->ajaxReturn($res);
             } else {
                 $Model_data = M('install');
+                $Model_data->where('isNew=0')->data(array('isNew'=>1))->save();
                 $saleman = $Model_data->where('status!=1')->group('salemanId')->getField('salemanId,saleman,salemanPhone');
                 $this->assign('saleman',$saleman);
                 $this->display();
@@ -147,7 +148,7 @@ class InstallController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 2;
+                $pageNum = 12;
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_install')->where('status=1 '.$csql)->count();
@@ -158,7 +159,7 @@ class InstallController extends Controller {
                 $this->ajaxReturn($res);
             } else {
                 $Model_data = M('install');
-                $saleman = $Model_data->where('status!=1')->group('salemanId')->getField('salemanId,saleman,salemanPhone');
+                $saleman = $Model_data->where('status=1')->group('salemanId')->getField('salemanId,saleman,salemanPhone');
                 $this->assign('saleman',$saleman);
                 $this->display();
             }

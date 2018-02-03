@@ -73,7 +73,7 @@ class ShopController extends Controller {
         if (isset($_SESSION['admin_id']) && IS_AJAX) {
             $admin_id = intval($_SESSION['admin_id']);
             $goodsId = intval(I('goodsId'));
-            $goodsName = intval(I('goodsName'));
+            $goodsName = I('goodsName');
             $goodsColor = I('goodsColor');
             $hasHand = intval(I('hasHand'));
             $hand = intval(I('hand'));

@@ -8,13 +8,13 @@ class ShopcarController extends Controller {
 	    	$Model_data = M('goods');
 	    	$goods = $Model_data->order('id asc')->getField('id,goodsImg,goodsName');
 	 		$Model_data = M('shopcar');
-	 		$shopcar = $Model_data->where(array('salemanId'=>$admin_id,'orderId'=>0))->order('id asc')->getField('id,goodsId,goodsModel,goodsNum,enTime');
+	 		$shopcar = $Model_data->where(array('salemanId'=>$admin_id,'orderId'=>0))->order('id asc')->getField('id,goodsId,goodsName,goodsImg,goodsModel,goodsNum,enTime');
 	 		if (!empty($shopcar)) {
                 $hasShop = 1;
-	 			foreach ($shopcar as $key => $value) {
-	 				$shopcar[$key]['goodsImg'] = $goods[$shopcar[$key]['goodsid']]['goodsimg'];
-                    $shopcar[$key]['goodsName'] = $goods[$shopcar[$key]['goodsid']]['goodsname'];
-	 			}
+	 			// foreach ($shopcar as $key => $value) {
+	 			// 	$shopcar[$key]['goodsImg'] = $goods[$shopcar[$key]['goodsid']]['goodsimg'];
+     //                $shopcar[$key]['goodsName'] = $goods[$shopcar[$key]['goodsid']]['goodsname'];
+	 			// }
 	 		} else {
                 $hasShop = 0;
             }

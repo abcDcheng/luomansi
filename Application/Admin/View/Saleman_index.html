@@ -110,7 +110,7 @@
                             <td>
                                 <a href="<{:U('Saleman/update?id='.$value['id'])}>" data-title="编辑">编辑</a>
                                 <span class="sc_explode">|</span>
-                                <a data-confirm="#">删除</a>
+                                <a class="deleteId" data-confirm="#" value="<{$value.id}>">删除</a>
                             </td>
                         </tr>
                     <{/foreach}>

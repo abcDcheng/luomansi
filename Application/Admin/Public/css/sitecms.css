@@ -62,7 +62,7 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 .sc_side_tab .sc_side_menu li a.active{border-bottom: 1px solid #eee;background-color:#fff}
 .sc_side_tab .sc_side_menu li i{color:#aaa;font-style: normal;}
 /* sitecms side_more */
-.sc_side_more{width:80px;background:0 0}
+.sc_side_more{width:90px;background:0 0}
 .sc_side_more .layui-nav-item a:hover{background:0 0}
 .sc_side_more .layui-nav-item .layui-nav-more{left:50%;margin-left:-6px;border-color:#fff transparent transparent}
 .sc_side_more .layui-nav-itemed>a{background:0 0!important}

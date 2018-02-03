@@ -58,7 +58,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goodsname" class="layui-input" autocomplete="off" placeholder="产品名" datatype="s1-16" errormsg="产品名至少1个字符!" nullmsg="请输入产品名!">
+                                    <input type="text" name="goodsname" class="layui-input" autocomplete="off" placeholder="产品名" datatype="s1-30" errormsg="产品名至少1个字符!" nullmsg="请输入产品名!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -67,8 +67,8 @@
                                     <button type="button" class="layui-btn" id="test1">
                                       <i class="layui-icon">&#xe67c;</i>上传图片
                                     </button>
-                                    <span id="phototext"></span>
-                                    <input id="photo" type="hidden" name="photo"/>
+                                    <span id="phototext">尺寸为200px * 200px</span>
+                                    <input id="photo" type="hidden" name="photo"/><br/>
                                     <img id="img" style="display:none;width: 100px;height: 100px" src="__UPLOADS__/<{$goods.goodsimg}>"/>
                                 </div>
                             </div>

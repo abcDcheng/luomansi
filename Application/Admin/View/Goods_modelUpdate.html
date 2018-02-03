@@ -49,7 +49,7 @@
                     <h5><{$goods.goodsname}>规格添加</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Goods/goodsmodel?id='.$goods['id'])}>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Goods/goodsModel?id='.$goods['id'])}>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
@@ -66,7 +66,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">颜色</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="color" class="layui-input" autocomplete="off" placeholder="颜色" datatype="s1-16" errormsg="颜色名至少1个字符!" nullmsg="请输入颜色名!" value="<{$model.goodscolor}>">
+                                    <input type="text" name="color" class="layui-input" autocomplete="off" placeholder="颜色" datatype="s1-30" errormsg="颜色名至少1个字符!" nullmsg="请输入颜色名!" value="<{$model.goodscolor}>">
                               </div>
                             </div>
                             <div class="layui-form-item">

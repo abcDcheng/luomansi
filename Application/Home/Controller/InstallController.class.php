@@ -16,7 +16,7 @@ class InstallController extends Controller {
     		$service_id = intval($_SESSION['service_id']);
     		if ($service_id) {
                 $Model_data = M('ServiceAdmin');
-                $info = $Model_data->where('id='.$serviceId)->find();
+                $info = $Model_data->where('id='.$service_id)->find();
                 if (empty($info)) {
                     $this->error('查无安装人员信息，请重新登录重试');
                 }

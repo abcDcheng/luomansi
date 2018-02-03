@@ -4,10 +4,12 @@ use Think\Controller;
 class IndexController extends Controller {
     public function index(){
     	if (isset($_SESSION['admin_id'])) {
-    		$this->display();
-    	} else {
-    		$this->error("未登录",U("Login/index"),1);
-    	}
+            $username = isset($_SESSION['username'])?$_SESSION['username']:'';
+            $this->assign('username',$username);
+            $this->display();
+        } else {
+            $this->error("未登录",U("Login/index"),1);
+        }
     }
 
     public function pwd(){
@@ -45,5 +47,31 @@ class IndexController extends Controller {
     	//session('admin_id', null);
     	session_destroy();
         redirect(U("Login/index"));
+    }
+
+    public function getNew(){
+        if (isset($_SESSION['admin_id'])) {
+            if (isset($_POST['getOrder'])) {
+                $getOrder = intval($_POST['getOrder']);
+            } else {
+                $getOrder = 0;
+            }
+            if (isset($_POST['getInstall'])) {
+                $getInstall = intval($_POST['getInstall']);
+            } else {
+                $getInstall = 0;
+            }
+            //$Model_data = M();
+            if ($getOrder) {
+                $orderNum = M('order')->where('isNew=0')->count();
+            }
+            if ($getInstall) {
+                $installNum = M('install')->where('isNew=0')->count();
+            }
+            $res = array('code'=>1,'orderNum'=>$orderNum,'installNum'=>$installNum);
+            $this->ajaxReturn($res);
+        } else {
+            $this->error('无权限');
+        }
     }
 }

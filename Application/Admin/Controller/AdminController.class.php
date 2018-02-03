@@ -131,7 +131,7 @@ class AdminController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 2;
+                $pageNum = 12;
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_service_admin')->where('1 '.$csql)->count();

@@ -98,14 +98,14 @@
                                 <input name="oldServicer" type="hidden" value="<{$info.serviceid}>">
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">回访状态</label>
+                                <label class="layui-form-label">回访状态</label>
                                 <div class="layui-input-block">
                                 <{if condition="$info.status eq 2"}>
                                     <input type="text" name="status" class="layui-input" autocomplete="off" value="服务异常" disabled="disabled">
                                 <{else if condition="$info.status eq 1"}>
                                 <input type="text" name="status" class="layui-input" autocomplete="off" value="已回访" disabled="disabled">
                                 <{else /}>
-                                <input type="text" name="status" class="layui-input" autocomplete="off" value="已回访" disabled="disabled">
+                                <input type="text" name="status" class="layui-input" autocomplete="off" value="未回访" disabled="disabled">
                                 <{/if}>
                                 </div>
                             </div>

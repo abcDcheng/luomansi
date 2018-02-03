@@ -35,7 +35,7 @@ class MaintainController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 2;
+                $pageNum = 12;
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_maintain')->where('status!=1 '.$csql)->count();
@@ -193,6 +193,7 @@ class MaintainController extends Controller {
     //代理商查看维护信息
     public function salemanIndex(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
+            $admin_id = intval($_SESSION['admin_id']);
             if (IS_AJAX) {
                 $csql='';
                 $ra=array();
@@ -222,18 +223,18 @@ class MaintainController extends Controller {
                 if(isset($_POST['page'])){
                     $page=$_POST['page'];
                 }
-                $pageNum = 2;
+                $pageNum = 12;
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
-                $count = $Model_data->table('saleman_maintain')->where('1 '.$csql)->count();
-                $order = $Model_data->table('saleman_maintain')->where('1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,name,phone,address,goods,enTime,serviceName,serviceStatus,status,msg');
+                $count = $Model_data->table('saleman_maintain')->where('salemanId='.$admin_id.' '.$csql)->count();
+                $order = $Model_data->table('saleman_maintain')->where('salemanId='.$admin_id.' '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,name,phone,address,goods,enTime,serviceName,serviceStatus,status,msg');
                 
                 $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
                 //var_dump($res);
                 $this->ajaxReturn($res);
             } else {
                 $Model_data = M('maintain');
-                $saleman = $Model_data->where('status!=1')->group('salemanId')->getField('salemanId,saleman,salemanPhone');
+                //$saleman = $Model_data->where('1')->group('salemanId')->getField('salemanId,saleman,salemanPhone');
                 $this->assign('saleman',$saleman);
                 $this->display();
             }
@@ -334,7 +335,7 @@ class MaintainController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 2;
+                $pageNum = 12;
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_maintain')->where('status=1 '.$csql)->count();
