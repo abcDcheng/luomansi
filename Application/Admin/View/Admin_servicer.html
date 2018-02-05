@@ -48,8 +48,8 @@
         <div class="sc_body">
         <div class="sc_title sc_body_title">
             <h5>代理商员工信息</h5>
-            <!-- <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<{:U('Maintain/add')}>"><i class="layui-icon"></i> 新增</a>        </div> -->
+            <div class="sc_title_btn">
+                <a class="layui-btn layui-btn-sm" href="<{:U('Admin/serviceAdd')}>"><i class="layui-icon"></i> 新增</a>        </div> 
         </div>
         <div class="fadeInUp animated">
             <div id="form-list" class="layui-form">
@@ -76,6 +76,7 @@
                         <col>
                         <col>
                         <col>
+                        <col width="100">
                     </colgroup>
                     <thead>
                         <tr>
@@ -86,6 +87,7 @@
                             <th>状态</th>
                             <!-- <th>信息反馈</th> -->
                             <th>创建时间</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody id="body">
@@ -183,13 +185,13 @@
             for(key in order){
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['username']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['idcard']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td>';
                 
-                if (order[key]['status']) {
+                if (parseInt(order[key]['status'])) {
                     tableHtml += '<td class="layui-elip"><span style="color:green">使用中</span></td>';
                 } else {
-                    tableHtml += '<td class="layui-elip"><span style="color:red">暂时停用</span></td>';
+                    tableHtml += '<td class="layui-elip"><span style="color:red">禁用</span></td>';
                 }
                 tableHtml += '<td class="layui-elip">'+order[key]['entime']+'</td>';
-                
+                tableHtml+='<td><a href="/luomansi/index.php/Admin/Admin/serviceUpdate/id/'+key+'" data-title="编辑">编辑</a><span class="sc_explode">|</span><a class="serviceDel" href="javascript:;" value="'+key+'">删除</a></td></tr>';
             }
             $('#body').append(tableHtml);
             var val=parseInt(data['page']);
@@ -277,13 +279,13 @@
         window.location.href="/luomansi/index.php/Admin/Order/update/id/"+id;
     });
 
-    $('.deleteId').click(function(){
+    $('#body').on('click','.serviceDel',function(){
         if (confirm('确定删除该数据吗？')) {
             var id = $(this).attr('value');
             //alert(id);
             $('.meng00').show();
             $.ajax({
-                url : "<{:U('Order/del')}>",
+                url : "<{:U('Saleman/staffDel')}>",
                 type : "post",
                 data : {id:id},
                 dataType : "json",

@@ -48,6 +48,11 @@
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
             
         </li>
+        <style type="text/css">
+			#orderNum,#installNum{
+				color:red;
+			}
+        </style>
         <dl class="layui-nav layui-nav-tree sc_side_more">
             <dd class="layui-nav-item layui-nav-itemed">
                 <dl class="layui-nav-child">
@@ -58,10 +63,10 @@
 				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
 				<?php } elseif ($group == 2) { ?>
-				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<?php } elseif ($group == 3) { ?>	
-				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
@@ -70,9 +75,9 @@
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
-				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
-				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
@@ -83,6 +88,54 @@
             </dd>
         </dl>
     </ul>
+
+
+    <script type="text/javascript">
+    	var getOrder = 0;
+    	var getInstall = 0;
+    	<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
+				
+		<?php } elseif ($group == 2) { ?>
+				getOrder = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 3) { ?>
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 99) { ?>
+				getOrder = 1;
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } } ?>
+
+
+
+		function getNew(){
+			$.ajax({
+				url : '<?php echo U("Index/getNew");?>',
+				type : "post",
+	            data : {getOrder:getOrder,getInstall:getInstall},
+	            dataType : "json",
+	            timeout : 5000,
+	            success:function(data) {
+	            	if (data.code == 1) {
+	            		if (data.orderNum>0) {
+	            			$('#orderNum').text('('+data.orderNum+')');
+	            		} else {
+	            			$('#orderNum').text('');
+	            		}
+	            		if (data.installNum>0) {
+	            			$('#installNum').text('('+data.installNum+')');
+	            		} else {
+	            			$('#installNum').text('');
+	            		}
+	            	}
+	            }
+			});
+		}
+    </script>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
@@ -114,6 +167,7 @@
                         <col>
                         <col>
                         <col>
+                        <col width="100">
                     </colgroup>
                     <thead>
                         <tr>
@@ -124,6 +178,7 @@
                             <th>状态</th>
                             <!-- <th>信息反馈</th> -->
                             <th>创建时间</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody id="body">
@@ -221,13 +276,13 @@
             for(key in order){
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['username']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['idcard']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td>';
                 
-                if (order[key]['status']) {
+                if (parseInt(order[key]['status'])) {
                     tableHtml += '<td class="layui-elip"><span style="color:green">使用中</span></td>';
                 } else {
-                    tableHtml += '<td class="layui-elip"><span style="color:red">暂时停用</span></td>';
+                    tableHtml += '<td class="layui-elip"><span style="color:red">禁用</span></td>';
                 }
                 tableHtml += '<td class="layui-elip">'+order[key]['entime']+'</td>';
-                
+                tableHtml+='<td><a href="/luomansi/index.php/Admin/Admin/serviceUpdate/id/'+key+'" data-title="编辑">编辑</a><span class="sc_explode">|</span><a class="serviceDel" href="javascript:;" value="'+key+'">删除</a></td></tr>';
             }
             $('#body').append(tableHtml);
             var val=parseInt(data['page']);
@@ -315,13 +370,13 @@
         window.location.href="/luomansi/index.php/Admin/Order/update/id/"+id;
     });
 
-    $('.deleteId').click(function(){
+    $('#body').on('click','.serviceDel',function(){
         if (confirm('确定删除该数据吗？')) {
             var id = $(this).attr('value');
             //alert(id);
             $('.meng00').show();
             $.ajax({
-                url : "<?php echo U('Order/del');?>",
+                url : "<?php echo U('Saleman/staffDel');?>",
                 type : "post",
                 data : {id:id},
                 dataType : "json",

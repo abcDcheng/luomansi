@@ -53,7 +53,7 @@
 		</div>
 		<!-- 订单执行中 -->
 		<ul class="maintain-ing maintain-style" style="display:block;">
-			<?php if(is_array($info)): foreach($info as $k=>$value): ?><li>
+			<?php if($hasInfo == 1): if(is_array($info)): foreach($info as $k=>$value): ?><li>
 				<div class="query-list-img-bg">
 					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
@@ -69,6 +69,10 @@
 				<span class='lineColor'></span>
 				<a href="javascript:;" class="maintain-data-btn" value="<?php echo ($k); ?>">查看详情>></a>
 			</li><?php endforeach; endif; ?>
+			<?php else: ?>
+			<div class="no-information" style="display: block;">
+				<img src="/luomansi/Application/Home/Public/img/no-information.png" alt="">
+			</div><?php endif; ?>
 		</ul>
 		<!-- 上传图片 -->
 		<div class="maintain-upload" >

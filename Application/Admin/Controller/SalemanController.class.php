@@ -300,7 +300,7 @@ class SalemanController extends Controller {
 
     //删除代理商下属人员账户 
     public function staffDel(){
-        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 1 || $_SESSION['group'] == 99) ) {
             if (IS_AJAX) {
                 if (isset($_POST['id'])) {
                     $id = intval(I('id'));

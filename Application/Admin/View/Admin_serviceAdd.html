@@ -33,7 +33,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>新增维护订单</title>
+    <title>新增员工</title>
 </head>
 <body>
 
@@ -43,55 +43,19 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<{:U('Maintain/add')}>" id="form" class="layui-form layui-form-pane">
+            <form action="<{:U('Admin/serviceAdd')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>新增维护订单</h5>
+                    <h5>新增员工</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Maintain/index')}>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Admin/servicer')}>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">创建人员</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="username" class="layui-input" autocomplete="off" value="<{$username}>" disabled="disabled">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label label-required">客户姓名</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="s2-30" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label label-required">联系方式</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="phone" class="layui-input" autocomplete="off" datatype="s2-30" errormsg="请输入正确的联系方式" placeholder="联系方式" nullmsg="请输入联系方式!">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label label-required">详细地址</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="address" class="layui-input" autocomplete="off" datatype="s2-255" errormsg="请输入正确的详细地址" placeholder="详细地址" nullmsg="请输入详细地址!">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label label-required">产品名称</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="goods" class="layui-input" autocomplete="off" datatype="s2-255" errormsg="请输入正确的产品名称" placeholder="产品名称" nullmsg="请输入产品名称!">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label label-required">维护信息</label>
-                                <div class="layui-input-block">
-                                    <textarea name="msg" class="layui-textarea" datatype="s2-1000" placeholder="维护信息"></textarea>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label label-required">负责代理商</label>
+                                <label class="layui-form-label label-required">代理商</label>
                                 <div class="layui-input-block">
                                     <select id="saleman" name="saleman" class="layui-select">
                                         <option value="">选择代理商</option>
@@ -99,6 +63,36 @@
                                         <option value="<{$value.id}>"><{$value.name}>(<{$value.phone}>)</option>
                                         <{/foreach}>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">用户名</label>
+                                <div class="layui-input-block">
+                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="员工手机号" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">密码</label>
+                                <div class="layui-input-block">
+                                    <input id="pwd" type="password" name="pwd" placeholder="密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">确认密码</label>
+                                <div class="layui-input-block">
+                                    <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">姓名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="name" placeholder="姓名" class="layui-input" autocomplete="off" datatype="*1-30" errormsg="请输入正确姓名" nullmsg="请输入姓名!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">身份证</label>
+                                <div class="layui-input-block">
+                                    <input id="idcard" type="text" name="IDcard" placeholder="身份证" class="layui-input" autocomplete="off" datatype="*18-18" errormsg="请输入正确身份证" nullmsg="请输入身份证!">
                                 </div>
                             </div>
                         </div>
@@ -110,10 +104,34 @@
 </div>
 <script>
     UE.getEditor('content');
+
     $('#save').click(function(){
         var saleman = $('#saleman').val();
+        var pwd = $('#pwd').val();
+        var repwd = $('#repwd').val();
+        var name=$.trim($('#username').val());
+        var idcard = $.trim($('#idcard').val());
         if (!saleman) {
-            alert('请选择代理商');
+            alert('请选择代理商!');
+            return false;
+        }
+        if(name){
+            //判断手机格式
+            if(!(/^1[0-9]\d{9,9}$/.test(name))){ 
+                alert('用户名必须为手机号');
+                return false;
+            }
+        }else{
+            alert("请输入用户名");
+            return false;
+        }
+        if (pwd != repwd) {
+            alert('两次输入的密码不一致');
+            return false;
+        }
+        //判断身份证格式
+        if(!(/^\d{17}[0-9X]$/.test(idcard))){ 
+            alert('身份证号不正确');
             return false;
         }
     });

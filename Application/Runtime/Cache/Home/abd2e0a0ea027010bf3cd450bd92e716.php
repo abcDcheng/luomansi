@@ -41,7 +41,7 @@
 		
 		<!-- 可执行订单 -->
 		<ul class="maintain-executable maintain-style" style="display:block;">
-			<?php if(is_array($info)): foreach($info as $k=>$value): ?><li>
+			<?php if($hasInfo == 1): if(is_array($info)): foreach($info as $k=>$value): ?><li>
 				<div class="query-list-img-bg">
 					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
@@ -57,8 +57,13 @@
 				<span class='lineColor'></span>
 				<a href="javascript:;" class="maintain-data-btn" value="<?php echo ($k); ?>">查看详情>></a>
 			</li><?php endforeach; endif; ?>
-			
+			<?php else: ?>
+			<div class="no-information" style="display: block;">
+				<img src="/luomansi/Application/Home/Public/img/no-information.png" alt="">
+			</div><?php endif; ?>
 		</ul>
+		
+
 		<!-- 可执行订单详情 -->
 		<div class="maintain-executable-date-wrap maintain-date-wrap" >
 			<div class="maintain-executable-date">
@@ -71,6 +76,7 @@
 				<strong id="msg"></strong>
 			</div>
 			<button id="service" class="maintain-executable-date-btn">执行维护</button>
+			<button id="return" class="maintain-executable-date-btn">返回</button>
 		</div>
 	</div>
 
@@ -141,7 +147,10 @@
 			$('.maintain-executable').hide();
 			$('.maintain-executable-date-wrap').show();
 		});
-
+		$('#return').click(function(){
+			$('.maintain-executable').show();
+			$('.maintain-executable-date-wrap').hide();
+		});
 		/*<!-- 上传图片 -->*/
 		// $('.maintain-ing a').click(function(){
 		// 	$('.maintain-ing').hide();

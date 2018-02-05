@@ -21,20 +21,23 @@
     <script src="/luomansi/Application/Admin/Public/plugs/layui/layui.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.config.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.all.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/static/base/js/jquery.cookie.js"></script> -->
     <script src="/luomansi/Application/Admin/Public/js/jquery.min.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/uploadify/jquery.uploadify.min.js"></script> -->
     <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
     <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
 
     <!-- 让IE8/9支持媒体查询 -->
 	<!--[if lt IE 9]>
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>罗曼斯代理商后台管理系统</title>
+    <title>新增员工</title>
 </head>
 <body>
 
-<div class="layui-layout-admin">                    
+<div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
     
     <ul class="layui-tab-title">
@@ -133,50 +136,96 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <div class="sc_title sc_body_title">
-                <h5>系统首页</h5>
-            </div>
-            <div class="fadeInUp animated">
-                <fieldset class="layui-elem-field">
-                    <legend>登录信息</legend>
-                    <div class="layui-field-box">
-                        <ul class="sc_list_info">
-                            <li>欢迎您：<?php echo ($username); ?>。</li>
-                            <!-- <li>登录时间 : 2017年12月01日 00:00:00</li> -->
-                        </ul>
+            <form action="<?php echo U('Admin/serviceAdd');?>" id="form" class="layui-form layui-form-pane">
+                <div class="sc_title sc_body_title">
+                    <h5>新增员工</h5>
+                    <div class="sc_title_btn">
+                        <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Saleman/staff');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
-                </fieldset>
-                <!-- <div class="layui-row layui-col-space15">
-                    <div class="layui-col-md6">
-                        <blockquote class="layui-elem-quote layui-quote-nm">
-                            <ul class="sc_list_info">
-                                <li><span>程序版本 :</span>V3.2</li>
-                                <li><span>ThinkPHP版本 :</span>3.2.3</li>
-                                <li><span>服务器操作系统 :</span>Darwin</li>
-                                <li><span>WEB运行环境 :</span>apache2handler</li>
-                                <li><span>PHP版本 :</span>5.6.32</li>
-                                <li><span>Mysql版本 :</span>10.1.28-MariaDB</li>
-                                <li><span>上传大小限制 :</span>128M</li>
-                            </ul>
-                        </blockquote>
-                    </div>
-                    <div class="layui-col-md6">
-                        <blockquote class="layui-elem-quote layui-quote-nm">
-                            <ul class="sc_list_info">
-                                <li><span>版权所有 :</span><a href="https://sitecms.cn" target="_blank">SiteCMS</a></li>
-                                <li><span>基于程序 :</span><a href="http://www.thinkphp.cn" target="_blank">ThinkPHP</a></li>
-                                <li><span>前端框架 :</span><a href="http://www.layui.com" target="_blank">Layui</a></li>
-                                <li><span>开发团队 :</span><a href="https://defaultfish.com" target="_blank">DefaultFish</a></li>
-                                <li><span>联系邮箱 :</span><a href="mailto:defaultfish@qq.com">defaultfish@qq.com</a></li>
-                                <li><span>项目地址 :</span><a href="https://gitee.com/defaultfish/sitecms">https://gitee.com/defaultfish/sitecms</a></li>
-                                <li><span>BUG反馈 :</span><a href="https://gitee.com/defaultfish/sitecms/issues">https://gitee.com/defaultfish/sitecms/issues</a></li>
-                            </ul>
-                        </blockquote>
-                    </div>
-                </div> -->
-            </div>
+                </div>
+                <div class="fadeInUp animated">
+                    <section class="sc_layout_inner layui-clear">
+                        <div class="sc_editor_content">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">代理商</label>
+                                <div class="layui-input-block">
+                                    <select id="saleman" name="saleman" class="layui-select">
+                                        <option value="">选择代理商</option>
+                                        <?php if(is_array($saleman)): foreach($saleman as $key=>$value): ?><option value="<?php echo ($value["id"]); ?>"><?php echo ($value["name"]); ?>(<?php echo ($value["phone"]); ?>)</option><?php endforeach; endif; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">用户名</label>
+                                <div class="layui-input-block">
+                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">密码</label>
+                                <div class="layui-input-block">
+                                    <input id="pwd" type="password" name="pwd" placeholder="密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">确认密码</label>
+                                <div class="layui-input-block">
+                                    <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">姓名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="name" placeholder="姓名" class="layui-input" autocomplete="off" datatype="*1-30" errormsg="请输入正确姓名" nullmsg="请输入姓名!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">身份证</label>
+                                <div class="layui-input-block">
+                                    <input id="idcard" type="text" name="IDcard" placeholder="身份证" class="layui-input" autocomplete="off" datatype="*18-18" errormsg="请输入正确身份证" nullmsg="请输入身份证!">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<script>
+    UE.getEditor('content');
+
+    $('#save').click(function(){
+        var saleman = $('#saleman').val();
+        var pwd = $('#pwd').val();
+        var repwd = $('#repwd').val();
+        var name=$.trim($('#username').val());
+        var idcard = $.trim($('#idcard').val());
+        if (!saleman) {
+            alert('请选择代理商!');
+            return false;
+        }
+        if(name){
+            //判断手机格式
+            if(!(/^1[0-9]\d{9,9}$/.test(name))){ 
+                alert('用户名必须为手机号');
+                return false;
+            }
+        }else{
+            alert("请输入用户名");
+            return false;
+        }
+        if (pwd != repwd) {
+            alert('两次输入的密码不一致');
+            return false;
+        }
+        //判断身份证格式
+        if(!(/^\d{17}[0-9X]$/.test(idcard))){ 
+            alert('身份证号不正确');
+            return false;
+        }
+    });
+</script>
 </body>
 </html>

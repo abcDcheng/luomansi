@@ -79,7 +79,7 @@
                     <colgroup>
                         <col>
                         <col width="80">
-                        <col width="100">
+                        <col width="120">
                         <col width="150">
                         <col>
                         <col width="120">
@@ -199,7 +199,7 @@
             for(key in order){
                 var tableHtml = '';
 
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['address']+'</td>';
+                tableHtml += '<tr><td class="layui-elip">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td>';
                 var detail = '';
                 for(var i=0;i<order[key]['detail'].length;i++){
                     detail += order[key]['detail'][i]['goodsname'] + '-'+ order[key]['detail'][i]['goodsmodel']+'X'+order[key]['detail'][i]['goodsnum'];

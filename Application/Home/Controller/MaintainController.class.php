@@ -8,6 +8,12 @@ class MaintainController extends Controller {
         	$Model_data = M('maintain');
         	$info = $Model_data->where("serviceStatus=0 and serviceId=".$admin_id)->order('id desc')->select();
         	//var_dump($info);
+            if (empty($info)) {
+                $hasInfo = 0;
+            } else {
+                $hasInfo = 1;
+            }
+            $this->assign('hasInfo',$hasInfo);
         	$this->assign('info',$info);
         	$this->display();
         } else {
@@ -43,6 +49,12 @@ class MaintainController extends Controller {
         	$Model_data = M('maintain');
         	$info = $Model_data->where("serviceStatus=1 and serviceId=".$admin_id)->order('id desc')->select();
         	//var_dump($info);
+            if (empty($info)) {
+                $hasInfo = 0;
+            } else {
+                $hasInfo = 1;
+            }
+            $this->assign('hasInfo',$hasInfo);
         	$this->assign('info',$info);
         	$this->display();
         } else {
@@ -90,6 +102,12 @@ class MaintainController extends Controller {
             $Model_data = M('maintain');
             $info = $Model_data->where("serviceStatus=2 and serviceId=".$admin_id)->order('id desc')->select();
             //var_dump($info);
+            if (empty($info)) {
+                $hasInfo = 0;
+            } else {
+                $hasInfo = 1;
+            }
+            $this->assign('hasInfo',$hasInfo);
             $this->assign('info',$info);
             $this->display();
         } else {

@@ -149,9 +149,9 @@
                 <input type="hidden" name="nid" value="5">
                 <table class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
+                        <col width="120">
                         <col>
-                        <col>
-                        <col>
+                        <col width="200">
                         <col>
                         <col>
                         <col>

@@ -79,13 +79,13 @@
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
                         <col width="100">
+                        <col width="120">
                         <col width="100">
                         <col width="100">
-                        <col width="100">
-                        <col width="100">
+                        <col width="120">
                         <col>
                         <col>
-                        <col>
+                        <col width="145">
                         <col>
                         <col>
                         <col width="60">
@@ -200,15 +200,15 @@
             var order = data['order'];
             for(key in order){
                 var tableHtml = '';
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['sername']+'</td><td class="layui-elip">'+order[key]['serphone']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['area']+'</td><td class="layui-elip">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['entime']+'</td>';
+                tableHtml += '<tr><td class="layui-elip">'+order[key]['sername']+'</td><td class="layui-elip">'+order[key]['serphone']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['area']+'"">'+order[key]['area']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['entime']+'</td>';
                 
                 if (parseInt(order[key]['status'])) {
                     tableHtml += '<td class="layui-elip"><span style="color:green">已回访</span></td>';
                 } else {
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
-                tableHtml += '<td class="layui-elip">'+order[key]['msg']+'</td>';
-                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a class="deleteId" data-confirm="#" value="'+key+'">下载</a></td></tr>';
+                tableHtml += '<td class="layui-elip" title="'+order[key]['msg']+'">'+order[key]['msg']+'</td>';
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a href="/luomansi/index.php/Admin/Install/download/mod/history/id/'+key+'" class="download" data-confirm="#" value="'+key+'">下载</a></td></tr>';
                 tableHtml2 = tableHtml+tableHtml2;
             }
             $('#body').append(tableHtml2);

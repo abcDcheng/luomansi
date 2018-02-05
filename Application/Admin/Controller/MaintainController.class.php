@@ -105,6 +105,11 @@ class MaintainController extends Controller {
     //维护数据更新
     public function update(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
+            if (isset($_REQUEST['mod'])) {
+                $mod = $_REQUEST['mod'];
+            } else {
+                $mod = 'index';
+            }
             if (isset($_REQUEST['id'])) {
                 $id = intval($_REQUEST['id']);
                 if (IS_AJAX) {
@@ -151,7 +156,7 @@ class MaintainController extends Controller {
                     
                     $res = $Model_data->table('saleman_maintain')->where('id='.$id)->data($data)->save();
                     if ($res) {
-                        $this->success('修改成功',U('Maintain/index'));
+                        $this->success('修改成功',U('Maintain/'.$mod));
                     } else {
                         $this->error('修改失败');
                     }

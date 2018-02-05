@@ -149,4 +149,115 @@ class AdminController extends Controller {
             $this->error("未登录或未授权",U("Login/index"),3);
         }
     }
+
+    public function serviceAdd(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+            if (IS_AJAX) {
+                $salemanId = intval(I('saleman'));
+                $saleman = M('SysAdmin')->where('id='.$salemanId)->find();
+                if (!empty($saleman)) {
+                    $Model_data = M('ServiceAdmin');
+                    $count = $Model_data->where("salemanId='$salemanId'")->count();
+                    if ($count>=5) {
+                        $this->error('每位代理商限定只能有5个下属人员账户');
+                    }
+                    $username = I('username');
+                    $pwd = md5(I('pwd'));
+                    $name = I('name');
+                    $phone = I('phone');
+                    $IDcard = I('IDcard');
+                    
+                    $count = $Model_data->where("username='$username'")->count();
+                    if ($count > 0) {
+                        $this->error('该用户名已存在',U('Admin/index'));
+                    } else {
+                            $insertData = array('username'=>$username,
+                                        'password'=>$pwd,
+                                        'name'=>$name,
+                                        'phone'=>$username,
+                                        'IDcard'=>$IDcard,
+                                        'salemanId'=>$salemanId,
+                                        'saleman'=>$saleman['name'],
+                                        'salemanPhone'=>$saleman['phone'],
+                                        'status'=>1,
+                                        'enTime'=>date('Y-m-d H:i:s'));
+                        //var_dump($insertData);
+                        $res = $Model_data->add($insertData);
+                        if ($res) {
+                            $this->success('提交成功',U('Admin/servicer'),'add');
+                        } else {
+                            $this->error('添加失败，请重试或联系技术人员解决');
+                        }
+                    }
+                } else {
+                    $this->error('查不到该经销商的信息，请重试');
+                }
+            } else {
+                $Model_data = M('SysAdmin');
+                $saleman = $Model_data->where('`group`=1')->order('id asc')->getField('id,name,phone');
+                $this->assign('saleman',$saleman);
+                $this->display();
+            }
+        } else {
+            $this->error("不可用的授权",U("Login/index"),3);
+        }
+    }
+
+    public function serviceUpdate(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+            if (isset($_REQUEST['id'])) {
+                $id = intval(I('id'));
+                if (IS_AJAX) {
+                    $pwd = I('pwd');
+                    $username = trim(I('username'));
+                    $name = I('name');
+                    $idcard = I('IDcard');
+                    $modelId = I('goodsInfo');
+                    $status = intval(I('status'));
+                    $salemanId = intval(I('saleman'));
+                    $oldSaleman = intval(I('salemanId'));
+                    $data = array(
+                                  'name'=>$name,
+                                  'username'=>$username,
+                                  'phone'=>$username,
+                                  'IDcard'=>$idcard,
+                                  'status'=>$status);
+                    if ($salemanId != $oldSaleman) {
+                        $saleInfo = M('SysAdmin')->where('id='.$salemanId)->find();
+                        if (!empty($saleInfo)) {
+                            $data['salemanId'] = $salemanId;
+                            $data['saleman'] = $saleInfo['name'];
+                            $data['salemanPhone'] = $saleInfo['phone'];
+                        } else {
+                            $this->error('查找不到该代理商信息，请重试');
+                        }
+                    }
+                    if ($pwd) {
+                        $data['password'] = md5($pwd);
+                    }
+                    $Model_data = M('ServiceAdmin');
+                    $res = $Model_data->where('id='.$id)->save($data);
+                    if ($res === false) {
+                        $this->error('数据更新失败，请重试或联系技术人员解决');
+                    } else {
+                        $this->success('更新成功',U("Admin/servicer"));
+                    }
+                } else {
+                    $Model_data = M('ServiceAdmin');
+                    $info = $Model_data->where('id='.$id)->find();
+                    $this->assign('id',$id);
+                    $this->assign('info',$info);
+                    $Model_data = M('SysAdmin');
+                    $saleman = $Model_data->where('`group`=1')->order('id asc')->getField('id,name,phone');
+                    $this->assign('saleman',$saleman);
+                    $this->display();
+                }
+                
+            } else {
+                $this->error("查无数据",U("Admin/index"),3);
+            }
+        } else {
+            $this->error("不可用的授权",U("Login/index"),3);
+        }
+    }
 }
