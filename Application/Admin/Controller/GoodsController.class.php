@@ -44,11 +44,11 @@ class GoodsController extends Controller {
             $this->error("未登录或未授权",U("Login/index"),1);
         }
     }
-
+    //产品大类更新
     public function goodsUpdate(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (isset($_REQUEST['id'])) {
-                $id = intval(I('id'));
+                $id = intval(I('id'));  //获取产品对应ID
                 if (IS_AJAX) {
                     $photo = I('photo');
                     $goodsname = I('goodsname');
@@ -75,8 +75,6 @@ class GoodsController extends Controller {
                     } else {
                         $this->error("查无产品数据",U("Goods/index"),3);
                     }
-                    
-                    
                 }
             } else {
                 $this->error('未知参数',U('Goods/index'));
@@ -116,12 +114,14 @@ class GoodsController extends Controller {
     //产品规格展示
     public function goodsModel(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
-            if (isset($_GET['id'])) {
+            if (isset($_GET['id'])) {   //获取产品大类ID
                 $id = intval(I('id'));
                 $Model_data = M();
+                //获取产品属性
                 $goods = $Model_data->table('saleman_goods')->where('id='.$id)->getField('id,goodsName,hasHand,hasLock');
                 if (!empty($goods)) {
                     $this->assign('goods',$goods[$id]);
+                    //获取规格
                     $goodsInfo = $Model_data->table('saleman_goods_info')->where('goodsId='.$id)->order('id asc')->getField('id,goodsColor,colorCode,hand,falseLock,status');
                     //var_dump($goodsInfo);
                     $this->assign('id',$id);
@@ -136,7 +136,7 @@ class GoodsController extends Controller {
             $this->error("未登录或未授权",U("Login/index"),1);
         }
     }
-
+    //产品规格添加
     public function modelAdd(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
@@ -157,6 +157,7 @@ class GoodsController extends Controller {
                 $Model_data = M();
                 $res = $Model_data->table('saleman_goods_info')->data($data)->add();
                 if ($res) {
+                    //新增产品添加代理商权限（可购买权限）
                     if (!empty($saleman)) {
                         $saleman = implode(',', $saleman);
                         $res = $Model_data->execute("update saleman_goods_permission 
@@ -169,6 +170,7 @@ class GoodsController extends Controller {
                 }
             } else {
                 if (isset($_GET['id'])) {
+                    //查询产品大类
                     $id = intval(I('id'));
                     $Model_data = M('goods');
                     $goods = $Model_data->where('id='.$id)->find();
@@ -187,7 +189,7 @@ class GoodsController extends Controller {
             }
         }
     }
-
+    //产品规格更新
     public function modelUpdate(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (isset($_REQUEST['id'])) {
@@ -213,6 +215,7 @@ class GoodsController extends Controller {
                         $this->success('数据修改成功',U('Goods/goodsModel?id='.$goodsId));
                     }
                 } else {
+                    //获取当前产品规格信息
                     $Model_data = M();
                     $model = $Model_data->table('saleman_goods_info')->where('id='.$id)->find();
                     if (!empty($model)) {
@@ -235,7 +238,7 @@ class GoodsController extends Controller {
             $this->error("未登录或未授权",U("Login/index"),1);
         }
     }
-
+    //删除产品规格
     public function modelDel(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
@@ -260,7 +263,7 @@ class GoodsController extends Controller {
             $this->error("您未授权做此操作",U("Goods/index"),3);
         }
     }
-
+    //图片上传
     public function photoUpload(){
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize   =     3145728 ;// 设置附件上传大小

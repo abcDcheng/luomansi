@@ -10,11 +10,12 @@ class InstallController extends Controller {
             redirect(U("Login/installLogin"));
         }
     }
-
+    //记录新用户数据
     public function record(){
     	if (isset($_SESSION['service_id']) && IS_AJAX) {
     		$service_id = intval($_SESSION['service_id']);
     		if ($service_id) {
+                //查询安装人员信息
                 $Model_data = M('ServiceAdmin');
                 $info = $Model_data->where('id='.$service_id)->find();
                 if (empty($info)) {

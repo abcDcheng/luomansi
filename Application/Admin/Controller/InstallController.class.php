@@ -9,12 +9,14 @@ class InstallController extends Controller {
                 $csql='';
                 $ra=array();
                 $page=1;
+                //按代理商查询
                 if(isset($_POST['saleman'])){
                     $saleman=intval($_POST['saleman']);
                     if($saleman){
                         $csql.="and salemanId='$saleman' ";
                     }
                 }
+                //按时间查询
                 if(isset($_POST['firsttime'])){
                     $firsttime=$_POST['firsttime'];
                     if($firsttime){
@@ -36,10 +38,12 @@ class InstallController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 12;
+                $pageNum = 12;//分页每页数量
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
+                //查询数据总数
                 $count = $Model_data->table('saleman_install')->where('status!=1 '.$csql)->count();
+                //查询数据
                 $order = $Model_data->table('saleman_install')->where('status!=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,serName,serPhone,name,phone,area,address,enTime,status,msg,statusTime');
                 
                 $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
@@ -61,6 +65,7 @@ class InstallController extends Controller {
     //安装回访更新
     public function update(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
+            //判断是从订单管理页还是历史订单页访问
             if (isset($_REQUEST['mod'])) {
                 $mod = $_REQUEST['mod'];
             } else {
@@ -68,14 +73,13 @@ class InstallController extends Controller {
             }
             if (IS_AJAX) {
                 $id = I('id');
-                
                 $status = intval(I('status'));
                 $msg = I('msg');
                 $data = array(
                               'status'=>$status,
                               'msg'=>$msg
                             );
-                if ($status) {
+                if ($status) {  //若有回访，记录回访时间及回访人员账号
                     $data['statusTime'] = date('Y-m-d H:i:s');
                     $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username']:'';
                 }
@@ -89,7 +93,7 @@ class InstallController extends Controller {
                     $this->success('数据更新成功',U("Install/".$mod));
                 }
             } else {
-                if (isset($_GET['id'])) {
+                if (isset($_GET['id'])) {   //获取订单数据
                     $id = intval($_GET['id']);
                     if ($id) {
                         $Model_data = M();

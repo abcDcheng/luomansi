@@ -2,6 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 class PersonController extends Controller {
+    //个人中心页
     public function index(){
         if (isset($_SESSION['admin_id'])) {
         	$admin_id = $_SESSION['admin_id'];
@@ -19,7 +20,7 @@ class PersonController extends Controller {
             redirect(U("Login/login"));
         }
     }
-
+    //修改密码
     public function changePwd(){
     	if (isset($_SESSION['admin_id'])) {
         	$admin_id = $_SESSION['admin_id'];

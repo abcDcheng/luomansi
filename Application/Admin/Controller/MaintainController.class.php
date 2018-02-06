@@ -2,18 +2,21 @@
 namespace Admin\Controller;
 use Think\Controller;
 class MaintainController extends Controller {
+    //获取
     public function index(){
     	if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
             if (IS_AJAX) {
                 $csql='';
                 $ra=array();
                 $page=1;
+                //是否按代理商查询
                 if(isset($_POST['saleman'])){
                     $saleman=intval($_POST['saleman']);
                     if($saleman){
                         $csql.="and salemanId='$saleman' ";
                     }
                 }
+                //按时间查询
                 if(isset($_POST['firsttime'])){
                     $firsttime=$_POST['firsttime'];
                     if($firsttime){
@@ -35,7 +38,7 @@ class MaintainController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 12;
+                $pageNum = 12;//分页每页数量
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_maintain')->where('status!=1 '.$csql)->count();
@@ -67,6 +70,7 @@ class MaintainController extends Controller {
                 $msg = I('msg');
                 $salemanId = intval(I('saleman'));
                 $username = $_SESSION['username'];
+                //获取选择的代理商信息
                 $Model_data = M();
                 $info = $Model_data->table('saleman_sys_admin')->where('id='.$salemanId)->getField('id,name,phone');
                 if (!empty($info)) {
@@ -105,6 +109,7 @@ class MaintainController extends Controller {
     //维护数据更新
     public function update(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
+            //判断是来自维护管理的请求还是维护统计的请求，给返回链接用
             if (isset($_REQUEST['mod'])) {
                 $mod = $_REQUEST['mod'];
             } else {
@@ -130,6 +135,7 @@ class MaintainController extends Controller {
                         'enTime'        => date('Y-m-d H:i:s')
                         );
                     $Model_data = M();
+                    //若更换代理商
                     if ($salemanId != $oldSaleman) {
                         $info = $Model_data->table('saleman_sys_admin')->where('id='.$salemanId)->getField('id,name,phone');
                         if (!empty($info)) {
@@ -140,15 +146,18 @@ class MaintainController extends Controller {
                             $data['serviceName'] = '';
                             $data['servicePhone'] = '';
                             $data['serviceStatus'] = 0;
+                            $data['serStartTime'] = "0000-00-00 00:00:00";
+                            $data['serEndTime'] = "0000-00-00 00:00:00";
                         } else {
                             $this->error('查找不到负责代理商的信息，请重试');
                         }
                     }
+                    //服务异常，将订单重置为维护中状态
                     if ($status == 2) {
                         $data['serviceStatus'] = 1;
                         $data['serEndTime'] = "0000-00-00 00:00:00";
                         $data['endTime'] = "0000-00-00 00:00:00";
-                    } elseif ($status == 1) {
+                    } elseif ($status == 1) {   //正常回访
                         $data['endTime'] = date('Y-m-d H:i:s');
                         $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username']:'';
                     }
@@ -203,6 +212,7 @@ class MaintainController extends Controller {
                 $csql='';
                 $ra=array();
                 $page=1;
+                //按维护状态查询
                 if(isset($_POST['serviceStatus']) && $_POST['serviceStatus'] !== ''){
                     $serviceStatus=intval($_POST['serviceStatus']);
                     $csql.="and serviceStatus='$serviceStatus' ";
@@ -286,6 +296,7 @@ class MaintainController extends Controller {
                     
                 } else {
                     $admin_id = $_SESSION['admin_id'];
+                    //获取自己所管的下属员工信息
                     $Model_data = M('ServiceAdmin');
                     $servicer = $Model_data->where('salemanId='.$admin_id)->order('id asc')->getField('id,name,phone');
                     $Model_data = M('maintain');
@@ -357,7 +368,7 @@ class MaintainController extends Controller {
             }
         }
     }
-
+    //导出EXCEL
     public function download(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
             import("Org.Util.PHPExcel");

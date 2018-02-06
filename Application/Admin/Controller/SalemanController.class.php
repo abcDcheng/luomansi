@@ -2,6 +2,7 @@
 namespace Admin\Controller;
 use Think\Controller;
 class SalemanController extends Controller {
+    //代理商页面
     public function index(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99 ) {
             if (isset($_GET['p'])) {
@@ -10,6 +11,7 @@ class SalemanController extends Controller {
                 $page = 1;
             }
             $pageNum = 12;
+            //查询代理商信息（group为1代表代理商）
             $Model_data = M('SysAdmin');
             $info = $Model_data->where('`group` = 1')->limit($pageNum,($page-1)*$pageNum)->getField('id,`group`,username,name,phone,is_status,createTime');
             $count = $Model_data->where('`group` = 1')->count();
@@ -52,6 +54,7 @@ class SalemanController extends Controller {
                     //var_dump($insertData);
                     $res = $Model_data->add($insertData);
                     if ($res) {
+                        //新增完代理商后，赋予下单权限（值为产品规格ID）
                         if (!empty($modelId)) {
                             $modelId = implode(',', $modelId);
                         } else {
@@ -110,6 +113,7 @@ class SalemanController extends Controller {
                         if ($res === false) {
                             $this->error('数据更新失败，请重试或联系技术人员解决');
                         } else {
+                            //修改产品规格权限
                             if (!empty($modelId)) {
                                 $modelId = implode(',', $modelId);
                             } else {
@@ -121,6 +125,7 @@ class SalemanController extends Controller {
                             $this->success('更新成功',U("Saleman/index"));
                         }
                     } else {
+                        //获取代理商下单产品权限
                         $Model_data = M('GoodsPermission');
                         $goodsInfoId = $Model_data->where('salemanId='.$id)->getField('goodsInfoId');
                         if ($goodsInfoId) {
@@ -189,7 +194,7 @@ class SalemanController extends Controller {
             }
         }
     }
-
+    //获取代理商下属员工信息
     public function staff(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
             $admin_id = $_SESSION['admin_id'];
@@ -207,6 +212,7 @@ class SalemanController extends Controller {
             if (IS_AJAX) {
                 $admin_id = intval($_SESSION['admin_id']);
                 $Model_data = M('ServiceAdmin');
+                //查询已有代理商人员账户数量
                 $count = $Model_data->where("salemanId='$admin_id'")->count();
                 if ($count>=5) {
                     $this->error('每位代理商限定只能有5个下属人员账户');
@@ -326,6 +332,7 @@ class SalemanController extends Controller {
     public function getGoods(){
         $Model_data = M();
         $ids = array();
+        //获取产品大类属性，用于后续的拼接
         $goods = $Model_data->table('saleman_goods')->order('id asc')->getField('id,goodsName,hasHand,hasLock');
         if (!empty($goods)) {
             foreach ($goods as $key => $value) {
@@ -342,6 +349,7 @@ class SalemanController extends Controller {
                 for($i = 0;$i<count($goodsInfo);$i++){
                     $goodsId = $goodsInfo[$i]['goodsid'];
                     $model = $goodsInfo[$i]['goodscolor'];
+                    //若产品有下拉手属性，显示带不带下拉手
                     if ($goods[$goodsId]['hashand']) {
                         if ($goodsInfo[$i]['hand']) {
                             $model .= '带下拉手';
@@ -349,6 +357,7 @@ class SalemanController extends Controller {
                             $model .= '不带下拉手';
                         }
                     }
+                    //若产品有下拉手属性，显示是否有假锁
                     if ($goods[$goodsId]['haslock'] && $goodsInfo[$i]['falselock']) {
                         $model .= '假锁';
                     }
@@ -359,6 +368,7 @@ class SalemanController extends Controller {
 
         return $goods;
     }
+    //代理商安装管理信息查询
     public function installIndex(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
             $admin_id = $_SESSION['admin_id'];

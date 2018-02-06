@@ -2,6 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 class LoginController extends Controller {
+    //代理商登录
     public function login(){
         if (IS_AJAX) {
     		$Model_Data = M('SysAdmin');
@@ -21,7 +22,7 @@ class LoginController extends Controller {
     		$this->display();
     	}
     }
-
+    //安装管理登录页
     public function installLogin() {
         if (isset($_SESSION['service_id'])) {
             redirect(U("Install/index"));
@@ -30,7 +31,7 @@ class LoginController extends Controller {
         }
         
     }
-
+    //维护管理登录页
     public function maintainLogin() {
         $this->display();
         // if (isset($_SESSION['service_id'])) {
@@ -39,7 +40,7 @@ class LoginController extends Controller {
             
         // }
     }
-
+    //安装维护管理登录
     public function serviceAdmin() {
         if (IS_AJAX) {
             $Model_Data = M('ServiceAdmin');

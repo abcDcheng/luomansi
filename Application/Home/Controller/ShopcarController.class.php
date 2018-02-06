@@ -2,6 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 class ShopcarController extends Controller {
+    //购物车页，orderid为0的表示未下单产品
     public function index(){
     	if (isset($_SESSION['admin_id'])) {
     		$admin_id = intval($_SESSION['admin_id']);
@@ -27,7 +28,7 @@ class ShopcarController extends Controller {
             redirect(U("Login/login"));
         }
     }
-
+    //删除购物车产品
     public function goodsDel(){
     	if (isset($_SESSION['admin_id']) && isset($_GET['delId'])) {
     		$id = intval(I('delId'));
@@ -47,7 +48,7 @@ class ShopcarController extends Controller {
     		
     	}
     }
-
+    //完成下单（创建订单号后将id值赋予购物车产品orderId）
     public function orderRecord(){
     	if (isset($_SESSION['admin_id']) && IS_AJAX) {
     		$admin_id = intval($_SESSION['admin_id']);
@@ -85,7 +86,7 @@ class ShopcarController extends Controller {
             }
     	}
     }
-
+    //生成订单号
     public function getCode(){
     	$code = 'LMS000';
     	$code .= date("YmdHis");

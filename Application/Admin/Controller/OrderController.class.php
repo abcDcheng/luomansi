@@ -2,18 +2,21 @@
 namespace Admin\Controller;
 use Think\Controller;
 class OrderController extends Controller {
+    //获取订单数据
     public function index(){
     	if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 2)) {
             if (IS_AJAX) {
                 $csql='';
                 $ra=array();
                 $page=1;
+                //是否按代理商查询
                 if(isset($_POST['saleman'])){
                     $saleman=intval($_POST['saleman']);
                     if($saleman){
                         $csql.="and salemanId='$saleman' ";
                     }
                 }
+                //按时间查询
                 if(isset($_POST['firsttime'])){
                     $firsttime=$_POST['firsttime'];
                     if($firsttime){
@@ -35,7 +38,7 @@ class OrderController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 8;
+                $pageNum = 8;   //分页每页数目
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_order')->where('status!=1 '.$csql)->count();
@@ -43,12 +46,14 @@ class OrderController extends Controller {
                 //echo $Model_data->getLastSql();
                 //var_dump($order);
                 if (!empty($order)) {
+                    //获取订单ID，用来查询订单产品信息
                     $ids = array();
                     foreach($order as $key=>$value){
                         $ids[] = $key;
                         $order[$key]['detail'] = array();
                     }
                     $ids = implode(',', $ids);
+                    //查询出订单产品信息，并对应入订单
                     $shop = $Model_data->table('saleman_shopcar')->where("orderId in ($ids)")->select();
                     for($j = 0;$j < count($shop);$j++){
                         $order[$shop[$j]['orderid']]['detail'][] = $shop[$j];
@@ -69,9 +74,10 @@ class OrderController extends Controller {
     		$this->error("未登录或未授权",U("Login/index"),1);
     	}
     }
-
+    //更新订单状态
     public function update(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 2)) {
+            //判断来自哪个页面的请求，用于链接返回
             if (isset($_REQUEST['mod'])) {
                 $mod = $_REQUEST['mod'];
             } else {
@@ -83,6 +89,7 @@ class OrderController extends Controller {
                 $address = I('address');
                 $orderBak = I('orderbak');
                 $status = intval(I('status'));
+                //若订单未通过，记录订单反馈信息
                 if ($status == 2) {
                     $msg = I('msg');
                 } else {
@@ -94,6 +101,7 @@ class OrderController extends Controller {
                               'status'=>$status,
                               'msg'=>$msg
                             );
+                //订单审核，记录订单时间和操作人员账户
                 if ($status) {
                     $data['statusTime'] = date('Y-m-d H:i:s');
                 }
@@ -111,6 +119,7 @@ class OrderController extends Controller {
                 if (isset($_GET['id'])) {
                     $id = intval($_GET['id']);
                     if ($id) {
+                        //查询订单所有信息
                         $Model_data = M();
                         $order = $Model_data->table('saleman_order')->where('id='.$id)->find();
                         if (!empty($order)) {
@@ -134,7 +143,7 @@ class OrderController extends Controller {
             $this->error("未登录或未授权",U("Login/index"),1);
         }
     }
-
+    //历史订单页面
     public function history(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 2)) {
             if (IS_AJAX) {

@@ -2,14 +2,17 @@
 namespace Home\Controller;
 use Think\Controller;
 class ShopController extends Controller {
+    //我要下单页
     public function index(){
         if (isset($_SESSION['admin_id'])) {
             $admin_id = intval($_SESSION['admin_id']);
             $Model_Data = M('GoodsPermission');
             $goods = array();
+            //获取代理商可下单产品大类信息
             $goodsInfoId = $Model_Data->field('goodsInfoId')->where(array('salemanId'=>$admin_id))-> find();
             if (!empty($goodsInfoId)) {
                 //var_dump($goodsInfoId);
+                //根据可下单产品规格id查询出大类产品
                 session('goodsInfoId',$goodsInfoId['goodsinfoid']);
                 $Model_Data = M();
                 $goods = $Model_Data->query("SELECT id,goodsName,hasHand,hasLock 
@@ -36,7 +39,7 @@ class ShopController extends Controller {
             redirect(U("Login/login"));
         }
     }
-
+    //获取产品规格
     public function goodsInfo(){
         if (IS_AJAX && isset($_SESSION['admin_id'])) {
             $goodsId = intval(I('goodsId'));
@@ -68,7 +71,7 @@ class ShopController extends Controller {
             $this->error("未能识别的访问，请重试");
         }
     }
-
+    //将选取的产品加入购物车
     public function goodsRecord(){
         if (isset($_SESSION['admin_id']) && IS_AJAX) {
             $admin_id = intval($_SESSION['admin_id']);
@@ -81,6 +84,7 @@ class ShopController extends Controller {
             $falseLock = intval(I('falseLock'));
             $goodsNum = intval(I('goodsNum'));
             $goodsModel = $goodsColor;
+            //拼接产品规格信息
             if ($hasHand) {
                 if ($hand) {
                     $goodsModel .= '带下拉手'; 

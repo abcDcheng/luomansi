@@ -208,7 +208,7 @@
                     }
                 }
                 tableHtml += '<td>'+detail+'</td>';
-                tableHtml += '<td class="layui-elip">'+order[key]['orderbak']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">';
+                tableHtml += '<td class="layui-elip" title="'+order[key]['orderbak']+'">'+order[key]['orderbak']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">';
                 if (order[key]['status'] == 2) {
                     tableHtml += '<span style="color:red">未通过</span>';
                 } else {

@@ -2,6 +2,7 @@
 namespace Admin\Controller;
 use Think\Controller;
 class IndexController extends Controller {
+    //系统首页
     public function index(){
     	if (isset($_SESSION['admin_id'])) {
             $username = isset($_SESSION['username'])?$_SESSION['username']:'';
@@ -11,7 +12,7 @@ class IndexController extends Controller {
             $this->error("未登录",U("Login/index"),1);
         }
     }
-
+    //修改密码
     public function pwd(){
         if (isset($_SESSION['admin_id'])) {
             if (IS_AJAX) {
@@ -21,7 +22,7 @@ class IndexController extends Controller {
                 if ($oldpwd != $pwd) {
                     $Model_data = M('SysAdmin');
                     $info = $Model_data->where('id='.$id)->getField('password');
-                    if (md5($oldpwd) == $info) {
+                    if (md5($oldpwd) == $info) {    //判断原密码是否正确
                         $res = $Model_data->where('id='.$id)->data(array('password'=>md5($pwd)))->save();
                         if ($res) {
                             session_destroy();
@@ -42,13 +43,13 @@ class IndexController extends Controller {
             $this->error("未登录",U("Login/index"),1);
         }
     }
-
+    //退出登录
     public function loginout(){
     	//session('admin_id', null);
     	session_destroy();
         redirect(U("Login/index"));
     }
-
+    //（前端定时）获取新订单和新用户数据
     public function getNew(){
         if (isset($_SESSION['admin_id'])) {
             if (isset($_POST['getOrder'])) {

@@ -207,7 +207,7 @@
                     }
                 }
                 tableHtml += '<td>'+detail+'</td>';
-                tableHtml += '<td class="layui-elip">'+order[key]['orderbak']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">';
+                tableHtml += '<td class="layui-elip" title="'+order[key]['orderbak']+'">'+order[key]['orderbak']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">';
                 tableHtml += '<span style="color:green">已受理</span>';
                 
                 tableHtml+='</td><td class="layui-elip">'+order[key]['statustime']+'</td><td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a href="/luomansi/index.php/Admin/Order/download/mod/index/id/'+key+'" data-confirm="#" value="'+key+'">下载</a></td></tr>';

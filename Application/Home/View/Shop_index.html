@@ -211,6 +211,7 @@ $(function(){
 		$('.carColor').text(thisValue);
 		var handsArr = [];
 		var lockArr = [];
+		//获取该产品颜色的下拉手及假锁属性
 		for (var i = 0;i < info.length;i++) {
 			if (info[i]['goodscolor'] == thisValue) {
 				if (hasHandCode && $.inArray(info[i]['hand'],handsArr) == -1) {
@@ -222,11 +223,7 @@ $(function(){
 				//console.log(info[i]['falselock']);
 			}
 		}
-		//alert(thisValue);
-		//console.log(info);
-		//alert(hasHandCode+"  "+hasLockCode);
-		//alert(handsArr);
-		//alert(lockArr);
+		//获取下拉手属性
 		if (hasHandCode) {
 			$('.handChoice').empty();
 			handsArr.sort();
@@ -239,7 +236,7 @@ $(function(){
 			}
 			$('.handChoice small:first').click();
 		}
-
+		//获取该颜色产品无下拉手属性时的假锁属性
 		if (hasLockCode && !hasHandCode) {
 			$('.lockChoice').empty();
 			lockArr.sort();
@@ -264,6 +261,7 @@ $(function(){
 		$('.hand').text(thisValue);
 		var handValue = $(this).attr('value');
 		var lockArr = [];
+		//获取该下拉手属性对应有的假锁属性
 		for (var i = 0;i < info.length;i++) {
 			if (info[i]['goodscolor'] == colorValue && info[i]['hand'] == handValue) {
 				if (hasLockCode && $.inArray(info[i]['falselock'],lockArr) == -1) {

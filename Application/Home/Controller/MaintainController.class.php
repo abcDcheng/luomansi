@@ -2,7 +2,9 @@
 namespace Home\Controller;
 use Think\Controller;
 class MaintainController extends Controller {
+    //未维护页面
     public function index(){
+        //查询自己的为维护订单
         if (isset($_SESSION['service_id'])) {
         	$admin_id = intval($_SESSION['service_id']);
         	$Model_data = M('maintain');
@@ -21,6 +23,7 @@ class MaintainController extends Controller {
         }
     }
 
+    //开始执行维护
     public function startService(){
     	if (isset($_SESSION['service_id'])) {
     		if (isset($_POST['orderId'])) {
@@ -43,6 +46,7 @@ class MaintainController extends Controller {
         }
     }
 
+    //维护中页面
     public function service(){
         if (isset($_SESSION['service_id'])) {
         	$admin_id = intval($_SESSION['service_id']);
@@ -62,6 +66,7 @@ class MaintainController extends Controller {
         }
     }
 
+    //完成维护
     public function completeService(){
     	if (isset($_SESSION['service_id'])) {
     		if (isset($_POST['orderId']) && isset($_POST['imgUrl'])) {
@@ -96,6 +101,7 @@ class MaintainController extends Controller {
         }
     }
 
+    //维护订单完成页面
     public function complete(){
         if (isset($_SESSION['service_id'])) {
             $admin_id = intval($_SESSION['service_id']);

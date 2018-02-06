@@ -2,9 +2,11 @@
 namespace Admin\Controller;
 use Think\Controller;
 class AdminController extends Controller {
+    //专员管理界面
     public function index(){
     	if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
-    		$Model_data = M('SysAdmin');
+    		//查询所有专员信息
+            $Model_data = M('SysAdmin');
     		$info = $Model_data->where('`group` in (2,3)')->getField('id,`group`,username,is_status,createTime');
     		$groupName = array(2=>'订单专员',3=>'客服专员');
     		foreach ($info as $key=>$value) {
@@ -26,6 +28,7 @@ class AdminController extends Controller {
                 $pwd = md5(I('pwd'));
                 $group = intval(I('group'));
                 $Model_data = M('SysAdmin');
+                //判断专员账号是否已注册
                 $count = $Model_data->where("username='$username'")->count();
                 if ($count > 0) {
                     $this->error('该用户名已存在',U('Admin/index'));
@@ -56,6 +59,7 @@ class AdminController extends Controller {
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (isset($_REQUEST['id'])) {
                 $id = intval(I('id'));
+                //查询专员账号信息
                 $Model_data = M('SysAdmin');
                 $info = $Model_data->where('id='.$id)->find();
                 if (!empty($info)) {
@@ -63,6 +67,7 @@ class AdminController extends Controller {
                         $repwd = intval(I('repwd'));
                         $group = intval(I('group'));
                         $is_status = intval(I('status'));
+                        //若前端勾选了重置密码，则重置密码为123456，否则照旧
                         if ($repwd) {
                             $password = md5("123456");
                         } else {
@@ -91,7 +96,7 @@ class AdminController extends Controller {
         }
     }
 
-    //删除账户 
+    //删除专员账户 
     public function del(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
@@ -114,13 +119,14 @@ class AdminController extends Controller {
             }
         }
     }
-
+    //查询代理商下属人员信息
     public function servicer(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
                 $csql='';
                 $ra=array();
                 $page=1;
+                //是否按代理商查询
                 if(isset($_POST['saleman'])){
                     $saleman=intval($_POST['saleman']);
                     if($saleman){
@@ -131,10 +137,12 @@ class AdminController extends Controller {
                     $page=$_POST['page'];
                 }
                 //echo $csql;
-                $pageNum = 12;
-                $first=$pageNum*($page - 1);
+                $pageNum = 12;//分页每页数目
+                $first = $pageNum * ($page - 1);
                 $Model_data = M();
+                //查询的数据总数
                 $count = $Model_data->table('saleman_service_admin')->where('1 '.$csql)->count();
+                //查询对应数据
                 $order = $Model_data->table('saleman_service_admin')->where('1 '.$csql)->order('salemanId asc')->limit($first,$pageNum)->getField('id,salemanId,saleman,username,name,IDcard,status,enTime');
                 $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
                 //var_dump($res);
@@ -149,13 +157,15 @@ class AdminController extends Controller {
             $this->error("未登录或未授权",U("Login/index"),3);
         }
     }
-
+    //添加代理商下属员工
     public function serviceAdd(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
+                //查询代理商信息
                 $salemanId = intval(I('saleman'));
                 $saleman = M('SysAdmin')->where('id='.$salemanId)->find();
                 if (!empty($saleman)) {
+                    //查询已有代理商下属人员数量，最多不能超过5个
                     $Model_data = M('ServiceAdmin');
                     $count = $Model_data->where("salemanId='$salemanId'")->count();
                     if ($count>=5) {
@@ -166,7 +176,7 @@ class AdminController extends Controller {
                     $name = I('name');
                     $phone = I('phone');
                     $IDcard = I('IDcard');
-                    
+                    //查询下属人员账号是否存在
                     $count = $Model_data->where("username='$username'")->count();
                     if ($count > 0) {
                         $this->error('该用户名已存在',U('Admin/index'));
@@ -202,7 +212,7 @@ class AdminController extends Controller {
             $this->error("不可用的授权",U("Login/index"),3);
         }
     }
-
+    //代理商下属员工信息更新
     public function serviceUpdate(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (isset($_REQUEST['id'])) {
@@ -222,6 +232,7 @@ class AdminController extends Controller {
                                   'phone'=>$username,
                                   'IDcard'=>$idcard,
                                   'status'=>$status);
+                    //若原归属代理商更改
                     if ($salemanId != $oldSaleman) {
                         $count = M('ServiceAdmin')->where('salemanId='.$salemanId)->count();
                         if ($count >= 5) {
@@ -237,6 +248,7 @@ class AdminController extends Controller {
                             $this->error('查找不到该代理商信息，请重试');
                         }
                     }
+                    //若修改密码
                     if ($pwd) {
                         $data['password'] = md5($pwd);
                     }
