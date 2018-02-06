@@ -99,7 +99,7 @@
 
 				return false;
 			}
-			$(this).val("登录中...").attr('disable',true);
+			$(this).val("登录中...").attr('disabled',true);
 			$.ajax({
 				url : "<?php echo U('Login/serviceAdmin');?>",
 	            type : "post",
@@ -111,14 +111,14 @@
 	            		window.location.href = '<?php echo U('Install/index');?>';
 	            	} else {
 	            		alert(data.msg);
-	            		$('.sign-in-btn').val("登录").removeAttr('disable');
+	            		$('.sign-in-btn').val("登录").removeAttr('disabled');
 	            	}
 	            },
 	            error : function(data){
 	            	if (data.status == 'timeout') {
 	            		alert("连接超时，请重试");
 	            	}
-	            	$('.sign-in-btn').val("登录").removeAttr('disable');
+	            	$('.sign-in-btn').val("登录").removeAttr('disabled');
 	            }
 			});
 			

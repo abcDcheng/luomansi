@@ -71,13 +71,13 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">联系方式</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="phone" class="layui-input" autocomplete="off" value="<{$info.phone}>">
+                                    <input type="text" name="phone" class="layui-input" autocomplete="off" datatype="s2-30" errormsg="请输入正确的联系方式" placeholder="联系方式" nullmsg="请输入联系方式!" value="<{$info.phone}>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">送货地址</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="address" class="layui-input" autocomplete="off" value="<{$info.address}>">
+                                    <input type="text" name="address" class="layui-input" autocomplete="off" datatype="s2-255" errormsg="请输入正确的送货地址" placeholder="送货地址" nullmsg="请输入送货地址!" value="<{$info.address}>">
                                 </div>
                             </div>
                             <div class="layui-form-item">

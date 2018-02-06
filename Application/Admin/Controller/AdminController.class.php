@@ -223,6 +223,11 @@ class AdminController extends Controller {
                                   'IDcard'=>$idcard,
                                   'status'=>$status);
                     if ($salemanId != $oldSaleman) {
+                        $count = M('ServiceAdmin')->where('salemanId='.$salemanId)->count();
+                        if ($count >= 5) {
+                            $this->error('该代理商已有5个下属人员账户');
+                            exit();
+                        }
                         $saleInfo = M('SysAdmin')->where('id='.$salemanId)->find();
                         if (!empty($saleInfo)) {
                             $data['salemanId'] = $salemanId;

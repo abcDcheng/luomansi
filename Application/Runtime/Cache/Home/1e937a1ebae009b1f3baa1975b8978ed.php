@@ -50,7 +50,7 @@
     			<span>手机号：</span>
     		</div>
     		<div class="push-item">
-    			<input id="phone" type="text" placeholder='请填写你的手机号'>
+    			<input id="phone" type="tel" placeholder='请填写你的手机号'>
     		</div>
     	</li>
     	<li>
@@ -71,6 +71,16 @@
     <button class="btn-registration">确认提交</button>
 	
 </div>
+
+<!-- 成功安装 -->
+<div class="success-bg" style="position: fixed;width: 100%;height: 100%;top:0;left: 0;z-index: 3;display:none;">
+    <div class="success-bg-c" style="position: absolute;width: 100%;height: 100%;top:0;left: 0;background-color: rgba(233,233,233,0.8);display:-webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: center;-webkit-box-align: center;text-align: center;font-size: 29px;">
+        <img src="/luomansi/Application/Home/Public/img/icon16.png" alt="">
+        <p style="margin-top:15px;">已完成安装</p>
+        <p style="margin-top:15px;font-weight: 700;">产品安装完成，进入保修状态</p>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     $(function(){
@@ -99,7 +109,9 @@
                 timeout : 5000,
                 success : function(data){
                     if (data.code == 1) {
-                        alert(data.msg);
+                        //alert(data.msg);
+                        $('.success-bg').show();
+                        $('.wrap').hide();
                         $('.btn-registration').html("提交完成");
                     } else {
                         alert(data.msg);
