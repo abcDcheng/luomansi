@@ -37,7 +37,7 @@
 		<ul class="query-nav">
 			<li class="line3 query-nav-active" value="3">全部</li>
 			<li class="line3" value="1">已受理</li>
-			<li class="line3" value="0">待处理</li>
+			<li class="line3" value="0">待受理</li>
 			<li value="2">未通过</li>
 		</ul>
 		<!-- 订单查询内容 -->
@@ -249,13 +249,13 @@
 			<img src="/luomansi/Application/Home/Public/img/nav1.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<?php echo U('Order/index');?>" class="footer-nav-item footer-nav-itemActive">
-			<img src="/luomansi/Application/Home/Public/img/nav2.png" alt="" class="footer-nav-img">
-			<img src="/luomansi/Application/Home/Public/img/nav2-active.png" alt="" class="footer-nav-imgActive">
-		</a>
 		<a href="<?php echo U('Shopcar/index');?>" class="footer-nav-item line2">
 			<img src="/luomansi/Application/Home/Public/img/nav3.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/nav3-active.png" alt="" class="footer-nav-imgActive">
+		</a>
+		<a href="<?php echo U('Order/index');?>" class="footer-nav-item footer-nav-itemActive">
+			<img src="/luomansi/Application/Home/Public/img/nav2.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/nav2-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 		<a href="<?php echo U('Person/index');?>" class="footer-nav-item line2">
 			<img src="/luomansi/Application/Home/Public/img/nav4.png" alt="" class="footer-nav-img">

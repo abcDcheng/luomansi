@@ -49,7 +49,7 @@
 						<h5><{$value.goodsname}>-<{$value.goodsmodel}></h5>
 						<i><{$value.entime}></i>
 						<h4>数量：<{$value.goodsnum}></h4>
-						<!-- <a href="javascript:;" class="edit">编辑</a> -->
+						<a href="<{:U('Shop/update?id='.$value['id'])}>" class="edit">编辑</a>
 					</div>
 					<div class="query-list-state">
 						<a href="<{:U('shopcar/goodsDel?delId='.$value['id'])}>" class="deteleBtn">删除</a>
@@ -83,13 +83,13 @@
 			<img src="__IMAGES__/nav1.png" alt="" class="footer-nav-img">
 			<img src="__IMAGES__/nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<{:U('Order/index')}>" class="footer-nav-item line2">
-			<img src="__IMAGES__/nav2.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/nav2-active.png" alt="" class="footer-nav-imgActive">
-		</a>
 		<a href="<{:U('Shopcar/index')}>" class="footer-nav-item line2  footer-nav-itemActive">
 			<img src="__IMAGES__/nav3.png" alt="" class="footer-nav-img">
 			<img src="__IMAGES__/nav3-active.png" alt="" class="footer-nav-imgActive">
+		</a>
+		<a href="<{:U('Order/index')}>" class="footer-nav-item line2">
+			<img src="__IMAGES__/nav2.png" alt="" class="footer-nav-img">
+			<img src="__IMAGES__/nav2-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 		<a href="<{:U('Person/index')}>" class="footer-nav-item line2">
 			<img src="__IMAGES__/nav4.png" alt="" class="footer-nav-img">

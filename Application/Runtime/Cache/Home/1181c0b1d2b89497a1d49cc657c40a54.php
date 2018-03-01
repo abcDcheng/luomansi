@@ -41,13 +41,13 @@
 			<ul class="query-list-style" style="display:block;">
 			<?php if($hasShop == 1): if(is_array($shopcar)): foreach($shopcar as $key=>$value): ?><li>
 					<div class="query-list-img-bg">
-						<img src="/luomansi/Application/Upload/<?php echo ($value["goodsImg"]); ?>" alt="">
+						<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="">
 					</div>
 					<div class="query-list-message">
-						<h5><?php echo ($value["goodsName"]); ?>-<?php echo ($value["goodsmodel"]); ?></h5>
+						<h5><?php echo ($value["goodsname"]); ?>-<?php echo ($value["goodsmodel"]); ?></h5>
 						<i><?php echo ($value["entime"]); ?></i>
 						<h4>数量：<?php echo ($value["goodsnum"]); ?></h4>
-						<!-- <a href="javascript:;" class="edit">编辑</a> -->
+						<a href="<?php echo U('Shop/update?id='.$value['id']);?>" class="edit">编辑</a>
 					</div>
 					<div class="query-list-state">
 						<a href="<?php echo U('shopcar/goodsDel?delId='.$value['id']);?>" class="deteleBtn">删除</a>
@@ -79,13 +79,13 @@
 			<img src="/luomansi/Application/Home/Public/img/nav1.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<?php echo U('Order/index');?>" class="footer-nav-item line2">
-			<img src="/luomansi/Application/Home/Public/img/nav2.png" alt="" class="footer-nav-img">
-			<img src="/luomansi/Application/Home/Public/img/nav2-active.png" alt="" class="footer-nav-imgActive">
-		</a>
 		<a href="<?php echo U('Shopcar/index');?>" class="footer-nav-item line2  footer-nav-itemActive">
 			<img src="/luomansi/Application/Home/Public/img/nav3.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/nav3-active.png" alt="" class="footer-nav-imgActive">
+		</a>
+		<a href="<?php echo U('Order/index');?>" class="footer-nav-item line2">
+			<img src="/luomansi/Application/Home/Public/img/nav2.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/nav2-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 		<a href="<?php echo U('Person/index');?>" class="footer-nav-item line2">
 			<img src="/luomansi/Application/Home/Public/img/nav4.png" alt="" class="footer-nav-img">

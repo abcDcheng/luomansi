@@ -26,6 +26,7 @@
     <!-- <script src="__PLUGS__/uploadify/jquery.uploadify.min.js"></script> -->
     <script src="__JS__/validform.js"></script>
     <script src="__JS__/sitecms.js"></script>
+    <script src="__JS__/select.js"></script>
     <script src="__PLUGS__/layui/lay/modules/laydate.js"></script>
 
     <!-- 让IE8/9支持媒体查询 -->
@@ -79,6 +80,21 @@
                                   <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="s4-30" errormsg="联系方式至少4个字符!" nullmsg="请输入联系方式!" value="<{$saleman.phone}>">
                               </div>
                           </div>
+                          <div class="layui-form-item">
+                                <label class="layui-form-label label-required">省份</label>
+                                <div class="layui-input-block">
+                                    <select id="province" name="province" class="layui-select" lay-filter="province">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">城市</label>
+                                <div class="layui-input-block">
+                                    <select id="city" name="city" class="layui-select">
+                                        
+                                    </select>
+                                </div>
+                            </div>
                           <div class="layui-form-item">
                               <label class="layui-form-label label-required">送货地址</label>
                               <div class="layui-input-block">
@@ -191,6 +207,35 @@ $(function(){
             
             layui.form.render('checkbox');
         });
+        var oProvince=document.getElementById("province");
+        var oCity=document.getElementById("city");
+        for(var i in json){
+            var option=document.createElement("option");
+            option.innerHTML=i;
+            option.value=i;
+            oProvince.appendChild(option);
+        }
+        $('#province').val('<{$saleman.province}>');
+        for(var i in json[oProvince.value]){
+            var option=document.createElement("option");
+            option.innerHTML=json[oProvince.value][i];
+            option.value=json[oProvince.value][i];
+            oCity.appendChild(option);
+        }
+        $('#city').val('<{$saleman.city}>');
+        layui.form.render('select');
+        form.on('select(province)', function(data){
+            oCity.innerHTML="";
+            for(var i in json[oProvince.value]){
+                    var option=document.createElement("option");
+                    option.innerHTML=json[oProvince.value][i];
+                    option.value=json[oProvince.value][i];
+                    oCity.appendChild(option);
+                }
+            
+            layui.form.render('select');
+        });
+        
     });
 
     

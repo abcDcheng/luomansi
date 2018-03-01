@@ -26,6 +26,7 @@
     <!-- <script src="/luomansi/Application/Admin/Public/plugs/uploadify/jquery.uploadify.min.js"></script> -->
     <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
     <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
+    <script src="/luomansi/Application/Admin/Public/js/select.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
 
     <!-- 让IE8/9支持媒体查询 -->
@@ -33,7 +34,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>代理商信息修改</title>
+    <title>代理商信息更新</title>
 </head>
 <body>
 
@@ -45,33 +46,38 @@
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
             
         </li>
+        <style type="text/css">
+			#orderNum,#installNum{
+				color:red;
+			}
+        </style>
         <dl class="layui-nav layui-nav-tree sc_side_more">
             <dd class="layui-nav-item layui-nav-itemed">
                 <dl class="layui-nav-child">
 
 				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
-				<dd><a href="#">人员管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
 				<!-- <dd><a href="#">历史订单</a></dd> -->
-				<dd><a href="#">安装管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
-				<dd><a href="#">维护统计</a></dd>
 				<?php } elseif ($group == 2) { ?>
-				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<?php } elseif ($group == 3) { ?>	
-				<dd><a href="#">安装管理</a></dd>
-				<dd><a href="#">安装统计</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
-				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
-				<dd><a href="#">安装管理</a></dd>
-				<dd><a href="#">安装统计</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } } ?>
@@ -81,12 +87,60 @@
             </dd>
         </dl>
     </ul>
+
+
+    <script type="text/javascript">
+    	var getOrder = 0;
+    	var getInstall = 0;
+    	<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
+				
+		<?php } elseif ($group == 2) { ?>
+				getOrder = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 3) { ?>
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 99) { ?>
+				getOrder = 1;
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } } ?>
+
+
+
+		function getNew(){
+			$.ajax({
+				url : '<?php echo U("Index/getNew");?>',
+				type : "post",
+	            data : {getOrder:getOrder,getInstall:getInstall},
+	            dataType : "json",
+	            timeout : 5000,
+	            success:function(data) {
+	            	if (data.code == 1) {
+	            		if (data.orderNum>0) {
+	            			$('#orderNum').text('('+data.orderNum+')');
+	            		} else {
+	            			$('#orderNum').text('');
+	            		}
+	            		if (data.installNum>0) {
+	            			$('#installNum').text('('+data.installNum+')');
+	            		} else {
+	            			$('#installNum').text('');
+	            		}
+	            	}
+	            }
+			});
+		}
+    </script>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
             <form action="<?php echo U('Saleman/update');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>代理商信息修改</h5>
+                    <h5>代理商信息更新</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Saleman/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
@@ -99,7 +153,7 @@
                             <div class="layui-form-item">
                               <label class="layui-form-label label-required">用户名</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="s4-16" errormsg="用户名至少4个字符!" nullmsg="请输入用户名!" value="<?php echo ($saleman["username"]); ?>" disabled="disabled">
+                                  <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="s4-30" errormsg="用户名至少4个字符!" nullmsg="请输入用户名!" value="<?php echo ($saleman["username"]); ?>" disabled="disabled">
                               </div>
                           </div>
                           <div class="layui-form-item">
@@ -111,7 +165,7 @@
                           <div class="layui-form-item">
                               <label class="layui-form-label label-required">姓名</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="姓名" datatype="s2-16" errormsg="姓名至少2个字符!" nullmsg="请输入姓名!" value="<?php echo ($saleman["name"]); ?>">
+                                  <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="姓名" datatype="s2-30" errormsg="姓名至少2个字符!" nullmsg="请输入姓名!" value="<?php echo ($saleman["name"]); ?>">
                               </div>
                           </div>
                           <div class="layui-form-item">
@@ -121,9 +175,24 @@
                               </div>
                           </div>
                           <div class="layui-form-item">
+                                <label class="layui-form-label label-required">省份</label>
+                                <div class="layui-input-block">
+                                    <select id="province" name="province" class="layui-select" lay-filter="province">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">城市</label>
+                                <div class="layui-input-block">
+                                    <select id="city" name="city" class="layui-select">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                          <div class="layui-form-item">
                               <label class="layui-form-label label-required">送货地址</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="address" class="layui-input" autocomplete="off" placeholder="送货地址" datatype="s4-16" errormsg="送货地址至少4个字符!" nullmsg="请输入送货地址!" value="<?php echo ($saleman["address"]); ?>">
+                                  <input type="text" name="address" class="layui-input" autocomplete="off" placeholder="送货地址" datatype="s4-255" errormsg="送货地址至少4个字符!" nullmsg="请输入送货地址!" value="<?php echo ($saleman["address"]); ?>">
                               </div>
                           </div>
                           <div class="layui-form-item">
@@ -217,6 +286,35 @@ $(function(){
             
             layui.form.render('checkbox');
         });
+        var oProvince=document.getElementById("province");
+        var oCity=document.getElementById("city");
+        for(var i in json){
+            var option=document.createElement("option");
+            option.innerHTML=i;
+            option.value=i;
+            oProvince.appendChild(option);
+        }
+        $('#province').val('<?php echo ($saleman["province"]); ?>');
+        for(var i in json[oProvince.value]){
+            var option=document.createElement("option");
+            option.innerHTML=json[oProvince.value][i];
+            option.value=json[oProvince.value][i];
+            oCity.appendChild(option);
+        }
+        $('#city').val('<?php echo ($saleman["city"]); ?>');
+        layui.form.render('select');
+        form.on('select(province)', function(data){
+            oCity.innerHTML="";
+            for(var i in json[oProvince.value]){
+                    var option=document.createElement("option");
+                    option.innerHTML=json[oProvince.value][i];
+                    option.value=json[oProvince.value][i];
+                    oCity.appendChild(option);
+                }
+            
+            layui.form.render('select');
+        });
+        
     });
 
     

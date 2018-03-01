@@ -13,7 +13,7 @@ class SalemanController extends Controller {
             $pageNum = 12;
             //查询代理商信息（group为1代表代理商）
             $Model_data = M('SysAdmin');
-            $info = $Model_data->where('`group` = 1')->limit($pageNum,($page-1)*$pageNum)->getField('id,`group`,username,name,phone,is_status,createTime');
+            $info = $Model_data->where('`group` = 1')->limit($pageNum,($page-1)*$pageNum)->getField('id,`group`,username,name,phone,province,city,is_status,createTime');
             $count = $Model_data->where('`group` = 1')->count();
             $Pages = new \Think\Page($count, $pageNum);
             $pageHtml = $Pages -> show();
@@ -37,6 +37,8 @@ class SalemanController extends Controller {
                 $pwd = md5(I('pwd'));
                 $name = I('name');
                 $phone = I('phone');
+                $province = I('province');
+                $city = I('city');
                 $address = I('address');
                 $modelId = I('goodsInfo');
                 $Model_data = M('SysAdmin');
@@ -48,6 +50,8 @@ class SalemanController extends Controller {
                                         'password'=>$pwd,
                                         'name'=>$name,
                                         'phone'=>$phone,
+                                        'province'=>$province,
+                                        'city'=>$city,
                                         'address'=>$address,
                                         'group'=>1,
                                         'createTime'=>date('Y-m-d H:i:s'));
@@ -97,6 +101,8 @@ class SalemanController extends Controller {
                         $name = I('name');
                         $phone = I('phone');
                         $address = I('address');
+                        $province = I('province');
+                        $city = I('city');
                         $modelId = I('goodsInfo');
                         $is_status = intval(I('status'));
                         if ($repwd) {
@@ -107,6 +113,8 @@ class SalemanController extends Controller {
                         $data = array('password'=>$password,
                                       'name'=>$name,
                                       'phone'=>$phone,
+                                      'province'=>$province,
+                                      'city'=>$city,
                                       'address'=>$address,
                                       'is_status'=>$is_status);
                         $res = $Model_data->where('id='.$id)->save($data);

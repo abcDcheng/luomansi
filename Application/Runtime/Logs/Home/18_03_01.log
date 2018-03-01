@@ -1,0 +1,89 @@
+[ 2018-03-01T14:30:14+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000899s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001482s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0046s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'cheng' AND `group` = 1 LIMIT 1   [ RunTime:0.0005s ]
+
+[ 2018-03-01T14:30:30+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/login.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000783s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001353s ]
+SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0046s ]
+SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'a123456' AND `group` = 1 LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `saleman_sys_admin` SET `login_num`=login_num+1 WHERE `id` = 3 [ RunTime:0.1284s ]
+
+[ 2018-03-01T14:30:39+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsInfo.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000640s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001219s ]
+SQL: select id,goodsColor,colorCode,hand,falseLock from saleman_goods_info where goodsId=1 and id in (1,2,3,4,7,10,11,20,25,26,27,28,29,30,31,32,33) and status=1 [ RunTime:0.0005s ]
+
+[ 2018-03-01T14:30:43+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsInfo.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001517s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002456s ]
+SQL: select id,goodsColor,colorCode,hand,falseLock from saleman_goods_info where goodsId=1 and id in (1,2,3,4,7,10,11,20,25,26,27,28,29,30,31,32,33) and status=1 [ RunTime:0.0004s ]
+
+[ 2018-03-01T14:30:45+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsInfo.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000648s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001240s ]
+SQL: select id,goodsColor,colorCode,hand,falseLock from saleman_goods_info where goodsId=2 and id in (1,2,3,4,7,10,11,20,25,26,27,28,29,30,31,32,33) and status=1 [ RunTime:0.0006s ]
+
+[ 2018-03-01T14:30:50+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsRecord.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000808s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001592s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0052s ]
+SQL: SELECT `goodsImg` FROM `saleman_goods` WHERE ( id=2 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `saleman_shopcar` [ RunTime:0.0065s ]
+SQL: INSERT INTO `saleman_shopcar` (`salemanId`,`goodsId`,`goodsName`,`goodsImg`,`goodsModel`,`goodsNum`,`enTime`) VALUES ('3','2','DD2智能锁','goods/product2.jpg','白金带下拉手','10','2018-03-01 14:30:50') [ RunTime:0.1446s ]
+
+[ 2018-03-01T15:16:02+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsInfo.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001054s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001837s ]
+SQL: select id,goodsColor,colorCode,hand,falseLock from saleman_goods_info where goodsId=1 and id in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32) and status=1 [ RunTime:0.0008s ]
+
+[ 2018-03-01T15:16:12+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsRecord.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000629s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001140s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0041s ]
+SQL: SELECT `goodsImg` FROM `saleman_goods` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `saleman_shopcar` [ RunTime:0.0042s ]
+SQL: INSERT INTO `saleman_shopcar` (`salemanId`,`goodsId`,`goodsName`,`goodsImg`,`goodsColor`,`hand`,`falseLock`,`goodsModel`,`goodsNum`,`enTime`) VALUES ('3','1','DD1智能锁','goods/product1.jpg','青古','0','1','青古假锁','100','2018-03-01 15:16:12') [ RunTime:0.1506s ]
+
+[ 2018-03-01T15:22:49+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsUpdate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000820s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001372s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0048s ]
+SQL: SELECT `goodsImg` FROM `saleman_goods` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2018-03-01T15:24:16+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsUpdate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000561s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001106s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0043s ]
+SQL: SELECT `goodsImg` FROM `saleman_goods` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-03-01T15:25:55+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsUpdate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001766s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002926s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0044s ]
+SQL: SELECT `goodsImg` FROM `saleman_goods` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_shopcar` [ RunTime:0.0058s ]
+SQL: UPDATE `saleman_shopcar` SET `salemanId`='3',`goodsId`='1',`goodsName`='DD1智能锁',`goodsImg`='goods/product1.jpg',`goodsColor`='红古',`hand`='0',`falseLock`='0',`goodsModel`='红古',`goodsNum`='102',`enTime`='2018-03-01 15:25:55' WHERE ( id=9 ) [ RunTime:0.2131s ]
+
+[ 2018-03-01T15:26:23+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsUpdate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000750s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001274s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0061s ]
+SQL: SELECT `goodsImg` FROM `saleman_goods` WHERE ( id=2 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_shopcar` [ RunTime:0.0061s ]
+SQL: UPDATE `saleman_shopcar` SET `salemanId`='3',`goodsId`='2',`goodsName`='DD2智能锁',`goodsImg`='goods/product2.jpg',`goodsColor`='白金',`hand`='0',`falseLock`='1',`goodsModel`='白金不带下拉手假锁',`goodsNum`='1022',`enTime`='2018-03-01 15:26:23' WHERE ( id=8 ) [ RunTime:0.1840s ]
+

@@ -277,4 +277,24 @@ class AdminController extends Controller {
             $this->error("不可用的授权",U("Login/index"),3);
         }
     }
+
+    public function ad(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+            if (IS_AJAX) {
+                $ad = I('ad');
+                $ad = str_replace("\n", "<br/>", $ad);
+                $res = M('ad')->where('id=1')->data(array('ad'=>$ad,'enTime'=>date('Y-m-d')))->save();
+                if ($res) {
+                    $this->success('更新成功',U("Admin/ad"));
+                } else {
+                    echo mysql_error();
+                    $this->error("更新失败");
+                }
+            } else {
+                $ad = M('ad')->where('id=1')->find();
+                $this->assign('ad',$ad);
+                $this->display();
+            }
+        }
+    }
 }

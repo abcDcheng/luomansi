@@ -71,6 +71,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -168,7 +169,7 @@
                     <colgroup>
                         <col>
                         <col>
-                        <col>
+                        <col width="120">
                         <col>
                         <col>
                         <col>
@@ -179,6 +180,8 @@
                             <th>账号</th>
                             <th>姓名</th>
                             <th>联系方式</th>
+                            <th>省份</th>
+                            <th>城市</th>
                             <th>状态</th>
                             <th>创建时间</th>
                             <th>操作</th>
@@ -193,6 +196,8 @@
                             <td class="layui-elip"><?php echo ($value["username"]); ?></td>
                             <td class="layui-elip"><?php echo ($value["name"]); ?></td>
                             <td class="layui-elip"><?php echo ($value["phone"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["province"]); ?></td>
+                            <td class="layui-elip"><?php echo ($value["city"]); ?></td>
                             <?php if($value["is_status"] == 1): ?><td class="layui-elip" style="color:green">使用中</td>
                             <?php else: ?>
                                 <td class="layui-elip" style="color:red">禁用</td><?php endif; ?>

@@ -33,17 +33,11 @@
     
 	<!-- 下订单 -->
 	<div class="order">
-		<!-- 下订单列表 -->
-		<ul class="order-list">
-		<?php if(is_array($goods)): foreach($goods as $key=>$value): ?><li>
-				<a href="javascript:;" value="<?php echo ($value["id"]); ?>" hand="<?php echo ($value["hashand"]); ?>" falseLock="<?php echo ($value["haslock"]); ?>"><?php echo ($value["goodsname"]); ?></a>
-			</li><?php endforeach; endif; ?>
-		</ul>
 		<!-- 下订单详情 -->
-		<div class="order-date-bg">
+		<div class="order-date-bg" style="display: block">
 			<ul class="order-date">
 				<li id="goodsReturn">
-					<p class="icon03">
+					<p>
 						<span>型<em></em><em></em>号：</span>
 						<strong id="goods"></strong>
 					</p>
@@ -85,11 +79,11 @@
 				<li>
 					<p>
 						<span>数<em></em><em></em>量：</span>
-						<input id="goodsNum" type="number" value="10">
+						<input id="goodsNum" type="number" value="<?php echo ($shop["goodsnum"]); ?>">
 					</p>
 				</li>
 			</ul>
-			<button class="order-date-btn">确认订单</button>
+			<button class="order-date-btn">确认修改</button>
 		</div>
 	</div>
 
@@ -127,74 +121,54 @@
 $(function(){
 	//var model = <?php echo json_encode($model);?>;
 	//console.log(model);
-	var info = [];
-	var goodsName = '';
+	var info = <?php echo ($info); ?>;
+	var goodsName = '<?php echo ($goods["goodsname"]); ?>';
 	var colorArr = [];
-	var hasHandCode = 0;
-	var hasHand = 0;
-	var hasLockCode = 0;
-	var hasLock = 0;
-	var goodsId = 0;
+	var hasHandCode = parseInt('<?php echo ($goods["hashand"]); ?>');
+	var hasHand = parseInt('<?php echo ($shop["hand"]); ?>');
+	var hasLockCode = parseInt('<?php echo ($goods["haslock"]); ?>');
+	var hasLock = parseInt('<?php echo ($shop["falselock"]); ?>');
+	var goodsId = parseInt('<?php echo ($shop["goodsid"]); ?>');
 	var hand = ['带下拉手','不带下拉手'];
 	var falseLock = ['带假锁','不带假锁'];
+
+
+
+
+
+
 	/*打开订单详情*/
-	$('.order-list li a').click(function(){
-		goodsId = parseInt($(this).attr("value"));
-		hasHandCode = parseInt($(this).attr("hand"));
-		hasLockCode = parseInt($(this).attr("falseLock"));
-		colorArr = [];
-		goodsName = $(this).text();
-		$('.chioceColor,.handChoice,.lockChoice').empty();
-		$('.meng00').show();
-		$.ajax({
-			url : "<?php echo U('Shop/goodsInfo');?>",
-            type : "post",
-            data : {goodsId:goodsId},
-            dataType : "json",
-            timeout : 5000,
-            success : function(data){
-            	if (data.code == 1) {
-            		info = data.info;
-            		//加载颜色
-            		for (var i = 0;i < info.length;i++) {
-            			if ($.inArray(info[i]['goodscolor'],colorArr) != -1) {
-            				//console.log(info[i]['goodscolor']+"--"+colorArr);
-            				continue;
-            			} else {
-            				$('.chioceColor').append("<span class='active' value='"+info[i]['goodscolor']+"'><i style='background-color: "+info[i]['colorcode']+";'></i>"+info[i]['goodscolor']+"</span>");
-            				colorArr.push(info[i]['goodscolor']);
-            			}
-            		}
-            		if (hasHandCode) {
-            			$('#hand').show();
-            		} else {
-            			$('#hand').hide();
-            			hasHand = 0;
-            		}
-            		if (hasLockCode) {
-            			$('#falseLock').show();
-            		} else {
-            			$('#falseLock').hide();
-            			hasLock = 0;
-            		}
-            		$('.chioceColor span:first').click();
-            		$('#goods').text(goodsName);
-					$('.order-list').hide();
-					$('.order-date-bg').show();
-            	} else {
-            		alert(data.msg);
-            	}
-            	$('.meng00').hide();
-            }
-		});
+	// $('.order-list li a').click(function(){
+	// 	goodsId = parseInt($(this).attr("value"));
+	// 	hasHandCode = parseInt($(this).attr("hand"));
+	// 	hasLockCode = parseInt($(this).attr("falseLock"));
+	// 	colorArr = [];
+	// 	goodsName = $(this).text();
+	// 	$('.chioceColor,.handChoice,.lockChoice').empty();
+	// 	$('.meng00').show();
+	// 	$.ajax({
+	// 		url : "<?php echo U('Shop/goodsInfo');?>",
+ //            type : "post",
+ //            data : {goodsId:goodsId},
+ //            dataType : "json",
+ //            timeout : 5000,
+ //            success : function(data){
+ //            	if (data.code == 1) {
+            		
+ //            	} else {
+ //            		alert(data.msg);
+ //            	}
+ //            	$('.meng00').hide();
+ //            }
+	// 	});
 		
-	});
+	// });
 
 	//返回选择产品型号
-	$('#goodsReturn').click(function(){
-		$('.order-list').show();
-		$('.order-date-bg').hide();
-	});
+	// $('#goodsReturn').click(function(){
+	// 	$('.order-list').show();
+	// 	$('.order-date-bg').hide();
+	// });
 
 	/*选择颜色*/
 	var colorValue = '';
@@ -318,15 +292,15 @@ $(function(){
 		//return false;
 		$('.meng00').show();
 		$.ajax({
-			url : "<?php echo U('Shop/goodsRecord');?>",
+			url : "<?php echo U('Shop/goodsUpdate');?>",
             type : "post",
-            data : {goodsId:goodsId,goodsName:goodsName,goodsColor:Ccolor,hasHand:hasHandCode,hand:Chand,hasLock:hasLockCode,falseLock:Clock,goodsNum:goodsNum},
+            data : {id:<?php echo I('id');?>,goodsId:goodsId,goodsName:goodsName,goodsColor:Ccolor,hasHand:hasHandCode,hand:Chand,hasLock:hasLockCode,falseLock:Clock,goodsNum:goodsNum},
             dataType : "json",
             timeout : 5000,
             success : function(data){
             	if (data.code == 1) {
             		alert(data.msg);
-            		//window.location.href="<?php echo U('Shopcar/index');?>";
+            		window.location.href="<?php echo U('Shopcar/index');?>";
             	} else {
             		alert(data.msg);
             	}
@@ -340,6 +314,48 @@ $(function(){
             }
 		});
 	});
+
+
+
+
+	//加载颜色
+	for (var i = 0;i < info.length;i++) {
+		if ($.inArray(info[i]['goodscolor'],colorArr) != -1) {
+			//console.log(info[i]['goodscolor']+"--"+colorArr);
+			continue;
+		} else {
+			$('.chioceColor').append("<span class='active' value='"+info[i]['goodscolor']+"'><i style='background-color: "+info[i]['colorcode']+";'></i>"+info[i]['goodscolor']+"</span>");
+			colorArr.push(info[i]['goodscolor']);
+		}
+	}
+	if (hasHandCode) {
+		$('#hand').show();
+	} else {
+		$('#hand').hide();
+		hasHand = 0;
+	}
+	if (hasLockCode) {
+		$('#falseLock').show();
+	} else {
+		$('#falseLock').hide();
+		hasLock = 0;
+	}
+	$('.chioceColor span').each(function(){
+		if ($(this).attr('value') == '<?php echo ($shop["goodscolor"]); ?>') {
+			$(this).click();
+		}
+	});
+	$('.handChoice small').each(function(){
+		if ($(this).attr('value') == '<?php echo ($shop["hand"]); ?>') {
+			$(this).click();
+		}
+	});
+	$('.lockChoice small').each(function(){
+		if ($(this).attr('value') == '<?php echo ($shop["falselock"]); ?>') {
+			$(this).click();
+		}
+	});
+	$('#goods').text(goodsName);
 })
 
 </script>
