@@ -49,10 +49,10 @@
 						<h5><{$value.goodsname}>-<{$value.goodsmodel}></h5>
 						<i><{$value.entime}></i>
 						<h4>数量：<{$value.goodsnum}></h4>
-						<a href="<{:U('Shop/update?id='.$value['id'])}>" class="edit">编辑</a>
 					</div>
 					<div class="query-list-state">
-						<a href="<{:U('shopcar/goodsDel?delId='.$value['id'])}>" class="deteleBtn">删除</a>
+						<a href="<{:U('Shop/update?id='.$value['id'])}>" class="deteleBtn" style="color:#00b7ee;">编辑</a>
+						<a href="<{:U('shopcar/goodsDel?delId='.$value['id'])}>" class="deteleBtn del">删除</a>
 					</div>
 				</li>
 			<{/foreach}>
@@ -148,7 +148,7 @@
 			window.location.href = "<{:U('Shop/index')}>";
 		});
 
-		$('.query-list-state a').click(function(){
+		$('.query-list-state .del').click(function(){
 			if (!confirm('确定删除该产品吗？')) {
 				return false;
 			}
