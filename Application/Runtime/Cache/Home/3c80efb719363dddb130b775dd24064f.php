@@ -40,6 +40,7 @@
 			<div class="personal-center-header">
 				<img src="/luomansi/Application/Home/Public/img/headerImg.png" alt="">
 				<p><?php echo ($info["name"]); ?>&nbsp;hi</p>
+				<small style='text-align: center;font-size: 25px;color: #ffffff;margin-top: 10px;display:block;'><?php echo ($info["province"]); echo ($info["city"]); ?></small>
 			</div>
 			<img src="/luomansi/Application/Home/Public/img/icon04.png" alt="" class="icon04 modifyBtn">
 		</div>
@@ -128,13 +129,13 @@
 			<img src="/luomansi/Application/Home/Public/img/nav1.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<?php echo U('Order/index');?>" class="footer-nav-item line2">
-			<img src="/luomansi/Application/Home/Public/img/nav2.png" alt="" class="footer-nav-img">
-			<img src="/luomansi/Application/Home/Public/img/nav2-active.png" alt="" class="footer-nav-imgActive">
-		</a>
 		<a href="<?php echo U('Shopcar/index');?>" class="footer-nav-item line2">
 			<img src="/luomansi/Application/Home/Public/img/nav3.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/nav3-active.png" alt="" class="footer-nav-imgActive">
+		</a>
+		<a href="<?php echo U('Order/index');?>" class="footer-nav-item line2">
+			<img src="/luomansi/Application/Home/Public/img/nav2.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/nav2-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 		<a href="<?php echo U('Person/index');?>" class="footer-nav-item line2 footer-nav-itemActive">
 			<img src="/luomansi/Application/Home/Public/img/nav4.png" alt="" class="footer-nav-img">

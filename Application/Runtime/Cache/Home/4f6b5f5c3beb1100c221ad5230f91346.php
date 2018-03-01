@@ -36,10 +36,14 @@
 		
 		<img src="/luomansi/Application/Home/Public/img/logo.png" alt="" class="logo">
 
+		<p class="add-title" style="font-size:36px;text-align: center;margin:30px auto 0;">全 自 动 智 能 锁</p>
+
 		<div class="sign-in-mask">
 			
 			<div class="sign-in-content">
 				
+				<h2 class="add-words" style="font-size: 37px;width:550px;margin:-30px auto 0;font-weight: 300;">订单管理</h2>
+
 				<p>
 					<span>
 						<img src="/luomansi/Application/Home/Public/img/icon01.png" alt="">
@@ -57,6 +61,8 @@
 				<input type="button" value="登录" class="sign-in-btn">
 
 			</div>
+
+			<small class='add-tips' style='display:block;text-align: center;font-size:25px;color:#919191;margin:-100px auto 0;'><?php echo ($ad); ?></small>
 
 		</div>
 	</div>

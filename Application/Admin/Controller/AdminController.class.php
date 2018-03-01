@@ -282,8 +282,8 @@ class AdminController extends Controller {
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
                 $ad = I('ad');
-                $ad = str_replace("\n", "<br/>", $ad);
-                $res = M('ad')->where('id=1')->data(array('ad'=>$ad,'enTime'=>date('Y-m-d')))->save();
+                $ad = str_replace("\r\n", "<br/>", $ad);
+                $res = M('ad')->where('id=1')->data(array('ad'=>$ad,'enTime'=>date('Y-m-d H:i:s')))->save();
                 if ($res) {
                     $this->success('更新成功',U("Admin/ad"));
                 } else {
@@ -292,6 +292,7 @@ class AdminController extends Controller {
                 }
             } else {
                 $ad = M('ad')->where('id=1')->find();
+                $ad = str_replace("<br/>", "\r\n", $ad);
                 $this->assign('ad',$ad);
                 $this->display();
             }

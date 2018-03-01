@@ -7,7 +7,7 @@ class PersonController extends Controller {
         if (isset($_SESSION['admin_id'])) {
         	$admin_id = $_SESSION['admin_id'];
             $Model_Data = M('SysAdmin');
-            $info = $Model_Data->field('username,name,phone,address')->where(array('id'=>$admin_id))->find();
+            $info = $Model_Data->field('username,name,phone,province,city,address')->where(array('id'=>$admin_id))->find();
             if (!empty($info)) {
             	//var_dump($info);
 	            $this->assign('info',$info);

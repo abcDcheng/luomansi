@@ -47,9 +47,10 @@
 						<h5><?php echo ($value["goodsname"]); ?>-<?php echo ($value["goodsmodel"]); ?></h5>
 						<i><?php echo ($value["entime"]); ?></i>
 						<h4>数量：<?php echo ($value["goodsnum"]); ?></h4>
-						<a href="<?php echo U('Shop/update?id='.$value['id']);?>" class="edit">编辑</a>
+						
 					</div>
 					<div class="query-list-state">
+						<a href="<?php echo U('Shop/update?id='.$value['id']);?>" class="deteleBtn">编辑</a><br/>
 						<a href="<?php echo U('shopcar/goodsDel?delId='.$value['id']);?>" class="deteleBtn">删除</a>
 					</div>
 				</li><?php endforeach; endif; ?>

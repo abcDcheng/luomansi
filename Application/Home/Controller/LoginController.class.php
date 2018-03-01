@@ -19,6 +19,8 @@ class LoginController extends Controller {
             session('group', $user['group']);
             $this->success('登录成功，正在进入系统...', '','login');
     	} else {
+            $ad = $this->getAD();
+            $this->assign('ad',$ad);
     		$this->display();
     	}
     }
@@ -27,12 +29,16 @@ class LoginController extends Controller {
         if (isset($_SESSION['service_id'])) {
             redirect(U("Install/index"));
         } else {
+            $ad = $this->getAD();
+            $this->assign('ad',$ad);
             $this->display();
         }
         
     }
     //维护管理登录页
     public function maintainLogin() {
+        $ad = $this->getAD();
+        $this->assign('ad',$ad);
         $this->display();
         // if (isset($_SESSION['service_id'])) {
         //     redirect(U("Maintain/index"));
@@ -58,5 +64,11 @@ class LoginController extends Controller {
         } else {
             $this->display();
         }
+    }
+
+    //获取广告语
+    public function getAD(){
+        $con = M('ad')->where('id=1')->getField('ad');
+        return $con;
     }
 }

@@ -15,7 +15,7 @@ class ShopController extends Controller {
                 //根据可下单产品规格id查询出大类产品
                 session('goodsInfoId',$goodsInfoId['goodsinfoid']);
                 $Model_Data = M();
-                $goods = $Model_Data->query("SELECT id,goodsName,hasHand,hasLock 
+                $goods = $Model_Data->query("SELECT id,goodsName,goodsImg,hasHand,hasLock 
                             FROM saleman_goods
                             WHERE id
                             IN (
