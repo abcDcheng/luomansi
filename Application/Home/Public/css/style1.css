@@ -85,7 +85,7 @@ em,i,small{font-style: normal;}
 .query-list-message p{font-size: 23px;color: #7d7d7d;display: block;margin-top: 5px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .edit{font-weight: 500;font-size: 32px;color: #00b7ee;position: absolute;bottom: 5px;right: 0px;text-decoration: underline;padding-left: 35px;background: url(../img/icon10.png) left center no-repeat;}
 .query-list-state{float: left;margin-left: 20px;position: relative;height: 168px;}
-.query-list-state .deteleBtn{position: absolute;height: 168px;line-height: 168px;color: #ff0000;font-size: 32px;width: 100px;text-align: center;}
+.query-list-state .deteleBtn{color: #ff0000;font-size: 32px;width: 100px;text-align: center;display: block;margin-top: 22px;}
 .query-state-btn{font-size: 23px;padding: 10px 15px;border-radius: 20px;border:0;outline: none;color: #ffffff;}
 .query-state-1{background-color: #72c73e;}
 .query-state-2{background-color: #ff6c00;}
