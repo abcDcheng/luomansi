@@ -49,10 +49,9 @@
 						<h5><{$value.goodsname}>-<{$value.goodsmodel}></h5>
 						<i><{$value.entime}></i>
 						<h4>数量：<{$value.goodsnum}></h4>
-						
+						<a href="<{:U('Shop/update?id='.$value['id'])}>" class="edit">编辑</a>
 					</div>
 					<div class="query-list-state">
-						<a href="<{:U('Shop/update?id='.$value['id'])}>" class="deteleBtn">编辑</a><br/>
 						<a href="<{:U('shopcar/goodsDel?delId='.$value['id'])}>" class="deteleBtn">删除</a>
 					</div>
 				</li>

@@ -92,7 +92,7 @@
 					</p>
 				</li>
 			</ul>
-			<button class="order-date-btn">确认订单</button>
+			<button class="order-date-btn">保存订单</button>
 		</div>
 	</div>
 

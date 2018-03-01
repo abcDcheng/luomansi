@@ -105,7 +105,7 @@ class ShopController extends Controller {
             $Model_Data = M('shopcar');
             $res = $Model_Data->add($info);
             if ($res) {
-                $this->success('已将产品添至购物车');
+                $this->success('已将产品添至购物车，提交订单请在购物车操作');
             } else {
                 $this->error("添加失败");
             }

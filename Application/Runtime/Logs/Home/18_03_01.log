@@ -144,3 +144,33 @@ SQL: SELECT `goodsImg` FROM `saleman_goods` WHERE ( id=1 ) LIMIT 1   [ RunTime:0
 SQL: SHOW COLUMNS FROM `saleman_shopcar` [ RunTime:0.0040s ]
 SQL: INSERT INTO `saleman_shopcar` (`salemanId`,`goodsId`,`goodsName`,`goodsImg`,`goodsColor`,`hand`,`falseLock`,`goodsModel`,`goodsNum`,`enTime`) VALUES ('17','1','DD1智能锁','goods/product1.jpg','白金','0','1','白金假锁','10','2018-03-01 17:20:30') [ RunTime:0.1425s ]
 
+[ 2018-03-01T17:30:16+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsUpdate.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000772s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001349s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0080s ]
+SQL: SELECT `goodsImg` FROM `saleman_goods` WHERE ( id=1 ) LIMIT 1   [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `saleman_shopcar` [ RunTime:0.0058s ]
+SQL: UPDATE `saleman_shopcar` SET `salemanId`='17',`goodsId`='1',`goodsName`='DD1智能锁',`goodsImg`='goods/product1.jpg',`goodsColor`='白金',`hand`='0',`falseLock`='1',`goodsModel`='白金假锁',`goodsNum`='10',`enTime`='2018-03-01 17:30:16' WHERE ( id=10 ) [ RunTime:0.1417s ]
+
+[ 2018-03-01T17:33:34+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsInfo.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001107s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001933s ]
+SQL: select id,goodsColor,colorCode,hand,falseLock from saleman_goods_info where goodsId=2 and id in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24) and status=1 [ RunTime:0.0005s ]
+
+[ 2018-03-01T17:34:42+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsRecord.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000815s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001405s ]
+SQL: SHOW COLUMNS FROM `saleman_goods` [ RunTime:0.0043s ]
+SQL: SELECT `goodsImg` FROM `saleman_goods` WHERE ( id=2 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_shopcar` [ RunTime:0.0044s ]
+SQL: INSERT INTO `saleman_shopcar` (`salemanId`,`goodsId`,`goodsName`,`goodsImg`,`goodsColor`,`hand`,`falseLock`,`goodsModel`,`goodsNum`,`enTime`) VALUES ('17','2','DD2智能锁','goods/product2.jpg','白金','1','1','白金带下拉手假锁','10','2018-03-01 17:34:42') [ RunTime:0.1478s ]
+
+[ 2018-03-01T17:34:49+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/goodsInfo.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000750s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001401s ]
+SQL: select id,goodsColor,colorCode,hand,falseLock from saleman_goods_info where goodsId=2 and id in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24) and status=1 [ RunTime:0.0005s ]
+
