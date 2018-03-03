@@ -9149,3 +9149,129 @@ SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1 
 SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0048s ]
 SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
 
+[ 2018-03-01T18:34:28+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000966s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001674s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0045s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0041s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2018-03-01T18:34:38+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000713s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001295s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0045s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0043s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2018-03-01T18:34:48+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000722s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001266s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0044s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0046s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2018-03-01T18:34:58+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000691s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001217s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0044s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0041s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2018-03-01T18:35:08+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000695s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001266s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0044s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0042s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-03-01T18:35:18+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000801s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001356s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0043s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0042s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2018-03-01T18:35:28+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001574s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002774s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0045s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0043s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2018-03-01T18:35:38+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000646s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001321s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0043s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0046s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-03-01T18:35:48+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000551s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001040s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0043s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0046s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-03-01T18:35:58+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001229s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002503s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0046s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0042s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2018-03-01T18:36:08+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000609s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001189s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0045s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0045s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-03-01T18:36:18+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000694s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001242s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0045s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0041s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2018-03-01T18:36:28+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001126s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001966s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0044s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0046s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+
+[ 2018-03-01T18:36:38+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000685s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001314s ]
+SQL: SHOW COLUMNS FROM `saleman_order` [ RunTime:0.0050s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_order` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0047s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+

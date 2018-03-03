@@ -49,7 +49,7 @@
 						<h4>数量：<?php echo ($value["goodsnum"]); ?></h4>
 					</div>
 					<div class="query-list-state">
-						<a href="<?php echo U('Shop/update?id='.$value['id']);?>" class="deteleBtn" style="color:#00b7ee;">编辑</a>
+						<a href="<?php echo U('Shop/update?id='.$value['id']);?>" class="deteleBtn" style="color:#00b7ee;">修改</a>
 						<a href="<?php echo U('shopcar/goodsDel?delId='.$value['id']);?>" class="deteleBtn del">删除</a>
 					</div>
 				</li><?php endforeach; endif; ?>

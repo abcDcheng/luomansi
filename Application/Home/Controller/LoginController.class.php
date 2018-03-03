@@ -26,13 +26,13 @@ class LoginController extends Controller {
     }
     //安装管理登录页
     public function installLogin() {
-        if (isset($_SESSION['service_id'])) {
-            redirect(U("Install/index"));
-        } else {
+        // if (isset($_SESSION['service_id'])) {
+        //     redirect(U("Install/index"));
+        // } else {
             $ad = $this->getAD();
             $this->assign('ad',$ad);
             $this->display();
-        }
+        //}
         
     }
     //维护管理登录页
