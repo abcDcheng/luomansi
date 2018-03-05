@@ -99,7 +99,7 @@ class GoodsController extends Controller {
                         $this->error('查无该账户数据，请刷新页面检查');
                     } else {
                         M('goodsInfo')->where('goodsId='.$id)->delete();
-                        $this->success('删除成功');
+                        $this->success('删除成功',U('Goods/index'));
                     }
                 } else {
                     $this->error("查无数据",U("Goods/index"),3);

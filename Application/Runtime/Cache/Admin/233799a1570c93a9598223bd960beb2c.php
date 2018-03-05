@@ -71,6 +71,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -170,7 +171,7 @@
                     <colgroup>
                         <col>
                         <col width="80">
-                        <col width="100">
+                        <col width="120">
                         <col width="150">
                         <col>
                         <col width="120">
@@ -290,7 +291,7 @@
             for(key in order){
                 var tableHtml = '';
 
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['address']+'</td>';
+                tableHtml += '<tr><td class="layui-elip">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td>';
                 var detail = '';
                 for(var i=0;i<order[key]['detail'].length;i++){
                     detail += order[key]['detail'][i]['goodsname'] + '-'+ order[key]['detail'][i]['goodsmodel']+'X'+order[key]['detail'][i]['goodsnum'];
@@ -299,7 +300,7 @@
                     }
                 }
                 tableHtml += '<td>'+detail+'</td>';
-                tableHtml += '<td class="layui-elip">'+order[key]['orderbak']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">';
+                tableHtml += '<td class="layui-elip" title="'+order[key]['orderbak']+'">'+order[key]['orderbak']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">';
                 if (order[key]['status'] == 2) {
                     tableHtml += '<span style="color:red">未通过</span>';
                 } else {

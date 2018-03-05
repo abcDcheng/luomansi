@@ -5,7 +5,14 @@ class InstallController extends Controller {
     public function index(){
         if (isset($_SESSION['service_id'])) {
         	//$service_id = intval($_SESSION['service_id']);
-        	$this->display();
+            $jssdk = A('jssdk');
+            $signPackage = $jssdk->GetSignPackage();
+            //var_dump($signPackage);
+            $ad = A('Login');
+            $ad = $ad->getAD();
+        	$this->assign('jssdk',$signPackage);
+            $this->assign('ad',$ad);
+            $this->display();
         } else {
             redirect(U("Login/installLogin"));
         }
@@ -13,6 +20,12 @@ class InstallController extends Controller {
     //记录新用户数据
     public function record(){
     	if (isset($_SESSION['service_id']) && IS_AJAX) {
+            $goodsCode = I('goodsCode');
+            $count = M('code')->where(array('goodsCode'=>$goodsCode))->count();
+            if ($count < 1) {
+                $this->error('查找不到该产品码，请确认产品码无误或将产品码发至出产商确认');
+                exit();
+            }
     		$service_id = intval($_SESSION['service_id']);
     		if ($service_id) {
                 //查询安装人员信息
@@ -30,6 +43,7 @@ class InstallController extends Controller {
                               'phone'     => $phone,
 	    					  'area'	  => $area,
 	    					  'address'	  => $address,
+                              'goodsCode' => $goodsCode,
                               'salemanId' => $info['salemanid'],
                               'saleman'   => $info['saleman'],
                               'salemanPhone'=>$info['salemanphone'],

@@ -195,12 +195,13 @@ em,i,small{font-style: normal;}
 .registration{width: 750px;margin: 0 auto 0;position: relative;}
 .registration li{box-sizing:border-box;-webkit-box-sizing:border-box;padding: 35px 25px;border-bottom: 2px #e3e3e3 solid;display: -webkit-box;display: box;background-color: #ffffff;}
 .registration li .name-item{box-flex: 1;-webkit-box-flex: 1;}
-.registration li .push-item{box-flex: 4;-webkit-box-flex: 4;}
+.registration li .push-item{box-flex: 4;-webkit-box-flex: 4;position: relative;}
+.sao_icon{position: absolute;right: 0;top:0;width: 37px;height: 37px;}
 .registration li span{font-size: 32px;}
 .registration li input{font-size: 32px;width: 100%;border:0;outline: none;}
 .registration li textarea{font-size: 32px;width: 100%;height: 120px;border:0;outline: none;}
 .registration li em{display: inline-block;width: 1em;}
-.btn-registration{width: 550px;height: 95px;display: block;margin: 100px auto 0;background-color: #0b4268;font-size: 37px;border-radius: 15px;color: #ffffff;outline: none;}
+.btn-registration{width: 550px;height: 95px;display: block;margin: 60px auto 0;background-color: #0b4268;font-size: 37px;border-radius: 15px;color: #ffffff;outline: none;}
 
 
 

@@ -36,7 +36,7 @@
         <script src="./js/html5shiv.min.js"></script>
         <script src="./js/respond.min.js"></script>
     <![endif]-->
-    <title>维护管理</title>
+    <title>产品码管理</title>
 </head>
 <body>
 
@@ -141,9 +141,9 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
-            <h5>维护管理</h5>
+            <h5>产品码管理</h5>
             <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/add');?>"><i class="layui-icon"></i> 新增</a>        </div>
+                <a class="layui-btn layui-btn-sm" href="<?php echo U('Code/add');?>"><i class="layui-icon"></i> 新增</a>        </div>
         </div>
         <div class="fadeInUp animated">
             <div id="form-list" class="layui-form">
@@ -152,47 +152,23 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-input-inline">
-                        <select name="saleman" id="saleman">
-                            <option value="">选择代理商</option>
-                            <?php if(is_array($saleman)): foreach($saleman as $key=>$value): ?><option value="<?php echo ($value["salemanid"]); ?>"><?php echo ($value["saleman"]); ?>(<?php echo ($value["salemanphone"]); ?>)</option><?php endforeach; endif; ?>
-                        </select>
-                    </div>
-                    <div class="layui-input-inline">
-                        <input id="firsttime" type="text" name="start_time" placeholder="起始时间" value="" class="layui-input sc_form_date" readonly="">
-                    </div>
-                    -
-                    <div class="layui-input-inline">
-                        <input id="lasttime" type="text" name="end_time" placeholder="结束时间" value="" class="layui-input sc_form_date" readonly="">
+                        <input id="goodsCode" type="text" name="goodsCode" placeholder="输入产品码" value="" class="layui-input" style="width:300px;">
                     </div>
                 </div>
                 <button id="cx" class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
                 <input type="hidden" name="nid" value="5">
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
-                        <col width="80">
-                        <col width="100">
                         <col width="150">
-                        <col width="100">
+                        <col width="200">
                         <col>
-                        <col width="150">
-                        <col width="100">
-                        <col width="100">
-                        <col width="100">
-                        <col width="100">
-                        <col width="60">
+                        <col width="130">
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>客户姓名</th>
-                            <th>联系方式</th>
-                            <th>详细地址</th>
-                            <th>维护产品</th>
-                            <th>维护信息</th>
-                            <th>创建时间</th>
-                            <th>负责代理商</th>
-                            <th>维护人员</th>
-                            <th>维护状态</th>
-                            <th>回访状态</th>
+                            <th>型号</th>
+                            <th>规格</th>
+                            <th>产品码</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -235,21 +211,16 @@
 
 <script type="text/javascript">
     $(function(){
-        var firsttime='';
-        var lasttime='';
+        var goodsCode='';
         var str='';
         var page = 1;
-        var saleman = '';
         $('#cx').click(function(){
-            //re= /,|\(|\)|#|'|"|=|;|>|<|%|\\/i;
-            saleman = $('#saleman').val();
-            if($('#firsttime').val()&&$('#lasttime').val()&&$('#firsttime').val()>$('#lasttime').val()){
-                alert("第一个日期比第二个日期大");
+            re= /^[a-zA-Z0-9]*$/i;
+            goodsCode = $.trim($('#goodsCode').val());
+            if (!re.test(goodsCode)) {
+                alert('产品码不能带特殊符号');
                 return false;
-            }else{
-                firsttime=$('#firsttime').val();
-                lasttime=$('#lasttime').val();
-            }             
+            }
             str='';
             fenye(1);
     });
@@ -275,8 +246,8 @@
         //contentType:false,
         type: "post",
         timeout:5000,//设置超时时间为5秒
-        url: "<?php echo U('Maintain/index');?>",
-        data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page},
+        url: "<?php echo U('Code/index');?>",
+        data: {goodsCode:goodsCode,page:page},
         dataType: "json",
         success:function(data){
             $('#an').text(data[0]);
@@ -290,23 +261,8 @@
             var order = data['order'];
             for(key in order){
                 var tableHtml = '';
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip" title="'+order[key]['msg']+'">'+order[key]['msg']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['servicename']+'</td>';
-                
-                if (parseInt(order[key]['servicestatus']) == 2) {
-                    tableHtml += '<td class="layui-elip"><span style="color:green">已维护</span></td>';
-                } else if (parseInt(order[key]['servicestatus']) == 1) {
-                    tableHtml += '<td class="layui-elip"><span style="color:orange">维护中</span></td>';
-                } else {
-                    tableHtml += '<td class="layui-elip"><span style="color:red">未维护</span></td>';
-                }
-                if (parseInt(order[key]['status']) == 2) {
-                    tableHtml += '<td class="layui-elip"><span style="color:red">服务异常</span></td>';
-                } else if (parseInt(order[key]['status']) == 1) {
-                    tableHtml += '<td class="layui-elip"><span style="color:green">已完成</span></td>';
-                } else {
-                    tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
-                }
-                tableHtml+='<td><a class="maintainUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><a class="maintaindel" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
+                tableHtml += '<tr><td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip">'+order[key]['goodsmodel']+'</td><td class="layui-elip">'+order[key]['goodscode']+'</td>';
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a class="maintaindel" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
                 tableHtml2 = tableHtml+tableHtml2;
             }
             $('#body').append(tableHtml2);
@@ -390,18 +346,18 @@
     }
     fenye(1);
 
-    $('#body').on('click','.maintainUpdate',function(){
+    $('#body').on('click','.orderUpdate',function(){
         var id = $(this).attr('value');
-        window.location.href="/luomansi/index.php/Admin/Maintain/update/mod/index/id/"+id;
+        window.location.href="/luomansi/index.php/Admin/Code/update/mod/index/id/"+id;
     });
 
-    $('#body').on('click','maintaindel',function(){
+    $('.deleteId').click(function(){
         if (confirm('确定删除该数据吗？')) {
             var id = $(this).attr('value');
             //alert(id);
             $('.meng00').show();
             $.ajax({
-                url : "<?php echo U('Maintain/del');?>",
+                url : "<?php echo U('Code/del');?>",
                 type : "post",
                 data : {id:id},
                 dataType : "json",

@@ -74,10 +74,23 @@
 				<div class="maintain-executable-date-img">
 					<img src="__IMAGES__/product1.jpg" alt="">
 				</div>
-				<h5 id="goods"></h5>
+				
+
+				<!-- 以前的 -->
+				<!--
+				<h5 id="goods"></h5> 
 				<span id="namephone"></span>
 				<p id="address"></p>
-				<strong id="msg"></strong>
+				<strong id="msg"></strong> -->
+				<!-- 现在修改的 -->
+				<p>订单要求：<con id="level"></con></p>
+				<p>产品名称：<con id="goods"></con></p>
+				<p>安装时间：<con id="installTime"></con></p>
+				<p>产品问题：<i id="msg"></i></p>
+				<p>客户名称：<con id="name"></con></p>
+				<p>联系电话：<con id="phone"></con></p>
+				<p>维护地址：<con id="address"></con></p>
+				<p>客户说明：<con id="clientbak"></con></p>
 			</div>
 			<button id="service" class="maintain-executable-date-btn">执行维护</button>
 			<button id="return" class="maintain-executable-date-btn">返回</button>
@@ -144,10 +157,14 @@
 		$('.maintain-executable a,.query-state-btn').click(function(){
 			var i = $(this).attr('value');
 			orderId = info[i]['id'];
+			$('#level').text(info[i]['orderLevel']);
 			$('#goods').text(info[i]['goods']);
-			$('#namephone').html(info[i]['name']+"&nbsp;&nbsp;&nbsp;&nbsp;"+info[i]['phone']);
+			$('#installTime').text(info[i]['installtime']);
+			$('#name').html(info[i]['name']);
+			$('#phone').html(info[i]['phone']);
 			$('#address').text(info[i]['address']);
-			$('#msg').text('维护内容：'+info[i]['msg']);
+			$('#msg').text(info[i]['msg']);
+			$('#clientbak').text(info[i]['clientbak']);
 			$('.maintain-executable').hide();
 			$('.maintain-executable-date-wrap').show();
 		});

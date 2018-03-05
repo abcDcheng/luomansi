@@ -36,7 +36,7 @@
         <script src="./js/html5shiv.min.js"></script>
         <script src="./js/respond.min.js"></script>
     <![endif]-->
-    <title>新用户管理</title>
+    <title>维护统计</title>
 </head>
 <body>
 
@@ -48,6 +48,11 @@
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
             
         </li>
+        <style type="text/css">
+			#orderNum,#installNum{
+				color:red;
+			}
+        </style>
         <dl class="layui-nav layui-nav-tree sc_side_more">
             <dd class="layui-nav-item layui-nav-itemed">
                 <dl class="layui-nav-child">
@@ -58,21 +63,22 @@
 				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
 				<?php } elseif ($group == 2) { ?>
-				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<?php } elseif ($group == 3) { ?>	
-				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
-				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
-				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
@@ -83,11 +89,59 @@
             </dd>
         </dl>
     </ul>
+
+
+    <script type="text/javascript">
+    	var getOrder = 0;
+    	var getInstall = 0;
+    	<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
+				
+		<?php } elseif ($group == 2) { ?>
+				getOrder = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 3) { ?>
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 99) { ?>
+				getOrder = 1;
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } } ?>
+
+
+
+		function getNew(){
+			$.ajax({
+				url : '<?php echo U("Index/getNew");?>',
+				type : "post",
+	            data : {getOrder:getOrder,getInstall:getInstall},
+	            dataType : "json",
+	            timeout : 5000,
+	            success:function(data) {
+	            	if (data.code == 1) {
+	            		if (data.orderNum>0) {
+	            			$('#orderNum').text('('+data.orderNum+')');
+	            		} else {
+	            			$('#orderNum').text('');
+	            		}
+	            		if (data.installNum>0) {
+	            			$('#installNum').text('('+data.installNum+')');
+	            		} else {
+	            			$('#installNum').text('');
+	            		}
+	            	}
+	            }
+			});
+		}
+    </script>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
-            <h5>新用户管理</h5>
+            <h5>维护统计</h5>
             <!-- <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/add');?>"><i class="layui-icon"></i> 新增</a>        </div> -->
         </div>
@@ -233,10 +287,11 @@
                 // for(var i=1;i<data.length-1;i++){
                 //     $('#body').append(data[i]);
                 // }
-            var tableHtml = '';
+            var tableHtml2 = '';
             var order = data['order'];
             for(key in order){
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip">'+order[key]['msg']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['servicename']+'</td>';
+                var tableHtml = '';
+                tableHtml += '<tr><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip" title="'+order[key]['msg']+'">'+order[key]['msg']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['servicename']+'</td>';
                 
                 if (parseInt(order[key]['servicestatus']) == 2) {
                     tableHtml += '<td class="layui-elip"><span style="color:green">已维护</span></td>';
@@ -253,8 +308,9 @@
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
                 tableHtml+='<td><a class="maintainUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><a id="dl" href="/luomansi/index.php/Admin/Maintain/download/id/'+key+'" value="'+key+'" data-title="下载">下载</a></td></tr>';
+                tableHtml2 = tableHtml+tableHtml2;
             }
-            $('#body').append(tableHtml);
+            $('#body').append(tableHtml2);
             var val=parseInt(data['page']);
             //alert(val);
             switch(val){

@@ -63,31 +63,52 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">客户姓名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="s2-30" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!">
+                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="*2-30" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">联系方式</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="phone" class="layui-input" autocomplete="off" datatype="s2-30" errormsg="请输入正确的联系方式" placeholder="联系方式" nullmsg="请输入联系方式!">
+                                    <input type="text" name="phone" class="layui-input" autocomplete="off" datatype="*2-30" errormsg="请输入正确的联系方式" placeholder="联系方式" nullmsg="请输入联系方式!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">详细地址</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="address" class="layui-input" autocomplete="off" datatype="s2-255" errormsg="请输入正确的详细地址" placeholder="详细地址" nullmsg="请输入详细地址!">
+                                    <input type="text" name="address" class="layui-input" autocomplete="off" datatype="*2-255" errormsg="请输入正确的详细地址" placeholder="详细地址" nullmsg="请输入详细地址!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品名称</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goods" class="layui-input" autocomplete="off" datatype="s2-255" errormsg="请输入正确的产品名称" placeholder="产品名称" nullmsg="请输入产品名称!">
+                                    <input type="text" name="goods" class="layui-input" autocomplete="off" datatype="*2-255" errormsg="请输入正确的产品名称" placeholder="产品名称" nullmsg="请输入产品名称!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">安装时间</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="installTime" placeholder="安装时间" value="" class="layui-input sc_form_date" readonly="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">维护信息</label>
                                 <div class="layui-input-block">
-                                    <textarea name="msg" class="layui-textarea" datatype="s2-1000" placeholder="维护信息"></textarea>
+                                    <textarea name="msg" class="layui-textarea" datatype="*2-2000" nullmsg="请输入维护信息!" placeholder="维护信息"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">客户说明</label>
+                                <div class="layui-input-block">
+                                    <textarea name="clientBak" class="layui-textarea" placeholder="客户说明"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">订单要求</label>
+                                <div class="layui-input-block">
+                                    <select name="level" class="layui-select">
+                                        <option value="1">紧急，马上联系上门</option>
+                                        <option value="2">一般，预约上门</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -117,6 +138,20 @@
             return false;
         }
     });
+
 </script>
+    <script>
+    $(function(){
+        lay('.sc_form_date').each(function(){
+            layui.laydate.render({
+                elem: this
+                ,trigger: 'click'
+                ,type: 'date'
+            });
+        });
+
+    });
+    
+    </script>
 </body>
 </html>

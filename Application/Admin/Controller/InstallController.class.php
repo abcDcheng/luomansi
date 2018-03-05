@@ -218,7 +218,7 @@ class InstallController extends Controller {
                 //创建PHPExcel对象，注意，不能少了\
                 $objPHPExcel = new \PHPExcel();
                 $objProps = $objPHPExcel->getProperties();
-                $headArr = array('安装人员','手机','归属代理商','新用户姓名','联系方式','地区','详细地址','完成时间','回访状态','信息反馈','回访人员','回访时间');
+                $headArr = array('产品安装码','安装人员','手机','归属代理商','新用户姓名','联系方式','地区','详细地址','完成时间','回访状态','信息反馈','回访人员','回访时间');
                 //设置表头
                 $key = ord("A");
                 foreach($headArr as $v){
@@ -229,23 +229,24 @@ class InstallController extends Controller {
                 $i = 2;
                 //$objActSheet = $objPHPExcel->getActiveSheet();
                 foreach($info as $key => $row){ //行写入
-                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$i,$row['sername']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$i,$row['serphone']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$i,$row['saleman']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$i,$row['name']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$i,$row['phone']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$i,$row['area']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$i,$row['address']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$i,$row['entime']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('A'.$i,$row['goodscode']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('B'.$i,$row['sername']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('C'.$i,$row['serphone']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('D'.$i,$row['saleman']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('E'.$i,$row['name']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('F'.$i,$row['phone']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('G'.$i,$row['area']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('H'.$i,$row['address']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$i,$row['entime']);
                     if ($row['status']) {
                         $status = '已回访';
                     } else {
                         $status = '未回访';
                     }
-                    $objPHPExcel->getActiveSheet()->setCellValue('I'.$i,$status);
-                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$i,$row['msg']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('K'.$i,$row['statususer']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('L'.$i,$row['statustime']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('J'.$i,$status);
+                    $objPHPExcel->getActiveSheet()->setCellValue('k'.$i,$row['msg']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('l'.$i,$row['statususer']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$i,$row['statustime']);
                     $i++;
                 }
                 //保存excel—2007格式

@@ -68,6 +68,9 @@ class MaintainController extends Controller {
                 $address = I('address');
                 $goods = I('goods');
                 $msg = I('msg');
+                $installTime = I('installTime');
+                $clientBak = I('clientBak');
+                $level = I('level');
                 $salemanId = intval(I('saleman'));
                 $username = $_SESSION['username'];
                 //获取选择的代理商信息
@@ -81,6 +84,9 @@ class MaintainController extends Controller {
                         'address'       => $address,
                         'goods'         => $goods,
                         'msg'           => $msg,
+                        'level'         => $level,
+                        'clientBak'     => $clientBak,
+                        'installTime'   => $installTime,
                         'salemanId'     => $salemanId,
                         'saleman'       => $info[$salemanId]['name'],
                         'salemanPhone'  => $info[$salemanId]['phone'],
@@ -123,6 +129,9 @@ class MaintainController extends Controller {
                     $address = I('address');
                     $goods = I('goods');
                     $msg = I('msg');
+                    $installTime = I('installTime');
+                    $clientBak = I('clientBak');
+                    $level = I('level');
                     $salemanId = intval(I('saleman'));
                     $oldSaleman = intval(I('oldSaleman'));
                     $status = intval(I('status'));
@@ -132,6 +141,9 @@ class MaintainController extends Controller {
                         'address'       => $address,
                         'goods'         => $goods,
                         'msg'           => $msg,
+                        'level'         => $level,
+                        'clientBak'     => $clientBak,
+                        'installTime'   => $installTime,
                         'enTime'        => date('Y-m-d H:i:s')
                         );
                     $Model_data = M();
@@ -152,14 +164,21 @@ class MaintainController extends Controller {
                             $this->error('查找不到负责代理商的信息，请重试');
                         }
                     }
+                    //查询维护追踪
+                    $ser = $Model_data->table('saleman_maintain')->where('id='.$id)->field('id,status,serLog')->find();
                     //服务异常，将订单重置为维护中状态
                     if ($status == 2) {
                         $data['serviceStatus'] = 1;
                         $data['serEndTime'] = "0000-00-00 00:00:00";
                         $data['endTime'] = "0000-00-00 00:00:00";
+                        $data['serLog'] .= $ser['serlog'] . "回访获悉服务异常，重新执行维护"."\n\n";
                     } elseif ($status == 1) {   //正常回访
                         $data['endTime'] = date('Y-m-d H:i:s');
                         $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username']:'';
+                        if ($ser['status'] != 1) {
+                            $data['serLog'] .= $ser['serlog'] . "已回访";
+                        }
+                        
                     }
                     $data['status'] = $status;
                     
@@ -175,6 +194,7 @@ class MaintainController extends Controller {
                     $Model_data = M('maintain');
                     $info = $Model_data->where('id='.$id)->find();
                     if (!empty($info)) {
+                        $this->assign('mod',$mod);
                         $this->assign('saleman',$saleman);
                         $this->assign('info',$info);
                         $this->display();
@@ -199,7 +219,7 @@ class MaintainController extends Controller {
                 } elseif ($res === 0) {
                     $this->error('查无该数据，请刷新页面检查');
                 } else {
-                    $this->success('删除成功',U("Login/index"));
+                    $this->success('删除成功',U("Maintain/index"));
                 }
             }
         }
@@ -413,7 +433,7 @@ class MaintainController extends Controller {
                 //创建PHPExcel对象，注意，不能少了\
                 $objPHPExcel = new \PHPExcel();
                 $objProps = $objPHPExcel->getProperties();
-                $headArr = array('发布人','用户姓名','联系方式','详细地址','维护产品','维护信息','负责代理商','代理商电话','创建时间','维护人员','维护人员电话','维护状态','开始维护时间','完成维护时间','回访状态','回访人员','回访时间');
+                $headArr = array('发布人','用户姓名','联系方式','详细地址','维护产品','维护信息','负责代理商','代理商电话','创建时间','维护人员','维护人员电话','维护状态','回访状态','回访人员','回访时间','维护日志');
                 //设置表头
                 $key = ord("A");
                 foreach($headArr as $v){
@@ -443,8 +463,6 @@ class MaintainController extends Controller {
                         $status = '已完成';
                     }
                     $objPHPExcel->getActiveSheet()->setCellValue('L'.$i,$status);
-                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$i,$row['serstarttime']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$i,$row['serendtime']);
                     if ($row['status'] == 0) {
                         $status = '未回访';
                     } elseif ($row['status'] == 1) {
@@ -452,9 +470,10 @@ class MaintainController extends Controller {
                     } elseif ($row['status'] == 2) {
                         $status = '服务异常';
                     }
-                    $objPHPExcel->getActiveSheet()->setCellValue('O'.$i,$status);
-                    $objPHPExcel->getActiveSheet()->setCellValue('P'.$i,$row['statususer']);
-                    $objPHPExcel->getActiveSheet()->setCellValue('Q'.$i,$row['endtime']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('M'.$i,$status);
+                    $objPHPExcel->getActiveSheet()->setCellValue('N'.$i,$row['statususer']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('O'.$i,$row['endtime']);
+                    $objPHPExcel->getActiveSheet()->setCellValue('P'.$i,$row['serlog']);
                     $i++;
                 }
                 //保存excel—2007格式

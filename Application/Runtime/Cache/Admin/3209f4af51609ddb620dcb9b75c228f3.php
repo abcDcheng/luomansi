@@ -45,32 +45,37 @@
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
             
         </li>
+        <style type="text/css">
+			#orderNum,#installNum{
+				color:red;
+			}
+        </style>
         <dl class="layui-nav layui-nav-tree sc_side_more">
             <dd class="layui-nav-item layui-nav-itemed">
                 <dl class="layui-nav-child">
 
 				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
-				<dd><a href="#">人员管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
 				<!-- <dd><a href="#">历史订单</a></dd> -->
-				<dd><a href="#">安装管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
-				<dd><a href="#">维护统计</a></dd>
 				<?php } elseif ($group == 2) { ?>
-				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<?php } elseif ($group == 3) { ?>	
-				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
-				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
-				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
@@ -81,6 +86,54 @@
             </dd>
         </dl>
     </ul>
+
+
+    <script type="text/javascript">
+    	var getOrder = 0;
+    	var getInstall = 0;
+    	<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
+				
+		<?php } elseif ($group == 2) { ?>
+				getOrder = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 3) { ?>
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 99) { ?>
+				getOrder = 1;
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } } ?>
+
+
+
+		function getNew(){
+			$.ajax({
+				url : '<?php echo U("Index/getNew");?>',
+				type : "post",
+	            data : {getOrder:getOrder,getInstall:getInstall},
+	            dataType : "json",
+	            timeout : 5000,
+	            success:function(data) {
+	            	if (data.code == 1) {
+	            		if (data.orderNum>0) {
+	            			$('#orderNum').text('('+data.orderNum+')');
+	            		} else {
+	            			$('#orderNum').text('');
+	            		}
+	            		if (data.installNum>0) {
+	            			$('#installNum').text('('+data.installNum+')');
+	            		} else {
+	            			$('#installNum').text('');
+	            		}
+	            	}
+	            }
+			});
+		}
+    </script>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
@@ -96,6 +149,7 @@
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
                             <input name="id" type="hidden" value="<?php echo ($info["id"]); ?>" />
+                            <input name="mod" type="hidden" value="<?php echo ($mod); ?>" />
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">创建人员</label>
                                 <div class="layui-input-block">
@@ -105,7 +159,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">客户姓名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="s2-16" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!"  value="<?php echo ($info["name"]); ?>">
+                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="s2-30" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!"  value="<?php echo ($info["name"]); ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -127,9 +181,30 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label">安装时间</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="installTime" placeholder="安装时间" value="<?php echo ($info["installtime"]); ?>" class="layui-input sc_form_date" readonly="">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label label-required">维护信息</label>
                                 <div class="layui-input-block">
                                     <textarea id="msg" name="msg" class="layui-textarea"  placeholder="维护信息"><?php echo ($info["msg"]); ?></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">客户说明</label>
+                                <div class="layui-input-block">
+                                    <textarea id="clientBak" name="clientBak" class="layui-textarea" placeholder="客户说明"><?php echo ($info["clientbak"]); ?></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">订单要求</label>
+                                <div class="layui-input-block">
+                                    <select id="level" name="level" class="layui-select">
+                                        <option value="1">紧急，马上联系上门</option>
+                                        <option value="2">一般，预约上门</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -148,13 +223,18 @@
                                     <input type="text" name="serviceName" class="layui-input" autocomplete="off" value="<?php echo ($info["servicename"]); echo ($info["servicePhone"]); ?>" disabled="disabled">
                                 </div>
                             </div>
-                            <?php if($info['servicestatus'] == 2 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">维护追踪</label>
+                                <div class="layui-input-block">
+                                    <textarea name="serLog" class="layui-textarea" autocomplete="off" value="<?php echo ($info["serlog"]); ?>" disabled="disabled" style="height: 300px;"><?php echo ($info["serlog"]); ?></textarea>
+                                </div>
+                            </div>
+                            <?php if($info['servicestatus'] != 0 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
                                 <div class="img_label">
                                     <label>现场照片</label>
                                 </div>
                                 <div id="thumb_view" class="img_item transition">
                                     <img src="/luomansi/Application/Upload//<?php echo ($info['comimg']); ?>">
-                                    
                                 </div>
                             </div><?php endif; ?>
                             <div class="layui-form-item">
@@ -180,6 +260,8 @@
         $('#saleman').val(parseInt('<?php echo ($info["salemanid"]); ?>'));
         $('#status').val(parseInt('<?php echo ($info["status"]); ?>'));
         $('#msg').val('<?php echo ($info["msg"]); ?>');
+        $('#clientBak').val('<?php echo ($info["clientbak"]); ?>');
+        $('#level').val(parseInt('<?php echo ($info["level"]); ?>'));
         $('#save').click(function(){
             var saleman = $('#saleman').val();
             if (!saleman) {
@@ -190,6 +272,19 @@
     });
     
 
+
+</script>
+<script>
+$(function(){
+    lay('.sc_form_date').each(function(){
+        layui.laydate.render({
+            elem: this
+            ,trigger: 'click'
+            ,type: 'date'
+        });
+    });
+
+});
 
 </script>
 </body>

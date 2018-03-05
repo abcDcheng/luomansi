@@ -15,6 +15,13 @@ class MaintainController extends Controller {
             } else {
                 $hasInfo = 1;
             }
+            foreach ($info as $key => $value) {
+                if ($value['level'] == 1) {
+                    $info[$key]['orderLevel'] = '紧急，马上联系上门';
+                } else {
+                    $info[$key]['orderLevel'] = '一般，预约上门';
+                }
+            }
             $this->assign('hasInfo',$hasInfo);
         	$this->assign('info',$info);
         	$this->display();
@@ -58,6 +65,16 @@ class MaintainController extends Controller {
             } else {
                 $hasInfo = 1;
             }
+            foreach ($info as $key => $value) {
+                if ($value['level'] == 1) {
+                    $info[$key]['orderLevel'] = '紧急，马上联系上门';
+                } else {
+                    $info[$key]['orderLevel'] = '一般，预约上门';
+                }
+            }
+            $jssdk = A('jssdk');
+            $signPackage = $jssdk->GetSignPackage();
+            $this->assign('jssdk',$signPackage);
             $this->assign('hasInfo',$hasInfo);
         	$this->assign('info',$info);
         	$this->display();
@@ -81,9 +98,39 @@ class MaintainController extends Controller {
 					$serviceId = intval($_SESSION['service_id']);
 	    			$orderId = intval($_POST['orderId']);
 	    			$Model_data = M('maintain');
-	    			$res = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->data(array('serviceStatus'=>2,'comImg'=>$dir."/".$output_file,'serEndTime'=>date('Y-m-d H:i:s')))->save();
+                    $serLog = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->getField('serLog');
+                    $goodsCode = I('goodsCode');
+                    $serDate = I('serDate');
+                    $serStartTime = I('serStartTime');
+                    $serEndTime = I('serEndTime');
+                    $serStatus = I('serStatus');
+                    $serBak = I('serBak');
+                    $logtmp = '';
+                    $logtmp .= "服务时间：$serDate $serStartTime"."至$serEndTime"."\n";
+                    $logtmp .= "产品码：$goodsCode"."\n";
+                    if ($serStatus) {
+                        $serviceStatus = 2;
+                        $logtmp .= "维护结果：已完成"."\n";
+                    } else {
+                        $serviceStatus = 1;
+                        $logtmp .= "维护结果：未完成"."\n";
+                        $logtmp .= "未完成原因：$serBak"."\n";
+                    }
+                    $logtmp .= "\n";
+                    $serLog .= $logtmp;
+                    $data = array(
+                        'serviceStatus'     =>$serviceStatus,
+                        'comImg'            =>$dir."/".$output_file,
+                        'serLog'            =>$serLog
+                        );
+	    			$res = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->data($data)->save();
 	    			if ($res) {
-	    				$this->success('数据提交成功，请让客户等候客服回访');
+                        if ($serStatus) {
+                            $this->success('数据提交成功，请让客户等候客服回访');
+                        } else {
+                            $this->success('已更新维护信息');
+                        }
+	    				
 	    			} elseif ($res === 0) {
 	    				$this->error('该订单可能已执行完成，请前往已完成订单确认');
 	    			} else {
@@ -112,6 +159,13 @@ class MaintainController extends Controller {
                 $hasInfo = 0;
             } else {
                 $hasInfo = 1;
+            }
+            foreach ($info as $key => $value) {
+                if ($value['level'] == 1) {
+                    $info[$key]['orderLevel'] = '紧急，马上联系上门';
+                } else {
+                    $info[$key]['orderLevel'] = '一般，预约上门';
+                }
             }
             $this->assign('hasInfo',$hasInfo);
             $this->assign('info',$info);

@@ -27,13 +27,13 @@
     <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
     <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
-    <!-- <script src="/luomansi/Application/Admin/Public/js/jquery.photoClip.min.js"></script> -->
+
     <!-- 让IE8/9支持媒体查询 -->
 	<!--[if lt IE 9]>
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>新增产品</title>
+    <title>新增产品码</title>
 </head>
 <body>
 
@@ -137,54 +137,34 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<?php echo U('Goods/goodsAdd');?>" id="form" class="layui-form layui-form-pane" enctype="multipart/form-data">
+            <form action="<?php echo U('Code/add');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>新增产品</h5>
+                    <h5>新增产品码</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Goods/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Admin/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
-                        <input type="hidden" name="id" value="<?php echo ($goods["id"]); ?>">
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">产品名</label>
+                                <label class="layui-form-label label-required">产品型号</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goodsname" class="layui-input" autocomplete="off" placeholder="产品名" datatype="*1-30" errormsg="产品名至少1个字符!" nullmsg="请输入产品名!">
+                                    <input type="text" name="goods" class="layui-input" autocomplete="off" placeholder="请输入产品型号" datatype="*2-30" errormsg="产品型号至少2个字符!" nullmsg="请输入产品型号!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">产品图片</label>
+                                <label class="layui-form-label label-required">产品规格</label>
                                 <div class="layui-input-block">
-                                    <button type="button" class="layui-btn" id="test1">
-                                      <i class="layui-icon">&#xe67c;</i>上传图片
-                                    </button>
-                                    <span id="phototext">尺寸为200px * 200px</span>
-                                    <input id="photo" type="hidden" name="photo"/><br/>
-                                    <img id="img" style="display:none;width: 100px;height: 100px" src="/luomansi/Application/Upload//<?php echo ($goods["goodsimg"]); ?>"/>
+                                    <input type="text" name="goodsModel" class="layui-input" autocomplete="off" placeholder="请输入产品规格" datatype="*4-30" errormsg="请输入正确的产品规格" nullmsg="请输入产品规格!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">下拉手</label>
+                                <label class="layui-form-label label-required">产品安装码</label>
                                 <div class="layui-input-block">
-                                    <input name="hand" type="radio" value="1" title="有" checked="checked"/>
-                                    <input name="hand" type="radio" value="0" title="无"/>
+                                    <input type="text" name="goodsCode" class="layui-input" autocomplete="off" placeholder="请输入安装码" datatype="s4-30" errormsg="请输入正确的产品码" nullmsg="请输入用户名!">
                                 </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label label-required">假锁</label>
-                                <div class="layui-input-block">
-                                    <input name="falseLock" type="radio" value="1" title="有" checked="checked"/>
-                                    <input name="falseLock" type="radio" value="0" title="无"/>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    注：这里的下拉手和假锁选项表示产品是否具有该属性，若选择“无”则代理商下单时不会显示该属性。
-                                </div>
-                                
                             </div>
                         </div>
                     </section>
@@ -195,43 +175,15 @@
 </div>
 <script>
     UE.getEditor('content');
-$(function(){
-    //$('.colpick').css('z-index',9999);
+
     $('#save').click(function(){
-        var photo = $('#photo').val();
-        if (!photo) {
-            alert('请上传图片');
+        var pwd = $('#pwd').val();
+        var repwd = $('#repwd').val();
+        if (pwd != repwd) {
+            alert('两次输入的密码不一致');
             return false;
         }
     });
-    layui.use('upload', function(){
-      var upload = layui.upload;
-       
-      //执行实例
-      var uploadInst = upload.render({
-        elem: '#test1' //绑定元素
-        ,url: '<?php echo U('Goods/photoUpload');?>' //上传接口
-        ,before: function(res,index,upload){
-          //上传完毕回调
-          $('#phototext').text('文件上传中...').css('color','black');;
-        }
-        ,done: function(res,index,upload){
-            //上传完毕回调
-            if (res.code == 1) {
-                $('#phototext').text('文件上传成功！').css('color','green');
-                $('#photo').val("goods/"+res.savepath+res.savename);
-                $('#img').attr('src','/luomansi/Application/Upload//'+"goods/"+res.savepath+res.savename).show();
-            } else {
-                $('#phototext').text('文件上传失败！').css('color','red');
-            }
-        }
-        ,error: function(){
-          //请求异常回调
-        }
-      });
-    });
-});
-    
 </script>
 </body>
 </html>

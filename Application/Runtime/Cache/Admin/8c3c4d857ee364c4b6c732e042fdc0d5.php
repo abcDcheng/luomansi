@@ -33,7 +33,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>siteCMS站点管理框架</title>
+    <title>维护管理</title>
 </head>
 <body>
 
@@ -45,6 +45,11 @@
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
             
         </li>
+        <style type="text/css">
+			#orderNum,#installNum{
+				color:red;
+			}
+        </style>
         <dl class="layui-nav layui-nav-tree sc_side_more">
             <dd class="layui-nav-item layui-nav-itemed">
                 <dl class="layui-nav-child">
@@ -55,21 +60,22 @@
 				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
 				<?php } elseif ($group == 2) { ?>
-				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<?php } elseif ($group == 3) { ?>	
-				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
-				<dd><a href="<?php echo U('Order/index');?>">订单管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
-				<dd><a href="<?php echo U('Install/index');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
@@ -80,12 +86,60 @@
             </dd>
         </dl>
     </ul>
+
+
+    <script type="text/javascript">
+    	var getOrder = 0;
+    	var getInstall = 0;
+    	<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
+				
+		<?php } elseif ($group == 2) { ?>
+				getOrder = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 3) { ?>
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 99) { ?>
+				getOrder = 1;
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } } ?>
+
+
+
+		function getNew(){
+			$.ajax({
+				url : '<?php echo U("Index/getNew");?>',
+				type : "post",
+	            data : {getOrder:getOrder,getInstall:getInstall},
+	            dataType : "json",
+	            timeout : 5000,
+	            success:function(data) {
+	            	if (data.code == 1) {
+	            		if (data.orderNum>0) {
+	            			$('#orderNum').text('('+data.orderNum+')');
+	            		} else {
+	            			$('#orderNum').text('');
+	            		}
+	            		if (data.installNum>0) {
+	            			$('#installNum').text('('+data.installNum+')');
+	            		} else {
+	            			$('#installNum').text('');
+	            		}
+	            	}
+	            }
+			});
+		}
+    </script>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
             <form action="<?php echo U('Maintain/salemanUpdate');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>详情页</h5>
+                    <h5>维护管理</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Maintain/salemanIndex');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
@@ -136,13 +190,13 @@
                                 <input name="oldServicer" type="hidden" value="<?php echo ($info["serviceid"]); ?>">
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">回访状态</label>
+                                <label class="layui-form-label">回访状态</label>
                                 <div class="layui-input-block">
                                 <?php if($info["status"] == 2): ?><input type="text" name="status" class="layui-input" autocomplete="off" value="服务异常" disabled="disabled">
                                 <{else if condition="$info.status eq 1"}>
                                 <input type="text" name="status" class="layui-input" autocomplete="off" value="已回访" disabled="disabled">
                                 <?php else: ?>
-                                <input type="text" name="status" class="layui-input" autocomplete="off" value="已回访" disabled="disabled"><?php endif; ?>
+                                <input type="text" name="status" class="layui-input" autocomplete="off" value="未回访" disabled="disabled"><?php endif; ?>
                                 </div>
                             </div>
                             <?php if($info['servicestatus'] == 2 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
