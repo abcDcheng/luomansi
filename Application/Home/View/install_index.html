@@ -12,6 +12,10 @@
     <script type="text/javascript" src="__JS__/jquery-1.11.0.min.js"></script>
     <!--移动端版本兼容 -->
     <script type="text/javascript" src='__JS__/mobile.js'></script>
+    <script src="__JS__/iscroll-zoom.js"></script>
+    <script src="__JS__/hammer.js"></script>
+    <script src="__JS__/lrz.all.bundle.js"></script>
+    <script src="__JS__/jquery.photoClip.min.js"></script>
     <script type="text/javascript" src='__JS__/main.js'></script>
     <script type="text/javascript" src="__JS__/jQuery.cityselect.full.min.js"></script>
     <script type="text/javascript" src='__JS__/ZArea.min.js'></script>
@@ -34,14 +38,23 @@
 <body>
 
 <div class="wrap">
-
-    <h3 style="font-size:36px;text-align: center;padding:40px 0;">罗曼斯产品安装登记</h3>
+    <img src="__IMAGES__/add-header.png" alt="" style="display:block;margin:0 auto 0;padding:20px 0;background-color:#fff;">
+    <h3 style="font-size:36px;text-align: center;padding:40px 0;">产品安装登记</h3>
     
     <!-- 用户登记资料 -->
     <ul class="registration">
         <li>
+            <div style="width:100%;">
+                <p style="font-size:30px;">上传设备显示识别码照片：</p>
+                <div style="width:288px;height:288px;background: url(./img/add-upload.png) center center no-repeat;margin:20px auto 0;">
+                    
+                </div>
+            </div>
+            
+        </li>
+        <li>
             <div class="name-item">
-                <span>安装码：</span>
+                <span>识别码：</span>
             </div>
             <div class="push-item">
                 <textarea id="goodsCode" placeholder='请扫描或填写安装码' style="box-sizing:border-box;padding-right:37px;height:70px"></textarea>
@@ -83,7 +96,7 @@
 
     <small style='display:block;font-size:28px;color:#717f87;text-align: center;margin-top:25px;'><{$ad}></small>
 
-    <img src="__IMAGES__/add_logo.png" alt="" style="display:block;margin:50px auto 0;">
+    <!-- <img src="__IMAGES__/add_logo.png" alt="" style="display:block;margin:50px auto 0;"> -->
 	
 </div>
 
@@ -94,7 +107,7 @@
         <p style="margin-top:15px;">已完成安装</p>
         <p style="margin-top:15px;font-weight: 700;">产品安装完成，进入保修状态</p>
 
-        <button id="comfirm" style="display:none;width:450px;height:80px;font-size:32px;background-color:#0b4268;border-radius: 10px;color:#ffffff;margin:30px auto 0;">确认完成</button>
+        <button id="comfirm" style="display:none;width:450px;height:80px;font-size:32px;background-color:#0b4268;border-radius: 10px;color:#ffffff;margin:30px auto 0;">客户确认完成</button>
     </div>
 </div>
 
