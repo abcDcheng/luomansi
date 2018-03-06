@@ -36,7 +36,7 @@
         <script src="./js/html5shiv.min.js"></script>
         <script src="./js/respond.min.js"></script>
     <![endif]-->
-    <title>产品码管理</title>
+    <title>产品识别码管理</title>
 </head>
 <body>
 
@@ -47,7 +47,7 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
-            <h5>产品码管理</h5>
+            <h5>产品识别码管理</h5>
             <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<{:U('Code/add')}>"><i class="layui-icon"></i> 新增</a> &nbsp;<a class="layui-btn layui-btn-sm" href="<{:U('Code/import')}>"><i class="layui-icon"></i> 批量导入</a>       </div>
         </div>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-input-inline">
-                        <input id="goodsCode" type="text" name="goodsCode" placeholder="输入产品码" value="" class="layui-input" style="width:300px;">
+                        <input id="goodsCode" type="text" name="goodsCode" placeholder="输入产品识别码" value="" class="layui-input" style="width:300px;">
                     </div>
                 </div>
                 <button id="cx" class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
@@ -74,7 +74,7 @@
                         <tr>
                             <th>型号</th>
                             <th>规格</th>
-                            <th>产品码</th>
+                            <th>产品识别码</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -124,7 +124,7 @@
             re= /^[a-zA-Z0-9]*$/i;
             goodsCode = $.trim($('#goodsCode').val());
             if (!re.test(goodsCode)) {
-                alert('产品码不能带特殊符号');
+                alert('产品识别码不能带特殊符号');
                 return false;
             }
             str='';

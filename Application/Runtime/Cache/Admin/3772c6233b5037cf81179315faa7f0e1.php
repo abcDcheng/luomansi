@@ -73,6 +73,7 @@
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Code/index');?>">识别码管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
@@ -175,7 +176,9 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品名称</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goods" class="layui-input" autocomplete="off" datatype="*2-255" errormsg="请输入正确的产品名称" placeholder="产品名称" nullmsg="请输入产品名称!">
+                                    <select name="goods" class="layui-select">
+                                        <?php if(is_array($goods)): foreach($goods as $k=>$value): ?><option value="<?php echo ($k); ?>"><?php echo ($value); ?></option><?php endforeach; endif; ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -210,7 +213,7 @@
                                 <div class="layui-input-block">
                                     <select id="saleman" name="saleman" class="layui-select">
                                         <option value="">选择代理商</option>
-                                        <?php if(is_array($saleman)): foreach($saleman as $key=>$value): ?><option value="<?php echo ($value["id"]); ?>"><?php echo ($value["name"]); ?>(<?php echo ($value["phone"]); ?>)</option><?php endforeach; endif; ?>
+                                        <?php if(is_array($saleman)): foreach($saleman as $key=>$value): ?><option value="<?php echo ($value["id"]); ?>"><?php echo ($value["name"]); ?>(<?php echo ($value["province"]); echo ($value["city"]); ?>)</option><?php endforeach; endif; ?>
                                     </select>
                                 </div>
                             </div>

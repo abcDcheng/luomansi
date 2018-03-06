@@ -76,13 +76,16 @@ class MaintainController extends Controller {
                 //获取选择的代理商信息
                 $Model_data = M();
                 $info = $Model_data->table('saleman_sys_admin')->where('id='.$salemanId)->getField('id,name,phone');
+                $goodsInfo = $Model_data->table('goods')->where('id='.$goods)->field('goodsName,goodsImg')->find();
                 if (!empty($info)) {
                     $data = array(
                         'username'      => $username,
                         'name'          => $name,
                         'phone'         => $phone,
                         'address'       => $address,
-                        'goods'         => $goods,
+                        'goodsId'       => $goods,
+                        'goods'         => $goodsInfo['goodsname'],
+                        'goodsImg'      => $goodsInfo['goodsimg'],
                         'msg'           => $msg,
                         'level'         => $level,
                         'clientBak'     => $clientBak,
@@ -102,8 +105,10 @@ class MaintainController extends Controller {
                     $this->error('查找不到负责代理商的信息，请重试');
                 }
             } else {
+                $goods = M('goods')->getField('id,goodsName');
                 $Model_data = M('SysAdmin');
-                $saleman = $Model_data->where('`group`=1')->order('id asc')->getField('id,name,phone');
+                $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->getField('id,name,province,city');
+                $this->assign('goods',$goods);
                 $this->assign('saleman',$saleman);
                 $this->assign('username',$_SESSION['username']);
                 $this->display();
@@ -135,11 +140,14 @@ class MaintainController extends Controller {
                     $salemanId = intval(I('saleman'));
                     $oldSaleman = intval(I('oldSaleman'));
                     $status = intval(I('status'));
+                    $goodsInfo = $Model_data->table('goods')->where('id='.$goods)->field('goodsName,goodsImg')->find();
                     $data = array(
                         'name'          => $name,
                         'phone'         => $phone,
                         'address'       => $address,
-                        'goods'         => $goods,
+                        'goodsId'       => $goods,
+                        'goods'         => $goodsInfo['goodsname'],
+                        'goodsImg'      => $goodsInfo['goodsimg'],
                         'msg'           => $msg,
                         'level'         => $level,
                         'clientBak'     => $clientBak,
@@ -190,7 +198,7 @@ class MaintainController extends Controller {
                     }
                 } else {
                     $Model_data = M('SysAdmin');
-                    $saleman = $Model_data->where('`group`=1')->order('id asc')->getField('id,name,phone');
+                    $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->getField('id,name,province,city');
                     $Model_data = M('maintain');
                     $info = $Model_data->where('id='.$id)->find();
                     if (!empty($info)) {

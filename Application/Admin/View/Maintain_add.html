@@ -81,7 +81,11 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品名称</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goods" class="layui-input" autocomplete="off" datatype="*2-255" errormsg="请输入正确的产品名称" placeholder="产品名称" nullmsg="请输入产品名称!">
+                                    <select name="goods" class="layui-select">
+                                        <{foreach name="goods" item="value" key="k"}>
+                                        <option value="<{$k}>"><{$value}></option>
+                                        <{/foreach}>
+                                    </select>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -106,8 +110,8 @@
                                 <label class="layui-form-label label-required">订单要求</label>
                                 <div class="layui-input-block">
                                     <select name="level" class="layui-select">
-                                        <option value="1">紧急，马上联系上门</option>
-                                        <option value="2">一般，预约上门</option>
+                                        <option value="1">紧急服务</option>
+                                        <option value="2">预约服务</option>
                                     </select>
                                 </div>
                             </div>
@@ -117,7 +121,7 @@
                                     <select id="saleman" name="saleman" class="layui-select">
                                         <option value="">选择代理商</option>
                                         <{foreach name="saleman" item="value"}>
-                                        <option value="<{$value.id}>"><{$value.name}>(<{$value.phone}>)</option>
+                                        <option value="<{$value.id}>"><{$value.name}>(<{$value.province}><{$value.city}>)</option>
                                         <{/foreach}>
                                     </select>
                                 </div>

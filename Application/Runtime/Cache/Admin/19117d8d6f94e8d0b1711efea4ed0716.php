@@ -68,10 +68,12 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Code/index');?>">识别码管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
@@ -141,7 +143,7 @@
                     <h5>新增员工</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Saleman/staff');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Admin/servicer');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
@@ -159,7 +161,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">用户名</label>
                                 <div class="layui-input-block">
-                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!">
+                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="员工手机号" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!">
                                 </div>
                             </div>
                             <div class="layui-form-item">

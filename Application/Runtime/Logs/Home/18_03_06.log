@@ -835,3 +835,34 @@ INFO: [ app_init ] --START--
 INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000029s ]
 INFO: [ app_init ] --END-- [ RunTime:0.000760s ]
 
+[ 2018-03-06T21:52:46+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Shop/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000700s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000930s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001053s ]
+SQL: SHOW COLUMNS FROM `saleman_goods_permission` [ RunTime:0.0051s ]
+SQL: SELECT `goodsInfoId` FROM `saleman_goods_permission` WHERE `salemanId` = 3 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT id,goodsName,goodsImg,hasHand,hasLock 
+                            FROM saleman_goods
+                            WHERE id
+                            IN (
+                            SELECT DISTINCT goodsId
+                            FROM saleman_goods_info
+                            WHERE id
+                            IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32)
+                            ) and status = 1 order by id asc [ RunTime:0.0009s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000151s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000270s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.012833s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.012983s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000728s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000822s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000954s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001052s ]
+

@@ -33,7 +33,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>新增产品码</title>
+    <title>新增产品识别码</title>
 </head>
 <body>
 
@@ -45,7 +45,7 @@
         <div class="sc_body">
             <form action="<{:U('Code/codeRecord')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>新增产品码</h5>
+                    <h5>新增产品识别码</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Code/index')}>"><i class="layui-icon">&#x1006;</i> 返回</a>
@@ -83,7 +83,7 @@
                                 
                                 <table border="1" cellpadding="15">
                                     <thead>
-                                        <tr><td>型号</td><td>规格</td><td>产品码</td></tr>
+                                        <tr><td>型号</td><td>规格</td><td>产品识别码</td></tr>
                                     </thead>
                                     <tbody id="dataView">
                                         
@@ -128,7 +128,7 @@
                 }
                 $('#dataView').empty();
                 $('#dataView').append(table);
-                $('.numCount').html('共获取到<span>'+res.allRow+'</span>条数据（确保数据无误，请点击右上角保存）');
+                $('.numCount').html('共获取到<span>'+res.allRow+'</span>条数据（确保数据无误，请点击右上角“保存”按钮将数据保存）');
                 $('.numCount,.dataView').show();
             } else {
                 $('#phototext').text('文件上传失败！').css('color','red');

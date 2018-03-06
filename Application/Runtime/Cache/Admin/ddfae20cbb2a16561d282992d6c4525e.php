@@ -76,6 +76,7 @@
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Code/index');?>">识别码管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
@@ -143,7 +144,7 @@
         <div class="sc_title sc_body_title">
             <h5>维护管理</h5>
             <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/add');?>"><i class="layui-icon"></i> 新增</a>        </div>
+                <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/add');?>"><i class="layui-icon"></i> 生成新订单</a>        </div>
         </div>
         <div class="fadeInUp animated">
             <div id="form-list" class="layui-form">

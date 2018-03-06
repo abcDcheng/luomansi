@@ -74,6 +74,7 @@
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Code/index');?>">识别码管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
@@ -152,7 +153,7 @@
                             <div class="layui-form-item">
                               <label class="layui-form-label label-required">用户名</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="s4-16" errormsg="用户名至少4个字符!" nullmsg="请输入用户名!">
+                                  <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="*4-16" errormsg="用户名至少4个字符!" nullmsg="请输入用户名!">
                               </div>
                           </div>
                           <div class="layui-form-item">
@@ -170,13 +171,13 @@
                           <div class="layui-form-item">
                               <label class="layui-form-label label-required">姓名</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="姓名" datatype="s2-16" errormsg="姓名至少2个字符!" nullmsg="请输入姓名!">
+                                  <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="姓名" datatype="*2-16" errormsg="姓名至少2个字符!" nullmsg="请输入姓名!">
                               </div>
                           </div>
                           <div class="layui-form-item">
                               <label class="layui-form-label label-required">联系方式</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="s4-30" errormsg="联系方式至少4个字符!" nullmsg="请输入联系方式!">
+                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="*4-30" errormsg="联系方式至少4个字符!" nullmsg="请输入联系方式!">
                               </div>
                           </div>
                           <div class="layui-form-item">
@@ -197,7 +198,7 @@
                           <div class="layui-form-item">
                               <label class="layui-form-label label-required">送货地址</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="address" class="layui-input" autocomplete="off" placeholder="送货地址" datatype="s4-255" errormsg="送货地址至少4个字符!" nullmsg="请输入送货地址!">
+                                  <input type="text" name="address" class="layui-input" autocomplete="off" placeholder="送货地址" datatype="*4-255" errormsg="送货地址至少4个字符!" nullmsg="请输入送货地址!">
                               </div>
                           </div>
                             <div class="layui-form-item">

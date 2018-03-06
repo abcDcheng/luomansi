@@ -17,9 +17,9 @@ class MaintainController extends Controller {
             }
             foreach ($info as $key => $value) {
                 if ($value['level'] == 1) {
-                    $info[$key]['orderLevel'] = '紧急，马上联系上门';
+                    $info[$key]['orderLevel'] = '紧急服务';
                 } else {
-                    $info[$key]['orderLevel'] = '一般，预约上门';
+                    $info[$key]['orderLevel'] = '预约服务';
                 }
             }
             $this->assign('hasInfo',$hasInfo);
@@ -67,9 +67,9 @@ class MaintainController extends Controller {
             }
             foreach ($info as $key => $value) {
                 if ($value['level'] == 1) {
-                    $info[$key]['orderLevel'] = '紧急，马上联系上门';
+                    $info[$key]['orderLevel'] = '紧急服务';
                 } else {
-                    $info[$key]['orderLevel'] = '一般，预约上门';
+                    $info[$key]['orderLevel'] = '预约服务';
                 }
             }
             $jssdk = A('jssdk');
@@ -162,9 +162,9 @@ class MaintainController extends Controller {
             }
             foreach ($info as $key => $value) {
                 if ($value['level'] == 1) {
-                    $info[$key]['orderLevel'] = '紧急，马上联系上门';
+                    $info[$key]['orderLevel'] = '紧急服务';
                 } else {
-                    $info[$key]['orderLevel'] = '一般，预约上门';
+                    $info[$key]['orderLevel'] = '预约服务';
                 }
             }
             $this->assign('hasInfo',$hasInfo);

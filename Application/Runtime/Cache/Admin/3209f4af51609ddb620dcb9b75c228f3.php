@@ -213,7 +213,7 @@
                                 <div class="layui-input-block">
                                     <select id="saleman" name="saleman" class="layui-select">
                                         <option value="">选择代理商</option>
-                                        <?php if(is_array($saleman)): foreach($saleman as $key=>$value): ?><option value="<?php echo ($value["id"]); ?>"><?php echo ($value["name"]); ?>(<?php echo ($value["phone"]); ?>)</option><?php endforeach; endif; ?>
+                                        <?php if(is_array($saleman)): foreach($saleman as $key=>$value): ?><option value="<?php echo ($value["id"]); ?>"><?php echo ($value["name"]); ?>(<?php echo ($value["province"]); echo ($value["city"]); ?>)</option><?php endforeach; endif; ?>
                                     </select>
                                 </div>
                             </div>
@@ -263,6 +263,7 @@
         $('#msg').val('<?php echo ($info["msg"]); ?>');
         $('#clientBak').val('<?php echo ($info["clientbak"]); ?>');
         $('#level').val(parseInt('<?php echo ($info["level"]); ?>'));
+        $('#goods').val(parseInt('<?php echo ($info["goodsid"]); ?>'));
         $('#save').click(function(){
             var saleman = $('#saleman').val();
             if (!saleman) {
