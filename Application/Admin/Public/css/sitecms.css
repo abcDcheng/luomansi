@@ -44,7 +44,7 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 .sc_side_tab{margin:0;}
 .sc_side_tab .layui-nav-bar{display:none}
 .sc_side_tab .layui-tab-title{position:fixed;top:0;bottom:0;left:0;z-index: 999;width:90px;height:100%;background-color:#2bb0d4}
-.sc_side_tab .layui-tab-title li{display:block;padding:15px 0;color:#fff;font-size:12px;line-height:1}
+.sc_side_tab .layui-tab-title li{display:block;padding:10px 0;color:#fff;font-size:12px;line-height:1}
 .sc_side_tab .layui-tab-title li span{display:block;margin-bottom:10px}
 .sc_side_tab .layui-tab-title li span i{font-size:24px}
 .sc_side_tab .layui-tab-title li.layui-this{background-color:#02a1cc;color:#fff}

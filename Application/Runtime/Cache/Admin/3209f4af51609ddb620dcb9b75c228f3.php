@@ -73,6 +73,7 @@
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Code/index');?>">识别码管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
@@ -142,7 +143,7 @@
                     <h5>维护管理</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Maintain/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Maintain/'.$mod);?>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
@@ -159,25 +160,25 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">客户姓名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="s2-30" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!"  value="<?php echo ($info["name"]); ?>">
+                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="*2-30" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!"  value="<?php echo ($info["name"]); ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">联系方式</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="phone" class="layui-input" autocomplete="off" datatype="s2-30" errormsg="请输入正确的联系方式" placeholder="联系方式" nullmsg="请输入联系方式!" value="<?php echo ($info["phone"]); ?>">
+                                    <input type="text" name="phone" class="layui-input" autocomplete="off" datatype="*2-30" errormsg="请输入正确的联系方式" placeholder="联系方式" nullmsg="请输入联系方式!" value="<?php echo ($info["phone"]); ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">详细地址</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="address" class="layui-input" autocomplete="off" datatype="s2-255" errormsg="请输入正确的详细地址" placeholder="详细地址" nullmsg="请输入详细地址!" value="<?php echo ($info["address"]); ?>">
+                                    <input type="text" name="address" class="layui-input" autocomplete="off" datatype="*2-255" errormsg="请输入正确的详细地址" placeholder="详细地址" nullmsg="请输入详细地址!" value="<?php echo ($info["address"]); ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品名称</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goods" class="layui-input" autocomplete="off" datatype="s2-255" errormsg="请输入正确的产品名称" placeholder="产品名称" nullmsg="请输入产品名称!" value="<?php echo ($info["goods"]); ?>">
+                                    <input type="text" name="goods" class="layui-input" autocomplete="off" datatype="*2-255" errormsg="请输入正确的产品名称" placeholder="产品名称" nullmsg="请输入产品名称!" value="<?php echo ($info["goods"]); ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -189,7 +190,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">维护信息</label>
                                 <div class="layui-input-block">
-                                    <textarea id="msg" name="msg" class="layui-textarea"  placeholder="维护信息"><?php echo ($info["msg"]); ?></textarea>
+                                    <textarea id="msg" name="msg" class="layui-textarea" datatype="*2-2000" nullmsg="请输入维护信息!" placeholder="维护信息"><?php echo ($info["msg"]); ?></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">

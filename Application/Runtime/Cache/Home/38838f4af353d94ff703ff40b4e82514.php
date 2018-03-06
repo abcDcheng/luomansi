@@ -30,7 +30,7 @@
 <body>
 
 <div class="wrap">
-    
+    <img src="/luomansi/Application/Home/Public/img/add-header.png" alt="" style="display:block;margin:0 auto 0;padding:20px 0;background-color:#fff;">
 	<!-- 下订单 -->
 	<div class="order">
 		<!-- 下订单列表 -->
@@ -39,12 +39,16 @@
 				<div style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: center;-webkit-box-align: center;width:160px;height:160px;float: left;-webkit-box-sizing:border-box;border:2px #eeeeee solid;margin-right:30px;">
 					<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="" style="height:95%;">
 				</div>
-				<a href="javascript:;" value="<?php echo ($value["id"]); ?>" hand="<?php echo ($value["hashand"]); ?>" falseLock="<?php echo ($value["haslock"]); ?>"><?php echo ($value["goodsname"]); ?></a>
+				<!-- <a href="javascript:;" value="<?php echo ($value["id"]); ?>" hand="<?php echo ($value["hashand"]); ?>" falseLock="<?php echo ($value["haslock"]); ?>"><?php echo ($value["goodsname"]); ?></a> -->
+				<a href="javascript:;" style="color:#000000;height:160px;display: -webkit-box;-webkit-box-align: center;">DD1智能锁<br/><i style='color:#959595;'>红外感应  真全自动</i></a>
 			</li><?php endforeach; endif; ?>
 		</ul>
 		<!-- 下订单详情 -->
 		<div class="order-date-bg">
 			<ul class="order-date">
+				<li style="display: -webkit-box;-webkit-box-pack: center;">
+					<img src="/luomansi/Application/Home/Public/img/product3.jpg" alt="" style="height:270px;">
+				</li>
 				<li id="goodsReturn">
 					<p class="icon03">
 						<span>型<em></em><em></em>号：</span>
@@ -92,7 +96,7 @@
 					</p>
 				</li>
 			</ul>
-			<button class="order-date-btn">保存订单</button>
+			<button class="order-date-btn">保存订单到购物车</button>
 		</div>
 	</div>
 

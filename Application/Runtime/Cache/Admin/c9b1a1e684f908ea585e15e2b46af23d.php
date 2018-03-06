@@ -21,22 +21,19 @@
     <script src="/luomansi/Application/Admin/Public/plugs/layui/layui.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.config.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.all.js"></script>
-    
     <!-- <script src="/luomansi/Application/Admin/Public/plugs/static/base/js/jquery.cookie.js"></script> -->
     <script src="/luomansi/Application/Admin/Public/js/jquery.min.js"></script>
     <!-- <script src="/luomansi/Application/Admin/Public/plugs/uploadify/jquery.uploadify.min.js"></script> -->
     <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
     <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
-    
-    <!-- <link id="layuicss-layer" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/layer/default/layer.css?v=3.1.0" media="all">
-    <link id="layuicss-laydate" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/laydate/default/laydate.css?v=5.0.9" media="all"> -->
+
     <!-- 让IE8/9支持媒体查询 -->
 	<!--[if lt IE 9]>
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>后台专员管理</title>
+    <title>新增产品码</title>
 </head>
 <body>
 
@@ -141,100 +138,104 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-        <div class="sc_title sc_body_title">
-            <h5>后台专员管理</h5>
-            <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<?php echo U('Admin/add');?>"><i class="layui-icon"></i> 新增</a>        </div>
-        </div>
-        <div class="fadeInUp animated">
-            <form id="form-list" class="layui-form">
-                <input type="hidden" name="nid" value="5">
-                <table class="layui-table" lay-even="" lay-skin="nob">
-                    <colgroup>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col width="160">
-                        <col width="100">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>账号</th>
-                            <th>类型</th>
-                            <th>状态</th>
-                            <th>创建时间</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php if(is_array($info)): foreach($info as $key=>$value): ?><tr>
-                            <td class="layui-elip"><?php echo ($value["username"]); ?></td>
-                            <td class="layui-elip"><?php echo ($value["groupName"]); ?></td>
-                            <?php if($value["is_status"] == 1): ?><td class="layui-elip" style="color:green">使用中</td>
-                            <?php else: ?>
-                                <td class="layui-elip" style="color:red">禁用</td><?php endif; ?>
-                            <td><?php echo ($value["createtime"]); ?></td>
-                            <td>
-                                <a href="<?php echo U('Admin/update?id='.$value['id']);?>" data-title="编辑">编辑</a>
-                                <span class="sc_explode">|</span>
-                                <a class="deleteId" data-confirm="#" value="<?php echo ($value["id"]); ?>">删除</a>
-                            </td>
-                        </tr><?php endforeach; endif; ?>
-                    </tbody>
-                </table>
+            <form action="<?php echo U('Code/codeRecord');?>" id="form" class="layui-form layui-form-pane">
+                <div class="sc_title sc_body_title">
+                    <h5>新增产品码</h5>
+                    <div class="sc_title_btn">
+                        <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Admin/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                    </div>
+                </div>
+                <div class="fadeInUp animated">
+                    <section class="sc_layout_inner layui-clear">
+                        <div class="sc_editor_content">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">批量导入</label>
+                                <div class="layui-input-block">
+                                    <button type="button" class="layui-btn" id="test1">
+                                      <i class="layui-icon">&#xe67c;</i>上传excel文件
+                                    </button>
+                                    <span id="phototext"></span>
+                                </div>
+                            </div>
+                            <style type="text/css">
+                                    table{
+                                        font-size: 16px;
+                                    }
+                                    td{
+                                        padding:4px;
+                                    }
+                                    .numCount{
+                                        font-size: 16px;
+                                    }
+                                    .numCount span{
+                                        color:red;
+                                        font-weight: bold;
+                                    }
+                                </style>
+                            <div class="layui-form-item numCount" style="display: none"></div>
+                            <div class="layui-form-item dataView" style="display: none">
+                                
+                                <table border="1" cellpadding="15">
+                                    <thead>
+                                        <tr><td>型号</td><td>规格</td><td>产品码</td></tr>
+                                    </thead>
+                                    <tbody id="dataView">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </section>
+                </div>
             </form>
         </div>
     </div>
-    <script>
-    $(function(){
-        lay('.sc_form_date').each(function(){
-            layui.laydate.render({
-                elem: this
-                ,trigger: 'click'
-                ,type: 'datetime'
-            });
-        });
-
-    });
-    
-    </script>
-    </div>
-    </div>
 </div>
-</body>
-
-<script type="text/javascript">
-    $(function(){
-        $('.deleteId').click(function(){
-            if (confirm('确定删除该账户吗？')) {
-                var id = $(this).attr('value');
-                //alert(id);
-                $('.meng00').show();
-                $.ajax({
-                    url : "<?php echo U('Admin/del');?>",
-                    type : "post",
-                    data : {id:id},
-                    dataType : "json",
-                    timeout : 10000,
-                    success : function(data){
-                        $('.meng00').hide();
-                        if (data.code == 1) {
-                            alert('删除成功');
-                            window.location.reload();
-                        } else {
-                            alert(data.msg);
-                        }
-                    },
-                    error : function(data){
-                        $('.meng00').hide();
-                        if (data.status == 'timeout') {
-                            alert('连接超时，请重试');
-                        }
-                    }
-                });
+<script>
+    //UE.getEditor('content');
+    layui.use('upload', function(){
+      var upload = layui.upload;
+       
+      //执行实例
+      var uploadInst = upload.render({
+        elem: '#test1', //绑定元素
+        url: '<?php echo U('Code/excelUpload');?>', //上传接口
+        accept:'file',
+        exts:'xls|xlsx',
+        before: function(res,index,upload){
+          //上传完毕回调
+          $('#phototext').text('文件上传中...').css('color','black');;
+        },
+        done: function(res,index,upload){
+            //上传完毕回调
+            if (res.code == 1) {
+                $('#phototext').text('文件上传成功！').css('color','green');
+                //$('#photo').val("goods/"+res.savepath+res.savename);
+                //$('#img').attr('src','/luomansi/Application/Upload//'+"goods/"+res.savepath+res.savename).show();
+                var table = '';
+                var info = res.info;
+                for (var i = 0;i < info.length;i++) {
+                    table += '<tr>' +
+                             '<td>'+info[i]['goods']+'</td><td>'+info[i]['goodsModel']+'</td><td>'+info[i]['goodsCode']+'</td>'+
+                             '</tr>';
+                }
+                $('#dataView').empty();
+                $('#dataView').append(table);
+                $('.numCount').html('共获取到<span>'+res.allRow+'</span>条数据（确保数据无误，请点击右上角保存）');
+                $('.numCount,.dataView').show();
+            } else {
+                $('#phototext').text('文件上传失败！').css('color','red');
             }
-        });
+        }
+        ,error: function(){
+          //请求异常回调
+        }
+      });
     });
+
+
 </script>
+</body>
 </html>

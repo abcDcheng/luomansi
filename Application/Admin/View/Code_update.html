@@ -43,12 +43,12 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<{:U('Admin/update')}>" id="form" class="layui-form layui-form-pane">
+            <form action="<{:U('Code/update')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
                     <h5>专员信息修改</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Admin/index')}>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Code/index')}>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
@@ -64,13 +64,13 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品规格</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goodsModel" class="layui-input" autocomplete="off" placeholder="请输入产品规格" datatype="*4-30" errormsg="请输入正确的产品规格" nullmsg="请输入产品规格!" value="<{$info['goodsmodel']}>">
+                                    <input type="text" name="goodsModel" class="layui-input" autocomplete="off" placeholder="请输入产品规格" datatype="*2-30" errormsg="请输入正确的产品规格" nullmsg="请输入产品规格!" value="<{$info['goodsmodel']}>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品安装码</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goodsCode" class="layui-input" autocomplete="off" placeholder="请输入安装码" datatype="s4-30" errormsg="请输入正确的产品码" nullmsg="请输入用户名!" value="<{$info['goodscode']}>">
+                                    <input type="text" name="goodsCode" class="layui-input" autocomplete="off" placeholder="请输入安装码" datatype="s2-30" errormsg="请输入正确的产品码" nullmsg="请输入用户名!" value="<{$info['goodscode']}>">
                                 </div>
                             </div>
                         </div>

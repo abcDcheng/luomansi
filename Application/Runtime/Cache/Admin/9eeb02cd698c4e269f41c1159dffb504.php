@@ -21,22 +21,19 @@
     <script src="/luomansi/Application/Admin/Public/plugs/layui/layui.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.config.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.all.js"></script>
-    
     <!-- <script src="/luomansi/Application/Admin/Public/plugs/static/base/js/jquery.cookie.js"></script> -->
     <script src="/luomansi/Application/Admin/Public/js/jquery.min.js"></script>
     <!-- <script src="/luomansi/Application/Admin/Public/plugs/uploadify/jquery.uploadify.min.js"></script> -->
     <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
     <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
-    
-    <!-- <link id="layuicss-layer" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/layer/default/layer.css?v=3.1.0" media="all">
-    <link id="layuicss-laydate" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/laydate/default/laydate.css?v=5.0.9" media="all"> -->
+
     <!-- 让IE8/9支持媒体查询 -->
 	<!--[if lt IE 9]>
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>后台专员管理</title>
+    <title>后台专员信息修改</title>
 </head>
 <body>
 
@@ -141,100 +138,50 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-        <div class="sc_title sc_body_title">
-            <h5>后台专员管理</h5>
-            <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<?php echo U('Admin/add');?>"><i class="layui-icon"></i> 新增</a>        </div>
-        </div>
-        <div class="fadeInUp animated">
-            <form id="form-list" class="layui-form">
-                <input type="hidden" name="nid" value="5">
-                <table class="layui-table" lay-even="" lay-skin="nob">
-                    <colgroup>
-                        <col>
-                        <col>
-                        <col>
-                        <col>
-                        <col width="160">
-                        <col width="100">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>账号</th>
-                            <th>类型</th>
-                            <th>状态</th>
-                            <th>创建时间</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php if(is_array($info)): foreach($info as $key=>$value): ?><tr>
-                            <td class="layui-elip"><?php echo ($value["username"]); ?></td>
-                            <td class="layui-elip"><?php echo ($value["groupName"]); ?></td>
-                            <?php if($value["is_status"] == 1): ?><td class="layui-elip" style="color:green">使用中</td>
-                            <?php else: ?>
-                                <td class="layui-elip" style="color:red">禁用</td><?php endif; ?>
-                            <td><?php echo ($value["createtime"]); ?></td>
-                            <td>
-                                <a href="<?php echo U('Admin/update?id='.$value['id']);?>" data-title="编辑">编辑</a>
-                                <span class="sc_explode">|</span>
-                                <a class="deleteId" data-confirm="#" value="<?php echo ($value["id"]); ?>">删除</a>
-                            </td>
-                        </tr><?php endforeach; endif; ?>
-                    </tbody>
-                </table>
+            <form action="<?php echo U('Code/update');?>" id="form" class="layui-form layui-form-pane">
+                <div class="sc_title sc_body_title">
+                    <h5>专员信息修改</h5>
+                    <div class="sc_title_btn">
+                        <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Admin/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                    </div>
+                </div>
+                <div class="fadeInUp animated">
+                    <section class="sc_layout_inner layui-clear">
+                        <div class="sc_editor_content">
+                            <input name="id" value="<?php echo ($id); ?>" type="hidden"/>
+                                                        <div class="layui-form-item">
+                                <label class="layui-form-label label-required">产品型号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goods" class="layui-input" autocomplete="off" placeholder="请输入产品型号" datatype="*2-30" errormsg="产品型号至少2个字符!" nullmsg="请输入产品型号!" value="<?php echo ($info['goods']); ?>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">产品规格</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goodsModel" class="layui-input" autocomplete="off" placeholder="请输入产品规格" datatype="*2-30" errormsg="请输入正确的产品规格" nullmsg="请输入产品规格!" value="<?php echo ($info['goodsmodel']); ?>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">产品安装码</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goodsCode" class="layui-input" autocomplete="off" placeholder="请输入安装码" datatype="s2-30" errormsg="请输入正确的产品码" nullmsg="请输入用户名!" value="<?php echo ($info['goodscode']); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </form>
         </div>
     </div>
-    <script>
+</div>
+<script>
+    UE.getEditor('content');
     $(function(){
-        lay('.sc_form_date').each(function(){
-            layui.laydate.render({
-                elem: this
-                ,trigger: 'click'
-                ,type: 'datetime'
-            });
-        });
-
+        var group = parseInt(<?php echo ($info['group']); ?>);
+        $('#group').val(group);
     });
     
-    </script>
-    </div>
-    </div>
-</div>
-</body>
-
-<script type="text/javascript">
-    $(function(){
-        $('.deleteId').click(function(){
-            if (confirm('确定删除该账户吗？')) {
-                var id = $(this).attr('value');
-                //alert(id);
-                $('.meng00').show();
-                $.ajax({
-                    url : "<?php echo U('Admin/del');?>",
-                    type : "post",
-                    data : {id:id},
-                    dataType : "json",
-                    timeout : 10000,
-                    success : function(data){
-                        $('.meng00').hide();
-                        if (data.code == 1) {
-                            alert('删除成功');
-                            window.location.reload();
-                        } else {
-                            alert(data.msg);
-                        }
-                    },
-                    error : function(data){
-                        $('.meng00').hide();
-                        if (data.status == 'timeout') {
-                            alert('连接超时，请重试');
-                        }
-                    }
-                });
-            }
-        });
-    });
 </script>
+</body>
 </html>

@@ -30,6 +30,7 @@
 <body>
 
 <div class="wrap">
+	<img src="/luomansi/Application/Home/Public/img/add-header.png" alt="" style="display:block;margin:0 auto 0;padding:20px 0;background-color:#fff;">
 	<!-- 购物车 -->
 	<div class="shopping-cart">
 		<div class="shopping-title">

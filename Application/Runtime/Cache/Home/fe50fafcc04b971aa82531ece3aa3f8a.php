@@ -30,7 +30,7 @@
 <body>
 
 <div class="wrap">
-    
+    <img src="/luomansi/Application/Home/Public/img/add-header.png" alt="" style="display:block;margin:0 auto 0;padding:20px 0;background-color:#fff;">
 	<!-- 订单查询 -->
 	<div class="query">
 		<!-- 订单查询头部导航条 -->

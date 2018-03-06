@@ -76,6 +76,7 @@
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Code/index');?>">识别码管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
@@ -143,7 +144,7 @@
         <div class="sc_title sc_body_title">
             <h5>产品码管理</h5>
             <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<?php echo U('Code/add');?>"><i class="layui-icon"></i> 新增</a>        </div>
+                <a class="layui-btn layui-btn-sm" href="<?php echo U('Code/add');?>"><i class="layui-icon"></i> 新增</a> &nbsp;<a class="layui-btn layui-btn-sm" href="<?php echo U('Code/import');?>"><i class="layui-icon"></i> 批量导入</a>       </div>
         </div>
         <div class="fadeInUp animated">
             <div id="form-list" class="layui-form">
@@ -262,7 +263,7 @@
             for(key in order){
                 var tableHtml = '';
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip">'+order[key]['goodsmodel']+'</td><td class="layui-elip">'+order[key]['goodscode']+'</td>';
-                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a class="maintaindel" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a>&nbsp;&nbsp;<a class="maintaindel" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
                 tableHtml2 = tableHtml+tableHtml2;
             }
             $('#body').append(tableHtml2);

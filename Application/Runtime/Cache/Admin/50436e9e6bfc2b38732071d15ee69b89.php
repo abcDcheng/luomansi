@@ -71,6 +71,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -171,7 +172,7 @@
                     <colgroup>
                         <col>
                         <col width="80">
-                        <col width="100">
+                        <col width="120">
                         <col width="150">
                         <col>
                         <col width="120">
@@ -285,10 +286,11 @@
                 // for(var i=1;i<data.length-1;i++){
                 //     $('#body').append(data[i]);
                 // }
-            var tableHtml = '';
+            var tableHtml2 = '';
             var order = data['order'];
             for(key in order){
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['address']+'</td>';
+                var tableHtml = '';
+                tableHtml += '<tr><td class="layui-elip">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td>';
                 var detail = '';
                 for(var i=0;i<order[key]['detail'].length;i++){
                     detail += order[key]['detail'][i]['goodsname'] + '-'+ order[key]['detail'][i]['goodsmodel']+'X'+order[key]['detail'][i]['goodsnum'];
@@ -297,13 +299,14 @@
                     }
                 }
                 tableHtml += '<td>'+detail+'</td>';
-                tableHtml += '<td class="layui-elip">'+order[key]['orderbak']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">';
+                tableHtml += '<td class="layui-elip" title="'+order[key]['orderbak']+'">'+order[key]['orderbak']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">';
                 tableHtml += '<span style="color:green">已受理</span>';
                 
                 tableHtml+='</td><td class="layui-elip">'+order[key]['statustime']+'</td><td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a href="/luomansi/index.php/Admin/Order/download/mod/index/id/'+key+'" data-confirm="#" value="'+key+'">下载</a></td></tr>';
                 //<br/><a class="deleteId" data-confirm="#" value="'+key+'">删除</a>
+                tableHtml2 = tableHtml+tableHtml2;
             }
-            $('#body').append(tableHtml);
+            $('#body').append(tableHtml2);
             var val=parseInt(data['page']);
             //alert(val);
             switch(val){

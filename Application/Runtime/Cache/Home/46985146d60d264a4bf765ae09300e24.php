@@ -30,12 +30,15 @@
 <body>
 
 <div class="wrap">
-    
+    <img src="/luomansi/Application/Home/Public/img/add-header.png" alt="" style="display:block;margin:0 auto 0;padding:20px 0;background-color:#fff;">
 	<!-- 下订单 -->
 	<div class="order">
 		<!-- 下订单详情 -->
 		<div class="order-date-bg" style="display: block">
 			<ul class="order-date">
+				<li style="display: -webkit-box;-webkit-box-pack: center;">
+					<img src="/luomansi/Application/Home/Public/img/product3.jpg" alt="" style="height:270px;">
+				</li>
 				<li id="goodsReturn">
 					<p>
 						<span>型<em></em><em></em>号：</span>

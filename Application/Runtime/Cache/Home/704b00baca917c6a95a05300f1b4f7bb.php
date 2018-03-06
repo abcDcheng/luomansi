@@ -34,9 +34,9 @@
 	<!-- 登陆页面 -->
 	<div class="sign-in">
 		
-		<img src="/luomansi/Application/Home/Public/img/logo.png" alt="" class="logo">
+		<img src="/luomansi/Application/Home/Public/img/soin-in-logo.png" alt="" class="soin-in-logo">
 
-		<p class="add-title" style="font-size:36px;text-align: center;margin:30px auto 0;">全 自 动 智 能 锁</p>
+		<!-- <p class="add-title" style="font-size:36px;text-align: center;margin:30px auto 0;">全 自 动 智 能 锁</p> -->
 
 		<div class="sign-in-mask">
 			
@@ -62,7 +62,7 @@
 
 			</div>
 
-			<small class='add-tips' style='display:block;text-align: center;font-size:25px;color:#919191;margin:-100px auto 0;'><?php echo ($ad); ?></small>
+			<small class='add-tips' style='display:block;text-align: center;font-size:38px;color:#ffffff;margin:50px auto 0;'><?php echo ($ad); ?></small>
 
 		</div>
 	</div>
