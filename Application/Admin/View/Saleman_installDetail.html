@@ -33,7 +33,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>新用户信息管理</title>
+    <title>新用户安装管理</title>
 </head>
 <body>
 
@@ -45,9 +45,9 @@
         <div class="sc_body">
             <form action="<{:U('Install/update')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
-                    <h5>新用户信息管理</h5>
+                    <h5>新用户安装详情</h5>
                     <div class="sc_title_btn">
-                        <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
+                        
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="javascript:history.back()"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                             </div>
                             <div class="layui-form-item from_item_image">
                                 <div class="img_label">
-                                    <label>拍摄照片</label>
+                                    <label>识别码照片</label>
                                 </div>
                                 <div id="thumb_view" class="img_item transition">
                                     <img src="__UPLOADS__/<{$info['installimg']}>">
@@ -120,12 +120,13 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">回访状态</label>
+                                <label class="layui-form-label">回访状态</label>
                                 <div class="layui-input-block">
-                                    <select id="status" name="status" class="layui-select">
-                                        <option value="0">未回访</option>
-                                        <option value="1">已回访</option>
-                                    </select>
+                                <{if condition="$info.status eq 1"}>
+                                    <input type="text" name="entime" class="layui-input" autocomplete="off" value="已回访" disabled="disabled" style="color: green">
+                                <{else /}>
+                                    <input type="text" name="entime" class="layui-input" autocomplete="off" value="未回访" disabled="disabled" style="color: red">
+                                <{/if}>
                                 </div>
                             </div>
                             <div id="msg" class="layui-form-item" 

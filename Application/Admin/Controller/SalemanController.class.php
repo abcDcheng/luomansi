@@ -423,4 +423,27 @@ class SalemanController extends Controller {
             $this->error("未登录或未授权",U("Login/index"),1);
         }
     }
+
+    //安装管理用户详情
+    public function installDetail(){
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
+            if (isset($_GET['id'])) {   //获取订单数据
+                $id = intval($_GET['id']);
+                if ($id) {
+                    $Model_data = M();
+                    $order = $Model_data->table('saleman_install')->where('id='.$id)->find();
+                    if (!empty($order)) {
+                        $this->assign('info',$order);
+                        $this->display();
+                    } else {
+                        $this->error("查无该数据",U("Saleman/installIndex"),1);
+                    }
+                } else {
+                    $this->error("查无该数据",U("Saleman/installIndex"),1);
+                }
+            } else {
+                $this->error("查无数据",U("Saleman/installIndex"),1);
+            }
+        }
+    }
 }

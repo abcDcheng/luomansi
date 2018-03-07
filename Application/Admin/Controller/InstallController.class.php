@@ -103,13 +103,13 @@ class InstallController extends Controller {
                             $this->assign('info',$order);
                             $this->display();
                         } else {
-                            $this->error("查无该数据",U("Order/".$mod),1);
+                            $this->error("查无该数据",U("Install/".$mod),1);
                         }
                     } else {
-                        $this->error("查无该数据",U("Order".$mod),1);
+                        $this->error("查无该数据",U("Install".$mod),1);
                     }
                 } else {
-                    $this->error("查无数据",U("Order/".$mod),1);
+                    $this->error("查无数据",U("Install/".$mod),1);
                 }
                 
             }
