@@ -34,6 +34,9 @@ class ShopController extends Controller {
             //var_dump($model);
             $this->assign('model',$model);
             $this->assign('goods',$goods);
+            $ad = A('Login');
+            $ad = $ad->getAD();
+            $this->assign('ad',$ad);
             $this->display();
         } else {
             redirect(U("Login/login"));
@@ -151,6 +154,9 @@ class ShopController extends Controller {
                     $this->assign('info',$info);
                     $this->assign('shop',$shop);
                     $this->assign('goods',$goods);
+                    $ad = A('Login');
+                    $ad = $ad->getAD();
+                    $this->assign('ad',$ad);
                     $this->display();
                 } else {
                     $this->error('该商品已下架',U('Shopcar/index'));

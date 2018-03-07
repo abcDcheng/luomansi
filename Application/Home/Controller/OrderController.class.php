@@ -38,6 +38,9 @@ class OrderController extends Controller {
         	$this->assign('hasInfo',$hasInfo);
         	$this->assign('order',$order);
         	//$this->assign('shop',$shop);
+            $ad = A('Login');
+            $ad = $ad->getAD();
+            $this->assign('ad',$ad);
         	$this->display();
         }
     }

@@ -37,7 +37,10 @@
 <body>
 
 <div class="wrap">
-    <img src="/luomansi/Application/Home/Public/img/add-header.png" alt="" style="display:block;margin:0 auto 0;padding:20px 0;background-color:#fff;">
+    <div class="add-header" style="width:750px;margin:0 auto 0;box-sizing:border-box;padding:25px 40px;background-color:#fff;position:relative;">
+        <img src="/luomansi/Application/Home/Public/img/header-logo.png" alt="">
+        <p style="position: absolute;bottom:40px;right:40px;font-size:30px;color:#717f87;"><?php echo ($ad); ?></p>
+    </div>
     <!-- 订单维护 -->
 	<div class="maintain">
 		<!-- 可执行订单详情 -->
@@ -236,7 +239,7 @@
 
 		$('#complete').click(function(){
 			if (!imgUrl) {
-				alert('请上传现场图片 ');
+				alert('请上传识别码图片 ');
 				return false;
 			}
 			var goodsCode = $('#goodsCode').val();
