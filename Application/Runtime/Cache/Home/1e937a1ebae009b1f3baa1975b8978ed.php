@@ -46,8 +46,8 @@
         <li>
             <div style="width:100%;">
                 <p style="font-size:30px;">上传设备显示识别码照片：</p>
-                <div style="width:288px;height:288px;background: url(./img/add-upload.png) center center no-repeat;margin:20px auto 0;">
-                    
+                <div style="width:288px;height:288px;background: url(/luomansi/Application/Home/Public/img/add-upload.png) center center no-repeat;margin:20px auto 0;" id="clipArea">
+                    <input type="file" id="file">
                 </div>
             </div>
             
@@ -92,7 +92,7 @@
     	</li>
     </ul>
 
-    <button class="btn-registration">确认提交</button>
+    <button class="btn-registration" id="clipBtn">确认提交</button>
 
     <small style='display:block;font-size:28px;color:#717f87;text-align: center;margin-top:25px;'><?php echo ($ad); ?></small>
 
@@ -172,6 +172,26 @@
                     $('.btn-registration').html("确认提交").removeAttr('disabled');
                 }
             });
+        });
+
+        var clipArea = new bjj.PhotoClip("#clipArea", {
+            size: [288, 288],
+            outputSize: [288, 288],
+            file: "#file",
+            view: "#view",
+            ok: "#clipBtn",
+            loadStart: function() {
+                console.log("照片读取中");
+            },
+            loadComplete: function() {
+                console.log("照片读取完成");
+                $('#file').hide();
+            },
+            clipFinish: function(dataURL) {
+                // console.log(dataURL);
+                imgUrl = dataURL;
+                $('.uploadImg').attr('src',dataURL);
+            }
         });
     })
 
