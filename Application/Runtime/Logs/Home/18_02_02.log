@@ -1,8 +1,0 @@
-[ 2018-02-02T14:29:44+08:00 ] 127.0.0.1 /luomansi/index.php/Home/Login/login.html
-INFO: [ app_begin ] --START--
-INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000860s ]
-INFO: [ app_begin ] --END-- [ RunTime:0.001402s ]
-SQL: SHOW COLUMNS FROM `saleman_sys_admin` [ RunTime:0.0033s ]
-SQL: SELECT * FROM `saleman_sys_admin` WHERE `username` = 'a123456' AND `group` = 1 LIMIT 1   [ RunTime:0.0004s ]
-SQL: UPDATE `saleman_sys_admin` SET `login_num`=login_num+1 WHERE `id` = 3 [ RunTime:0.1530s ]
-

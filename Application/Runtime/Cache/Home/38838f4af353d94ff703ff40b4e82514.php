@@ -35,19 +35,19 @@
 	<div class="order">
 		<!-- 下订单列表 -->
 		<ul class="order-list">
-		<?php if(is_array($goods)): foreach($goods as $key=>$value): ?><li style="overflow: hidden;line-height: 160px;">
+		<?php if(is_array($goods)): foreach($goods as $key=>$value): ?><li style="overflow: hidden;">
 				<div style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: center;-webkit-box-align: center;width:160px;height:160px;float: left;-webkit-box-sizing:border-box;border:2px #eeeeee solid;margin-right:30px;">
 					<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="" style="height:95%;">
 				</div>
 				<!-- <a href="javascript:;" value="<?php echo ($value["id"]); ?>" hand="<?php echo ($value["hashand"]); ?>" falseLock="<?php echo ($value["haslock"]); ?>"><?php echo ($value["goodsname"]); ?></a> -->
-				<a href="javascript:;" style="color:#000000;height:160px;display: -webkit-box;-webkit-box-align: center;">DD1智能锁<br/><i style='color:#959595;'>红外感应  真全自动</i></a>
+				<a href="javascript:;" value="<?php echo ($value["id"]); ?>" hand="<?php echo ($value["hashand"]); ?>" falseLock="<?php echo ($value["haslock"]); ?>" style="color:#000000;height:160px;display: -webkit-box;-webkit-box-align: center;"><span><?php echo ($value["goodsname"]); ?></span><br/><i style='color:#959595;'>红外感应  真全自动</i></a>
 			</li><?php endforeach; endif; ?>
 		</ul>
 		<!-- 下订单详情 -->
 		<div class="order-date-bg">
 			<ul class="order-date">
 				<li style="display: -webkit-box;-webkit-box-pack: center;">
-					<img src="/luomansi/Application/Home/Public/img/product3.jpg" alt="" style="height:270px;">
+					<img id="goodsImg" src="" alt="" style="height:270px;">
 				</li>
 				<li id="goodsReturn">
 					<p class="icon03">
@@ -144,13 +144,16 @@ $(function(){
 	var goodsId = 0;
 	var hand = ['带下拉手','不带下拉手'];
 	var falseLock = ['带假锁','不带假锁'];
+	var imgSrc = '/luomansi/Application/Upload/';
 	/*打开订单详情*/
 	$('.order-list li a').click(function(){
 		goodsId = parseInt($(this).attr("value"));
 		hasHandCode = parseInt($(this).attr("hand"));
 		hasLockCode = parseInt($(this).attr("falseLock"));
 		colorArr = [];
-		goodsName = $(this).text();
+		goodsName = $(this).find('span').text();
+		var imgSrc = $(this).siblings('div').find('img').attr('src');
+		$('#goodsImg').attr('src',imgSrc);
 		$('.chioceColor,.handChoice,.lockChoice').empty();
 		$('.meng00').show();
 		$.ajax({

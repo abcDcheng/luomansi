@@ -249,13 +249,13 @@
 			<img src="/luomansi/Application/Home/Public/img/nav1.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<?php echo U('Shopcar/index');?>" class="footer-nav-item line2">
-			<img src="/luomansi/Application/Home/Public/img/nav3.png" alt="" class="footer-nav-img">
-			<img src="/luomansi/Application/Home/Public/img/nav3-active.png" alt="" class="footer-nav-imgActive">
-		</a>
 		<a href="<?php echo U('Order/index');?>" class="footer-nav-item footer-nav-itemActive">
 			<img src="/luomansi/Application/Home/Public/img/nav2.png" alt="" class="footer-nav-img">
 			<img src="/luomansi/Application/Home/Public/img/nav2-active.png" alt="" class="footer-nav-imgActive">
+		</a>
+		<a href="<?php echo U('Shopcar/index');?>" class="footer-nav-item line2">
+			<img src="/luomansi/Application/Home/Public/img/nav3.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/nav3-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 		<a href="<?php echo U('Person/index');?>" class="footer-nav-item line2">
 			<img src="/luomansi/Application/Home/Public/img/nav4.png" alt="" class="footer-nav-img">
