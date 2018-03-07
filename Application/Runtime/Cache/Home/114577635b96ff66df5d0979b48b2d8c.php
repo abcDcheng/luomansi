@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>用户登录</title>
+	<title>安装管理登录</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -30,16 +30,20 @@
 </head>
 <body>
 
-<div class="wrap">
+<div class="wrap sign-in-wrap">
 	<!-- 登陆页面 -->
 	<div class="sign-in">
 		
-		<img src="/luomansi/Application/Home/Public/img/logo.png" alt="" class="logo">
+		<img src="/luomansi/Application/Home/Public/img/soin-in-logo.png" alt="" class="soin-in-logo">
+
+		<!-- <p class="add-title" style="font-size:36px;text-align: center;margin:30px auto 0;">全 自 动 智 能 锁</p> -->
 
 		<div class="sign-in-mask">
 			
 			<div class="sign-in-content">
 				
+				<h2 class="add-words" style="font-size: 37px;width:550px;margin:-30px auto 0;font-weight: 300;">安装管理</h2>
+
 				<p>
 					<span>
 						<img src="/luomansi/Application/Home/Public/img/icon01.png" alt="">
@@ -57,6 +61,8 @@
 				<input type="button" value="登录" class="sign-in-btn">
 
 			</div>
+
+			<small class='add-tips' style='display:block;text-align: center;font-size:38px;color:#ffffff;margin:50px auto 0;'><?php echo ($ad); ?></small>
 
 		</div>
 	</div>
@@ -90,7 +96,7 @@
 			}
 
 			// 判断密码是否为空
-			var password = $.trim($('.pushPassword').val());
+			var password = $('.pushPassword').val();
 			if (password == '') {
 				$('.tips_password').fadeIn(500);
 				setTimeout(function(){
@@ -99,27 +105,26 @@
 
 				return false;
 			}
-			$(this).val("登录中...").attr('disable',true);
+			$(this).val("登录中...").attr('disabled',true);
 			$.ajax({
-				url : "login",
+				url : "<?php echo U('Login/serviceAdmin');?>",
 	            type : "post",
 	            data : {username:username,password : password},
 	            dataType : "json",
 	            timeout : 5000,
 	            success : function(data){
 	            	if (data.code == 1) {
-	            		window.location.href = "../Shop/index";
+	            		window.location.href = '<?php echo U('Install/index');?>';
 	            	} else {
 	            		alert(data.msg);
-	            		$('.sign-in-btn').val("登录").removeAttr('disable');
+	            		$('.sign-in-btn').val("登录").removeAttr('disabled');
 	            	}
 	            },
 	            error : function(data){
 	            	if (data.status == 'timeout') {
 	            		alert("连接超时，请重试");
-	            		tmp = 1;
 	            	}
-	            	$('.sign-in-btn').val("登录").removeAttr('disable');
+	            	$('.sign-in-btn').val("登录").removeAttr('disabled');
 	            }
 			});
 			

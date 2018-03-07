@@ -73,6 +73,12 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label label-required">产品描述</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goodsDes" class="layui-input" autocomplete="off" placeholder="产品描述" datatype="*1-30" errormsg="产品描述至少2个字符!" nullmsg="请输入产品描述!" value="<{$goods.goodsdes}>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label label-required">下拉手</label>
                                 <div class="layui-input-block">
                                     <{if condition="$goods.hashand eq 1"}>

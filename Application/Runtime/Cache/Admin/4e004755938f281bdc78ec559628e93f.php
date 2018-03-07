@@ -73,6 +73,7 @@
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
 				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Code/index');?>">识别码管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
@@ -164,6 +165,12 @@
                                     <span id="phototext"></span>
                                     <input id="photo" type="hidden" name="photo" value="<?php echo ($goods["goodsimg"]); ?>"/><br/>
                                     <img id="img" style="width: 100px;height: 100px" src="/luomansi/Application/Upload//<?php echo ($goods["goodsimg"]); ?>"/>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">产品描述</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goodsDes" class="layui-input" autocomplete="off" placeholder="产品描述" datatype="*1-30" errormsg="产品描述至少2个字符!" nullmsg="请输入产品描述!" value="<?php echo ($goods["goodsdes"]); ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">

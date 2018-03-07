@@ -203,8 +203,8 @@
                                 <label class="layui-form-label label-required">订单要求</label>
                                 <div class="layui-input-block">
                                     <select name="level" class="layui-select">
-                                        <option value="1">紧急，马上联系上门</option>
-                                        <option value="2">一般，预约上门</option>
+                                        <option value="1">紧急服务</option>
+                                        <option value="2">预约服务</option>
                                     </select>
                                 </div>
                             </div>

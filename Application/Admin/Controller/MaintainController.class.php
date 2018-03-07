@@ -76,7 +76,7 @@ class MaintainController extends Controller {
                 //获取选择的代理商信息
                 $Model_data = M();
                 $info = $Model_data->table('saleman_sys_admin')->where('id='.$salemanId)->getField('id,name,phone');
-                $goodsInfo = $Model_data->table('goods')->where('id='.$goods)->field('goodsName,goodsImg')->find();
+                $goodsInfo = $Model_data->table('saleman_goods')->where('id='.$goods)->field('goodsName,goodsImg')->find();
                 if (!empty($info)) {
                     $data = array(
                         'username'      => $username,
@@ -140,7 +140,7 @@ class MaintainController extends Controller {
                     $salemanId = intval(I('saleman'));
                     $oldSaleman = intval(I('oldSaleman'));
                     $status = intval(I('status'));
-                    $goodsInfo = $Model_data->table('goods')->where('id='.$goods)->field('goodsName,goodsImg')->find();
+                    $goodsInfo = $Model_data->table('saleman_goods')->where('id='.$goods)->field('goodsName,goodsImg')->find();
                     $data = array(
                         'name'          => $name,
                         'phone'         => $phone,

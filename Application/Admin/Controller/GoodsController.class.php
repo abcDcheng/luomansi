@@ -21,10 +21,12 @@ class GoodsController extends Controller {
             if (IS_AJAX) {
                 $photo = I('photo');
                 $goodsname = I('goodsname');
+                $goodsDes = I('goodsDes');
                 $hand = I('hand');
                 $falseLock = I('falseLock');
                 $Model_data = M('goods');
                 $data = array('goodsName'=>$goodsname,
+                              'goodsDes'=>$goodsDes,
                               'goodsImg'=>$photo,
                               'hasHand'=>$hand,
                               'hasLock'=>$falseLock,
@@ -52,11 +54,13 @@ class GoodsController extends Controller {
                 if (IS_AJAX) {
                     $photo = I('photo');
                     $goodsname = I('goodsname');
+                    $goodsDes = I('goodsDes');
                     $hand = I('hand');
                     $falseLock = I('falseLock');
                     $Model_data = M('goods');
                     $data = array('goodsName'=>$goodsname,
                                   'goodsImg'=>$photo,
+                                  'goodsDes'=>$goodsDes,
                                   'hasHand'=>$hand,
                                   'hasLock'=>$falseLock,
                                   'enTime'=>date('Y-m-d H:i:s')
