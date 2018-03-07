@@ -121,8 +121,8 @@ class CodeController extends Controller {
     //数据删除
     public function del(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
-            if (isset($_GET['id'])) {
-                $id = intval($_GET['id']);
+            if (isset($_POST['id'])) {
+                $id = intval($_POST['id']);
                 $Model_data = M('code');
                 $res = $Model_data->where('id='.$id)->delete();
                 if ($res === false) {

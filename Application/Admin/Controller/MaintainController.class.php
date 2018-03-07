@@ -67,6 +67,7 @@ class MaintainController extends Controller {
                 $phone = I('phone');
                 $address = I('address');
                 $goods = I('goods');
+                $goodsModel = I('goodsModel');
                 $msg = I('msg');
                 $installTime = I('installTime');
                 $clientBak = I('clientBak');
@@ -85,6 +86,7 @@ class MaintainController extends Controller {
                         'address'       => $address,
                         'goodsId'       => $goods,
                         'goods'         => $goodsInfo['goodsname'],
+                        'goodsModel'    => $goodsModel,
                         'goodsImg'      => $goodsInfo['goodsimg'],
                         'msg'           => $msg,
                         'level'         => $level,
@@ -133,6 +135,7 @@ class MaintainController extends Controller {
                     $phone = I('phone');
                     $address = I('address');
                     $goods = I('goods');
+                    $goodsModel = I('goodsModel');
                     $msg = I('msg');
                     $installTime = I('installTime');
                     $clientBak = I('clientBak');
@@ -140,6 +143,7 @@ class MaintainController extends Controller {
                     $salemanId = intval(I('saleman'));
                     $oldSaleman = intval(I('oldSaleman'));
                     $status = intval(I('status'));
+                    $Model_data = M();
                     $goodsInfo = $Model_data->table('saleman_goods')->where('id='.$goods)->field('goodsName,goodsImg')->find();
                     $data = array(
                         'name'          => $name,
@@ -147,6 +151,7 @@ class MaintainController extends Controller {
                         'address'       => $address,
                         'goodsId'       => $goods,
                         'goods'         => $goodsInfo['goodsname'],
+                        'goodsModel'    => $goodsModel,
                         'goodsImg'      => $goodsInfo['goodsimg'],
                         'msg'           => $msg,
                         'level'         => $level,
@@ -154,7 +159,7 @@ class MaintainController extends Controller {
                         'installTime'   => $installTime,
                         'enTime'        => date('Y-m-d H:i:s')
                         );
-                    $Model_data = M();
+                    
                     //若更换代理商
                     if ($salemanId != $oldSaleman) {
                         $info = $Model_data->table('saleman_sys_admin')->where('id='.$salemanId)->getField('id,name,phone');
@@ -179,12 +184,16 @@ class MaintainController extends Controller {
                         $data['serviceStatus'] = 1;
                         $data['serEndTime'] = "0000-00-00 00:00:00";
                         $data['endTime'] = "0000-00-00 00:00:00";
-                        $data['serLog'] .= $ser['serlog'] . "回访获悉服务异常，重新执行维护"."\n\n";
+                        $data['serLog'] .= $ser['serlog'] . 
+                                           "时间：".date('Y-m-d H:i:s')."\n".
+                                           "回访获悉服务异常，重新执行维护"."\n\n";
                     } elseif ($status == 1) {   //正常回访
                         $data['endTime'] = date('Y-m-d H:i:s');
                         $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username']:'';
                         if ($ser['status'] != 1) {
-                            $data['serLog'] .= $ser['serlog'] . "已回访";
+                            $data['serLog'] .= $ser['serlog'] . 
+                                               "时间：".date('Y-m-d H:i:s')."\n".
+                                               "已回访"."\n\n";
                         }
                         
                     }
@@ -197,12 +206,14 @@ class MaintainController extends Controller {
                         $this->error('修改失败');
                     }
                 } else {
+                    $goods = M('goods')->getField('id,goodsName');
                     $Model_data = M('SysAdmin');
                     $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->getField('id,name,province,city');
                     $Model_data = M('maintain');
                     $info = $Model_data->where('id='.$id)->find();
                     if (!empty($info)) {
                         $this->assign('mod',$mod);
+                        $this->assign('goods',$goods);
                         $this->assign('saleman',$saleman);
                         $this->assign('info',$info);
                         $this->display();
@@ -218,8 +229,8 @@ class MaintainController extends Controller {
     //数据删除
     public function del(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
-            if (isset($_GET['id'])) {
-                $id = intval($_GET['id']);
+            if (isset($_POST['id'])) {
+                $id = intval($_POST['id']);
                 $Model_data = M('maintain');
                 $res = $Model_data->where('id='.$id)->delete();
                 if ($res === false) {

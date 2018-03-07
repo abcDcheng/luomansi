@@ -74,9 +74,9 @@
 		<div class="maintain-complete-date-wrap maintain-date-wrap">
 			<div class="maintain-executable-date">
 				<div class="maintain-executable-date-img" style="width: 268px;height: 268px;">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img id="goodsImg" src="" alt="">
 				</div>
-				<h5>DD1智能锁-真金假锁</h5>
+				<h5 id="goods"></h5>
 				<!-- 以前的 -->
 				<!--
 				<h5 id="goods"></h5> 
@@ -84,8 +84,8 @@
 				<p id="address"></p>
 				<strong id="msg"></strong> -->
 				<!-- 现在修改的 -->
-				<p>订单要求：<con id="level"></con></p>
-				<p>产品名称：<con id="goods"></con></p>
+				<p style="margin-top:50px;">订单要求：<con id="level" style="color:red"></con></p>
+				<p>产品名称：<con id="goodsName"></con></p>
 				<p>安装时间：<con id="installTime"></con></p>
 				<p>产品问题：<i id="msg"></i></p>
 				<p>客户名称：<con id="name"></con></p>
@@ -95,7 +95,7 @@
 
 				<div class="maintain-complete-imgbg">
 					<img id="img" src="__IMAGES__/complete-img.jpg" alt="" class="complete-img">
-					<img src="__IMAGES__/icon12.png" alt="" class="icon12">
+					<!-- <img src="__IMAGES__/icon12.png" alt="" class="icon12"> -->
 				</div>
 				<button id="return" class="maintain-executable-date-btn">返回</button>
 			</div>
@@ -134,13 +134,28 @@
 		$('.maintain-complete a').click(function(){
 			var i = $(this).attr('value');
 			$('#level').text(info[i]['orderLevel']);
-			$('#goods').text(info[i]['goods']);
-			$('#installTime').text(info[i]['installtime']);
+			if (info[i]['goodsmodel']) {
+				$('#goods').text(info[i]['goods']+'-'+info[i]['goodsmodel']);
+			} else {
+				$('#goods').text(info[i]['goods']);
+			}
+			$('#goodsName').text(info[i]['goods']);
+			$('#goodsImg').attr('src',imgSrc+info[i]['goodsimg']);
+			if (info[i]['installtime']) {
+				$('#installTime').text(info[i]['installtime']);
+			} else {
+				$('#installTime').text('未知');
+			}
 			$('#name').html(info[i]['name']);
 			$('#phone').html(info[i]['phone']);
 			$('#address').text(info[i]['address']);
 			$('#msg').text(info[i]['msg']);
-			$('#clientbak').text(info[i]['clientbak']);
+			if (info[i]['clientbak']) {
+				$('#clientbak').text(info[i]['clientbak']);
+			} else {
+				$('#clientbak').text('无');
+			}
+			
 			$('.maintain-complete').hide();
 			$('.maintain-complete-date-wrap').show();
 		});

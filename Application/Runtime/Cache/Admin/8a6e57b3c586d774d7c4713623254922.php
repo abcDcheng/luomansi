@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <!--
 * @Author: defaultFish
 * @Date:   2017-12-12 00:00:00
@@ -14,43 +14,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="__PLUGS__/layui/css/layui.css">
-    <link rel="stylesheet" href="__CSS__/font-awesome.min.css">
-    <link rel="stylesheet" href="__CSS__/animate.css">
-    <link rel="stylesheet" href="__CSS__/sitecms.css">
-    <script src="__PLUGS__/layui/layui.js"></script>
-    <script src="__PLUGS__/ueditor/ueditor.config.js"></script>
-    <script src="__PLUGS__/ueditor/ueditor.all.js"></script>
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/plugs/layui/css/layui.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/animate.css">
+    <link rel="stylesheet" href="/luomansi/Application/Admin/Public/css/sitecms.css">
+    <script src="/luomansi/Application/Admin/Public/plugs/layui/layui.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.config.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.all.js"></script>
     
-    <!-- <script src="__PLUGS__/static/base/js/jquery.cookie.js"></script> -->
-    <script src="__JS__/jquery.min.js"></script>
-    <!-- <script src="__PLUGS__/uploadify/jquery.uploadify.min.js"></script> -->
-    <script src="__JS__/validform.js"></script>
-    <script src="__JS__/sitecms.js"></script>
-    <script src="__JS__/select.js"></script>
-    <script src="__PLUGS__/layui/lay/modules/laydate.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/static/base/js/jquery.cookie.js"></script> -->
+    <script src="/luomansi/Application/Admin/Public/js/jquery.min.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/uploadify/jquery.uploadify.min.js"></script> -->
+    <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
+    <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
     
     <!-- <link id="layuicss-layer" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/layer/default/layer.css?v=3.1.0" media="all">
     <link id="layuicss-laydate" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/laydate/default/laydate.css?v=5.0.9" media="all"> -->
     <!-- 让IE8/9支持媒体查询 -->
-    <!--[if lt IE 9]>
-        <script src="./js/html5shiv.min.js"></script>
-        <script src="./js/respond.min.js"></script>
-    <![endif]-->
-    <title>代理商账号管理</title>
+	<!--[if lt IE 9]>
+		<script src="./js/html5shiv.min.js"></script>
+		<script src="./js/respond.min.js"></script>
+	<![endif]-->
+    <title>代理商员工信息</title>
 </head>
 <body>
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    <{include file="Menu:index" /}>
+    
+    <ul class="layui-tab-title">
+        <li class="layui-this">
+            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            
+        </li>
+        <style type="text/css">
+			#orderNum,#installNum{
+				color:red;
+			}
+        </style>
+        <dl class="layui-nav layui-nav-tree sc_side_more">
+            <dd class="layui-nav-item layui-nav-itemed">
+                <dl class="layui-nav-child">
+
+				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
+				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
+				<!-- <dd><a href="#">历史订单</a></dd> -->
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
+				<?php } elseif ($group == 2) { ?>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
+				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
+				<?php } elseif ($group == 3) { ?>	
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
+				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<?php } elseif ($group == 99) { ?>	
+				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
+				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
+				<dd><a href="<?php echo U('Goods/index');?>">产品管理</a></dd>
+				<dd><a href="<?php echo U('Code/index');?>">识别码管理</a></dd>
+				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
+				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
+				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
+				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
+				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<?php } } ?>
+				<dd><a href="<?php echo U('Index/pwd');?>">密码修改</a></dd>
+				<dd><a id="loginout" href="<?php echo U('Index/loginout');?>">退出登录</a></dd>
+                </dl> 
+            </dd>
+        </dl>
+    </ul>
+
+
+    <script type="text/javascript">
+    	var getOrder = 0;
+    	var getInstall = 0;
+    	<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
+				
+		<?php } elseif ($group == 2) { ?>
+				getOrder = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 3) { ?>
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } elseif ($group == 99) { ?>
+				getOrder = 1;
+				getInstall = 1;
+				getNew();
+				setInterval(getNew,10000);
+		<?php } } ?>
+
+
+
+		function getNew(){
+			$.ajax({
+				url : '<?php echo U("Index/getNew");?>',
+				type : "post",
+	            data : {getOrder:getOrder,getInstall:getInstall},
+	            dataType : "json",
+	            timeout : 5000,
+	            success:function(data) {
+	            	if (data.code == 1) {
+	            		if (data.orderNum>0) {
+	            			$('#orderNum').text('('+data.orderNum+')');
+	            		} else {
+	            			$('#orderNum').text('');
+	            		}
+	            		if (data.installNum>0) {
+	            			$('#installNum').text('('+data.installNum+')');
+	            		} else {
+	            			$('#installNum').text('');
+	            		}
+	            	}
+	            }
+			});
+		}
+    </script>
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
-            <h5>代理商账号管理</h5>
+            <h5>代理商员工信息</h5>
             <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<{:U('Saleman/add')}>"><i class="layui-icon"></i> 新增</a>       </div>
+                <a class="layui-btn layui-btn-sm" href="<?php echo U('Admin/serviceAdd');?>"><i class="layui-icon"></i> 新增</a>        </div> 
         </div>
         <div class="fadeInUp animated">
             <div id="form-list" class="layui-form">
@@ -59,13 +153,9 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-input-inline">
-                        <select name="province" id="province" lay-filter="province">
-                            <option value="">选择省份</option>
-                        </select>
-                    </div>
-                    <div class="layui-input-inline">    
-                        <select name="city" id="city">
-                            <option value="">选择城市</option>
+                        <select name="saleman" id="saleman">
+                            <option value="">选择代理商</option>
+                            <?php if(is_array($saleman)): foreach($saleman as $key=>$value): ?><option value="<?php echo ($value["salemanid"]); ?>"><?php echo ($value["saleman"]); ?>(<?php echo ($value["salemanphone"]); ?>)</option><?php endforeach; endif; ?>
                         </select>
                     </div>
                 </div>
@@ -75,19 +165,20 @@
                     <colgroup>
                         <col>
                         <col>
-                        <col width="120">
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <col width="100">
                     </colgroup>
                     <thead>
                         <tr>
                             <th>账号</th>
                             <th>姓名</th>
-                            <th>联系方式</th>
-                            <th>省份</th>
-                            <th>城市</th>
+                            <th>身份证</th>
+                            <th>归属代理商</th>
                             <th>状态</th>
+                            <!-- <th>信息反馈</th> -->
                             <th>创建时间</th>
                             <th>操作</th>
                         </tr>
@@ -131,19 +222,21 @@
 
 <script type="text/javascript">
     $(function(){
-        var province = '';
-        var city = '';
-        var str = '';
+        var firsttime='';
+        var lasttime='';
+        var str='';
         var page = 1;
+        var saleman = '';
         $('#cx').click(function(){
-            // re= /^[a-zA-Z0-9]*$/i;
-            // goodsCode = $.trim($('#goodsCode').val());
-            // if (!re.test(goodsCode)) {
-            //     alert('产品识别码不能带特殊符号');
-            //     return false;
-            // }
-            province = $('#province').val();
-            city = $('#city').val();
+            //re= /,|\(|\)|#|'|"|=|;|>|<|%|\\/i;
+            saleman = $('#saleman').val();
+            if($('#firsttime').val()&&$('#lasttime').val()&&$('#firsttime').val()>$('#lasttime').val()){
+                alert("第一个日期比第二个日期大");
+                return false;
+            }else{
+                firsttime=$('#firsttime').val();
+                lasttime=$('#lasttime').val();
+            }             
             str='';
             fenye(1);
     });
@@ -154,14 +247,23 @@
         else fenye(f);
     });
 
+    $('#clear').click(function(){
+        $('#firsttime').val('');
+        $('#lasttime').val('');
+        firsttime='';
+        lasttime='';
+        str='';
+        fenye(1);
+    });
+
     
     function fenye(page){
       $.ajax({
         //contentType:false,
         type: "post",
         timeout:5000,//设置超时时间为5秒
-        url: "<{:U('Saleman/index')}>",
-        data: {province:province,city:city,page:page},
+        url: "<?php echo U('Admin/servicer');?>",
+        data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page},
         dataType: "json",
         success:function(data){
             $('#an').text(data[0]);
@@ -171,21 +273,20 @@
                 // for(var i=1;i<data.length-1;i++){
                 //     $('#body').append(data[i]);
                 // }
-            var tableHtml2 = '';
+            var tableHtml = '';
             var order = data['order'];
             for(key in order){
-                var tableHtml = '';
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['username']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['province']+'</td><td class="layui-elip">'+order[key]['city']+'</td>';
-                if (order[key]['is_status'] == 1) {
-                    tableHtml +='<td class="layui-elip" style="color:green">使用中</td>';
+                tableHtml += '<tr><td class="layui-elip">'+order[key]['username']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['idcard']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td>';
+                
+                if (parseInt(order[key]['status'])) {
+                    tableHtml += '<td class="layui-elip"><span style="color:green">使用中</span></td>';
                 } else {
-                    tableHtml +='<td class="layui-elip" style="color:red">已停用</td>';
+                    tableHtml += '<td class="layui-elip"><span style="color:red">禁用</span></td>';
                 }
-                tableHtml+='<td class="layui-elip">'+order[key]['createtime']+'</td>';
-                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a>&nbsp;&nbsp;<a class="deleteId" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
-                tableHtml2 = tableHtml+tableHtml2;
+                tableHtml += '<td class="layui-elip">'+order[key]['entime']+'</td>';
+                tableHtml+='<td><a href="/luomansi/index.php/Admin/Admin/serviceUpdate/id/'+key+'" data-title="编辑">编辑</a><span class="sc_explode">|</span><a class="serviceDel" href="javascript:;" value="'+key+'">删除</a></td></tr>';
             }
-            $('#body').append(tableHtml2);
+            $('#body').append(tableHtml);
             var val=parseInt(data['page']);
             //alert(val);
             switch(val){
@@ -268,16 +369,16 @@
 
     $('#body').on('click','.orderUpdate',function(){
         var id = $(this).attr('value');
-        window.location.href="/luomansi/index.php/Admin/Saleman/update/mod/index/id/"+id;
+        window.location.href="/luomansi/index.php/Admin/Order/update/id/"+id;
     });
 
-    $('#body').on('click','.deleteId',function(){
+    $('#body').on('click','.serviceDel',function(){
         if (confirm('确定删除该数据吗？')) {
             var id = $(this).attr('value');
             //alert(id);
             $('.meng00').show();
             $.ajax({
-                url : "<{:U('Saleman/del')}>",
+                url : "<?php echo U('Saleman/staffDel');?>",
                 type : "post",
                 data : {id:id},
                 dataType : "json",
@@ -300,35 +401,6 @@
             });
         }
     });
-    layui.use(['layer', 'form'], function(){
-        var form = layui.form;
-        var oProvince=document.getElementById("province");
-        var oCity=document.getElementById("city");
-        for(var i in json){
-            var option=document.createElement("option");
-            option.innerHTML=i;
-            option.value=i;
-            oProvince.appendChild(option);
-        }
-        for(var i in json[oProvince.value]){
-            var option=document.createElement("option");
-            option.innerHTML=json[oProvince.value][i];
-            option.value=json[oProvince.value][i];
-            oCity.appendChild(option);
-        }
-        layui.form.render('select');
-        form.on('select(province)', function(data){
-            oCity.innerHTML="<option value=''>选择城市</option>";
-            for(var i in json[oProvince.value]){
-                    var option=document.createElement("option");
-                    option.innerHTML=json[oProvince.value][i];
-                    option.value=json[oProvince.value][i];
-                    oCity.appendChild(option);
-                }
-            
-            layui.form.render('select');
-        });
     });
- });
 </script>
 </html>

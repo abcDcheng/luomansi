@@ -5,26 +5,62 @@ class SalemanController extends Controller {
     //代理商页面
     public function index(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99 ) {
-            if (isset($_GET['p'])) {
-                $page = intval(I('p'));
+            if (IS_AJAX) {
+                $csql='';
+                $ra=array();
+                $page=1;
+                //按省市查询
+                if(isset($_POST['province'])){
+                    $province=trim($_POST['province']);
+                    if($province){
+                        $csql.="and province = '$province' ";
+                    }
+                }
+                if(isset($_POST['city'])){
+                    $city=trim($_POST['city']);
+                    if($city){
+                        $csql.="and city = '$city' ";
+                    }
+                }
+                if(isset($_POST['page'])){
+                    $page=$_POST['page'];
+                }
+                //echo $csql;
+                $pageNum = 12;//分页每页数量
+                $first=$pageNum*($page - 1);
+                $Model_data = M();
+                //查询数据总数
+                $count = $Model_data->table('saleman_sys_admin')->where('`group` = 1 '.$csql)->count();
+                //查询数据
+                $order = $Model_data->table('saleman_sys_admin')->where('`group` = 1 '.$csql)->order('id desc')->limit($first,$pageNum)->getField('id,`group`,username,name,phone,province,city,is_status,createTime');
+                
+                $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
+                //var_dump($res);
+                $this->ajaxReturn($res);
             } else {
-                $page = 1;
+                
+                $this->display();
             }
-            $pageNum = 12;
-            //查询代理商信息（group为1代表代理商）
-            $Model_data = M('SysAdmin');
-            $info = $Model_data->where('`group` = 1')->limit($pageNum,($page-1)*$pageNum)->getField('id,`group`,username,name,phone,province,city,is_status,createTime');
-            $count = $Model_data->where('`group` = 1')->count();
-            $Pages = new \Think\Page($count, $pageNum);
-            $pageHtml = $Pages -> show();
-            // $groupName = array(2=>'订单专员',3=>'客服专员');
-            // foreach ($info as $key=>$value) {
-            //     $info[$key]['groupName'] = $groupName[$value['group']];
+            // if (isset($_GET['p'])) {
+            //     $page = intval(I('p'));
+            // } else {
+            //     $page = 1;
             // }
-            //var_dump($info);
-            $this->assign('page',$pageHtml);
-            $this->assign('info',$info);
-            $this->display();
+            // $pageNum = 12;
+            // //查询代理商信息（group为1代表代理商）
+            // $Model_data = M('SysAdmin');
+            // $info = $Model_data->where('`group` = 1')->limit($pageNum,($page-1)*$pageNum)->getField('id,`group`,username,name,phone,province,city,is_status,createTime');
+            // $count = $Model_data->where('`group` = 1')->count();
+            // $Pages = new \Think\Page($count, $pageNum);
+            // $pageHtml = $Pages -> show();
+            // // $groupName = array(2=>'订单专员',3=>'客服专员');
+            // // foreach ($info as $key=>$value) {
+            // //     $info[$key]['groupName'] = $groupName[$value['group']];
+            // // }
+            // //var_dump($info);
+            // $this->assign('page',$pageHtml);
+            // $this->assign('info',$info);
+            // $this->display();
         } else {
             $this->error("未登录",U("Login/index"),1);
         }

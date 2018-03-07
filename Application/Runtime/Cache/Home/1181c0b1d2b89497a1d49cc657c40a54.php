@@ -30,7 +30,10 @@
 <body>
 
 <div class="wrap">
-	<img src="/luomansi/Application/Home/Public/img/add-header.png" alt="" style="display:block;margin:0 auto 0;padding:20px 0;background-color:#fff;">
+	<div class="add-header" style="width:750px;margin:0 auto 0;box-sizing:border-box;padding:25px 40px;background-color:#fff;position:relative;">
+        <img src="/luomansi/Application/Home/Public/img/header-logo.png" alt="">
+        <p style="position: absolute;bottom:40px;right:40px;font-size:30px;color:#717f87;"><?php echo ($ad); ?></p>
+    </div>
 	<!-- 购物车 -->
 	<div class="shopping-cart">
 		<div class="shopping-title">

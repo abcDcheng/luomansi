@@ -163,8 +163,11 @@
                                       <i class="layui-icon">&#xe67c;</i>上传图片
                                     </button>
                                     <span id="phototext"></span>
-                                    <input id="photo" type="hidden" name="photo" value="<?php echo ($goods["goodsimg"]); ?>"/><br/>
+                                    <input id="photo" type="hidden" name="photo" value="<?php echo ($goods["goodsimg"]); ?>"/>
+                                    <input id="photo" type="hidden" name="oldPhoto" value="<?php echo ($goods["goodsimg"]); ?>"/>
+                                    <br/>
                                     <img id="img" style="width: 100px;height: 100px" src="/luomansi/Application/Upload//<?php echo ($goods["goodsimg"]); ?>"/>
+
                                 </div>
                             </div>
                             <div class="layui-form-item">

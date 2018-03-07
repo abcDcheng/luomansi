@@ -117,7 +117,7 @@ class ShopController extends Controller {
         }
     }
 
-    //修改单个商品订单
+    //修改单个商品订单页面
     public function update(){
         if (isset($_SESSION['admin_id']) && isset($_GET['id'])) {
             $id = intval(I('id'));
@@ -166,7 +166,7 @@ class ShopController extends Controller {
             }
         }
     }
-
+    //修改单个商品订单
     public function goodsUpdate(){
         if (isset($_SESSION['admin_id']) && IS_AJAX) {
             $admin_id = intval($_SESSION['admin_id']);
