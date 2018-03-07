@@ -180,10 +180,19 @@ em,i,small{font-style: normal;}
 
 .maintain-executable-date-btn{display: block;width: 674px;height: 94px;background-color: #00b7ee;font-size: 37px;margin: 60px auto 0;border-radius: 20px;color: #ffffff;}
 /*<!-- 上传图片 -->*/
-.maintain-upload{width: 750px;margin: 0 auto 0;position: relative;padding-top: 200px;display: none;}
-.maintain-upload-content{width: 684px;height: 607px;margin: 0 auto 0;-webkit-box-shadow: rgba(0,0,0,0.3) 0px 0px 30px;box-shadow: rgba(0,0,0,0.3) 0px 0px 30px;background-color: #ffffff;box-sizing:border-box;-webkit-box-sizing:border-box;padding: 20px 0;position: relative;}
+.maintain-upload{width: 750px;margin: 0 auto 0;position: relative;padding-top:50px;display: none;}
+.maintain-upload-content{width: 684px;margin: 0 auto 0;-webkit-box-shadow: rgba(0,0,0,0.3) 0px 0px 30px;box-shadow: rgba(0,0,0,0.3) 0px 0px 30px;background-color: #ffffff;box-sizing:border-box;-webkit-box-sizing:border-box;padding: 20px 0;position: relative;}
 .maintain-upload-img{width: 600px;height: 380px;margin: 30px auto 0;background: url(../img/icon11.png) center center no-repeat;position: relative;}
-.upload-btn{display: block;width: 547px;height: 95px;margin: 50px auto 0;border-radius: 20px;background-color: #f8b551;font-size: 37px;border:0;outline: none;color: #ffffff;}
+.upload-btn{display: block;width: 457px;height: 75px;margin: 50px auto 0;border-radius: 20px;background-color: #0b4268;font-size: 32px;border:0;outline: none;color: #ffffff;}
+.maintain-add{width: 547px;margin: 30px auto 0;}
+.maintain-add p{position: relative;overflow: hidden;margin-top: 20px;}
+.maintain-add p span{font-size: 32px;float: left;}
+.maintain-add p textarea{font-size: 32px;width: 395px;border:3px #ccc solid;float: left;height: 40px;}
+.maintain-add p input{font-size: 32px;width: 390px;border:3px #ccc solid;float: left;height: 40px;}
+.maintain-add p img{position: absolute;width: 35px;height: 35px;right: 25px;top:8px;}
+.maintain-add p i{font-size: 30px;float: left;}
+.maintain-add p select{font-size: 30px;float: left;width: 390px;border:3px #ccc solid;}
+
 #file{position: absolute;width: 100%;height: 100%;top:0;left: 0;opacity: 0;}
 #clipArea{margin: 20px;height: 380px;}
 .uploadImg{width: 600px;position: absolute;top:0;left: 0;}
@@ -216,6 +225,8 @@ em,i,small{font-style: normal;}
 .footer-nav-imgActive{display: none;}
 .footer-nav .footer-nav-itemActive .footer-nav-img{display: none;}
 .footer-nav .footer-nav-itemActive .footer-nav-imgActive{display: block;}
+
+
 
 
 
