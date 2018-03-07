@@ -47,7 +47,7 @@
             <div style="width:100%;">
                 <p style="font-size:30px;">上传设备显示识别码照片：</p>
                 <div style="width:288px;height:288px;background: url(/luomansi/Application/Home/Public/img/add-upload.png) center center no-repeat;margin:20px auto 0;" id="clipArea">
-                    <input type="file" id="file">
+                    <input type="file" id="file" style="z-index: 2">
                 </div>
             </div>
             
