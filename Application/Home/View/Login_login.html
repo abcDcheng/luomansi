@@ -30,7 +30,7 @@
 </head>
 <body>
 
-<div class="wrap">
+<div class="wrap sign-in-wrap">
 	<!-- 登陆页面 -->
 	<div class="sign-in">
 		
