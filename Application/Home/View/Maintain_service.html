@@ -277,7 +277,7 @@
 		            type : "post",
 		            data : {orderId:orderId,imgUrl:imgUrl,goodsCode:goodsCode,serDate:serDate,serStartTime:serStartTime,serEndTime:serEndTime,serStatus:serStatus,serBak:serBak},
 		            dataType : "json",
-		            timeout : 15000,
+		            timeout : 20000,
 		            success : function(data) {
 		            	$('.meng00').hide();
 		            	if (data.code == 1) {

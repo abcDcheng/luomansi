@@ -52,7 +52,8 @@ class InstallController extends Controller {
             } else {
                 $Model_data = M('install');
                 $Model_data->where('isNew=0')->data(array('isNew'=>1))->save();
-                $saleman = $Model_data->where('status!=1')->group('salemanId')->getField('salemanId,saleman,salemanPhone');
+                $Model_data = M('SysAdmin');
+                $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
                 $this->assign('saleman',$saleman);
                 $this->display();
             }
@@ -162,8 +163,8 @@ class InstallController extends Controller {
                 //var_dump($res);
                 $this->ajaxReturn($res);
             } else {
-                $Model_data = M('install');
-                $saleman = $Model_data->where('status=1')->group('salemanId')->getField('salemanId,saleman,salemanPhone');
+                $Model_data = M('SysAdmin');
+                $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
                 $this->assign('saleman',$saleman);
                 $this->display();
             }

@@ -61,7 +61,7 @@
                         <select name="saleman" id="saleman">
                             <option value="">选择代理商</option>
                             <{foreach name="saleman" item="value" }>
-                            <option value="<{$value.salemanid}>"><{$value.saleman}>(<{$value.salemanphone}>)</option>
+                            <option value="<{$value.id}>"><{$value.name}>(<{$value.province}><{$value.city}>)</option>
                             <{/foreach}>
                         </select>
                     </div>

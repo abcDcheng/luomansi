@@ -121,7 +121,7 @@
         var str='';
         var page = 1;
         $('#cx').click(function(){
-            re= /^[a-zA-Z0-9]*$/i;
+            var re= /^[a-zA-Z0-9]*$/i;
             goodsCode = $.trim($('#goodsCode').val());
             if (!re.test(goodsCode)) {
                 alert('产品识别码不能带特殊符号');

@@ -175,9 +175,45 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label">产品名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goods" class="layui-input" autocomplete="off" value="<?php echo ($info["goods"]); ?>" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">产品规格</label>
+                                <div class="layui-input-block">
+                                    <?php if($info["goodsmodel"] == ''): ?><input type="text" name="goodsModel" class="layui-input" autocomplete="off" value="未知" disabled="disabled">
+                                    <?php else: ?>
+                                    <input type="text" name="goodsModel" class="layui-input" autocomplete="off" value="<?php echo ($info["goodsmodel"]); ?>" disabled="disabled"><?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">安装时间</label>
+                                <div class="layui-input-block">
+                                    <?php if($info["installtime"] == ''): ?><input type="text" name="installTime" value="未知" class="layui-input sc_form_date" readonly="">
+                                    <?php else: ?>
+                                    <input type="text" name="installTime" value="<?php echo ($info["installtime"]); ?>" class="layui-input sc_form_date" readonly=""><?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label">维护信息</label>
                                 <div class="layui-input-block">
                                     <textarea id="msg" name="msg" class="layui-textarea"  placeholder="维护信息" disabled="disabled"><?php echo ($info["msg"]); ?></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">客户说明</label>
+                                <div class="layui-input-block">
+                                    <textarea id="clientBak" name="clientBak" class="layui-textarea" placeholder="无" disabled="disabled"><?php echo ($info["clientbak"]); ?></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">订单要求</label>
+                                <div class="layui-input-block">
+                                    <?php if($info["level"] == 1): ?><input type="text" name="level" class="layui-input" autocomplete="off" value="紧急服务" disabled="disabled"/>
+                                    <?php else: ?>
+                                    <input type="text" name="level" class="layui-input" autocomplete="off" value="预约服务" disabled="disabled"/><?php endif; ?>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -190,6 +226,20 @@
                                 </div>
                                 <input name="oldServicer" type="hidden" value="<?php echo ($info["serviceid"]); ?>">
                             </div>
+                            <?php if($info['serlog'] != ''): ?><div class="layui-form-item">
+                                <label class="layui-form-label">维护追踪</label>
+                                <div class="layui-input-block">
+                                    <textarea name="serLog" class="layui-textarea" autocomplete="off" value="<?php echo ($info["serlog"]); ?>" disabled="disabled" style="height: 300px;" disabled="disabled"><?php echo ($info["serlog"]); ?></textarea>
+                                </div>
+                            </div><?php endif; ?>
+                            <?php if($info['servicestatus'] != 0 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
+                                <div class="img_label">
+                                    <label>现场照片</label>
+                                </div>
+                                <div id="thumb_view" class="img_item transition">
+                                    <img src="/luomansi/Application/Upload//<?php echo ($info['comimg']); ?>">
+                                </div>
+                            </div><?php endif; ?>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">回访状态</label>
                                 <div class="layui-input-block">
@@ -200,14 +250,7 @@
                                 <input type="text" name="status" class="layui-input" autocomplete="off" value="未回访" disabled="disabled"><?php endif; ?>
                                 </div>
                             </div>
-                            <?php if($info['servicestatus'] == 2 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
-                                <div class="img_label">
-                                    <label>现场照片</label>
-                                </div>
-                                <div id="thumb_view" class="img_item transition">
-                                    <img src="/luomansi/Application/Upload//<?php echo ($info['comimg']); ?>">
-                                </div>
-                            </div><?php endif; ?>
+                            
                         </div>
                     </section>
                 </div>

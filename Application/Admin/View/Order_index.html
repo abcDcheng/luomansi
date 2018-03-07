@@ -58,10 +58,13 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-input-inline">
+                        <input id="orderCode" type="text" name="orderCode" placeholder="输入订单号" value="" class="layui-input" style="width:300px;">
+                    </div>
+                    <div class="layui-input-inline">
                         <select name="saleman" id="saleman">
                             <option value="">选择代理商</option>
                             <{foreach name="saleman" item="value" }>
-                            <option value="<{$value.salemanid}>"><{$value.saleman}>(<{$value.phone}>)</option>
+                            <option value="<{$value.id}>"><{$value.name}>(<{$value.province}><{$value.city}>)</option>
                             <{/foreach}>
                         </select>
                     </div>
@@ -144,12 +147,19 @@
     $(function(){
         var firsttime='';
         var lasttime='';
+        var orderCode = '';
         var str='';
         var page = 1;
         var saleman = '';
+        var re= /^[a-zA-Z0-9]*$/i;
         $('#cx').click(function(){
             //re= /,|\(|\)|#|'|"|=|;|>|<|%|\\/i;
             saleman = $('#saleman').val();
+            orderCode = $('#orderCode').val();
+            if (!re.test(orderCode)) {
+                alert('订单号不能带符号');
+                return false;
+            }
             if($('#firsttime').val()&&$('#lasttime').val()&&$('#firsttime').val()>$('#lasttime').val()){
                 alert("第一个日期比第二个日期大");
                 return false;
@@ -167,14 +177,14 @@
         else fenye(f);
     });
 
-    $('#clear').click(function(){
-        $('#firsttime').val('');
-        $('#lasttime').val('');
-        firsttime='';
-        lasttime='';
-        str='';
-        fenye(1);
-    });
+    // $('#clear').click(function(){
+    //     $('#firsttime').val('');
+    //     $('#lasttime').val('');
+    //     firsttime='';
+    //     lasttime='';
+    //     str='';
+    //     fenye(1);
+    // });
 
     
     function fenye(page){
@@ -183,7 +193,7 @@
         type: "post",
         timeout:5000,//设置超时时间为5秒
         url: "<{:U('Order/index')}>",
-        data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page},
+        data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page,orderCode:orderCode},
         dataType: "json",
         success:function(data){
             //$('#an').text(data[0]);

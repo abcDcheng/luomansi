@@ -269,7 +269,7 @@ class SalemanController extends Controller {
                 
                 $count = $Model_data->where("username='$username'")->count();
                 if ($count > 0) {
-                    $this->error('该用户名已存在',U('Admin/index'));
+                    $this->error('该账户名已存在');
                 } else {
                     $saleman = M('SysAdmin')->where('id='.$admin_id)->find();
                     if (!empty($saleman)) {
@@ -293,9 +293,7 @@ class SalemanController extends Controller {
                     } else {
                         $this->error('查不到您的信息，请重新登录');
                     }
-
                 }
-                
             } else {
                 $this->display();
             }
@@ -312,6 +310,16 @@ class SalemanController extends Controller {
                     $pwd = I('pwd');
 
                     $username = trim(I('username'));
+                    $oldUser = I('username');
+                    if ($username != $oldUser) {
+                        $Model_data = M('ServiceAdmin');
+                        //查询下属人员账号是否存在
+                        $count = $Model_data->where("username='$username'")->count();
+                        if ($count > 0) {
+                            $this->error('该账户名已存在');
+                            exit();
+                        }
+                    }
                     $name = I('name');
                     $idcard = I('IDcard');
                     $modelId = I('goodsInfo');

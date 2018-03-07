@@ -60,7 +60,7 @@ class InstallController extends Controller {
                                   'saleman'   => $info['saleman'],
                                   'salemanPhone'=>$info['salemanphone'],
                                   'serName'   => $info['name'],
-                                  'serPhone'  => $info['phone'],
+                                  'serPhone'  => $info['username'],
                                   'enTime'    => date('Y-m-d H:i:s')
                                   );
                     $res = M('install')->add($data);
