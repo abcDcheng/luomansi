@@ -128,7 +128,6 @@
 
 <script type="text/javascript">
     $(function(){
-
         new ZArea('#area');
         var canClick = 0;
         $('#comfirm').click(function(){
@@ -137,7 +136,6 @@
             }
             
         });
-
         $('.btn-registration').click(function(){
             var name = $.trim($('#name').val());
             var phone = $.trim($('#phone').val());
@@ -187,7 +185,6 @@
                 }
             });
         });
-
         var clipArea = new bjj.PhotoClip("#clipArea", {
             size: [600, 380],
             outputSize: [600, 380],
@@ -208,7 +205,6 @@
             }
         });
     })
-
 </script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
@@ -272,7 +268,6 @@
             goodsScan();
         });
     });
-
 function goodsScan(){
     //alert(1);
     wx.scanQRCode({
