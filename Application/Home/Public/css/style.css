@@ -26,16 +26,18 @@ em,i,small{font-style: normal;}
 /*=====================================*/
 /*<!-- 登陆页面 -->*/
 /*=====================================*/
+.sign-in-wrap{background: url(../img/soin-in-bg.png) center center no-repeat;margin-top: -50px;}
 .sign-in{position: relative;width: 750px;margin: 0 auto 0;height: 100%;overflow: hidden;display: block;}
 .logo{display: block;margin: 0 auto 0;padding-top: 70px;}
-.sign-in-mask{width: 750px;height: 853px;margin: 300px auto 0;position: relative;background: url(../img/bg-mask.png) center center no-repeat;}
-.sign-in-content{width: 635px;box-sizing:border-box;-webkit-box-sizing:border-box;padding: 75px 20px;margin: 0 auto 0;border-radius: 15px;background-color: #ffffff;box-shadow: 5px 4px 6px #000;-webkit-box-shadow: 2px 4px 6px #000;position: relative;top:-150px;}
+.sign-in-mask{width: 750px;height: 853px;margin: 350px auto 0;position: relative;}
+.sign-in-content{width: 635px;box-sizing:border-box;-webkit-box-sizing:border-box;padding: 75px 20px;margin: 0 auto 0;border-radius: 15px;background-color: #ffffff;box-shadow: 5px 4px 6px #000;-webkit-box-shadow: 2px 4px 6px #000;position: relative;}
 .sign-in-content p{width: 550px;height: 95px;box-sizing:border-box;-webkit-box-sizing:border-box;padding: 22px 24px;border:1px #7d7d7d solid;margin: 30px auto 0;border-radius: 10px;overflow: hidden;position: relative;}
 .sign-in-content p span{display: inline-block;width: 68px;height: 55px;background: url(../img/line.png) right center no-repeat;position: relative;float: left;}
 .sign-in-content p span img{position: absolute;top:50%;margin-top: -27.5px;left: 0;}
 .sign-in-content p input{font-size: 33px;height: 55px;float: left;border:0;margin-left: 20px;width: 410px;outline: none;}
 .sign-in-content p small{position: absolute;font-size: 25px;right: 10px;padding-left: 40px;background: url(../img/notice-icon.png) left center no-repeat;top:50%;transform: translateY(-50%);-webkit-transform: translateY(-50%);display: none;}
 .sign-in-btn{width: 550px;height: 95px;display: block;margin: 50px auto 0;background-color: #0b4268;font-size: 37px;border-radius: 15px;color: #ffffff;outline: none;}
+.soin-in-logo{display: block;margin: 80px auto 0;}
 
 /*=====================================*/
 /*<!-- 下订单 -->*/
