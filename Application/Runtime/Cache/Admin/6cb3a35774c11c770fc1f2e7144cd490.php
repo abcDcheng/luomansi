@@ -171,7 +171,7 @@
                         <col width="120">
                         <col>
                         <col>
-                        <col>
+                        <col width="150">
                         <col>
                         <col>
                         <col>

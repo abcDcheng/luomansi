@@ -101,7 +101,7 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 }
 /* sitecms table */
 .layui-form .layui-table td,
-.layui-form .layui-table th{line-height: 32px;font-size: 12px;}
+.layui-form .layui-table th{line-height: 32px;font-size: 12px;font-family: initial;}
 .layui-form .layui-table td a{color:#2bb0d4}
 .layui-form .layui-table td a:hover{color:#666}
 .layui-form .sc_explode{margin:0 5px;color:#ccc}

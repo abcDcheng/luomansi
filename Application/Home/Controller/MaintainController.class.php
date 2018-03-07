@@ -22,6 +22,9 @@ class MaintainController extends Controller {
                     $info[$key]['orderLevel'] = '预约服务';
                 }
             }
+            $ad = A('Login');
+            $ad = $ad->getAD();
+            $this->assign('ad',$ad);
             $this->assign('hasInfo',$hasInfo);
         	$this->assign('info',$info);
         	$this->display();
@@ -75,6 +78,9 @@ class MaintainController extends Controller {
             $jssdk = A('jssdk');
             $signPackage = $jssdk->GetSignPackage();
             $this->assign('jssdk',$signPackage);
+            $ad = A('Login');
+            $ad = $ad->getAD();
+            $this->assign('ad',$ad);
             $this->assign('hasInfo',$hasInfo);
         	$this->assign('info',$info);
         	$this->display();
@@ -105,7 +111,7 @@ class MaintainController extends Controller {
                     $serEndTime = I('serEndTime');
                     $serStatus = I('serStatus');
                     $serBak = I('serBak');
-                    $logtmp = '';
+                    $logtmp = '数据记录时间：'.date('Y-m-d H:i:s')."\n";
                     $logtmp .= "服务时间：$serDate $serStartTime"."至$serEndTime"."\n";
                     $logtmp .= "产品码：$goodsCode"."\n";
                     if ($serStatus) {
@@ -167,8 +173,14 @@ class MaintainController extends Controller {
                     $info[$key]['orderLevel'] = '预约服务';
                 }
             }
+            $ad = A('Login');
+            $ad = $ad->getAD();
+            $this->assign('ad',$ad);
             $this->assign('hasInfo',$hasInfo);
             $this->assign('info',$info);
+            $ad = A('Login');
+            $ad = $ad->getAD();
+            $this->assign('ad',$ad);
             $this->display();
         } else {
             redirect(U("Login/maintainLogin"));

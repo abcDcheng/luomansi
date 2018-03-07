@@ -19,6 +19,9 @@ class ShopcarController extends Controller {
 	 		} else {
                 $hasShop = 0;
             }
+            $ad = A('Login');
+            $ad = $ad->getAD();
+            $this->assign('ad',$ad);
             //var_dump($shopcar);
             $this->assign('hasShop',$hasShop);
 	 		$this->assign('shopcar',$shopcar);

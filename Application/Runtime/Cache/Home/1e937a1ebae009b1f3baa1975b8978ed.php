@@ -38,19 +38,30 @@
 <body>
 
 <div class="wrap">
-    <img src="/luomansi/Application/Home/Public/img/add-header.png" alt="" style="display:block;margin:0 auto 0;padding:20px 0;background-color:#fff;">
-    <h3 style="font-size:36px;text-align: center;padding:40px 0;">产品安装登记</h3>
+    <div class="add-header" style="width:750px;margin:0 auto 0;box-sizing:border-box;padding:25px 40px;background-color:#fff;position:relative;">
+        <img src="/luomansi/Application/Home/Public/img/header-logo.png" alt="">
+        <p style="position: absolute;bottom:40px;right:40px;font-size:30px;color:#717f87;"><?php echo ($ad); ?></p>
+    </div>
+    <h3 style="font-size:36px;text-align: center;padding:40px 0;background-color:#0a4268;color:#ffffff;">产品安装登记</h3>
     
     <!-- 用户登记资料 -->
     <ul class="registration">
         <li>
             <div style="width:100%;">
-                <p style="font-size:30px;">上传设备显示识别码照片：</p>
+                <div class="maintain-upload-content">
+                    <div class="maintain-upload-img">
+                        
+                        <div id="clipArea"></div>
+                        <img src="" alt="" class="uploadImg">
+                        <input type="file" id="file">
+                    </div>
+
+                    <button class="upload-btn" id="clipBtn">确认上传</button>
+                <!-- <p style="font-size:30px;">上传设备显示识别码照片：</p>
                 <div style="width:288px;height:288px;background: url(/luomansi/Application/Home/Public/img/add-upload.png) center center no-repeat;margin:20px auto 0;" id="clipArea">
                     <input type="file" id="file" style="z-index: 2">
-                </div>
+                </div> -->
             </div>
-            
         </li>
         <li>
             <div class="name-item">
@@ -92,11 +103,11 @@
     	</li>
     </ul>
 
-    <button class="btn-registration" id="clipBtn">确认提交</button>
+    <button class="btn-registration">确认提交</button>
 
-    <small style='display:block;font-size:28px;color:#717f87;text-align: center;margin-top:25px;'><?php echo ($ad); ?></small>
+    <!--<small style='display:block;font-size:28px;color:#717f87;text-align: center;margin-top:25px;'><?php echo ($ad); ?></small>
 
-    <!-- <img src="/luomansi/Application/Home/Public/img/add_logo.png" alt="" style="display:block;margin:50px auto 0;"> -->
+     <img src="/luomansi/Application/Home/Public/img/add_logo.png" alt="" style="display:block;margin:50px auto 0;"> -->
 	
 </div>
 
@@ -114,17 +125,20 @@
 
 <script type="text/javascript">
     $(function(){
-
         new ZArea('#area');
         var canClick = 0;
+        var imgUrl = '';
         $('#comfirm').click(function(){
             if (canClick) {
                 window.location.href = "<?php echo U('Login/installLogin');?>";
             }
             
         });
-
         $('.btn-registration').click(function(){
+            if (!imgUrl) {
+                alert('请上传识别码照片！');
+                return false;
+            }
             var name = $.trim($('#name').val());
             var phone = $.trim($('#phone').val());
             var address = $.trim($('#address').val());
@@ -147,7 +161,7 @@
             $.ajax({
                 url : "<?php echo U('Install/record');?>",
                 type : "post",
-                data : {goodsCode:goodsCode,name:name,phone : phone,address:address,area:area},
+                data : {imgUrl:imgUrl,goodsCode:goodsCode,name:name,phone : phone,address:address,area:area},
                 dataType : "json",
                 timeout : 5000,
                 success : function(data){
@@ -173,10 +187,9 @@
                 }
             });
         });
-
         var clipArea = new bjj.PhotoClip("#clipArea", {
-            size: [288, 288],
-            outputSize: [288, 288],
+            size: [600, 380],
+            outputSize: [600, 380],
             file: "#file",
             view: "#view",
             ok: "#clipBtn",
@@ -193,8 +206,15 @@
                 $('.uploadImg').attr('src',dataURL);
             }
         });
-    })
 
+        $('#file').click(function(){
+            // $(this).hide();
+            $('.uploadImg').attr('src','');
+        });
+        $('.upload-btn').click(function(){
+            $('#file').show();
+        })
+    })
 </script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
@@ -258,7 +278,6 @@
             goodsScan();
         });
     });
-
 function goodsScan(){
     //alert(1);
     wx.scanQRCode({
