@@ -59,6 +59,7 @@
                                 <label class="layui-form-label label-required">用户名</label>
                                 <div class="layui-input-block">
                                     <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!" value="<{$info.username}>">
+                                    <input name="oldUser" value="<{$info.username}>" type="hidden"/>
                                 </div>
                             </div>
                             <div class="layui-form-item">

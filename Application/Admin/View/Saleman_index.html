@@ -27,15 +27,16 @@
     <!-- <script src="__PLUGS__/uploadify/jquery.uploadify.min.js"></script> -->
     <script src="__JS__/validform.js"></script>
     <script src="__JS__/sitecms.js"></script>
+    <script src="__JS__/select.js"></script>
     <script src="__PLUGS__/layui/lay/modules/laydate.js"></script>
     
     <!-- <link id="layuicss-layer" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/layer/default/layer.css?v=3.1.0" media="all">
     <link id="layuicss-laydate" rel="stylesheet" href="http://admin.sitecms.cn/Public/plugs/layui/css/modules/laydate/default/laydate.css?v=5.0.9" media="all"> -->
     <!-- 让IE8/9支持媒体查询 -->
-	<!--[if lt IE 9]>
-		<script src="./js/html5shiv.min.js"></script>
-		<script src="./js/respond.min.js"></script>
-	<![endif]-->
+    <!--[if lt IE 9]>
+        <script src="./js/html5shiv.min.js"></script>
+        <script src="./js/respond.min.js"></script>
+    <![endif]-->
     <title>代理商账号管理</title>
 </head>
 <body>
@@ -49,29 +50,28 @@
         <div class="sc_title sc_body_title">
             <h5>代理商账号管理</h5>
             <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<{:U('Saleman/add')}>"><i class="layui-icon"></i> 新增</a>        </div>
+                <a class="layui-btn layui-btn-sm" href="<{:U('Saleman/add')}>"><i class="layui-icon"></i> 新增</a>       </div>
         </div>
-<!--         <div class="sc_search layui-clear">
-    <form method="get" action="/page/index.html?spm=m-1-5" class="layui-form sc_search_form">
-        <div class="layui-input-inline">
-            <input type="text" name="keyword" placeholder="请输入标题名称" value="" class="layui-input">
-        </div>
-        <div class="layui-inline">
-            <div class="layui-input-inline">
-                <input type="text" name="start_time" placeholder="起始时间" value="" class="layui-input sc_form_date" readonly="" lay-key="1">
-            </div>
-            -
-            <div class="layui-input-inline">
-                <input type="text" name="end_time" placeholder="结束时间" value="" class="layui-input sc_form_date" readonly="" lay-key="2">
-            </div>
-        </div>
-        <button class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
-    </form>
-</div> -->
         <div class="fadeInUp animated">
-            <form id="form-list" class="layui-form">
+            <div id="form-list" class="layui-form">
+                <div class="layui-input-inline">
+                    
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <select name="province" id="province" lay-filter="province">
+                            <option value="">选择省份</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">    
+                        <select name="city" id="city">
+                            <option value="">选择城市</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="cx" class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
                 <input type="hidden" name="nid" value="5">
-                <table class="layui-table" lay-even="" lay-skin="nob">
+                <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
                         <col>
                         <col>
@@ -82,7 +82,6 @@
                     </colgroup>
                     <thead>
                         <tr>
-                            <!-- <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" class="list-check-box"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></th> -->
                             <th>账号</th>
                             <th>姓名</th>
                             <th>联系方式</th>
@@ -93,38 +92,20 @@
                             <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    <{foreach name="info" item="value"}>
-                        <tr>
-                            <!-- <td>
-                                <input type="checkbox" name="id[]" value="<{$value.id}>" lay-skin="primary" class="list-check-box">
-                                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
-                            </td> -->
-                            <td class="layui-elip"><{$value.username}></td>
-                            <td class="layui-elip"><{$value.name}></td>
-                            <td class="layui-elip"><{$value.phone}></td>
-                            <td class="layui-elip"><{$value.province}></td>
-                            <td class="layui-elip"><{$value.city}></td>
-                            <{if condition="$value.is_status eq 1"}>
-                                <td class="layui-elip" style="color:green">使用中</td>
-                            <{else /}>
-                                <td class="layui-elip" style="color:red">禁用</td>
-                            <{/if}>
-                            <td><{$value.createtime}></td>
-                            <td>
-                                <a href="<{:U('Saleman/update?id='.$value['id'])}>" data-title="编辑">编辑</a>
-                                <span class="sc_explode">|</span>
-                                <a class="deleteId" data-confirm="#" value="<{$value.id}>">删除</a>
-                            </td>
-                        </tr>
-                    <{/foreach}>
+                    <tbody id="body">
+                    
                     </tbody>
                 </table>
-            </form>
+            </div>
             <div class="layui-clear">
                 <div class="fr">
                     <div class="sc_pages">
-                        <{$page}>
+                        <ul class="pagination">  
+                        <li><a id="first" class="fenye">首页</a></li>
+                        <li><a id="prev" class="fenye">上一页</a></li>
+                        <li><a id="next" class="fenye">下一页</a></li>
+                        <li><a id="last" class="fenye">末页</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -136,58 +117,10 @@
             layui.laydate.render({
                 elem: this
                 ,trigger: 'click'
-                ,type: 'datetime'
+                ,type: 'date'
             });
         });
-        $('.deleteId').click(function(){
-            if (confirm('确定删除该账户吗？')) {
-                var id = $(this).attr('value');
-                //alert(id);
-                $('.meng00').show();
-                $.ajax({
-                    url : "<{:U('Saleman/del')}>",
-                    type : "post",
-                    data : {id:id},
-                    dataType : "json",
-                    timeout : 10000,
-                    success : function(data){
-                        $('.meng00').hide();
-                        if (data.code == 1) {
-                            alert('删除成功');
-                            window.location.reload();
-                        } else {
-                            alert(data.msg);
-                        }
-                    },
-                    error : function(data){
-                        $('.meng00').hide();
-                        if (data.status == 'timeout') {
-                            alert('连接超时，请重试');
-                        }
-                    }
-                });
-            }
-        });
-        // layui.form.on('checkbox(allChoose)', function(data){
-        //     var child = $(data.elem).parents('table').find('input[type="checkbox"]');
-        //     child.each(function(index, item){
-        //         item.checked = data.elem.checked;
-        //     });
-        //     if ($('.layui-table').find('.list-check-box').is(':checked')) {
-        //         $('.sc_search').hide(300,function(){$('.sc_mobile').show(300);});
-        //     } else {
-        //         $('.sc_mobile').hide(300,function(){$('.sc_search').show(300);});
-        //     };
-        //     layui.form.render('checkbox');
-        // });
-        // $('.sc_mobile').hide();
-        // layui.form.on('checkbox', function(data){
-        //     if ($('.layui-table').find('.list-check-box').is(':checked')) {
-        //         $('.sc_search').hide(300,function(){$('.sc_mobile').show(300);});
-        //     } else {
-        //         $('.sc_mobile').hide(300,function(){$('.sc_search').show(300);});
-        //     };
-        // });
+
     });
     
     </script>
@@ -195,4 +128,207 @@
     </div>
 </div>
 </body>
+
+<script type="text/javascript">
+    $(function(){
+        var province = '';
+        var city = '';
+        var str = '';
+        var page = 1;
+        $('#cx').click(function(){
+            // re= /^[a-zA-Z0-9]*$/i;
+            // goodsCode = $.trim($('#goodsCode').val());
+            // if (!re.test(goodsCode)) {
+            //     alert('产品识别码不能带特殊符号');
+            //     return false;
+            // }
+            province = $('#province').val();
+            city = $('#city').val();
+            str='';
+            fenye(1);
+    });
+    $('.fenye').click(function(){
+
+        var f=$(this).attr("value");
+        if(f==0)return false;
+        else fenye(f);
+    });
+
+    
+    function fenye(page){
+      $.ajax({
+        //contentType:false,
+        type: "post",
+        timeout:5000,//设置超时时间为5秒
+        url: "<{:U('Saleman/index')}>",
+        data: {province:province,city:city,page:page},
+        dataType: "json",
+        success:function(data){
+            $('#an').text(data[0]);
+            $('#body').empty();
+            if(data['num']!=0){   
+                var page=Math.ceil(data['num']/data['pageNum']);         
+                // for(var i=1;i<data.length-1;i++){
+                //     $('#body').append(data[i]);
+                // }
+            var tableHtml2 = '';
+            var order = data['order'];
+            for(key in order){
+                var tableHtml = '';
+                tableHtml += '<tr><td class="layui-elip">'+order[key]['username']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip">'+order[key]['province']+'</td><td class="layui-elip">'+order[key]['city']+'</td>';
+                if (order[key]['is_status'] == 1) {
+                    tableHtml +='<td class="layui-elip" style="color:green">使用中</td>';
+                } else {
+                    tableHtml +='<td class="layui-elip" style="color:red">已停用</td>';
+                }
+                tableHtml+='<td class="layui-elip">'+order[key]['createtime']+'</td>';
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a>&nbsp;&nbsp;<a class="deleteId" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
+                tableHtml2 = tableHtml+tableHtml2;
+            }
+            $('#body').append(tableHtml2);
+            var val=parseInt(data['page']);
+            //alert(val);
+            switch(val){
+            case 1:$('#allnum').text(data[0]);
+                 $('#pth').text(val);
+                 $("#p").text(page);
+                 $('#first').attr("value",0);
+                 $('#first').css("color","grey");
+                 $('#prev').attr("value",0);
+                 $('#prev').css("color","grey");
+                 if(page==1){
+                    $('#next').attr("value",0);
+                    $('#next').css("color","grey");
+                    $('#last').attr("value",0);
+                    $('#last').css("color","grey");
+                    }
+                 else{
+                    $('#next').attr("value",2);
+                    $('#next').css("color","black");
+                    $('#last').attr("value",page);
+                    $('#last').css("color","black");
+                    }
+                 break;
+            case page:
+                  $('#pth').text(val);
+                  $('#allnum').text(data[0]);
+                    $('#p').text(page);
+                  $('#first').attr("value",1);
+                  $('#first').css("color","black");
+                    $('#prev').attr("value",--val);
+                    $('#prev').css("color","black");
+                    $('#next').attr("value",0);
+                    $('#next').css("color","grey");
+                    $('#last').attr("value",0);
+                    $('#last').css("color","grey");
+                      break;
+            default:
+              //alert(val);
+              $('#pth').text(val);
+                $('#allnum').text(data[0]);
+                  $('#p').text(page);
+                $('#first').attr("value",1);
+                    $('#prev').attr("value",--val);
+                    val++;
+                    $('#next').attr("value",++val);
+                    $('#last').attr("value",page);
+                    $('#first').css("color","black");
+                  $('#prev').css("color","black");
+                  $('#next').css("color","black");
+                  $('#last').css("color","black");
+                      break;
+            }
+            $('tbody tr:even').addClass("alt-row");
+            }else{
+              alert("没有找到数据");
+              $('#allnum').text("0");
+                $('#p').text("0");
+                $('#pth').val("0");
+                $('#first').attr("value",0);
+              $('#first').css("color","grey");
+                $('#prev').attr("value",0);
+                $('#prev').css("color","grey");
+                $('#next').attr("value",0);
+                $('#next').css("color","grey");
+                $('#last').attr("value",0);
+                $('#last').css("color","grey");
+              return false;
+              }
+           },
+           error:function(XMLHttpRequest, Status){//ajax请求结束
+             if(Status=='timeout'){//请求超时
+               alert('请求超时,请重试');
+               return false;
+             }
+           }
+      });
+      
+    }
+    fenye(1);
+
+    $('#body').on('click','.orderUpdate',function(){
+        var id = $(this).attr('value');
+        window.location.href="/luomansi/index.php/Admin/Saleman/update/mod/index/id/"+id;
+    });
+
+    $('#body').on('click','.deleteId',function(){
+        if (confirm('确定删除该数据吗？')) {
+            var id = $(this).attr('value');
+            //alert(id);
+            $('.meng00').show();
+            $.ajax({
+                url : "<{:U('Saleman/del')}>",
+                type : "post",
+                data : {id:id},
+                dataType : "json",
+                timeout : 10000,
+                success : function(data){
+                    $('.meng00').hide();
+                    if (data.code == 1) {
+                        alert('删除成功');
+                        window.location.reload();
+                    } else {
+                        alert(data.msg);
+                    }
+                },
+                error : function(data){
+                    $('.meng00').hide();
+                    if (data.status == 'timeout') {
+                        alert('连接超时，请重试');
+                    }
+                }
+            });
+        }
+    });
+    layui.use(['layer', 'form'], function(){
+        var form = layui.form;
+        var oProvince=document.getElementById("province");
+        var oCity=document.getElementById("city");
+        for(var i in json){
+            var option=document.createElement("option");
+            option.innerHTML=i;
+            option.value=i;
+            oProvince.appendChild(option);
+        }
+        for(var i in json[oProvince.value]){
+            var option=document.createElement("option");
+            option.innerHTML=json[oProvince.value][i];
+            option.value=json[oProvince.value][i];
+            oCity.appendChild(option);
+        }
+        layui.form.render('select');
+        form.on('select(province)', function(data){
+            oCity.innerHTML="<option value=''>选择城市</option>";
+            for(var i in json[oProvince.value]){
+                    var option=document.createElement("option");
+                    option.innerHTML=json[oProvince.value][i];
+                    option.value=json[oProvince.value][i];
+                    oCity.appendChild(option);
+                }
+            
+            layui.form.render('select');
+        });
+    });
+ });
+</script>
 </html>

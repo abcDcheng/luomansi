@@ -155,7 +155,7 @@
                     <div class="layui-input-inline">
                         <select name="saleman" id="saleman">
                             <option value="">选择代理商</option>
-                            <?php if(is_array($saleman)): foreach($saleman as $key=>$value): ?><option value="<?php echo ($value["salemanid"]); ?>"><?php echo ($value["saleman"]); ?>(<?php echo ($value["salemanphone"]); ?>)</option><?php endforeach; endif; ?>
+                            <?php if(is_array($saleman)): foreach($saleman as $key=>$value): ?><option value="<?php echo ($value["id"]); ?>"><?php echo ($value["name"]); ?>(<?php echo ($value["province"]); echo ($value["city"]); ?>)</option><?php endforeach; endif; ?>
                         </select>
                     </div>
                     <div class="layui-input-inline">

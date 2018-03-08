@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -7,17 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" type="text/css" href="__CSS__/style1.css">
+    <link rel="stylesheet" type="text/css" href="/luomansi/Application/Home/Public/css/style1.css">
     <!-- JQ -->
-    <script type="text/javascript" src="__JS__/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/luomansi/Application/Home/Public/js/jquery-1.11.0.min.js"></script>
     <!--移动端版本兼容 -->
-    <script type="text/javascript" src='__JS__/mobile.js'></script>
-    <script src="__JS__/iscroll-zoom.js"></script>
-	<script src="__JS__/hammer.js"></script>
-	<script src="__JS__/lrz.all.bundle.js"></script>
-	<!-- <script src="__JS__/jquery.photoClip.min.js"></script> -->
-    <script type="text/javascript" src='__JS__/main.js'></script>
-    <!-- <script type="text/javascript" src='__JS__/maintain.js'></script> -->
+    <script type="text/javascript" src='/luomansi/Application/Home/Public/js/mobile.js'></script>
+    <script src="/luomansi/Application/Home/Public/js/iscroll-zoom.js"></script>
+	<script src="/luomansi/Application/Home/Public/js/hammer.js"></script>
+	<script src="/luomansi/Application/Home/Public/js/lrz.all.bundle.js"></script>
+	<!-- <script src="/luomansi/Application/Home/Public/js/jquery.photoClip.min.js"></script> -->
+    <script type="text/javascript" src='/luomansi/Application/Home/Public/js/main.js'></script>
+    <!-- <script type="text/javascript" src='/luomansi/Application/Home/Public/js/maintain.js'></script> -->
 	<!-- 自适应屏幕 -->
 	<script type="text/javascript">
 	    $(function(){
@@ -36,8 +36,8 @@
 
 <div class="wrap">
     <div class="add-header" style="width:750px;margin:0 auto 0;box-sizing:border-box;padding:25px 40px;background-color:#fff;position:relative;">
-        <img src="__IMAGES__/header-logo.png" alt="">
-        <p style="position: absolute;bottom:40px;right:40px;font-size:30px;color:#717f87;"><{$ad}></p>
+        <img src="/luomansi/Application/Home/Public/img/header-logo.png" alt="">
+        <p style="position: absolute;bottom:40px;right:40px;font-size:30px;color:#717f87;"><?php echo ($ad); ?></p>
     </div>
     <!-- 订单维护 -->
 	<div class="maintain">
@@ -45,30 +45,26 @@
 
 		<!-- 订单已完成 -->
 		<ul class="maintain-complete maintain-style" style="display: block">
-			<{if condition="$hasInfo eq 1"}>
-			<{foreach name="info" item="value" key='k'}>
-			<li>
+			<?php if($hasInfo == 1): if(is_array($info)): foreach($info as $k=>$value): ?><li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
 				</div>
 				<div class="query-list-message">
-					<h5><{$value.goods}></h5>
-					<p><{$value.name}>&nbsp;&nbsp;&nbsp;&nbsp;<{$value.phone}></p>
-					<p><{$value.address}></p>
-					<h3>维护内容：<{$value.msg}></h3>
+					<h5><?php echo ($value["goods"]); ?></h5>
+					<p><?php echo ($value["name"]); ?>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo ($value["phone"]); ?></p>
+					<p><?php echo ($value["address"]); ?></p>
+					<h3>维护内容：<?php echo ($value["msg"]); ?></h3>
 				</div>
 				<div class="query-list-state">
 					<button class="query-state-btn maintain-executable-state-2">已完成</button>
 				</div>
 				<span class='lineColor'></span>
-				<a href="javascript:;" class="maintain-data-btn" value="<{$k}>">查看详情>></a>
-			</li>
-			<{/foreach}>
-			<{else /}>
+				<a href="javascript:;" class="maintain-data-btn" value="<?php echo ($k); ?>">查看详情>></a>
+			</li><?php endforeach; endif; ?>
+			<?php else: ?>
 			<div class="no-information" style="display: block;">
-				<img src="__IMAGES__/no-information.png" alt="">
-			</div>
-			<{/if}>
+				<img src="/luomansi/Application/Home/Public/img/no-information.png" alt="">
+			</div><?php endif; ?>
 		</ul>
 		<!-- 订单已完成详情 -->
 		<div class="maintain-complete-date-wrap maintain-date-wrap">
@@ -84,13 +80,8 @@
 				<p id="address"></p>
 				<strong id="msg"></strong> -->
 				<!-- 现在修改的 -->
-<<<<<<< HEAD
-				<p style="margin-top:50px;">订单要求：<con id="level"></con></p>
-				<p>产品名称：<con id="goods"></con></p>
-=======
 				<p style="margin-top:50px;">订单要求：<con id="level" style="color:red"></con></p>
 				<p>产品名称：<con id="goodsName"></con></p>
->>>>>>> 07b584be1881ac9095ef7bb3dc427da54ddf7bb1
 				<p>安装时间：<con id="installTime"></con></p>
 				<p>产品问题：<i id="msg"></i></p>
 				<p>客户名称：<con id="name"></con></p>
@@ -99,8 +90,8 @@
 				<p>客户说明：<con id="clientbak"></con></p>
 
 				<div class="maintain-complete-imgbg">
-					<img id="img" src="__IMAGES__/complete-img.jpg" alt="" class="complete-img">
-					<!-- <img src="__IMAGES__/icon12.png" alt="" class="icon12"> -->
+					<img id="img" src="/luomansi/Application/Home/Public/img/complete-img.jpg" alt="" class="complete-img">
+					<!-- <img src="/luomansi/Application/Home/Public/img/icon12.png" alt="" class="icon12"> -->
 				</div>
 				<button id="return" class="maintain-executable-date-btn">返回</button>
 			</div>
@@ -113,17 +104,17 @@
 
 	<!-- 底部导航 -->
 	<div class="footer-nav maintain-nav">
-		<a href="<{:U('Maintain/index')}>" class="footer-nav-item line2">
-			<img src="__IMAGES__/maintain-nav1.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/maintain-nav1-active.png" alt="" class="footer-nav-imgActive">
+		<a href="<?php echo U('Maintain/index');?>" class="footer-nav-item line2">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav1.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav1-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<{:U('Maintain/service')}>" class="footer-nav-item line2">
-			<img src="__IMAGES__/maintain-nav2.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/maintain-nav2-active.png" alt="" class="footer-nav-imgActive">
+		<a href="<?php echo U('Maintain/service');?>" class="footer-nav-item line2">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav2.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav2-active.png" alt="" class="footer-nav-imgActive">
 		</a>
-		<a href="<{:U('Maintain/complete')}>" class="footer-nav-item footer-nav-itemActive">
-			<img src="__IMAGES__/maintain-nav3.png" alt="" class="footer-nav-img">
-			<img src="__IMAGES__/maintain-nav3-active.png" alt="" class="footer-nav-imgActive">
+		<a href="<?php echo U('Maintain/complete');?>" class="footer-nav-item footer-nav-itemActive">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav3.png" alt="" class="footer-nav-img">
+			<img src="/luomansi/Application/Home/Public/img/maintain-nav3-active.png" alt="" class="footer-nav-imgActive">
 		</a>
 	</div>
 
@@ -133,8 +124,8 @@
 	
 	$(function(){
 
-		var info = <{:json_encode($info)}>;
-		var imgSrc = '__UPLOADS__'+'/';
+		var info = <?php echo json_encode($info);?>;
+		var imgSrc = '/luomansi/Application/Upload'+'/';
 		/*<!-- 订单已完成详情 -->*/
 		$('.maintain-complete a').click(function(){
 			var i = $(this).attr('value');
@@ -146,11 +137,7 @@
 			}
 			$('#goodsName').text(info[i]['goods']);
 			$('#goodsImg').attr('src',imgSrc+info[i]['goodsimg']);
-			if (info[i]['installtime']) {
-				$('#installTime').text(info[i]['installtime']);
-			} else {
-				$('#installTime').text('未知');
-			}
+			$('#installTime').text(info[i]['installtime']);
 			$('#name').html(info[i]['name']);
 			$('#phone').html(info[i]['phone']);
 			$('#address').text(info[i]['address']);
@@ -160,7 +147,7 @@
 			} else {
 				$('#clientbak').text('无');
 			}
-			$('.complete-img').attr('src',imgSrc+info[i]['comimg']);
+			
 			$('.maintain-complete').hide();
 			$('.maintain-complete-date-wrap').show();
 		});

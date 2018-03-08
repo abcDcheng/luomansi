@@ -70,20 +70,13 @@
 		<!-- 可执行订单详情 -->
 		<div class="maintain-executable-date-wrap maintain-date-wrap" >
 			<div class="maintain-executable-date">
-				<div class="maintain-executable-date-img">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
+				<div class="maintain-executable-date-img" style="width: 268px;height: 268px;">
+					<img id="goodsImg" src="" alt="">
 				</div>
-				
-
-				<!-- 以前的 -->
-				<!--
-				<h5 id="goods"></h5> 
-				<span id="namephone"></span>
-				<p id="address"></p>
-				<strong id="msg"></strong> -->
+				<h5 id="goods"></h5>
 				<!-- 现在修改的 -->
-				<p>订单要求：<con id="level"></con></p>
-				<p>产品名称：<con id="goods"></con></p>
+				<p style="margin-top:50px;">订单要求：<con id="level" style="color:red"></con></p>
+				<p>产品名称：<con id="goodsName"></con></p>
 				<p>安装时间：<con id="installTime"></con></p>
 				<p>产品问题：<i id="msg"></i></p>
 				<p>客户名称：<con id="name"></con></p>
@@ -120,6 +113,7 @@
 	$(function(){
 		var info = <?php echo json_encode($info);?>;
 		var orderId = 0;
+		var imgSrc = '/luomansi/Application/Upload'+'/';
 		$('#service').click(function(){
 			if (orderId) {
 				if (confirm('确定开始执行该订单的维护吗')) {
@@ -157,7 +151,13 @@
 			var i = $(this).attr('value');
 			orderId = info[i]['id'];
 			$('#level').text(info[i]['orderLevel']);
-			$('#goods').text(info[i]['goods']);
+			if (info[i]['goodsmodel']) {
+				$('#goods').text(info[i]['goods']+'-'+info[i]['goodsmodel']);
+			} else {
+				$('#goods').text(info[i]['goods']);
+			}
+			$('#goodsName').text(info[i]['goods']);
+			$('#goodsImg').attr('src',imgSrc+info[i]['goodsimg']);
 			$('#installTime').text(info[i]['installtime']);
 			$('#name').html(info[i]['name']);
 			$('#phone').html(info[i]['phone']);

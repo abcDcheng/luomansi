@@ -9,6 +9,13 @@ class OrderController extends Controller {
                 $csql='';
                 $ra=array();
                 $page=1;
+                //按订单号查询
+                if(isset($_POST['orderCode'])){
+                    $orderCode=trim($_POST['orderCode']);
+                    if($orderCode){
+                        $csql.="and orderCode like '%$orderCode%' ";
+                    }
+                }
                 //是否按代理商查询
                 if(isset($_POST['saleman'])){
                     $saleman=intval($_POST['saleman']);
@@ -65,7 +72,8 @@ class OrderController extends Controller {
             } else {
                 $Model_data = M('order');
                 $Model_data->where('isNew=0')->data(array('isNew'=>1))->save();
-                $saleman = $Model_data->where('status!=2')->group('salemanId')->getField('salemanId,saleman,phone');
+                $Model_data = M('SysAdmin');
+                $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
                 $this->assign('saleman',$saleman);
                 $this->display();
             }
@@ -150,6 +158,13 @@ class OrderController extends Controller {
                 $csql='';
                 $ra=array();
                 $page=1;
+                //按订单号查询
+                if(isset($_POST['orderCode'])){
+                    $orderCode=trim($_POST['orderCode']);
+                    if($orderCode){
+                        $csql.="and orderCode like '%$orderCode%' ";
+                    }
+                }
                 if(isset($_POST['saleman'])){
                     $saleman=intval($_POST['saleman']);
                     if($saleman){
@@ -199,8 +214,8 @@ class OrderController extends Controller {
                 //var_dump($res);
                 $this->ajaxReturn($res);
             } else {
-                $Model_data = M('order');
-                $saleman = $Model_data->where('status!=2')->group('salemanId')->getField('salemanId,saleman,phone');
+                $Model_data = M('SysAdmin');
+                $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
                 $this->assign('saleman',$saleman);
                 $this->display();
             }
@@ -223,6 +238,13 @@ class OrderController extends Controller {
                 $csql .= ' and id='.$id;
             } else {
                 $csql = 'status = 1 ';
+                //按订单号查询
+                if(isset($_POST['orderCode'])){
+                    $orderCode=trim($_POST['orderCode']);
+                    if($orderCode){
+                        $csql.="and orderCode like '%$orderCode%' ";
+                    }
+                }
                 if(isset($_GET['saleman'])){
                     $saleman=intval($_GET['saleman']);
                     if($saleman){
@@ -281,7 +303,7 @@ class OrderController extends Controller {
                     $objPHPExcel->getActiveSheet()->setCellValue('D'.$i,$row['address']);
                     $detail = array();
                     for($j=0;$j<count($row['detail']);$j++){
-                        $model = $row['detail'][$j]['goodsname']."-".$row['detail'][$j]['goodsmodel']." X".$row['detail'][$j]['goodsnum'];
+                        $model = $row['detail'][$j]['goodsname']."-".$row['detail'][$j]['goodsmodel']." ×".$row['detail'][$j]['goodsnum'];
                         $detail[] = $model;
                     } 
                     $detailStr = implode("\n",$detail);

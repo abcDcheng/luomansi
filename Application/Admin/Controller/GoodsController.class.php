@@ -53,6 +53,7 @@ class GoodsController extends Controller {
                 $id = intval(I('id'));  //获取产品对应ID
                 if (IS_AJAX) {
                     $photo = I('photo');
+                    $oldPhoto = I('oldPhoto');
                     $goodsname = I('goodsname');
                     $goodsDes = I('goodsDes');
                     $hand = I('hand');
@@ -67,6 +68,10 @@ class GoodsController extends Controller {
                             );
                     $res = $Model_data->where('id='.$id)->data($data)->save();
                     if ($res) {
+                        if ($photo != $oldPhoto) {
+                            M('shopcar')->where("goodsImg='$oldPhoto'")->save(array('goodsImg'=>$photo));
+                            M('maintain')->where("goodsImg='$oldPhoto'")->save(array('goodsImg'=>$photo));
+                        }
                         $this->success('修改成功',U('Goods/index'));
                     } else {
                         $this->error('修改失败',U('Goods/index'));

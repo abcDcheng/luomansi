@@ -57,7 +57,7 @@
                             <input name="id" type="hidden" value="<{$info.id}>" />
                             <input name="mod" type="hidden" value="<{$mod}>" />
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">创建人员</label>
+                                <label class="layui-form-label">创建人员</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="username" class="layui-input" autocomplete="off" value="<{$info.username}>" disabled="disabled">
                                 </div>
@@ -83,7 +83,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">产品名称</label>
                                 <div class="layui-input-block">
-                                    <select name="goods" class="layui-select">
+                                    <select id="goods" name="goods" class="layui-select">
                                         <{foreach name="goods" item="value" key="k"}>
                                         <option value="<{$k}>"><{$value}></option>
                                         <{/foreach}>
@@ -91,9 +91,15 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label">产品规格</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goodsModel" class="layui-input" autocomplete="off"  placeholder="产品规格，未知可不填" value="<{$info.goodsmodel}>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label">安装时间</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="installTime" placeholder="安装时间" value="<{$info.installtime}>" class="layui-input sc_form_date" readonly="">
+                                    <input type="text" name="installTime" placeholder="安装时间，未知可不选" value="<{$info.installtime}>" class="layui-input sc_form_date" readonly="">
                                 </div>
                             </div>
                             <div class="layui-form-item">

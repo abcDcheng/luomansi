@@ -121,7 +121,7 @@
         var str='';
         var page = 1;
         $('#cx').click(function(){
-            re= /^[a-zA-Z0-9]*$/i;
+            var re= /^[a-zA-Z0-9]*$/i;
             goodsCode = $.trim($('#goodsCode').val());
             if (!re.test(goodsCode)) {
                 alert('产品识别码不能带特殊符号');
@@ -135,15 +135,6 @@
         var f=$(this).attr("value");
         if(f==0)return false;
         else fenye(f);
-    });
-
-    $('#clear').click(function(){
-        $('#firsttime').val('');
-        $('#lasttime').val('');
-        firsttime='';
-        lasttime='';
-        str='';
-        fenye(1);
     });
 
     
@@ -168,7 +159,7 @@
             for(key in order){
                 var tableHtml = '';
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip">'+order[key]['goodsmodel']+'</td><td class="layui-elip">'+order[key]['goodscode']+'</td>';
-                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a>&nbsp;&nbsp;<a class="maintaindel" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a>&nbsp;&nbsp;<a class="deleteId" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
                 tableHtml2 = tableHtml+tableHtml2;
             }
             $('#body').append(tableHtml2);
@@ -256,8 +247,7 @@
         var id = $(this).attr('value');
         window.location.href="/luomansi/index.php/Admin/Code/update/mod/index/id/"+id;
     });
-
-    $('.deleteId').click(function(){
+    $('#body').on('click','.deleteId',function(){
         if (confirm('确定删除该数据吗？')) {
             var id = $(this).attr('value');
             //alert(id);

@@ -179,7 +179,7 @@ class AdminController extends Controller {
                     //查询下属人员账号是否存在
                     $count = $Model_data->where("username='$username'")->count();
                     if ($count > 0) {
-                        $this->error('该用户名已存在',U('Admin/index'));
+                        $this->error('该账户名已存在');
                     } else {
                             $insertData = array('username'=>$username,
                                         'password'=>$pwd,
@@ -220,6 +220,16 @@ class AdminController extends Controller {
                 if (IS_AJAX) {
                     $pwd = I('pwd');
                     $username = trim(I('username'));
+                    $oldUser = I('username');
+                    if ($username != $oldUser) {
+                        $Model_data = M('ServiceAdmin');
+                        //查询下属人员账号是否存在
+                        $count = $Model_data->where("username='$username'")->count();
+                        if ($count > 0) {
+                            $this->error('该账户名已存在');
+                            exit();
+                        }
+                    }
                     $name = I('name');
                     $idcard = I('IDcard');
                     $modelId = I('goodsInfo');

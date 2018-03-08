@@ -58,10 +58,13 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-input-inline">
+                        <input id="orderCode" type="text" name="orderCode" placeholder="输入订单号" value="" class="layui-input" style="width:300px;">
+                    </div>
+                    <div class="layui-input-inline">
                         <select name="saleman" id="saleman">
                             <option value="">选择代理商</option>
                             <{foreach name="saleman" item="value" }>
-                            <option value="<{$value.salemanid}>"><{$value.saleman}>(<{$value.phone}>)</option>
+                            <option value="<{$value.id}>"><{$value.name}>(<{$value.province}><{$value.city}>)</option>
                             <{/foreach}>
                         </select>
                     </div>
@@ -201,7 +204,7 @@
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td>';
                 var detail = '';
                 for(var i=0;i<order[key]['detail'].length;i++){
-                    detail += order[key]['detail'][i]['goodsname'] + '-'+ order[key]['detail'][i]['goodsmodel']+'X'+order[key]['detail'][i]['goodsnum'];
+                    detail += order[key]['detail'][i]['goodsname'] + '-'+ order[key]['detail'][i]['goodsmodel']+'×'+order[key]['detail'][i]['goodsnum'];
                     if (i!=order[key]['detail'].length-1) {
                         detail += '<br/>';
                     }
