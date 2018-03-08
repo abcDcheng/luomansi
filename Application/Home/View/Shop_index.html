@@ -39,8 +39,8 @@
 		<!-- 下订单列表 -->
 		<ul class="order-list">
 		<{foreach name="goods" item="value"}>
-			<li style="overflow: hidden;">
-				<div style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: center;-webkit-box-align: center;width:160px;height:160px;float: left;-webkit-box-sizing:border-box;border:2px #eeeeee solid;margin-right:30px;">
+			<li style="overflow: hidden;background:url('__IMAGES__/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
+				<div style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: center;-webkit-box-align: center;width:160px;height:160px;float: left;-webkit-box-sizing:border-box;margin-right:30px;">
 					<img src="__UPLOADS__/<{$value.goodsimg}>" alt="" style="height:95%;">
 				</div>
 				<!-- <a href="javascript:;" value="<{$value.id}>" hand="<{$value.hashand}>" falseLock="<{$value.haslock}>"><{$value.goodsname}></a> -->
