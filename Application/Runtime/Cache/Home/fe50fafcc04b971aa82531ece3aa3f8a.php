@@ -68,7 +68,7 @@
 							</div>
 							<div class="product-words">
 								<span><?php echo ($value["goodsname"]); ?>-<?php echo ($value["goodscolor"]); echo ($value["goodsmodel"]); ?></span>
-								<small>X<?php echo ($value["goodsnum"]); ?></small>
+								<small>×<?php echo ($value["goodsnum"]); ?></small>
 							</div>
 						</div><?php endforeach; endif; ?>
 
@@ -81,7 +81,7 @@
 								  无<?php endif; ?>
 						</div>
 					</div>
-					<?php if($order["status"] == 2 and $order["msg"] != ''): ?><div class="remarks">
+					<?php if($orderArr["status"] == 2 and $orderArr["msg"] != ''): ?><div class="remarks">
 						<p>未通过原因：<?php echo ($orderArr["msg"]); ?></p>
 					</div><?php endif; ?>
 				</li><?php endforeach; endif; ?>
@@ -114,7 +114,7 @@
 							</div>
 							<div class="product-words">
 								<span><?php echo ($value["goodsname"]); ?>-<?php echo ($value["goodscolor"]); echo ($value["goodsmodel"]); ?></span>
-								<small>X<?php echo ($value["goodsnum"]); ?></small>
+								<small>×<?php echo ($value["goodsnum"]); ?></small>
 							</div>
 						</div><?php endforeach; endif; ?>
 
@@ -158,7 +158,7 @@
 							</div>
 							<div class="product-words">
 								<span><?php echo ($value["goodsname"]); ?>-<?php echo ($value["goodscolor"]); echo ($value["goodsmodel"]); ?></span>
-								<small>X<?php echo ($value["goodsnum"]); ?></small>
+								<small>×<?php echo ($value["goodsnum"]); ?></small>
 							</div>
 						</div><?php endforeach; endif; ?>
 
@@ -202,7 +202,7 @@
 							</div>
 							<div class="product-words">
 								<span><?php echo ($value["goodsname"]); ?>-<?php echo ($value["goodscolor"]); echo ($value["goodsmodel"]); ?></span>
-								<small>X<?php echo ($value["goodsnum"]); ?></small>
+								<small>×<?php echo ($value["goodsnum"]); ?></small>
 							</div>
 						</div><?php endforeach; endif; ?>
 

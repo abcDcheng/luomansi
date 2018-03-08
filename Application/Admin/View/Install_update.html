@@ -128,6 +128,14 @@
                                     </select>
                                 </div>
                             </div>
+                            <{if condition="$info['status'] eq 1"}>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">回访人员</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="statusUser" class="layui-input" autocomplete="off" value="<{$info.statususer}>" disabled="disabled">
+                                </div>
+                            </div>
+                            <{/if}>
                             <div id="msg" class="layui-form-item" 
                             <{if condition="$info['status'] neq 1"}>
                             style="display: none"

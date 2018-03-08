@@ -123,7 +123,7 @@
 							$('.successBg').show();
 							setTimeout(function(){
 								window.location.href = "<?php echo U('Order/index');?>";
-							},2000);
+							},1000);
 		            	} else {
 		            		alert(data.msg);
 		            	}
