@@ -10,6 +10,9 @@ class PersonController extends Controller {
             $info = $Model_Data->field('username,name,phone,province,city,address')->where(array('id'=>$admin_id))->find();
             if (!empty($info)) {
             	//var_dump($info);
+                $ad = A('Login');
+            $ad = $ad->getAD();
+            $this->assign('ad',$ad);
 	            $this->assign('info',$info);
 	            $this->display();
             } else {

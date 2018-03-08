@@ -43,7 +43,7 @@
 					<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="" style="height:95%;">
 				</div>
 				<!-- <a href="javascript:;" value="<?php echo ($value["id"]); ?>" hand="<?php echo ($value["hashand"]); ?>" falseLock="<?php echo ($value["haslock"]); ?>"><?php echo ($value["goodsname"]); ?></a> -->
-				<a href="javascript:;" value="<?php echo ($value["id"]); ?>" hand="<?php echo ($value["hashand"]); ?>" falseLock="<?php echo ($value["haslock"]); ?>" style="color:#000000;height:160px;display: -webkit-box;-webkit-box-align: center;"><span><?php echo ($value["goodsname"]); ?></span><br/><i style='color:#959595;'><?php echo ($value["gooddes"]); ?></i></a>
+				<a href="javascript:;" value="<?php echo ($value["id"]); ?>" hand="<?php echo ($value["hashand"]); ?>" falseLock="<?php echo ($value["haslock"]); ?>" style="color:#000000;height:160px;display: -webkit-box;-webkit-box-align: center;"><span><?php echo ($value["goodsname"]); ?></span><br/><i style='color:#959595;'><?php echo ($value["goodsdes"]); ?></i></a>
 			</li><?php endforeach; endif; ?>
 		</ul>
 		<!-- 下订单详情 -->

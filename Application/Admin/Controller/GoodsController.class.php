@@ -185,7 +185,7 @@ class GoodsController extends Controller {
                     $goods = $Model_data->where('id='.$id)->find();
                     if (!empty($goods)) {
                         $Model_data = M('SysAdmin');
-                        $saleman = $Model_data->where('`group`=1')->order('id asc')->getField('id,name,phone');
+                        $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
                         $this->assign('saleman',$saleman);
                         $this->assign('goods',$goods);
                         $this->display();

@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="layui-input-block salemanBlock" style="display: none;margin-left: 150px;">
                                     <{foreach name='saleman' item='salemanInfo'}>
-                                        <input name="saleman[]" type="checkbox" checked="checked" value="<{$salemanInfo['id']}>" class="list-check-box" level="2"/><{$salemanInfo['name']}>(<{$salemanInfo['phone']}>)<br/>
+                                        <input name="saleman[]" type="checkbox" checked="checked" value="<{$salemanInfo['id']}>" class="list-check-box" level="2"/><{$salemanInfo['name']}>(<{$salemanInfo['province']}><{$salemanInfo['city']}>)<br/>
                                     <{/foreach}>
                                 </div>
                             </div>
