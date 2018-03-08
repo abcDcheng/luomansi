@@ -44,6 +44,10 @@ class MaintainController extends Controller {
                 if(isset($_POST['page'])){
                     $page=$_POST['page'];
                 }
+                if ($_SESSION['group'] == 3) {
+                    $username = $_SESSION['username'];
+                    $csql = " and username = '$username'";
+                }
                 //echo $csql;
                 $pageNum = 12;//分页每页数量
                 $first=$pageNum*($page - 1);

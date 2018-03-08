@@ -44,7 +44,7 @@ class InstallController extends Controller {
                 //查询数据总数
                 $count = $Model_data->table('saleman_install')->where('status!=1 '.$csql)->count();
                 //查询数据
-                $order = $Model_data->table('saleman_install')->where('status!=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,serName,serPhone,name,phone,area,address,enTime,status,msg,statusTime');
+                $order = $Model_data->table('saleman_install')->where('status!=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,serName,serPhone,name,phone,area,address,enTime,statusUser,status,msg,statusTime');
                 
                 $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
                 //var_dump($res);
@@ -100,6 +100,8 @@ class InstallController extends Controller {
                         $Model_data = M();
                         $order = $Model_data->table('saleman_install')->where('id='.$id)->find();
                         if (!empty($order)) {
+                            $username = isset($_SESSION['username'])?$_SESSION['username']:'1';
+                            $this->assign('user',$username);
                             $this->assign('mod',$mod);
                             $this->assign('info',$order);
                             $this->display();
@@ -172,6 +174,51 @@ class InstallController extends Controller {
         } else {
             $this->error("未登录或未授权",U("Login/index"),1);
         }     
+    }
+    //受理安装管理信息
+    public function getStatus(){
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
+            if (IS_AJAX) {
+                $id = intval(I('id'));
+                if ($id) {
+                    $Model_data = M('install');
+                    $info = $Model_data->where('id='.$id)->find();
+                    if (!empty($info)) {
+                        if ($info['statususer']) {
+                            $res = array();
+                            $res['code'] = 1;
+                            $res['msg'] = '该信息已被'.$info['statususer'].'受理';
+                            $res['statusUser'] = $info['statususer'];
+                            $this->ajaxReturn($res);
+                        } else {
+                            if (isset($_SESSION['username']) && $_SESSION['username']!='') {
+                                $statusUser = $_SESSION['username'];
+                                $res = $Model_data->where('id='.$id)->save(array('statusUser'=>$statusUser));
+                                if ($res) {
+                                    $res = array();
+                                    $res['code'] = 1;
+                                    $res['msg'] = '成功受理';
+                                    $res['statusUser'] = $statusUser;
+                                    $this->ajaxReturn($res);
+                                } else {
+                                    $this->error('受理失败');
+                                }
+                                
+                            }
+                            
+                        }
+                    } else {
+                        $this->error("未找到数据");
+                    }
+                } else {
+                    $this->error("未知的操作");
+                }
+            } else {
+                $this->error("未知的操作");
+            }
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),1);
+        } 
     }
 
     //导出

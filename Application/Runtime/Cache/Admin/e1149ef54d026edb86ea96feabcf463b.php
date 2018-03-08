@@ -42,7 +42,11 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+    <style type="text/css">
+	.layui-nav-tree .layui-nav-child a{
+		height: 35px;
+	}
+</style>
     <ul class="layui-tab-title">
         <li class="layui-this">
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
@@ -181,7 +185,7 @@
                         <col width="145">
                         <col>
                         <col>
-                        <col width="60">
+                        <col width="80">
                     </colgroup>
                     <thead>
                         <tr>
@@ -301,7 +305,7 @@
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
                 tableHtml += '<td class="layui-elip" title="'+order[key]['msg']+'">'+order[key]['msg']+'</td>';
-                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a href="/luomansi/index.php/Admin/Install/download/mod/history/id/'+key+'" class="download" data-confirm="#" value="'+key+'">下载</a></td></tr>';
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="查看详情">查看详情</a><br/><a href="/luomansi/index.php/Admin/Install/download/mod/history/id/'+key+'" class="download" data-confirm="#" value="'+key+'">下载</a></td></tr>';
                 tableHtml2 = tableHtml+tableHtml2;
             }
             $('#body').append(tableHtml2);

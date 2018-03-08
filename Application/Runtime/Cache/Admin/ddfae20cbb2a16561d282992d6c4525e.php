@@ -42,7 +42,11 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+    <style type="text/css">
+	.layui-nav-tree .layui-nav-child a{
+		height: 35px;
+	}
+</style>
     <ul class="layui-tab-title">
         <li class="layui-this">
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
@@ -159,6 +163,14 @@
                         </select>
                     </div>
                     <div class="layui-input-inline">
+                        <select name="serStatus" id="serStatus">
+                            <option value="">选择维护状态</option>
+                            <option value="0">未维护</option>
+                            <option value="1">维护中</option>
+                            <option value="2">已维护</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
                         <input id="firsttime" type="text" name="start_time" placeholder="起始时间" value="" class="layui-input sc_form_date" readonly="">
                     </div>
                     -
@@ -241,9 +253,11 @@
         var str='';
         var page = 1;
         var saleman = '';
+        var serStatus = '';
         $('#cx').click(function(){
             //re= /,|\(|\)|#|'|"|=|;|>|<|%|\\/i;
             saleman = $('#saleman').val();
+            serStatus = $('#serStatus').val();
             if($('#firsttime').val()&&$('#lasttime').val()&&$('#firsttime').val()>$('#lasttime').val()){
                 alert("第一个日期比第二个日期大");
                 return false;
@@ -277,7 +291,7 @@
         type: "post",
         timeout:5000,//设置超时时间为5秒
         url: "<?php echo U('Maintain/index');?>",
-        data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page},
+        data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page,serStatus:serStatus},
         dataType: "json",
         success:function(data){
             $('#an').text(data[0]);
@@ -396,7 +410,7 @@
         window.location.href="/luomansi/index.php/Admin/Maintain/update/mod/index/id/"+id;
     });
 
-    $('#body').on('click','maintaindel',function(){
+    $('#body').on('click','.maintaindel',function(){
         if (confirm('确定删除该数据吗？')) {
             var id = $(this).attr('value');
             //alert(id);

@@ -103,11 +103,11 @@
     	</li>
     </ul>
 
-    <button class="btn-registration">确认提交</button>
+    <button class="btn-registration" style="margin-bottom:80px;">确认提交</button>
 
-    <!--<small style='display:block;font-size:28px;color:#717f87;text-align: center;margin-top:25px;'><?php echo ($ad); ?></small>
+    <small style='display:block;font-size:28px;color:#717f87;text-align: center;margin-top:25px;'>&nbsp;&nbsp;&nbsp;</small>
 
-     <img src="/luomansi/Application/Home/Public/img/add_logo.png" alt="" style="display:block;margin:50px auto 0;"> -->
+     <!--<img src="/luomansi/Application/Home/Public/img/add_logo.png" alt="" style="display:block;margin:50px auto 0;"> -->
 	
 </div>
 
@@ -121,7 +121,10 @@
         <button id="comfirm" style="display:none;width:450px;height:80px;font-size:32px;background-color:#0b4268;border-radius: 10px;color:#ffffff;margin:30px auto 0;">客户确认完成</button>
     </div>
 </div>
-
+<style type="text/css">
+    .meng00{display:none;z-index:9999;width: 100%;height: 100%;position: fixed;left: 0;top:0;background:url('/luomansi/Application/Home/Public/img/15.gif') center center no-repeat rgba(0,0,0,0.8);}
+</style>
+<div class="meng00"></div>
 
 <script type="text/javascript">
     $(function(){
@@ -156,17 +159,18 @@
             if(!(/^1[0-9]\d{9,9}$/.test(phone))){ 
                 alert('手机号格式不对');
                 return false;
-             }
+            }
+            $('.meng00').show();
             $(this).html("提交中...").attr('disabled',true);
             $.ajax({
                 url : "<?php echo U('Install/record');?>",
                 type : "post",
                 data : {imgUrl:imgUrl,goodsCode:goodsCode,name:name,phone : phone,address:address,area:area},
                 dataType : "json",
-                timeout : 5000,
+                timeout : 20000,
                 success : function(data){
+                    $('.meng00').hide();
                     if (data.code == 1) {
-                        //alert(data.msg);
                         $('.success-bg').show();
                         $('.wrap').hide();
                         $('.btn-registration').html("提交完成");
@@ -180,8 +184,11 @@
                     }
                 },
                 error : function(data){
+                    $('.meng00').hide();
                     if (data.status == 'timeout') {
                         alert("连接超时，请重试");
+                    } else {
+                        alert("连接超时，请保持网络良好重试");
                     }
                     $('.btn-registration').html("确认提交").removeAttr('disabled');
                 }

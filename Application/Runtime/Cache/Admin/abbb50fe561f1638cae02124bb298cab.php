@@ -42,7 +42,11 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+    <style type="text/css">
+	.layui-nav-tree .layui-nav-child a{
+		height: 35px;
+	}
+</style>
     <ul class="layui-tab-title">
         <li class="layui-this">
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
@@ -180,7 +184,7 @@
                         <col width="145">
                         <col>
                         <col>
-                        <col width="60">
+                        <col width="80">
                     </colgroup>
                     <thead>
                         <tr>
@@ -192,9 +196,10 @@
                             <th>地区</th>
                             <th>详细地址</th>
                             <th>完成时间</th>
+                            <th>受理客服</th>
                             <th>状态</th>
                             <!-- <th>回访时间</th> -->
-                            <th>信息反馈</th>
+                            
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -293,14 +298,20 @@
             for(key in order){
                 var tableHtml = '';
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['sername']+'</td><td class="layui-elip">'+order[key]['serphone']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['area']+'">'+order[key]['area']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['entime']+'</td>';
-                
+                tableHtml += '<td class="layui-elip getStatusUser">'+order[key]['statususer']+'</td>';
                 if (parseInt(order[key]['status'])) {
                     tableHtml += '<td class="layui-elip"><span style="color:green">已回访</span></td>';
                 } else {
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
-                tableHtml += '<td class="layui-elip" title="'+order[key]['msg']+'">'+order[key]['msg']+'</td>';
-                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a href="/luomansi/index.php/Admin/Install/download/mod/index/id/'+key+'" class="download" data-confirm="#" value="'+key+'">下载</a></td></tr>';
+                //tableHtml += '<td class="layui-elip" title="'+order[key]['msg']+'">'+order[key]['msg']+'</td>';
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="差看详情">查看详情</a><br/><a href="/luomansi/index.php/Admin/Install/download/mod/index/id/'+key+'" class="download" data-confirm="#" value="'+key+'">下载</a>';
+                if (order[key]['statususer']) {
+                    tableHtml += '<br/><a href="javascript:;" style="color:green;">已受理</a>'; 
+                } else {
+                    tableHtml += '<br/><a value="'+key+'" class="getStatus" href="javascript:;" style="color:red;">等待受理</a>';
+                }
+                tableHtml += '</td></tr>'; 
                 tableHtml2 = tableHtml+tableHtml2;
             }
             $('#body').append(tableHtml2);
@@ -388,6 +399,37 @@
         var id = $(this).attr('value');
         window.location.href="/luomansi/index.php/Admin/Install/update/mod/index/id/"+id;
     });
+
+    $('#body').on('click','.getStatus',function(){
+        var ethis = $(this);
+        if (confirm('确定受理该条信息吗？')) {
+            var id = $(this).attr('value');
+            $.ajax({
+                url : "<?php echo U('install/getStatus');?>",
+                type : "post",
+                data : {id:id},
+                dataType : "json",
+                timeout : 10000,
+                success : function(data){
+                    $('.meng00').hide();
+                    if (data.code == 1) {
+                        alert(data.msg);
+                        ethis.text('已受理').css('color','green').removeClass('getStatus');
+                        ethis.parents().siblings('.getStatusUser').text(data.statusUser);
+                    } else {
+                        alert(data.msg);
+                    }
+                },
+                error : function(data){
+                    $('.meng00').hide();
+                    if (data.status == 'timeout') {
+                        alert('连接超时，请重试');
+                    }
+                }
+            });
+        }
+    });
+
 
     $('.deleteId').click(function(){
         if (confirm('确定删除该数据吗？')) {

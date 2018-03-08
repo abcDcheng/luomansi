@@ -39,7 +39,11 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+    <style type="text/css">
+	.layui-nav-tree .layui-nav-child a{
+		height: 35px;
+	}
+</style>
     <ul class="layui-tab-title">
         <li class="layui-this">
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
@@ -184,13 +188,13 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">产品规格</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="address" class="layui-input" autocomplete="off"  placeholder="产品规格，未知可不填">
+                                    <input type="text" name="goodsModel" class="layui-input" autocomplete="off"  placeholder="产品规格，未知可不填">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">安装时间</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="installTime" placeholder="安装时间" value="" class="layui-input sc_form_date" readonly="">
+                                    <input type="text" name="installTime" placeholder="安装时间，未知可不选" value="" class="layui-input sc_form_date" readonly="">
                                 </div>
                             </div>
                             <div class="layui-form-item">

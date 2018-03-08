@@ -171,7 +171,11 @@
 			$('#phone').html(info[i]['phone']);
 			$('#address').text(info[i]['address']);
 			$('#msg').text(info[i]['msg']);
-			$('#clientbak').text(info[i]['clientbak']);
+			if (info[i]['clientbak']) {
+				$('#clientbak').text(info[i]['clientbak']);
+			} else {
+				$('#clientbak').text('无');
+			}
 			$('.maintain-executable').hide();
 			$('.maintain-executable-date-wrap').show();
 		});

@@ -39,7 +39,11 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+    <style type="text/css">
+	.layui-nav-tree .layui-nav-child a{
+		height: 35px;
+	}
+</style>
     <ul class="layui-tab-title">
         <li class="layui-this">
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
@@ -180,7 +184,7 @@
                                     <label>拍摄照片</label>
                                 </div>
                                 <div id="thumb_view" class="img_item transition">
-                                    <img src="/luomansi/Application/Upload//<?php echo ($info['installimg']); ?>">
+                                    <img src="/luomansi/Application/Upload/<?php echo ($info['installimg']); ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -214,7 +218,7 @@
                                     <input type="text" name="entime" class="layui-input" autocomplete="off" value="<?php echo ($info["entime"]); ?>" disabled="disabled">
                                 </div>
                             </div>
-                            <div class="layui-form-item">
+                            <?php if($info["statususer"] == $user): ?><div class="layui-form-item">
                                 <label class="layui-form-label label-required">回访状态</label>
                                 <div class="layui-input-block">
                                     <select id="status" name="status" class="layui-select">
@@ -222,7 +226,13 @@
                                         <option value="1">已回访</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div><?php endif; ?>
+                            <?php if($info['status'] == 1): ?><div class="layui-form-item">
+                                <label class="layui-form-label">回访人员</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="statusUser" class="layui-input" autocomplete="off" value="<?php echo ($info["statususer"]); ?>" disabled="disabled">
+                                </div>
+                            </div><?php endif; ?>
                             <div id="msg" class="layui-form-item" 
                             <?php if($info['status'] != 1): ?>style="display: none"<?php endif; ?>
                             >

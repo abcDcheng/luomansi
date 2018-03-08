@@ -21,20 +21,23 @@
     <script src="/luomansi/Application/Admin/Public/plugs/layui/layui.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.config.js"></script>
     <script src="/luomansi/Application/Admin/Public/plugs/ueditor/ueditor.all.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/static/base/js/jquery.cookie.js"></script> -->
     <script src="/luomansi/Application/Admin/Public/js/jquery.min.js"></script>
+    <!-- <script src="/luomansi/Application/Admin/Public/plugs/uploadify/jquery.uploadify.min.js"></script> -->
     <script src="/luomansi/Application/Admin/Public/js/validform.js"></script>
     <script src="/luomansi/Application/Admin/Public/js/sitecms.js"></script>
+    <script src="/luomansi/Application/Admin/Public/plugs/layui/lay/modules/laydate.js"></script>
 
     <!-- 让IE8/9支持媒体查询 -->
 	<!--[if lt IE 9]>
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>罗曼斯代理商后台管理系统</title>
+    <title>后台专员信息修改</title>
 </head>
 <body>
 
-<div class="layui-layout-admin">                    
+<div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
     <style type="text/css">
 	.layui-nav-tree .layui-nav-child a{
@@ -139,50 +142,63 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <div class="sc_title sc_body_title">
-                <h5>系统首页</h5>
-            </div>
-            <div class="fadeInUp animated">
-                <fieldset class="layui-elem-field">
-                    <legend>登录信息</legend>
-                    <div class="layui-field-box">
-                        <ul class="sc_list_info">
-                            <li>欢迎您：<?php echo ($username); ?>。</li>
-                            <!-- <li>登录时间 : 2017年12月01日 00:00:00</li> -->
-                        </ul>
+            <form action="<?php echo U('Admin/update');?>" id="form" class="layui-form layui-form-pane">
+                <div class="sc_title sc_body_title">
+                    <h5>专员信息修改</h5>
+                    <div class="sc_title_btn">
+                        <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Admin/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
-                </fieldset>
-                <!-- <div class="layui-row layui-col-space15">
-                    <div class="layui-col-md6">
-                        <blockquote class="layui-elem-quote layui-quote-nm">
-                            <ul class="sc_list_info">
-                                <li><span>程序版本 :</span>V3.2</li>
-                                <li><span>ThinkPHP版本 :</span>3.2.3</li>
-                                <li><span>服务器操作系统 :</span>Darwin</li>
-                                <li><span>WEB运行环境 :</span>apache2handler</li>
-                                <li><span>PHP版本 :</span>5.6.32</li>
-                                <li><span>Mysql版本 :</span>10.1.28-MariaDB</li>
-                                <li><span>上传大小限制 :</span>128M</li>
-                            </ul>
-                        </blockquote>
-                    </div>
-                    <div class="layui-col-md6">
-                        <blockquote class="layui-elem-quote layui-quote-nm">
-                            <ul class="sc_list_info">
-                                <li><span>版权所有 :</span><a href="https://sitecms.cn" target="_blank">SiteCMS</a></li>
-                                <li><span>基于程序 :</span><a href="http://www.thinkphp.cn" target="_blank">ThinkPHP</a></li>
-                                <li><span>前端框架 :</span><a href="http://www.layui.com" target="_blank">Layui</a></li>
-                                <li><span>开发团队 :</span><a href="https://defaultfish.com" target="_blank">DefaultFish</a></li>
-                                <li><span>联系邮箱 :</span><a href="mailto:defaultfish@qq.com">defaultfish@qq.com</a></li>
-                                <li><span>项目地址 :</span><a href="https://gitee.com/defaultfish/sitecms">https://gitee.com/defaultfish/sitecms</a></li>
-                                <li><span>BUG反馈 :</span><a href="https://gitee.com/defaultfish/sitecms/issues">https://gitee.com/defaultfish/sitecms/issues</a></li>
-                            </ul>
-                        </blockquote>
-                    </div>
-                </div> -->
-            </div>
+                </div>
+                <div class="fadeInUp animated">
+                    <section class="sc_layout_inner layui-clear">
+                        <div class="sc_editor_content">
+                            <input name="id" value="<?php echo ($id); ?>" type="hidden"/>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">用户名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="username" class="layui-input" autocomplete="off" value="<?php echo ($info['username']); ?>" disabled='disabled'/>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">重置密码</label>
+                                <div class="layui-input-block">
+                                    <input name="repwd" type="checkbox" value="1">(不重置密码则不必勾选此项，若重置则默认密码为123456，再由改账户人员自行修改)
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">类别</label>
+                                <div class="layui-input-block">
+                                    <select id="group" name="group" class="layui-select">
+                                        <option value="2">订单专员</option>
+                                        <option value="3">客服专员</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">状态</label>
+                                <div class="layui-input-block">
+                                    <?php if($info['is_status'] == 1): ?><input name="status" type="radio" value="1" title="使用中" checked="checked"/>
+                                    <input name="status" type="radio" value="0" title="禁用"/>
+                                    <?php else: ?>
+                                    <input name="status" type="radio" value="1" title="使用中"/>
+                                    <input name="status" type="radio" value="0" title="禁用" checked="checked"/><?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<script>
+    UE.getEditor('content');
+    $(function(){
+        var group = parseInt(<?php echo ($info['group']); ?>);
+        $('#group').val(group);
+    });
+    
+</script>
 </body>
 </html>
