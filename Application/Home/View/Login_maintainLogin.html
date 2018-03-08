@@ -28,7 +28,7 @@
 
 	
 </head>
-<body>
+<body style="background-color:#435a79;">
 
 <div class="wrap sign-in-wrap">
 	<!-- 登陆页面 -->
