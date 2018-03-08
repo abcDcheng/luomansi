@@ -12594,3 +12594,47 @@ SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0051s ]
 SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
 NOTIC: [8] Undefined variable: orderNum D:\wamp\www\luomansi\Application\Admin\Controller\IndexController.class.php 第 72 行.
 
+[ 2018-03-08T12:42:50+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000048s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001109s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001312s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001888s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0044s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined variable: orderNum D:\wamp\www\luomansi\Application\Admin\Controller\IndexController.class.php 第 72 行.
+
+[ 2018-03-08T12:43:00+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000086s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001582s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002119s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002420s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0056s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0007s ]
+NOTIC: [8] Undefined variable: orderNum D:\wamp\www\luomansi\Application\Admin\Controller\IndexController.class.php 第 72 行.
+
+[ 2018-03-08T12:43:10+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000026s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000515s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000677s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000780s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0047s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Undefined variable: orderNum D:\wamp\www\luomansi\Application\Admin\Controller\IndexController.class.php 第 72 行.
+
+[ 2018-03-08T12:43:20+08:00 ] 127.0.0.1 /luomansi/index.php/Admin/Index/getNew.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000041s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000943s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001145s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001308s ]
+SQL: SHOW COLUMNS FROM `saleman_install` [ RunTime:0.0062s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `saleman_install` WHERE ( isNew=0 ) LIMIT 1   [ RunTime:0.0006s ]
+NOTIC: [8] Undefined variable: orderNum D:\wamp\www\luomansi\Application\Admin\Controller\IndexController.class.php 第 72 行.
+

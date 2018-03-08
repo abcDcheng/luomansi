@@ -25,7 +25,7 @@ class InstallController extends Controller {
             $goodsCode = I('goodsCode');
             $count = M('code')->where(array('goodsCode'=>$goodsCode))->count();
             if ($count < 1) {
-                $this->error('查找不到该产品码，请确认产品码无误或将产品码发至出厂商确认');
+                $this->error('查找不到该识别码，请确认识别码无误或将识别码发至出厂商确认');
                 exit();
             }
     		$service_id = intval($_SESSION['service_id']);

@@ -93,6 +93,12 @@ class MaintainController extends Controller {
     public function completeService(){
     	if (isset($_SESSION['service_id'])) {
     		if (isset($_POST['orderId']) && isset($_POST['imgUrl'])) {
+                $goodsCode = I('goodsCode');
+                $count = M('code')->where(array('goodsCode'=>$goodsCode))->count();
+                if ($count < 1) {
+                    $this->error('查找不到该识别码，请确认识别码无误或将识别码发至出厂商确认');
+                    exit();
+                }
     			$base_img = str_replace('data:image/jpeg;base64,', '', $_POST['imgUrl']);
     			//$base_img = $_POST['imgUrl'];
     			$path = "./Application/Upload/";
@@ -105,7 +111,7 @@ class MaintainController extends Controller {
 	    			$orderId = intval($_POST['orderId']);
 	    			$Model_data = M('maintain');
                     $serLog = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->getField('serLog');
-                    $goodsCode = I('goodsCode');
+                    
                     $serDate = I('serDate');
                     $serStartTime = I('serStartTime');
                     $serEndTime = I('serEndTime');
