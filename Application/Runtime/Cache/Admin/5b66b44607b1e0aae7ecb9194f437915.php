@@ -39,7 +39,11 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+    <style type="text/css">
+	.layui-nav-tree .layui-nav-child a{
+		height: 35px;
+	}
+</style>
     <ul class="layui-tab-title">
         <li class="layui-this">
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
@@ -181,6 +185,14 @@
                                 </div>
                                 <div id="thumb_view" class="img_item transition">
                                     <img src="/luomansi/Application/Upload//<?php echo ($info['installimg']); ?>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item from_item_image">
+                                <div class="img_label">
+                                    <label>门锁照片</label>
+                                </div>
+                                <div id="thumb_view" class="img_item transition">
+                                    <img src="/luomansi/Application/Upload//<?php echo ($info['installphoto']); ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">

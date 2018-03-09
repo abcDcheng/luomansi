@@ -136,7 +136,7 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 /* sitecms img_item */
 .img_item{background-size:cover;background-position:center center;background-repeat:no-repeat;}
 .from_item_image {clear:both;background-color:#fbfbfb;border:1px solid #e6e6e6;border-radius:2px;}
-.from_item_image .img_label{float:left;width:110px;height:200px;border-right:1px solid #e6e6e6;}
+.from_item_image .img_label{float:left;width:110px;height:210px;border-right:1px solid #e6e6e6;}
 .from_item_image .img_label label{color:#666;}
 .from_item_image .img_label label,
 .from_item_image .img_label span,

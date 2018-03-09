@@ -307,6 +307,71 @@ class MaintainController extends Controller {
             $this->error("未登录或未授权",U("Login/index"),1);
         }
     }
+
+    //新增维护订单
+    public function salemanAdd(){
+        //session('admin_id', null);
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {
+            if (IS_AJAX) {
+                $name = I('name');
+                $phone = I('phone');
+                $address = I('address');
+                $goods = I('goods');
+                $goodsModel = I('goodsModel');
+                $msg = I('msg');
+                $installTime = I('installTime');
+                $clientBak = I('clientBak');
+                $level = I('level');
+                $salemanId = intval(I('saleman'));
+                $username = $_SESSION['username'];
+                //获取选择的代理商信息
+                $Model_data = M();
+                $info = $Model_data->table('saleman_sys_admin')->where('id='.$salemanId)->getField('id,name,phone');
+                $goodsInfo = $Model_data->table('saleman_goods')->where('id='.$goods)->field('goodsName,goodsImg')->find();
+                if (!empty($info)) {
+                    $data = array(
+                        'username'      => $username,
+                        'name'          => $name,
+                        'phone'         => $phone,
+                        'address'       => $address,
+                        'goodsId'       => $goods,
+                        'goods'         => $goodsInfo['goodsname'],
+                        'goodsModel'    => $goodsModel,
+                        'goodsImg'      => $goodsInfo['goodsimg'],
+                        'msg'           => $msg,
+                        'level'         => $level,
+                        'clientBak'     => $clientBak,
+                        'installTime'   => $installTime,
+                        'salemanId'     => $salemanId,
+                        'saleman'       => $info[$salemanId]['name'],
+                        'salemanPhone'  => $info[$salemanId]['phone'],
+                        'enTime'        => date('Y-m-d H:i:s')
+                        );
+                    $res = $Model_data->table('saleman_maintain')->data($data)->add();
+                    if ($res) {
+                        $this->success('成功生成维护订单',U('Maintain/index'));
+                    } else {
+                        $this->error('生成维护订单失败');
+                    }
+                } else {
+                    $this->error('查找不到负责代理商的信息，请重试');
+                }
+            } else {
+                $goods = M('goods')->getField('id,goodsName');
+                $Model_data = M('SysAdmin');
+                $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->getField('id,name,province,city');
+                $this->assign('goods',$goods);
+                $this->assign('saleman',$saleman);
+                $this->assign('username',$_SESSION['username']);
+                $this->display();
+            }
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),1);
+        }
+    }
+
+
+
     //指定维护人员
     public function salemanUpdate(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 1) {

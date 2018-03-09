@@ -181,10 +181,18 @@
                             </div>
                             <div class="layui-form-item from_item_image">
                                 <div class="img_label">
-                                    <label>拍摄照片</label>
+                                    <label>识别码照片</label>
                                 </div>
                                 <div id="thumb_view" class="img_item transition">
                                     <img src="/luomansi/Application/Upload/<?php echo ($info['installimg']); ?>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item from_item_image">
+                                <div class="img_label">
+                                    <label>门锁照片</label>
+                                </div>
+                                <div id="thumb_view" class="img_item transition">
+                                    <img src="/luomansi/Application/Upload/<?php echo ($info['installphoto']); ?>">
                                 </div>
                             </div>
                             <div class="layui-form-item">

@@ -39,7 +39,11 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+    <style type="text/css">
+	.layui-nav-tree .layui-nav-child a{
+		height: 35px;
+	}
+</style>
     <ul class="layui-tab-title">
         <li class="layui-this">
             <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
@@ -152,7 +156,7 @@
                             <input name="id" type="hidden" value="<?php echo ($info["id"]); ?>" />
                             <input name="mod" type="hidden" value="<?php echo ($mod); ?>" />
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">创建人员</label>
+                                <label class="layui-form-label">创建人员</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="username" class="layui-input" autocomplete="off" value="<?php echo ($info["username"]); ?>" disabled="disabled">
                                 </div>
@@ -240,7 +244,15 @@
                             </div>
                             <?php if($info['servicestatus'] != 0 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
                                 <div class="img_label">
-                                    <label>现场照片</label>
+                                    <label>门锁照片</label>
+                                </div>
+                                <div id="thumb_view" class="img_item transition">
+                                    <img src="/luomansi/Application/Upload//<?php echo ($info['comphoto']); ?>">
+                                </div>
+                            </div><?php endif; ?>
+                            <?php if($info['servicestatus'] != 0 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
+                                <div class="img_label">
+                                    <label>识别码照片</label>
                                 </div>
                                 <div id="thumb_view" class="img_item transition">
                                     <img src="/luomansi/Application/Upload//<?php echo ($info['comimg']); ?>">
