@@ -154,7 +154,7 @@
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">创建人员</label>
+                                <label class="layui-form-label">创建人员</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="username" class="layui-input" autocomplete="off" value="<?php echo ($username); ?>" disabled="disabled">
                                 </div>
@@ -162,7 +162,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">客户姓名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="*2-30" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!">
+                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="s2-30" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!">
                                 </div>
                             </div>
                             <div class="layui-form-item">

@@ -137,7 +137,11 @@
 			}
 			$('#goodsName').text(info[i]['goods']);
 			$('#goodsImg').attr('src',imgSrc+info[i]['goodsimg']);
-			$('#installTime').text(info[i]['installtime']);
+			if (info[i]['installtime']) {
+				$('#installTime').text(info[i]['installtime']);
+			} else {
+				$('#installTime').text('未知');
+			}
 			$('#name').html(info[i]['name']);
 			$('#phone').html(info[i]['phone']);
 			$('#address').text(info[i]['address']);
@@ -147,7 +151,7 @@
 			} else {
 				$('#clientbak').text('无');
 			}
-			
+			$('.complete-img').attr('src',imgSrc+info[i]['comimg']);
 			$('.maintain-complete').hide();
 			$('.maintain-complete-date-wrap').show();
 		});

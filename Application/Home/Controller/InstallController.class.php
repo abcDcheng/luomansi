@@ -23,7 +23,7 @@ class InstallController extends Controller {
     public function record(){
     	if (isset($_SESSION['service_id']) && IS_AJAX) {
             $goodsCode = I('goodsCode');
-            $count = M('code')->where(array('goodsCode'=>$goodsCode))->count();
+            $count = M('code')->where(array('goodsCode'=>array('like','%'.$goodsCode.'%')))->count();
             if ($count < 1) {
                 $this->error('查找不到该识别码，请确认识别码无误或将识别码发至出厂商确认');
                 exit();

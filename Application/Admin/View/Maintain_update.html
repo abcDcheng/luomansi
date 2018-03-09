@@ -48,7 +48,7 @@
                     <h5>维护管理</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
-                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="<{:U('Maintain/'.$mod)}>"><i class="layui-icon">&#x1006;</i> 返回</a>
+                        <a class='layui-btn layui-btn-sm layui-btn-primary' href="javascript:history.back();"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
                 <div class="fadeInUp animated">
@@ -124,6 +124,19 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label">所属省市</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="province" class="layui-input" autocomplete="off" value="<{$info.province}><{$info.city}>" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                
+                                <{if condition="$group eq 1"}>
+                                <label class="layui-form-label">负责代理商</label>
+                                <div class="layui-input-block">
+                                    <input id="saleman" type="hidden" name="saleman">
+                                    <input type="text" class="layui-input" autocomplete="off" value="<{$info.saleman}>" disabled="disabled">
+                                <{else /}>
                                 <label class="layui-form-label label-required">负责代理商</label>
                                 <div class="layui-input-block">
                                     <select id="saleman" name="saleman" class="layui-select">
@@ -132,21 +145,42 @@
                                         <option value="<{$value.id}>"><{$value.name}>(<{$value.province}><{$value.city}>)</option>
                                         <{/foreach}>
                                     </select>
+                                    <input name="oldSaleman" type="hidden" value="<{$info.salemanid}>">
+                                <{/if}>
                                 </div>
                             </div>
-                            <input name="oldSaleman" type="hidden" value="<{$info.salemanid}>">
+                            
                             <div class="layui-form-item">
+                                
+                                <{if condition="$group eq 1"}>
+                                <label class="layui-form-label label-required">维护人员</label>
+                                <div class="layui-input-block">
+                                    <select id="serviceName" name="servicer" class="layui-select">
+                                        <option value="">选择维护人员</option>
+                                        <{foreach name="servicer" item="value"}>
+                                        <option value="<{$value.id}>"><{$value.name}>(<{$value.phone}>)</option>
+                                        <{/foreach}>
+                                    </select>
+                                    <input name="oldServicer" type="hidden" value="<{$info.serviceid}>">
+                                <{else /}>
                                 <label class="layui-form-label">维护人员</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="serviceName" class="layui-input" autocomplete="off" value="<{$info.servicename}><{$info.servicePhone}>" disabled="disabled">
+                                    <{if condition="$info.servicename neq ''"}>
+                                    <input type="text" name="serviceName" class="layui-input" autocomplete="off" value="<{$info.servicename}>(<{$info.servicephone}>)" disabled="disabled">
+                                    <{else /}>
+                                    <input type="text" name="serviceName" class="layui-input" autocomplete="off" value="" disabled="disabled">
+                                    <{/if}>
+                                <{/if}>
                                 </div>
                             </div>
+                            <{if condition="$info['serlog'] neq ''"}>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">维护追踪</label>
                                 <div class="layui-input-block">
                                     <textarea name="serLog" class="layui-textarea" autocomplete="off" value="<{$info.serlog}>" disabled="disabled" style="height: 300px;"><{$info.serlog}></textarea>
                                 </div>
                             </div>
+                            <{/if}>
                             <{if condition="$info['servicestatus'] neq 0 and $info['comimg'] neq ''"}>
                             <div class="layui-form-item from_item_image">
                                 <div class="img_label">
@@ -188,6 +222,7 @@
     UE.getEditor('content');
     $(function(){
         $('#saleman').val(parseInt('<{$info.salemanid}>'));
+        $('#serviceName').val(parseInt('<{$info.serviceid}>'));
         $('#status').val(parseInt('<{$info.status}>'));
         $('#msg').val('<{$info.msg}>');
         $('#clientBak').val('<{$info.clientbak}>');

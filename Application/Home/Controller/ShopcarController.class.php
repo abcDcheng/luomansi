@@ -60,13 +60,15 @@ class ShopcarController extends Controller {
     		$Model_data = M();
             $count = $Model_data->table('saleman_shopcar')->where(array('salemanId'=>$admin_id,'orderId'=>0))->count();
             if ($count > 0) {
-                $saleman = $Model_data->query("select name,phone,address from saleman_sys_admin where id=$admin_id limit 1");
+                $saleman = $Model_data->query("select name,phone,address,province,city from saleman_sys_admin where id=$admin_id limit 1");
                 if (!empty($saleman)) {
                     $id = $Model_data->table('saleman_order')->
                           data(array('salemanId' => $admin_id,
                                      'saleman'   => $saleman[0]['name'],
                                      'phone'     => $saleman[0]['phone'],
                                      'address'   => $saleman[0]['address'],
+                                     'province'   => $saleman[0]['province'],
+                                     'city'   => $saleman[0]['city'],
                                      'orderCode' => $orderCode,
                                      'orderBak'  => $bak,
                                      'enTime'    => date('Y-m-d H:i:s')

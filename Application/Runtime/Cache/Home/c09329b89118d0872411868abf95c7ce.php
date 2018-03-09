@@ -92,6 +92,7 @@
                     <div id="clipArea1"></div>
                     <img src="" alt="" class="uploadImg uploadImg1">
                     <input type="file" id="file1">
+                    <p id="ptitle1" style="position:absolute;width:100%;text-align:center;font-size:30px;top:10px;left:10px;font-weight: bold;">上传智能锁门全景照片</p>
                 </div>
 
                 <button class="upload-btn" id="clipBtn1">确认上传</button>
@@ -100,6 +101,7 @@
                     <div id="clipArea2"></div>
                     <img src="" alt="" class="uploadImg uploadImg2">
                     <input type="file" id="file2">
+                    <p id="ptitle2" style="position:absolute;width:100%;text-align:center;font-size:30px;top:10px;left:10px;font-weight: bold;">上传设备显示识别码图片</p>
                 </div>
 
                 <button class="upload-btn" id="clipBtn2">确认上传</button>
@@ -227,7 +229,8 @@
             },
             loadComplete: function() {
                 console.log("照片读取完成");
-                $('#file1').hide();
+                $('#file1,#ptitle1').hide();
+                imgUrl1 = '';
             },
             clipFinish: function(dataURL) {
                 // console.log(dataURL);
@@ -257,7 +260,8 @@
             },
             loadComplete: function() {
                 console.log("照片读取完成");
-                $('#file2').hide();
+                $('#file2,#ptitle2').hide();
+                imgUrl2 = '';
             },
             clipFinish: function(dataURL) {
                 // console.log(dataURL);

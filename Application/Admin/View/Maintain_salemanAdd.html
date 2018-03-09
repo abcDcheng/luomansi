@@ -55,7 +55,7 @@
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">创建人员</label>
+                                <label class="layui-form-label">创建人员</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="username" class="layui-input" autocomplete="off" value="<{$username}>" disabled="disabled">
                                 </div>
@@ -122,12 +122,12 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">负责人</label>
+                                <label class="layui-form-label label-required">维护人员</label>
                                 <div class="layui-input-block">
-                                    <select id="saleman" name="saleman" class="layui-select">
-                                        <option value="">选择代理商</option>
-                                        <{foreach name="saleman" item="value"}>
-                                        <option value="<{$value.id}>"><{$value.name}>(<{$value.province}><{$value.city}>)</option>
+                                    <select id="servicer" name="servicer" class="layui-select">
+                                        <option value="">选择维护人员</option>
+                                        <{foreach name="servicer" item="value"}>
+                                        <option value="<{$value.id}>"><{$value.name}>(<{$value.phone}>)</option>
                                         <{/foreach}>
                                     </select>
                                 </div>

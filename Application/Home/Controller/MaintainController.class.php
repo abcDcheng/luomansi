@@ -94,7 +94,7 @@ class MaintainController extends Controller {
     	if (isset($_SESSION['service_id'])) {
     		if (isset($_POST['orderId']) && IS_AJAX) {
                 $goodsCode = I('goodsCode');
-                $count = M('code')->where(array('goodsCode'=>$goodsCode))->count();
+                $count = M('code')->where(array('goodsCode'=>array('like','%'.$goodsCode.'%')))->count();
                 if ($count < 1) {
                     $this->error('查找不到该识别码，请确认识别码无误或将识别码发至出厂商确认');
                     exit();
@@ -124,14 +124,15 @@ class MaintainController extends Controller {
                 $serviceId = intval($_SESSION['service_id']);
                 $orderId = intval($_POST['orderId']);
                 $Model_data = M('maintain');
-                $serLog = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->getField('serLog');
-                
+                $serInfo = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->field('serviceName,servicePhone,serLog')->find();
+                $serLog = $serInfo['serlog'];
                 $serDate = I('serDate');
                 $serStartTime = I('serStartTime');
                 $serEndTime = I('serEndTime');
                 $serStatus = I('serStatus');
                 $serBak = I('serBak');
                 $logtmp = '数据记录时间：'.date('Y-m-d H:i:s')."\n";
+                $logtmp .= '维护人员：'.$serInfo['servicename'].'('.$serInfo['servicephone'].')'."\n";
                 $logtmp .= "服务时间：$serDate $serStartTime"."至$serEndTime"."\n";
                 $logtmp .= "产品码：$goodsCode"."\n";
                 if ($serStatus) {
