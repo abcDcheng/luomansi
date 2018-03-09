@@ -158,12 +158,20 @@
 			}
 			$('#goodsName').text(info[i]['goods']);
 			$('#goodsImg').attr('src',imgSrc+info[i]['goodsimg']);
-			$('#installTime').text(info[i]['installtime']);
+			if (info[i]['installtime']) {
+				$('#installTime').text(info[i]['installtime']);
+			} else {
+				$('#installTime').text('未知');
+			}
 			$('#name').html(info[i]['name']);
 			$('#phone').html(info[i]['phone']);
 			$('#address').text(info[i]['address']);
 			$('#msg').text(info[i]['msg']);
-			$('#clientbak').text(info[i]['clientbak']);
+			if (info[i]['clientbak']) {
+				$('#clientbak').text(info[i]['clientbak']);
+			} else {
+				$('#clientbak').text('无');
+			}
 			$('.maintain-executable').hide();
 			$('.maintain-executable-date-wrap').show();
 		});

@@ -92,66 +92,77 @@ class MaintainController extends Controller {
     //完成维护
     public function completeService(){
     	if (isset($_SESSION['service_id'])) {
-    		if (isset($_POST['orderId']) && isset($_POST['imgUrl'])) {
+    		if (isset($_POST['orderId']) && IS_AJAX) {
                 $goodsCode = I('goodsCode');
                 $count = M('code')->where(array('goodsCode'=>$goodsCode))->count();
                 if ($count < 1) {
                     $this->error('查找不到该识别码，请确认识别码无误或将识别码发至出厂商确认');
                     exit();
                 }
-    			$base_img = str_replace('data:image/jpeg;base64,', '', $_POST['imgUrl']);
-    			//$base_img = $_POST['imgUrl'];
-    			$path = "./Application/Upload/";
-    			$dir = "maintain";
-				$prefix='lms_';
-				$output_file = $prefix.time().rand(100,999).'.jpg';
-				$img = $path.$dir."/".$output_file;
-				if(file_put_contents($img, base64_decode($base_img))){
-					$serviceId = intval($_SESSION['service_id']);
-	    			$orderId = intval($_POST['orderId']);
-	    			$Model_data = M('maintain');
-                    $serLog = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->getField('serLog');
-                    
-                    $serDate = I('serDate');
-                    $serStartTime = I('serStartTime');
-                    $serEndTime = I('serEndTime');
-                    $serStatus = I('serStatus');
-                    $serBak = I('serBak');
-                    $logtmp = '数据记录时间：'.date('Y-m-d H:i:s')."\n";
-                    $logtmp .= "服务时间：$serDate $serStartTime"."至$serEndTime"."\n";
-                    $logtmp .= "产品码：$goodsCode"."\n";
+    			$base_img = str_replace('data:image/jpeg;base64,', '', $_POST['imgUrl1']);
+                //$base_img = $_POST['imgUrl'];
+                $path = "./Application/Upload/";
+                $dir1 = "maintain/photo";
+                $prefix='lms_';
+                $output_file1 = $prefix.time().rand(100,999).'.jpg';
+                $img = $path.$dir1."/".$output_file1;
+                if(!file_put_contents($img, base64_decode($base_img))){
+                    $this->error('图片保存失败');
+                    exit();
+                }
+                $base_img = str_replace('data:image/jpeg;base64,', '', $_POST['imgUrl2']);
+                //$base_img = $_POST['imgUrl'];
+                $path = "./Application/Upload/";
+                $dir2 = "maintain/code";
+                $prefix='lms_';
+                $output_file2 = $prefix.time().rand(100,999).'.jpg';
+                $img = $path.$dir2."/".$output_file2;
+                if(!file_put_contents($img, base64_decode($base_img))){
+                    $this->error('图片保存失败');
+                    exit();
+                }
+                $serviceId = intval($_SESSION['service_id']);
+                $orderId = intval($_POST['orderId']);
+                $Model_data = M('maintain');
+                $serLog = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->getField('serLog');
+                
+                $serDate = I('serDate');
+                $serStartTime = I('serStartTime');
+                $serEndTime = I('serEndTime');
+                $serStatus = I('serStatus');
+                $serBak = I('serBak');
+                $logtmp = '数据记录时间：'.date('Y-m-d H:i:s')."\n";
+                $logtmp .= "服务时间：$serDate $serStartTime"."至$serEndTime"."\n";
+                $logtmp .= "产品码：$goodsCode"."\n";
+                if ($serStatus) {
+                    $serviceStatus = 2;
+                    $logtmp .= "维护结果：已完成"."\n";
+                } else {
+                    $serviceStatus = 1;
+                    $logtmp .= "维护结果：未完成"."\n";
+                    $logtmp .= "未完成原因：$serBak"."\n";
+                }
+                $logtmp .= "\n";
+                $serLog .= $logtmp;
+                $data = array(
+                    'serviceStatus'     =>$serviceStatus,
+                    'comPhoto'          =>$dir1."/".$output_file1,
+                    'comImg'            =>$dir2."/".$output_file2,
+                    'serLog'            =>$serLog
+                    );
+                $res = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->data($data)->save();
+                if ($res) {
                     if ($serStatus) {
-                        $serviceStatus = 2;
-                        $logtmp .= "维护结果：已完成"."\n";
+                        $this->success('数据提交成功，请让客户等候客服回访');
                     } else {
-                        $serviceStatus = 1;
-                        $logtmp .= "维护结果：未完成"."\n";
-                        $logtmp .= "未完成原因：$serBak"."\n";
+                        $this->success('已更新维护信息');
                     }
-                    $logtmp .= "\n";
-                    $serLog .= $logtmp;
-                    $data = array(
-                        'serviceStatus'     =>$serviceStatus,
-                        'comImg'            =>$dir."/".$output_file,
-                        'serLog'            =>$serLog
-                        );
-	    			$res = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->data($data)->save();
-	    			if ($res) {
-                        if ($serStatus) {
-                            $this->success('数据提交成功，请让客户等候客服回访');
-                        } else {
-                            $this->success('已更新维护信息');
-                        }
-	    				
-	    			} elseif ($res === 0) {
-	    				$this->error('该订单可能已执行完成，请前往已完成订单确认');
-	    			} else {
-	    				$this->error('数据更新失败，请重试');
-	    			}
-				} else {
-					$this->error('图片保存失败');
-				}
-    			
+                    
+                } elseif ($res === 0) {
+                    $this->error('该订单可能已执行完成，请前往已完成订单确认');
+                } else {
+                    $this->error('数据更新失败，请重试');
+                }
     		} else {
     			$this->error('未接收到数据，请重试');
     		}

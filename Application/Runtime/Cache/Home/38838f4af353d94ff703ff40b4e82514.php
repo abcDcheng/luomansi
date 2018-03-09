@@ -38,8 +38,8 @@
 	<div class="order">
 		<!-- 下订单列表 -->
 		<ul class="order-list">
-		<?php if(is_array($goods)): foreach($goods as $key=>$value): ?><li style="overflow: hidden;">
-				<div style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: center;-webkit-box-align: center;width:160px;height:160px;float: left;-webkit-box-sizing:border-box;border:2px #eeeeee solid;margin-right:30px;">
+		<?php if(is_array($goods)): foreach($goods as $key=>$value): ?><li style="overflow: hidden;background:url('/luomansi/Application/Home/Public/img/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
+				<div style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: center;-webkit-box-align: center;width:160px;height:160px;float: left;-webkit-box-sizing:border-box;margin-right:30px;">
 					<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="" style="height:95%;">
 				</div>
 				<!-- <a href="javascript:;" value="<?php echo ($value["id"]); ?>" hand="<?php echo ($value["hashand"]); ?>" falseLock="<?php echo ($value["haslock"]); ?>"><?php echo ($value["goodsname"]); ?></a> -->

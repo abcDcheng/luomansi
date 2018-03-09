@@ -67,7 +67,7 @@
                                     <button type="button" class="layui-btn" id="test1">
                                       <i class="layui-icon">&#xe67c;</i>上传图片
                                     </button>
-                                    <span id="phototext">尺寸为200px * 200px</span>
+                                    <span id="phototext">仅支持png格式图片，尺寸为200px * 200px</span>
                                     <input id="photo" type="hidden" name="photo"/><br/>
                                     <img id="img" style="display:none;width: 100px;height: 100px" src="__UPLOADS__/<{$goods.goodsimg}>"/>
                                 </div>
@@ -121,7 +121,9 @@ $(function(){
        
       //执行实例
       var uploadInst = upload.render({
-        elem: '#test1' //绑定元素
+        elem: '#test1', //绑定元素
+        accept:'image',
+        exts:'png'
         ,url: '<{:U('Goods/photoUpload')}>' //上传接口
         ,before: function(res,index,upload){
           //上传完毕回调

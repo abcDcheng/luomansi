@@ -89,13 +89,20 @@
 		<div class="maintain-upload" >
 			<div class="maintain-upload-content">
 				<div class="maintain-upload-img">
-					
-					<div id="clipArea"></div>
-					<img src="" alt="" class="uploadImg">
-					<input type="file" id="file">
-				</div>
+                    <div id="clipArea1"></div>
+                    <img src="" alt="" class="uploadImg uploadImg1">
+                    <input type="file" id="file1">
+                </div>
 
-				<button class="upload-btn" id="clipBtn">确认上传</button>
+                <button class="upload-btn" id="clipBtn1">确认上传</button>
+				<div class="maintain-upload-img">
+                        
+                    <div id="clipArea2"></div>
+                    <img src="" alt="" class="uploadImg uploadImg2">
+                    <input type="file" id="file2">
+                </div>
+
+                <button class="upload-btn" id="clipBtn2">确认上传</button>
 				
 				<div class="maintain-add">
 					<p>
@@ -169,12 +176,20 @@
 			}
 			$('#goodsName').text(info[i]['goods']);
 			$('#goodsImg').attr('src',imgSrc+info[i]['goodsimg']);
-			$('#installTime').text(info[i]['installtime']);
+			if (info[i]['installtime']) {
+				$('#installTime').text(info[i]['installtime']);
+			} else {
+				$('#installTime').text('未知');
+			}
 			$('#name').html(info[i]['name']);
 			$('#phone').html(info[i]['phone']);
 			$('#address').text(info[i]['address']);
 			$('#msg').text(info[i]['msg']);
-			$('#clientbak').text(info[i]['clientbak']);
+			if (info[i]['clientbak']) {
+				$('#clientbak').text(info[i]['clientbak']);
+			} else {
+				$('#clientbak').text('无');
+			}
 			$('.maintain-ing').hide();
 			$('.maintain-executable-date-wrap').show();
 		});
@@ -201,33 +216,63 @@
 			$('.maintain-complete-date-wrap').show();
 		});
 
-		var clipArea = new bjj.PhotoClip("#clipArea", {
-			size: [600, 380],
-			outputSize: [600, 380],
-			file: "#file",
-			view: "#view",
-			ok: "#clipBtn",
-			loadStart: function() {
-				console.log("照片读取中");
-			},
-			loadComplete: function() {
-				console.log("照片读取完成");
-				$('#file').hide();
-			},
-			clipFinish: function(dataURL) {
-				// console.log(dataURL);
-				imgUrl = dataURL;
-				$('.uploadImg').attr('src',dataURL);
-			}
-		});
+		var clipArea1 = new bjj.PhotoClip("#clipArea1", {
+            size: [600, 380],
+            outputSize: [600, 380],
+            file: "#file1",
+            view: "#view1",
+            ok: "#clipBtn1",
+            loadStart: function() {
+                console.log("照片读取中");
+            },
+            loadComplete: function() {
+                console.log("照片读取完成");
+                $('#file1').hide();
+            },
+            clipFinish: function(dataURL) {
+                // console.log(dataURL);
+                imgUrl1 = dataURL;
+                $('.uploadImg1').attr('src',dataURL);
+            }
+        });
 
-		$('#file').click(function(){
-			// $(this).hide();
-			$('.uploadImg').attr('src','');
-		});
-		$('.upload-btn').click(function(){
-			$('#file').show();
-		})
+        $('#file1').click(function(){
+            // $(this).hide();
+            $('.uploadImg1').attr('src','');
+        });
+        $('#clipBtn1').click(function(){
+            $('#file1').show();
+        })
+
+
+
+        var clipArea2 = new bjj.PhotoClip("#clipArea2", {
+            size: [600, 380],
+            outputSize: [600, 380],
+            file: "#file2",
+            view: "#view2",
+            ok: "#clipBtn2",
+            loadStart: function() {
+                console.log("照片读取中");
+            },
+            loadComplete: function() {
+                console.log("照片读取完成");
+                $('#file2').hide();
+            },
+            clipFinish: function(dataURL) {
+                // console.log(dataURL);
+                imgUrl2 = dataURL;
+                $('.uploadImg2').attr('src',dataURL);
+            }
+        });
+
+        $('#file2').click(function(){
+            // $(this).hide();
+            $('.uploadImg2').attr('src','');
+        });
+        $('#clipBtn2').click(function(){
+            $('#file2').show();
+        })
 
 		$('#serStatus').change(function(){
 			var status = parseInt($(this).val());
@@ -240,8 +285,8 @@
 		});
 
 		$('#complete').click(function(){
-			if (!imgUrl) {
-				alert('请上传识别码图片 ');
+			if (!imgUrl1 || !imgUrl2) {
+				alert('请上传门锁照片和识别码照片！');
 				return false;
 			}
 			var goodsCode = $('#goodsCode').val();
@@ -271,9 +316,9 @@
 				$.ajax({
 					url : "<?php echo U('Maintain/completeService');?>",
 		            type : "post",
-		            data : {orderId:orderId,imgUrl:imgUrl,goodsCode:goodsCode,serDate:serDate,serStartTime:serStartTime,serEndTime:serEndTime,serStatus:serStatus,serBak:serBak},
+		            data : {orderId:orderId,imgUrl1:imgUrl1,imgUrl2:imgUrl2,goodsCode:goodsCode,serDate:serDate,serStartTime:serStartTime,serEndTime:serEndTime,serStatus:serStatus,serBak:serBak},
 		            dataType : "json",
-		            timeout : 15000,
+		            timeout : 30000,
 		            success : function(data) {
 		            	$('.meng00').hide();
 		            	if (data.code == 1) {

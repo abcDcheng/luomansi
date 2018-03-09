@@ -36,43 +36,54 @@ class InstallController extends Controller {
                 if (empty($info)) {
                     $this->error('查无安装人员信息，请重新登录重试');
                 }
-                $base_img = str_replace('data:image/jpeg;base64,', '', $_POST['imgUrl']);
+                $base_img = str_replace('data:image/jpeg;base64,', '', $_POST['imgUrl1']);
                 //$base_img = $_POST['imgUrl'];
                 $path = "./Application/Upload/";
-                $dir = "install";
+                $dir1 = "install/photo";
                 $prefix='lms_';
-                $output_file = $prefix.time().rand(100,999).'.jpg';
-                $img = $path.$dir."/".$output_file;
-                if(file_put_contents($img, base64_decode($base_img))){
-                    $name = I('name');
-                    $phone = I('phone');
-                    //$imgUrl = I('imgUrl');
-                    $area = I('area');
-                    $address = I('address');
-                    $data = array('serviceId' => $service_id,
-                                  'name'      => $name,
-                                  'phone'     => $phone,
-                                  'area'      => $area,
-                                  'address'   => $address,
-                                  'goodsCode' => $goodsCode,
-                                  'installimg'  => $dir."/".$output_file,
-                                  'salemanId' => $info['salemanid'],
-                                  'saleman'   => $info['saleman'],
-                                  'salemanPhone'=>$info['salemanphone'],
-                                  'serName'   => $info['name'],
-                                  'serPhone'  => $info['username'],
-                                  'enTime'    => date('Y-m-d H:i:s')
-                                  );
-                    $res = M('install')->add($data);
-                    if ($res) {
-                        $this->success('产品安装完成，进入保修状态！');
-                    } else {
-                        $this->error('信息提交失败');
-                    }
-                } else {
+                $output_file1 = $prefix.time().rand(100,999).'.jpg';
+                $img = $path.$dir1."/".$output_file1;
+                if(!file_put_contents($img, base64_decode($base_img))){
                     $this->error('图片保存失败');
+                    exit();
                 }
-    			
+                $base_img = str_replace('data:image/jpeg;base64,', '', $_POST['imgUrl2']);
+                //$base_img = $_POST['imgUrl'];
+                $path = "./Application/Upload/";
+                $dir2 = "install/code";
+                $prefix='lms_';
+                $output_file2 = $prefix.time().rand(100,999).'.jpg';
+                $img = $path.$dir2."/".$output_file2;
+                if(!file_put_contents($img, base64_decode($base_img))){
+                    $this->error('图片保存失败');
+                    exit();
+                }
+			    $name = I('name');
+                $phone = I('phone');
+                //$imgUrl = I('imgUrl');
+                $area = I('area');
+                $address = I('address');
+                $data = array('serviceId' => $service_id,
+                              'name'      => $name,
+                              'phone'     => $phone,
+                              'area'      => $area,
+                              'address'   => $address,
+                              'goodsCode' => $goodsCode,
+                              'installphoto'  => $dir1."/".$output_file1,
+                              'installimg'  => $dir2."/".$output_file2,
+                              'salemanId' => $info['salemanid'],
+                              'saleman'   => $info['saleman'],
+                              'salemanPhone'=>$info['salemanphone'],
+                              'serName'   => $info['name'],
+                              'serPhone'  => $info['username'],
+                              'enTime'    => date('Y-m-d H:i:s')
+                              );
+                $res = M('install')->add($data);
+                if ($res) {
+                    $this->success('产品安装完成，进入保修状态！');
+                } else {
+                    $this->error('信息提交失败');
+                }
     		} else {
     			$this->error('安装人员信息有误，请重新登录');
     		}

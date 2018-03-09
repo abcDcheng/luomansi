@@ -193,8 +193,10 @@ em,i,small{font-style: normal;}
 .maintain-add p i{font-size: 30px;float: left;}
 .maintain-add p select{font-size: 30px;float: left;width: 390px;border:3px #ccc solid;}
 
-#file{position: absolute;width: 100%;height: 100%;top:0;left: 0;opacity: 0;}
-#clipArea{margin: 20px;height: 380px;}
+#file1{position: absolute;width: 100%;height: 100%;top:0;left: 0;opacity: 0;}
+#clipArea1{margin: 20px;height: 380px;}
+#file2{position: absolute;width: 100%;height: 100%;top:0;left: 0;opacity: 0;}
+#clipArea2{margin: 20px;height: 380px;}
 .uploadImg{width: 600px;position: absolute;top:0;left: 0;}
 .maintain-complete-imgbg{width: 672px;position: relative;margin: 30px auto 0;}
 .maintain-complete-imgbg .complete-img{width: 100%;}

@@ -62,7 +62,7 @@
 
 			</div>
 
-			<small class='add-tips' style='display:block;text-align: center;font-size:38px;color:#ffffff;margin:50px auto 0;'><?php echo ($ad); ?></small>
+			<small class='add-tips' style='display:block;text-align: center;font-size:38px;color:#ffffff;margin:20px auto 0;'><?php echo ($ad); ?></small>
 
 		</div>
 	</div>
