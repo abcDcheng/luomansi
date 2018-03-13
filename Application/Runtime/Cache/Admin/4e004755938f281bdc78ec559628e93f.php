@@ -39,10 +39,17 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+    <style type="text/css">
+	.layui-nav-tree .layui-nav-child a{
+		height: 35px;
+	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
+</style>
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -162,7 +169,7 @@
                                     <button type="button" class="layui-btn" id="test1">
                                       <i class="layui-icon">&#xe67c;</i>上传图片
                                     </button>
-                                    <span id="phototext"></span>
+                                    <span id="phototext">仅支持png格式图片，尺寸为200px * 200px</span>
                                     <input id="photo" type="hidden" name="photo" value="<?php echo ($goods["goodsimg"]); ?>"/>
                                     <input id="photo" type="hidden" name="oldPhoto" value="<?php echo ($goods["goodsimg"]); ?>"/>
                                     <br/>
@@ -225,7 +232,9 @@ $(function(){
        
       //执行实例
       var uploadInst = upload.render({
-        elem: '#test1' //绑定元素
+        elem: '#test1', //绑定元素
+        accept:'image',
+        exts:'png'
         ,url: '<?php echo U('Goods/photoUpload');?>' //上传接口
         ,before: function(res,index,upload){
           //上传完毕回调

@@ -154,6 +154,7 @@ class OrderController extends Controller {
     //历史订单页面
     public function history(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 2)) {
+            $group = intval($_SESSION['group']);
             if (IS_AJAX) {
                 $csql='';
                 $ra=array();
@@ -216,6 +217,7 @@ class OrderController extends Controller {
             } else {
                 $Model_data = M('SysAdmin');
                 $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
+                $this->assign('$group',$group);
                 $this->assign('saleman',$saleman);
                 $this->display();
             }

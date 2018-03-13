@@ -43,10 +43,13 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -146,7 +149,7 @@
                 <div class="sc_title sc_body_title">
                     <h5>维护管理</h5>
                     <div class="sc_title_btn">
-                        <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
+                    <?php if($info["status"] != 1): ?><button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button><?php endif; ?>
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Maintain/salemanIndex');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
@@ -221,7 +224,13 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">维护人员</label>
+                                <label class="layui-form-label">所属省市</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="province" class="layui-input" autocomplete="off" value="<?php echo ($info["province"]); echo ($info["city"]); ?>" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                            <?php if($info["status"] != 1): ?><label class="layui-form-label label-required">维护人员</label>
                                 <div class="layui-input-block">
                                     <select id="servicer" name="servicer" class="layui-select">
                                         <option value="">选择维护人员</option>
@@ -229,6 +238,13 @@
                                     </select>
                                 </div>
                                 <input name="oldServicer" type="hidden" value="<?php echo ($info["serviceid"]); ?>">
+                            <?php else: ?>
+                                <label class="layui-form-label">维护人员</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="servicerName" class="layui-input" autocomplete="off" value="<?php echo ($info["servicename"]); ?>(<?php echo ($info["servicephone"]); ?>)" readonly="">
+                                </div>
+                                <input name="servicer" type="hidden" value="<?php echo ($info["serviceid"]); ?>">
+                                <input name="oldServicer" type="hidden" value="<?php echo ($info["serviceid"]); ?>"><?php endif; ?>
                             </div>
                             <?php if($info['serlog'] != ''): ?><div class="layui-form-item">
                                 <label class="layui-form-label">维护追踪</label>
@@ -236,19 +252,33 @@
                                     <textarea name="serLog" class="layui-textarea" autocomplete="off" value="<?php echo ($info["serlog"]); ?>" disabled="disabled" style="height: 300px;" disabled="disabled"><?php echo ($info["serlog"]); ?></textarea>
                                 </div>
                             </div><?php endif; ?>
+                            <?php if($info['servicestatus'] != 0 and $info['comphoto'] != ''): ?><div class="layui-form-item from_item_image">
+                                <div class="img_label">
+                                    <label>门锁照片</label>
+                                </div>
+                                <div id="thumb_view" class="img_item transition">
+                                    <img src="/luomansi/Application/Upload//<?php echo ($info['comimg']); ?>">
+                                </div>
+                            </div><?php endif; ?>
                             <?php if($info['servicestatus'] != 0 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
                                 <div class="img_label">
-                                    <label>现场照片</label>
+                                    <label>识别码照片</label>
                                 </div>
                                 <div id="thumb_view" class="img_item transition">
                                     <img src="/luomansi/Application/Upload//<?php echo ($info['comimg']); ?>">
                                 </div>
                             </div><?php endif; ?>
                             <div class="layui-form-item">
+                                <label class="layui-form-label">受理人员</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="无" value="<?php echo ($info["statususer"]); ?>" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label">回访状态</label>
                                 <div class="layui-input-block">
                                 <?php if($info["status"] == 2): ?><input type="text" name="status" class="layui-input" autocomplete="off" value="服务异常" disabled="disabled">
-                                <{else if condition="$info.status eq 1"}>
+                                <?php elseif($info["status"] == 1): ?>
                                 <input type="text" name="status" class="layui-input" autocomplete="off" value="已回访" disabled="disabled">
                                 <?php else: ?>
                                 <input type="text" name="status" class="layui-input" autocomplete="off" value="未回访" disabled="disabled"><?php endif; ?>

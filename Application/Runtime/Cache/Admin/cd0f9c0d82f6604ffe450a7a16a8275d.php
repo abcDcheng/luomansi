@@ -43,10 +43,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -144,6 +148,7 @@
         <div class="sc_body">
             <form action="<?php echo U('Admin/update');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+                <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>专员信息修改</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>

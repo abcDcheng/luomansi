@@ -67,9 +67,9 @@ class AdminController extends Controller {
                         $repwd = intval(I('repwd'));
                         $group = intval(I('group'));
                         $is_status = intval(I('status'));
-                        //若前端勾选了重置密码，则重置密码为123456，否则照旧
+                        //若前端勾选了重置密码，则重置密码为a123456，否则照旧
                         if ($repwd) {
-                            $password = md5("123456");
+                            $password = md5("a123456");
                         } else {
                             $password = $info['password'];
                         }
@@ -166,11 +166,11 @@ class AdminController extends Controller {
                 $saleman = M('SysAdmin')->where('id='.$salemanId)->find();
                 if (!empty($saleman)) {
                     //查询已有代理商下属人员数量，最多不能超过5个
-                    $Model_data = M('ServiceAdmin');
-                    $count = $Model_data->where("salemanId='$salemanId'")->count();
-                    if ($count>=5) {
-                        $this->error('每位代理商限定只能有5个下属人员账户');
-                    }
+                    // $Model_data = M('ServiceAdmin');
+                    // $count = $Model_data->where("salemanId='$salemanId'")->count();
+                    // if ($count>=5) {
+                    //     $this->error('每位代理商限定只能有5个下属人员账户');
+                    // }
                     $username = I('username');
                     $pwd = md5(I('pwd'));
                     $name = I('name');
@@ -244,11 +244,11 @@ class AdminController extends Controller {
                                   'status'=>$status);
                     //若原归属代理商更改
                     if ($salemanId != $oldSaleman) {
-                        $count = M('ServiceAdmin')->where('salemanId='.$salemanId)->count();
-                        if ($count >= 5) {
-                            $this->error('该代理商已有5个下属人员账户');
-                            exit();
-                        }
+                        // $count = M('ServiceAdmin')->where('salemanId='.$salemanId)->count();
+                        // if ($count >= 5) {
+                        //     $this->error('该代理商已有5个下属人员账户');
+                        //     exit();
+                        // }
                         $saleInfo = M('SysAdmin')->where('id='.$salemanId)->find();
                         if (!empty($saleInfo)) {
                             $data['salemanId'] = $salemanId;

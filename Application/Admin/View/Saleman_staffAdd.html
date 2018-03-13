@@ -45,6 +45,7 @@
         <div class="sc_body">
             <form action="<{:U('Saleman/staffAdd')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+        <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>新增员工</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
@@ -57,7 +58,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">用户名</label>
                                 <div class="layui-input-block">
-                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="员工手机号" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!">
+                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="员工手机号" datatype="n11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -107,6 +108,11 @@
             }
         }else{
             alert("请输入您的手机号码");
+            return false;
+        }
+        var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
+        if (!reg.test(pwd)) {
+            alert('密码必须为字母数字组合');
             return false;
         }
         if (pwd != repwd) {

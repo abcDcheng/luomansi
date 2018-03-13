@@ -45,6 +45,7 @@
         <div class="sc_body">
             <form action="<{:U('Saleman/staffUpdate')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+        <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>员工信息更新</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
@@ -58,7 +59,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">用户名</label>
                                 <div class="layui-input-block">
-                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!" value="<{$info.username}>">
+                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="n11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!" value="<{$info.username}>">
                                     <input name="oldUser" value="<{$info.username}>" type="hidden"/>
                                 </div>
                             </div>
@@ -131,6 +132,11 @@
         if (pwd || repwd) {
             if (pwd != repwd) {
                 alert('两次输入的密码不一致');
+                return false;
+            }
+            var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
+            if (!reg.test(pwd)) {
+                alert('密码必须为字母数字组合');
                 return false;
             }
         }

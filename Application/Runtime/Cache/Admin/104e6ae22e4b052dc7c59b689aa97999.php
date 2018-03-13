@@ -43,10 +43,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -144,6 +148,7 @@
         <div class="sc_body">
             <form action="<?php echo U('Maintain/salemanAdd');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+                <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>新增维护订单</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
@@ -219,7 +224,7 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">维护人员</label>
+                                <label class="layui-form-label">维护人员</label>
                                 <div class="layui-input-block">
                                     <select id="servicer" name="servicer" class="layui-select">
                                         <option value="">选择维护人员</option>
@@ -237,7 +242,12 @@
 <script>
     UE.getEditor('content');
     $('#save').click(function(){
-        
+        var servicer = $('#servicer').val();
+            if (!servicer) {
+                if(!confirm('未选择维护人员，确定生成新订单吗？')){
+                    return false;
+                }
+            }
     });
 
 </script>

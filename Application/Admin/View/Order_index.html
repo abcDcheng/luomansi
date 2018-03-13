@@ -47,6 +47,7 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
+        <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
             <h5>订单管理</h5>
             <!-- <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<{:U('Maintain/add')}>"><i class="layui-icon"></i> 新增</a>        </div> -->
@@ -209,7 +210,7 @@
             for(key in order){
                 var tableHtml = '';
 
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td>';
+                tableHtml += '<tr><td class="layui-elip" title="'+order[key]['ordercode']+'">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td>';
                 var detail = '';
                 for(var i=0;i<order[key]['detail'].length;i++){
                     detail += order[key]['detail'][i]['goodsname'] + '-'+ order[key]['detail'][i]['goodsmodel']+'X'+order[key]['detail'][i]['goodsnum'];
@@ -335,9 +336,9 @@
                         alert(data.msg);
                     }
                 },
-                error : function(data){
+                error : function(x,data){
                     $('.meng00').hide();
-                    if (data.status == 'timeout') {
+                    if (data == 'timeout') {
                         alert('连接超时，请重试');
                     }
                 }

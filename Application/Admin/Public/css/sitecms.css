@@ -1,5 +1,6 @@
 html{height:100%}
 body{height:100%;font:normal normal 300 12px/1 -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;color: #646464;}
+body{font-family: microsoft yahei;}
 a{font-size: 12px;color: #646464;cursor: pointer;}
 a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 /* sitecms reset */
@@ -22,9 +23,9 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 .layui-btn.layui-btn-primary:hover{border:1px solid #cecece}
 .layui-word-aux{margin-left: 1em;}
 /* sc_login style */
-.sc_login{background-color: #2bb0d4;}
-.sc_login_inner{height: 100%;margin-right: 50%;border-right:160px solid #2bb0d4;background-color: #eaedf2;}
-.sc_login_content{width: 480px;position:absolute;top:50%;left: 50%;margin: -150px 0 0 -240px;}
+.sc_login{background-color: #435a79;}
+.sc_login_inner{height: 100%;margin-right: 50%;border-right:160px solid #435a79;background-color: #435a79;}
+.sc_login_content{width: 480px;position:absolute;top:50%;left: 50%;margin: -230px 0 0 -240px;}
 .sc_login_left,
 .sc_login_right{height: 300px;}
 .sc_login_left{float:left;width: 80px;background-color: #393d49;border-radius:15px 0 0 15px;}
@@ -39,18 +40,18 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 .sc_login_content dd p{padding-right: 30px;text-align: right;}
 /* sitecms layout */
 .layui-layout-admin{height:100%;}
-.layui-layout-admin .layui-body{top: 0;bottom: 0;left: 80px;overflow: inherit;}
+.layui-layout-admin .layui-body{top: 0;bottom: 0;left: 100px;overflow: inherit;}
 /* sitecms side_tab */
 .sc_side_tab{margin:0;}
 .sc_side_tab .layui-nav-bar{display:none}
-.sc_side_tab .layui-tab-title{position:fixed;top:0;bottom:0;left:0;z-index: 999;width:90px;height:100%;background-color:#2bb0d4}
+.sc_side_tab .layui-tab-title{position:fixed;top:0;bottom:0;left:0;z-index: 900;width:100px;height:100%;background-color:#435a79}
 .sc_side_tab .layui-tab-title li{display:block;padding:10px 0;color:#fff;font-size:12px;line-height:1}
 .sc_side_tab .layui-tab-title li span{display:block;margin-bottom:10px}
 .sc_side_tab .layui-tab-title li span i{font-size:24px}
-.sc_side_tab .layui-tab-title li.layui-this{background-color:#02a1cc;color:#fff}
+.sc_side_tab .layui-tab-title li.layui-this{background-color:#435a79;color:#fff}
 .sc_side_tab .layui-tab-title li.layui-this:after{border:none}
 .sc_side_tab{border-radius:2px;background-size:cover;background-position:center center;background-repeat:no-repeat;}
-.sc_side_tab .layui-tab-title .sc_side_manage{width:45px;height:45px;border-radius:50%;margin: 0 auto 10px;background-size: 100%;}
+.sc_side_tab .layui-tab-title .sc_side_manage{width:99px;height:33px;margin: 0 0 10px 0;background-size: 100%;}
 /* sitecms side_content */
 .sc_side_tab .layui-tab-content{position:fixed;top:0;bottom:0;left:80px;z-index: 999;padding:0 0 100px 0;width:180px;overflow-y:auto;background-color:#f8f8f8}
 /* sitecms side_menu */
@@ -70,12 +71,12 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 .sc_side_more .layui-nav-child,
 .sc_side_more .layui-this,
 .sc_side_more .layui-this a{background: none!important;}
-.sc_side_more .layui-nav-child a{padding:0;font-size:12px;color:#fff;margin-left: 10px;}
+.sc_side_more .layui-nav-child a{padding:0;font-size:14px;color:#fff;margin-left: 10px;}
 /* sitecms body */
-.sc_body{min-width: 736px;padding: 68px 15px;}
+.sc_body{min-width: 736px;padding: 60px 5px;}
 .sc_title{border-bottom:1px solid #ddd;color:inherit;margin-bottom:0;min-height:48px;background-color:#f9f9f9;}
-.sc_body_title{position:fixed;top:0;left:0;width:100%;z-index:8;}
-.sc_body_title h5{display:inline-block;min-width:100px;font-size:16px;color:#2bb0d4;margin:16px 0px 16px 95px;font-weight:200;text-indent:8px;text-overflow:ellipsis;border-left:1px solid #2bb0d4}
+.sc_body_title{position:fixed;top:0;left:0;width:100%;z-index:901;}
+.sc_body_title h5{display:inline-block;min-width:100px;font-size:16px;color:#2bb0d4;margin:16px 0px 16px 5px;font-weight:200;text-indent:8px;text-overflow:ellipsis;border-left:1px solid #2bb0d4}
 .sc_title_btn{float: right;padding: 10px 15px 0 0;}
 
 .sc_extend a{display: block;color: #2bb0d4;line-height: 3;}
@@ -101,7 +102,8 @@ a, a:link, a:visited, a:hover, a:active {outline: 0;text-decoration: none;}
 }
 /* sitecms table */
 .layui-form .layui-table td,
-.layui-form .layui-table th{line-height: 32px;font-size: 12px;font-family: initial;}
+.layui-form .layui-table th{line-height: 32px;font-size: 12px;font-family: microsoft yahei;}
+.layui-form .layui-table th{font-weight: bold;}
 .layui-form .layui-table td a{color:#2bb0d4}
 .layui-form .layui-table td a:hover{color:#666}
 .layui-form .sc_explode{margin:0 5px;color:#ccc}

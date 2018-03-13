@@ -46,6 +46,7 @@
         <div class="sc_body">
             <form action="<{:U('Saleman/update')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+        <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>代理商信息更新</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
@@ -65,7 +66,7 @@
                           <div class="layui-form-item">
                                 <label class="layui-form-label">重置密码</label>
                                 <div class="layui-input-block">
-                                    <input name="repwd" type="checkbox" value="1">(不重置密码则不必勾选此项，若重置则默认密码为123456，再由改账户人员自行修改)
+                                    <input name="repwd" type="checkbox" value="1">(不重置密码则不必勾选此项，若重置则默认密码为a123456，再由改账户人员自行修改)
                                 </div>
                             </div>
                           <div class="layui-form-item">
@@ -77,7 +78,7 @@
                           <div class="layui-form-item">
                               <label class="layui-form-label label-required">联系方式</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="*4-30" errormsg="联系方式至少4个字符!" nullmsg="请输入联系方式!" value="<{$saleman.phone}>">
+                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="n11-11" errormsg="联系方式必须为手机号!" nullmsg="请输入联系方式!" value="<{$saleman.phone}>">
                               </div>
                           </div>
                           <div class="layui-form-item">
@@ -152,12 +153,13 @@ $(function(){
         var info = $('input[name="goodsInfo[]"]:checked').val();
         //alert(info);
         //return false;
-        var pwd = $('#pwd').val();
-        var repwd = $('#repwd').val();
-        if (pwd != repwd) {
-            alert('两次输入的密码不一致');
-            return false;
-        }
+        // var pwd = $('#pwd').val();
+        // var repwd = $('#repwd').val();
+
+        // if (pwd != repwd) {
+        //     alert('两次输入的密码不一致');
+        //     return false;
+        // }
     });
 
     $('.gBtn').click(function(){

@@ -185,8 +185,8 @@
 		            		$('.personal-modify-btn').val("确认修改").removeAttr('disable');
 		            	}
 		            },
-		            error : function(data){
-		            	if (data.status == 'timeout') {
+		            error : function(x,data){
+		            	if (data == 'timeout') {
 		            		alert("连接超时，请重试");
 		            	}
 		            	$('.personal-modify-btn').val("确认修改").removeAttr('disable');

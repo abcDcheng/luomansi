@@ -46,10 +46,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -75,7 +79,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
-				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/ad');?>">广告宣传语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -146,6 +150,7 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
+        <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
             <h5>维护管理</h5>
             <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/add');?>"><i class="layui-icon"></i> 生成新订单</a>        </div>
@@ -179,20 +184,23 @@
                     </div>
                 </div>
                 <button id="cx" class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
-                <input type="hidden" name="nid" value="5">
+                <div class="layui-input-inline">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="only" type="checkbox" name="only" value="" class="layui-input" lay-skin="primary" title="只看我受理的">
+                </div>
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
                         <col width="80">
-                        <col width="100">
+                        <col width="120">
                         <col width="150">
                         <col width="100">
+                        <col width="145">
+                        <col width="150">
                         <col>
-                        <col width="150">
-                        <col width="100">
-                        <col width="100">
-                        <col width="100">
-                        <col width="100">
-                        <col width="60">
+                        <col>
+                        <col width="80">
+                        <col width="80">
+                        <col width="80">
+                        <col width="80">
                     </colgroup>
                     <thead>
                         <tr>
@@ -205,6 +213,7 @@
                             <th>负责代理商</th>
                             <th>维护人员</th>
                             <th>维护状态</th>
+                            <th>受理人员</th>
                             <th>回访状态</th>
                             <th>操作</th>
                         </tr>
@@ -254,6 +263,7 @@
         var page = 1;
         var saleman = '';
         var serStatus = '';
+        var ischecked = 0;
         $('#cx').click(function(){
             //re= /,|\(|\)|#|'|"|=|;|>|<|%|\\/i;
             saleman = $('#saleman').val();
@@ -264,7 +274,12 @@
             }else{
                 firsttime=$('#firsttime').val();
                 lasttime=$('#lasttime').val();
-            }             
+            }           
+            if ($('#only').is(':checked')) {
+                ischecked = 1;
+            } else {
+                ischecked = 0;
+            }     
             str='';
             fenye(1);
     });
@@ -291,7 +306,7 @@
         type: "post",
         timeout:5000,//设置超时时间为5秒
         url: "<?php echo U('Maintain/index');?>",
-        data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page,serStatus:serStatus},
+        data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page,serStatus:serStatus,ischecked:ischecked},
         dataType: "json",
         success:function(data){
             $('#an').text(data[0]);
@@ -314,6 +329,7 @@
                 } else {
                     tableHtml += '<td class="layui-elip"><span style="color:red">未维护</span></td>';
                 }
+                tableHtml += '<td class="layui-elip" class="getStatusUser">'+order[key]['statususer']+'11</td>';
                 if (parseInt(order[key]['status']) == 2) {
                     tableHtml += '<td class="layui-elip"><span style="color:red">服务异常</span></td>';
                 } else if (parseInt(order[key]['status']) == 1) {
@@ -321,7 +337,14 @@
                 } else {
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
-                tableHtml+='<td><a class="maintainUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><a class="maintaindel" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
+                tableHtml+='<td><a class="maintainUpdate" href="javascript:;" value="'+key+'" data-title="查看详情">查看详情</a>';
+                if (order[key]['statususer']) {
+                    tableHtml += '<br/><a href="javascript:;" style="color:green;">已受理</a>'; 
+                } else {
+                    tableHtml += '<br/><a value="'+key+'" class="getStatus" href="javascript:;" style="color:red;">等待受理</a>';
+                }
+                <?php if($group == 99): ?>tableHtml+='<br/><a class="maintaindel" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td>';<?php endif; ?>
+                tableHtml+='</tr>';
                 tableHtml2 = tableHtml+tableHtml2;
             }
             $('#body').append(tableHtml2);
@@ -403,12 +426,45 @@
       });
       
     }
-    fenye(1);
+    //fenye(1);
+    $('#cx').click();
 
     $('#body').on('click','.maintainUpdate',function(){
         var id = $(this).attr('value');
         window.location.href="/luomansi/index.php/Admin/Maintain/update/mod/index/id/"+id;
     });
+
+    $('#body').on('click','.getStatus',function(){
+        var ethis = $(this);
+        if (confirm('确定受理该条信息吗？')) {
+            var id = $(this).attr('value');
+            $.ajax({
+                url : "<?php echo U('maintain/getStatus');?>",
+                type : "post",
+                data : {id:id},
+                dataType : "json",
+                timeout : 10000,
+                success : function(data){
+                    $('.meng00').hide();
+                    if (data.code == 1) {
+                        alert(data.msg);
+                        ethis.text('已受理').css('color','green').removeClass('getStatus');
+                        ethis.parents().siblings('.getStatusUser').text(data.statusUser);
+                    } else {
+                        alert(data.msg);
+                    }
+                },
+                error : function(data){
+                    $('.meng00').hide();
+                    if (data.status == 'timeout') {
+                        alert('连接超时，请重试');
+                    }
+                }
+            });
+        }
+    });
+
+
 
     $('#body').on('click','.maintaindel',function(){
         if (confirm('确定删除该数据吗？')) {
@@ -421,7 +477,7 @@
                 data : {id:id},
                 dataType : "json",
                 timeout : 10000,
-                success : function(data){
+                success : function(x,data){
                     $('.meng00').hide();
                     if (data.code == 1) {
                         alert('删除成功');

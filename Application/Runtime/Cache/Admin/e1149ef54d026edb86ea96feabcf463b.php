@@ -46,10 +46,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -146,6 +150,7 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
+        <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
             <h5>新用户统计</h5>
             <!-- <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/add');?>"><i class="layui-icon"></i> 新增</a>        </div> -->
@@ -387,7 +392,8 @@
       });
       
     }
-    fenye(1);
+    //fenye(1);
+    $('#cx').click();
 
     $('#body').on('click','.orderUpdate',function(){
         var id = $(this).attr('value');
@@ -414,9 +420,9 @@
                         alert(data.msg);
                     }
                 },
-                error : function(data){
+                error : function(x,data){
                     $('.meng00').hide();
-                    if (data.status == 'timeout') {
+                    if (data == 'timeout') {
                         alert('连接超时，请重试');
                     }
                 }

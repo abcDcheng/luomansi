@@ -13,7 +13,7 @@ class InstallController extends Controller {
                 if(isset($_POST['saleman'])){
                     $saleman=intval($_POST['saleman']);
                     if($saleman){
-                        $csql.="and salemanId='$saleman' ";
+                        $csql.=" and salemanId='$saleman' ";
                     }
                 }
                 //按时间查询
@@ -21,7 +21,7 @@ class InstallController extends Controller {
                     $firsttime=$_POST['firsttime'];
                     if($firsttime){
                         $firsttime=str_replace(".", "-", $firsttime);
-                        $csql.="and enTime>='$firsttime' ";
+                        $csql.=" and enTime>='$firsttime' ";
                     }
                     
                 }
@@ -31,7 +31,13 @@ class InstallController extends Controller {
                         $lastttime=str_replace(".", "-", $lastttime);
                         $lastttime=strtotime($lastttime)+86400;
                         $lastttime=date("Y-m-d",$lastttime);
-                        $csql.="and enTime<='$lastttime' ";
+                        $csql.=" and enTime<='$lastttime' ";
+                    }
+                }
+                if (isset($_POST['ischecked'])) {
+                    $ischecked = intval($_POST['ischecked']);
+                    if ($ischecked) {
+                        $csql.=" and statusUser='".$_SESSION['username']."' ";
                     }
                 }
                 if(isset($_POST['page'])){
@@ -66,6 +72,7 @@ class InstallController extends Controller {
     //安装回访更新
     public function update(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
+            $group = intval($_SESSION['group']);
             //判断是从订单管理页还是历史订单页访问
             if (isset($_REQUEST['mod'])) {
                 $mod = $_REQUEST['mod'];
@@ -80,9 +87,12 @@ class InstallController extends Controller {
                               'status'=>$status,
                               'msg'=>$msg
                             );
-                if ($status) {  //若有回访，记录回访时间及回访人员账号
+                if ($status) {  //若有回访，记录回访时间
                     $data['statusTime'] = date('Y-m-d H:i:s');
-                    $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username']:'';
+                    if ($group == 99) {
+                        $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username']:'';
+                    }
+                    
                 }
                 $Model_data = M('install');
                 $res = $Model_data->where('id='.$id)->data($data)->save();

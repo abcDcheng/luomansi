@@ -45,6 +45,7 @@
         <div class="sc_body">
             <form action="<{:U('Code/add')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+                <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>新增产品识别码</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
@@ -70,6 +71,13 @@
                                 <label class="layui-form-label label-required">产品识别码</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="goodsCode" class="layui-input" autocomplete="off" placeholder="请输入产品识别码" datatype="s4-30" errormsg="请输入正确的产品识别码" nullmsg="请输入产品识别码!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">安装状态</label>
+                                <div class="layui-input-block">
+                                    <input name="install" type="radio" value="1" title="已安装"/>
+                                    <input name="install" type="radio" value="0" title="未安装" checked="checked"/>
                                 </div>
                             </div>
                         </div>

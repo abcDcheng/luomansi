@@ -59,6 +59,7 @@
 				<p>联系电话：<con id="phone"></con></p>
 				<p>维护地址：<con id="address"></con></p>
 				<p>客户说明：<con id="clientbak"></con></p>
+				<p id="log">维护日志：<br/><textarea id="serLog" style="width:99%;height: 200px;font-size: 27px;" readonly=""></textarea></p>
 			</div>
 			<button id="return" class="maintain-executable-date-btn">返回</button>
 		</div>
@@ -66,7 +67,7 @@
 		<ul class="maintain-ing maintain-style" style="display:block;">
 			<?php if($hasInfo == 1): if(is_array($info)): foreach($info as $k=>$value): ?><li>
 				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
+					<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5><?php echo ($value["goods"]); ?></h5>
@@ -192,6 +193,13 @@
 			} else {
 				$('#clientbak').text('无');
 			}
+			if (info[i]['serlog']) {
+				$('#serLog').val(info[i]['serlog']);
+				$('#log').show();
+			} else {
+				$('#serLog').val('');
+				$('#log').hide();
+			}
 			$('.maintain-ing').hide();
 			$('.maintain-executable-date-wrap').show();
 		});
@@ -299,9 +307,12 @@
 			var serEndTime = $('#input5').val();
 			var serStatus = parseInt($('#serStatus').val());
 			if (!goodsCode) {
-				alert('请扫描或输入产品码');
+				alert('请扫描或输入识别码');
 				return false;
-			}
+			} else if (goodsCode.length < 10) {
+                alert('识别码长度必须大于10位');
+                return false;
+            }
 			if (!serDate) {
 				alert('请选择服务日期');
 				return false;
@@ -322,7 +333,7 @@
 		            type : "post",
 		            data : {orderId:orderId,imgUrl1:imgUrl1,imgUrl2:imgUrl2,goodsCode:goodsCode,serDate:serDate,serStartTime:serStartTime,serEndTime:serEndTime,serStatus:serStatus,serBak:serBak},
 		            dataType : "json",
-		            timeout : 30000,
+		            timeout : 60000,
 		            success : function(data) {
 		            	$('.meng00').hide();
 		            	if (data.code == 1) {
@@ -336,6 +347,13 @@
 		            	} else {
 		            		alert(data.msg);
 		            	}
+		            },
+		            error : function(x,data){
+		            	$('.meng00').hide();
+		            	if (data == 'timeout') {
+		            		alert('请求超时，请确认网络良好并重试');
+		            	}
+		            	//$('#service').text('执行维护').removeAttr('disabled');
 		            }
 				});
 			}

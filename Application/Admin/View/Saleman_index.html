@@ -48,6 +48,7 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
+        <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
             <h5>代理商账号管理</h5>
             <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<{:U('Saleman/add')}>"><i class="layui-icon"></i> 新增</a>       </div>
@@ -291,9 +292,9 @@
                         alert(data.msg);
                     }
                 },
-                error : function(data){
+                error : function(x,data){
                     $('.meng00').hide();
-                    if (data.status == 'timeout') {
+                    if (data == 'timeout') {
                         alert('连接超时，请重试');
                     }
                 }

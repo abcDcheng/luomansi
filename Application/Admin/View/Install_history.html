@@ -47,6 +47,7 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
+        <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
             <h5>新用户统计</h5>
             <!-- <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<{:U('Maintain/add')}>"><i class="layui-icon"></i> 新增</a>        </div> -->
@@ -85,7 +86,7 @@
                         <col width="120">
                         <col>
                         <col>
-                        <col width="145">
+                        <col width="150">
                         <col>
                         <col>
                         <col width="80">
@@ -290,7 +291,8 @@
       });
       
     }
-    fenye(1);
+    //fenye(1);
+    $('#cx').click();
 
     $('#body').on('click','.orderUpdate',function(){
         var id = $(this).attr('value');
@@ -317,9 +319,9 @@
                         alert(data.msg);
                     }
                 },
-                error : function(data){
+                error : function(x,data){
                     $('.meng00').hide();
-                    if (data.status == 'timeout') {
+                    if (data == 'timeout') {
                         alert('连接超时，请重试');
                     }
                 }

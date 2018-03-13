@@ -46,7 +46,7 @@
 		<ul class="maintain-executable maintain-style" style="display:block;">
 			<?php if($hasInfo == 1): if(is_array($info)): foreach($info as $k=>$value): ?><li>
 				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
+					<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5><?php echo ($value["goods"]); ?></h5>
@@ -132,8 +132,8 @@
 			            		alert(data.msg);
 			            	}
 			            },
-			            error : function(data){
-			            	if (data.status == 'timeout') {
+			            error : function(x,data){
+			            	if (data == 'timeout') {
 			            		alert('请求超时，请确认网络良好并重试');
 			            	}
 			            	$('#service').text('执行维护').removeAttr('disabled');

@@ -145,11 +145,34 @@ class MaintainController extends Controller {
                 }
                 $logtmp .= "\n";
                 $serLog .= $logtmp;
+                //获取手机IP和地理位置
+                $ipClass = A('Getloc');
+                $ip = $ipClass->getIP();
+                $loc = '';
+                if ($ip != '未知') {
+                    if (strstr($ip,",")) {
+                        $ip = explode(",", $ip);
+                        $ip = $ip[0];
+                    }
+                    $addr = $ipClass->GetIpLookup($ip);
+                    if ($addr) {
+                        $province = $addr['province'];
+                        $city = $addr['city'];
+                    }
+                    if ($province || $city) {
+                        $loc = $province.$city.'（'.$ip.'）';
+                    } else {
+                        $loc = '未知位置（'.$ip.'）';
+                    }
+                } else {
+                    $loc = '未知IP';
+                }
                 $data = array(
                     'serviceStatus'     =>$serviceStatus,
                     'comPhoto'          =>$dir1."/".$output_file1,
                     'comImg'            =>$dir2."/".$output_file2,
-                    'serLog'            =>$serLog
+                    'serLog'            =>$serLog,
+                    'loc'               =>$loc
                     );
                 $res = $Model_data->where(array('serviceId'=>$serviceId,'id'=>$orderId))->data($data)->save();
                 if ($res) {

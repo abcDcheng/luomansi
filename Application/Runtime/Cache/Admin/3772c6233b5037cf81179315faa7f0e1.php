@@ -43,10 +43,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -144,7 +148,9 @@
         <div class="sc_body">
             <form action="<?php echo U('Maintain/add');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+                <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>新增维护订单</h5>
+                    
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="<?php echo U('Maintain/index');?>"><i class="layui-icon">&#x1006;</i> 返回</a>
@@ -219,7 +225,7 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">负责代理商</label>
+                                <label class="layui-form-label">负责代理商</label>
                                 <div class="layui-input-block">
                                     <select id="saleman" name="saleman" class="layui-select">
                                         <option value="">选择代理商</option>
@@ -239,8 +245,9 @@
     $('#save').click(function(){
         var saleman = $('#saleman').val();
         if (!saleman) {
-            alert('请选择代理商');
-            return false;
+            if(!confirm('未选择负责代理商，确定生成新订单吗？')){
+                return false;
+            }
         }
     });
 

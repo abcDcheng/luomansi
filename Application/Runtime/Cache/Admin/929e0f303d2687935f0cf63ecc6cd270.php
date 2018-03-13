@@ -34,8 +34,11 @@
 </head>
 <body>
 <div class="layui-layout-admin sc_login">
+
     <div class="sc_login_inner">
+    
         <div class="sc_login_content">
+<img style="width:330px;height:110px;margin:0 0 25px 75px;" src="/luomansi/Application/Admin/Public/images/logo_big.png"/>
             <div class="sc_login_right">
                 <form method="post" id="form" class="layui-form">
                     <dl>
@@ -44,7 +47,7 @@
                             <label for="username">
                                 <span class="icon"><i class="fa fa-user"></i></span>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="username" autocomplete="off" placeholder="用户名" datatype="s4-16" errormsg="用户名至少4个字符!" nullmsg="请输入用户名!" class="layui-input" />
+                                    <input type="text" name="username" autocomplete="off" placeholder="用户名" datatype="s4-16" errormsg="用户名至少4个字符!" nullmsg="请输入用户名!" class="layui-input" value="<?php echo ($username); ?>"/>
                                 </div>
                             </label>
                         </dd>
@@ -57,13 +60,18 @@
                             </label>
                         </dd>
                         <dd>
+                            
                             <p>
+                            <?php if($cookie == 1): ?><input name="cookie" lay-skin="primary" type="checkbox" value="1" title="记住账号" checked="checked">
+                            <?php else: ?>
+                                <input name="cookie" lay-skin="primary" type="checkbox" value="1" title="记住账号"><?php endif; ?>
                                 <button class="layui-btn">登 录</button>
                             </p>
                         </dd>
                     </dl>
                 </form>
             </div>
+            <div style="width:100%;float: left;font-size: 20px;margin: 20px 0;text-align: center;color: #eee"><p><?php echo ($ad['ad']); ?></p></div>
             <div class="sc_login_left"></div>
         </div>
     </div>

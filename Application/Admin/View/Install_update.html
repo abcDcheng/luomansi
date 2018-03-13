@@ -45,9 +45,12 @@
         <div class="sc_body">
             <form action="<{:U('Install/update')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+                <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>新用户信息管理</h5>
                     <div class="sc_title_btn">
+                    <{if condition="($info.statususer eq $user and $info.status neq 1) or $group eq 99"}>
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
+                    <{/if}>
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="javascript:history.back()"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
@@ -127,35 +130,46 @@
                                     <input type="text" name="entime" class="layui-input" autocomplete="off" value="<{$info.entime}>" disabled="disabled">
                                 </div>
                             </div>
-                            <{if condition="$info.statususer eq $user"}>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">回访状态</label>
+                                <label class="layui-form-label">受理人员</label>
                                 <div class="layui-input-block">
-                                    <select id="status" name="status" class="layui-select">
+                                    <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="无" value="<{$info.statususer}>" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label <{$require}>">回访状态</label>
+                                <div class="layui-input-block">
+                                <{if condition="($info.statususer eq $user and $info.status neq 1) or $group eq 99"}>
+                                    <select id="status" name="status" class="layui-select" lay-filter="status">
                                         <option value="0">未回访</option>
                                         <option value="1">已回访</option>
                                     </select>
+                                <{else /}>
+                                    <{if condition="$info['status'] eq 0"}>
+                                    <input type="text" name="statuscon" class="layui-input" autocomplete="off" value="未回访" disabled="disabled">
+                                    <{else /}>
+                                    <input type="text" name="statuscon" class="layui-input" autocomplete="off" value="已回访" disabled="disabled">
+                                    
+                                    <{/if}>
+                                    <input id="status" name="status" type="hidden" value="<{$info.status}>">
+                                <{/if}>
                                 </div>
                             </div>
-                            <{/if}>
-                            <{if condition="$info['status'] eq 1"}>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">回访人员</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="statusUser" class="layui-input" autocomplete="off" value="<{$info.statususer}>" disabled="disabled">
-                                </div>
-                            </div>
-                            <{/if}>
+                            <{if condition="$info.statususer eq $user or $group eq 99"}>
                             <div id="msg" class="layui-form-item" 
-                            <{if condition="$info['status'] neq 1"}>
+                            <{if condition="$info['status'] eq 0"}>
                             style="display: none"
                             <{/if}>
                             >
-                                <label class="layui-form-label">信息反馈</label>
+                                <label class="layui-form-label">回访信息</label>
                                 <div class="layui-input-block">
-                                    <textarea name="msg" class="layui-textarea"><{$info.msg}></textarea>
+                                    <textarea placeholder="无" name="msg" class="layui-textarea"
+                                    <{if condition="$info['status'] eq 1"}>
+                                    readonly=""
+                                    <{/if}>><{$info.msg}></textarea>
                                 </div>
                             </div>
+                            <{/if}>
                         </div>
                     </section>
                 </div>
@@ -179,6 +193,7 @@
             //alert($(data.elem).val());
             if (data.value == 1) {
                 $('#msg').show();
+                $(window).scrollTop( $(".sc_editor_content").height());
             } else {
                 $('#msg').hide();
             }

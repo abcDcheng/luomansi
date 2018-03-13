@@ -23,10 +23,15 @@ class InstallController extends Controller {
     public function record(){
     	if (isset($_SESSION['service_id']) && IS_AJAX) {
             $goodsCode = I('goodsCode');
-            $count = M('code')->where(array('goodsCode'=>array('like','%'.$goodsCode.'%')))->count();
-            if ($count < 1) {
+            $count = M('code')->where(array('goodsCode'=>array('like','%'.$goodsCode.'%')))->find();
+            if (count($count) < 1) {
                 $this->error('查找不到该识别码，请确认识别码无误或将识别码发至出厂商确认');
                 exit();
+            } else {
+                if ($count['install']) {
+                    $this->error('该产品已安装');
+                }
+                $codeId = $count['id'];
             }
     		$service_id = intval($_SESSION['service_id']);
     		if ($service_id) {
@@ -63,6 +68,28 @@ class InstallController extends Controller {
                 //$imgUrl = I('imgUrl');
                 $area = I('area');
                 $address = I('address');
+                //获取手机IP和地理位置
+                $ipClass = A('Getloc');
+                $ip = $ipClass->getIP();
+                $loc = '';
+                if ($ip != '未知') {
+                    if (strstr($ip,",")) {
+                        $ip = explode(",", $ip);
+                        $ip = $ip[0];
+                    }
+                    $addr = $ipClass->GetIpLookup($ip);
+                    if ($addr) {
+                        $province = $addr['province'];
+                        $city = $addr['city'];
+                    }
+                    if ($province || $city) {
+                        $loc = $province.$city.'（'.$ip.'）';
+                    } else {
+                        $loc = '未知位置（'.$ip.'）';
+                    }
+                } else {
+                    $loc = '未知IP';
+                }
                 $data = array('serviceId' => $service_id,
                               'name'      => $name,
                               'phone'     => $phone,
@@ -76,10 +103,12 @@ class InstallController extends Controller {
                               'salemanPhone'=>$info['salemanphone'],
                               'serName'   => $info['name'],
                               'serPhone'  => $info['username'],
-                              'enTime'    => date('Y-m-d H:i:s')
+                              'enTime'    => date('Y-m-d H:i:s'),
+                              'loc'       => $loc
                               );
                 $res = M('install')->add($data);
                 if ($res) {
+                    $r = M('code')->where('id='.$codeId)->save(array('install'=>1));
                     $this->success('产品安装完成，进入保修状态！');
                 } else {
                     $this->error('信息提交失败');

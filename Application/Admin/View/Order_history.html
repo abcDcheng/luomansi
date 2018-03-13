@@ -36,7 +36,7 @@
 		<script src="./js/html5shiv.min.js"></script>
 		<script src="./js/respond.min.js"></script>
 	<![endif]-->
-    <title>订单统计</title>
+    <title>历史订单</title>
 </head>
 <body>
 
@@ -47,7 +47,8 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
-            <h5>订单统计</h5>
+        <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
+            <h5>历史订单</h5>
             <!-- <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<{:U('Maintain/add')}>"><i class="layui-icon"></i> 新增</a>        </div> -->
         </div>
@@ -201,7 +202,7 @@
             var order = data['order'];
             for(key in order){
                 var tableHtml = '';
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td>';
+                tableHtml += '<tr><td class="layui-elip" title="'+order[key]['ordercode']+'">'+order[key]['ordercode']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td>';
                 var detail = '';
                 for(var i=0;i<order[key]['detail'].length;i++){
                     detail += order[key]['detail'][i]['goodsname'] + '-'+ order[key]['detail'][i]['goodsmodel']+'×'+order[key]['detail'][i]['goodsnum'];
@@ -213,7 +214,11 @@
                 tableHtml += '<td class="layui-elip" title="'+order[key]['orderbak']+'">'+order[key]['orderbak']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">';
                 tableHtml += '<span style="color:green">已受理</span>';
                 
-                tableHtml+='</td><td class="layui-elip">'+order[key]['statustime']+'</td><td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a href="/luomansi/index.php/Admin/Order/download/mod/index/id/'+key+'" data-confirm="#" value="'+key+'">下载</a></td></tr>';
+                tableHtml+='</td><td class="layui-elip">'+order[key]['statustime']+'</td><td>';
+                <{if condition="$group eq 99"}>
+                tableHtml+='<a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/>';
+                <{/if}>
+                tableHtml+='<a href="/luomansi/index.php/Admin/Order/download/mod/index/id/'+key+'" data-confirm="#" value="'+key+'">下载</a></td></tr>';
                 //<br/><a class="deleteId" data-confirm="#" value="'+key+'">删除</a>
                 tableHtml2 = tableHtml+tableHtml2;
             }
@@ -323,9 +328,9 @@
                         alert(data.msg);
                     }
                 },
-                error : function(data){
+                error : function(x,data){
                     $('.meng00').hide();
-                    if (data.status == 'timeout') {
+                    if (data == 'timeout') {
                         alert('连接超时，请重试');
                     }
                 }

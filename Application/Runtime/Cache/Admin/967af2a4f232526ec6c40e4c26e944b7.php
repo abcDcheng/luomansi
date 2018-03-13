@@ -40,10 +40,18 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+    <style type="text/css">
+	.layui-nav-tree .layui-nav-child a{
+		height: 35px;
+	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
+</style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -69,7 +77,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
-				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/ad');?>">广告宣传语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -141,6 +149,7 @@
         <div class="sc_body">
             <form action="<?php echo U('Saleman/update');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+        <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>代理商信息更新</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
@@ -152,15 +161,15 @@
                         <div class="sc_editor_content">
                             <input name="id" value="<?php echo ($id); ?>" type="hidden"/>
                             <div class="layui-form-item">
-                              <label class="layui-form-label label-required">用户名</label>
+                              <label class="layui-form-label label-required">账户名</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="*4-30" errormsg="用户名至少4个字符!" nullmsg="请输入用户名!" value="<?php echo ($saleman["username"]); ?>" disabled="disabled">
+                                  <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="账户名" datatype="*4-30" errormsg="账户名至少4个字符!" nullmsg="请输入账户名!" value="<?php echo ($saleman["username"]); ?>" disabled="disabled">
                               </div>
                           </div>
                           <div class="layui-form-item">
                                 <label class="layui-form-label">重置密码</label>
                                 <div class="layui-input-block">
-                                    <input name="repwd" type="checkbox" value="1">(不重置密码则不必勾选此项，若重置则默认密码为123456，再由改账户人员自行修改)
+                                    <input name="repwd" type="checkbox" value="1">(不重置密码则不必勾选此项，若重置则默认密码为a123456，再由改账户人员自行修改)
                                 </div>
                             </div>
                           <div class="layui-form-item">
@@ -172,7 +181,7 @@
                           <div class="layui-form-item">
                               <label class="layui-form-label label-required">联系方式</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="*4-30" errormsg="联系方式至少4个字符!" nullmsg="请输入联系方式!" value="<?php echo ($saleman["phone"]); ?>">
+                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="n11-11" errormsg="联系方式必须为手机号!" nullmsg="请输入联系方式!" value="<?php echo ($saleman["phone"]); ?>">
                               </div>
                           </div>
                           <div class="layui-form-item">
@@ -232,12 +241,13 @@ $(function(){
         var info = $('input[name="goodsInfo[]"]:checked').val();
         //alert(info);
         //return false;
-        var pwd = $('#pwd').val();
-        var repwd = $('#repwd').val();
-        if (pwd != repwd) {
-            alert('两次输入的密码不一致');
-            return false;
-        }
+        // var pwd = $('#pwd').val();
+        // var repwd = $('#repwd').val();
+
+        // if (pwd != repwd) {
+        //     alert('两次输入的密码不一致');
+        //     return false;
+        // }
     });
 
     $('.gBtn').click(function(){

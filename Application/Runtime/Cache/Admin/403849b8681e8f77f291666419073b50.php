@@ -42,10 +42,18 @@
 
 <div class="layui-layout-admin">
     <div class="layui-tab sc_side_tab" lay-filter="nav">
-    
+    <style type="text/css">
+	.layui-nav-tree .layui-nav-child a{
+		height: 35px;
+	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
+</style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -142,6 +150,7 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
+        <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
             <h5>产品识别码管理</h5>
             <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<?php echo U('Code/add');?>"><i class="layui-icon"></i> 新增</a> &nbsp;<a class="layui-btn layui-btn-sm" href="<?php echo U('Code/import');?>"><i class="layui-icon"></i> 批量导入</a>       </div>
@@ -163,6 +172,7 @@
                         <col width="150">
                         <col width="200">
                         <col>
+                        <col>
                         <col width="130">
                     </colgroup>
                     <thead>
@@ -170,6 +180,7 @@
                             <th>型号</th>
                             <th>规格</th>
                             <th>产品识别码</th>
+                            <th>安装状态</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -216,7 +227,7 @@
         var str='';
         var page = 1;
         $('#cx').click(function(){
-            re= /^[a-zA-Z0-9]*$/i;
+            var re= /^[a-zA-Z0-9]*$/i;
             goodsCode = $.trim($('#goodsCode').val());
             if (!re.test(goodsCode)) {
                 alert('产品识别码不能带特殊符号');
@@ -230,15 +241,6 @@
         var f=$(this).attr("value");
         if(f==0)return false;
         else fenye(f);
-    });
-
-    $('#clear').click(function(){
-        $('#firsttime').val('');
-        $('#lasttime').val('');
-        firsttime='';
-        lasttime='';
-        str='';
-        fenye(1);
     });
 
     
@@ -263,6 +265,11 @@
             for(key in order){
                 var tableHtml = '';
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip">'+order[key]['goodsmodel']+'</td><td class="layui-elip">'+order[key]['goodscode']+'</td>';
+                if (order[key]['install'] == 1) {
+                    tableHtml += '<td class="layui-elip" style="color:green">已安装</td>';
+                } else {
+                    tableHtml += '<td class="layui-elip" style="color:red">未安装</td>';
+                }
                 tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a>&nbsp;&nbsp;<a class="deleteId" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
                 tableHtml2 = tableHtml+tableHtml2;
             }
@@ -371,9 +378,9 @@
                         alert(data.msg);
                     }
                 },
-                error : function(data){
+                error : function(x,data){
                     $('.meng00').hide();
-                    if (data.status == 'timeout') {
+                    if (data == 'timeout') {
                         alert('连接超时，请重试');
                     }
                 }

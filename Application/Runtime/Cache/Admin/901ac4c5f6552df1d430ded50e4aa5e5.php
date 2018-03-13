@@ -46,10 +46,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -75,7 +79,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
-				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/ad');?>">广告宣传语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -146,6 +150,7 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
+        <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
             <h5>维护统计</h5>
             <!-- <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/add');?>"><i class="layui-icon"></i> 新增</a>        </div> -->
@@ -176,7 +181,7 @@
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
                         <col width="80">
-                        <col width="100">
+                        <col width="120">
                         <col width="150">
                         <col width="100">
                         <col>
@@ -185,7 +190,7 @@
                         <col width="100">
                         <col width="100">
                         <col width="100">
-                        <col width="60">
+                        <col width="80">
                     </colgroup>
                     <thead>
                         <tr>
@@ -198,7 +203,7 @@
                             <th>负责代理商</th>
                             <th>维护人员</th>
                             <th>维护状态</th>
-                            <th>回访状态</th>
+                            <th>受理人员</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -294,6 +299,7 @@
                 // }
             var tableHtml2 = '';
             var order = data['order'];
+            var edit = '查看详情';
             for(key in order){
                 var tableHtml = '';
                 tableHtml += '<tr><td class="layui-elip">'+order[key]['name']+'</td><td class="layui-elip">'+order[key]['phone']+'</td><td class="layui-elip" title="'+order[key]['address']+'">'+order[key]['address']+'</td><td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip" title="'+order[key]['msg']+'">'+order[key]['msg']+'</td><td class="layui-elip">'+order[key]['entime']+'</td><td class="layui-elip">'+order[key]['saleman']+'</td><td class="layui-elip">'+order[key]['servicename']+'</td>';
@@ -305,14 +311,15 @@
                 } else {
                     tableHtml += '<td class="layui-elip"><span style="color:red">未维护</span></td>';
                 }
-                if (parseInt(order[key]['status']) == 2) {
-                    tableHtml += '<td class="layui-elip"><span style="color:red">服务异常</span></td>';
-                } else if (parseInt(order[key]['status']) == 1) {
-                    tableHtml += '<td class="layui-elip"><span style="color:green">已完成</span></td>';
-                } else {
-                    tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
-                }
-                tableHtml+='<td><a class="maintainUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><a id="dl" href="/luomansi/index.php/Admin/Maintain/download/id/'+key+'" value="'+key+'" data-title="下载">下载</a></td></tr>';
+                // if (parseInt(order[key]['status']) == 2) {
+                //     tableHtml += '<td class="layui-elip"><span style="color:red">服务异常</span></td>';
+                // } else if (parseInt(order[key]['status']) == 1) {
+                //     tableHtml += '<td class="layui-elip"><span style="color:green">已完成</span></td>';
+                // } else {
+                //     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
+                // }
+                tableHtml += '<td class="layui-elip"><span style="color:green">'+order[key]['statususer']+'</span></td>';
+                tableHtml+='<td><a class="maintainUpdate" href="javascript:;" value="'+key+'" data-title="'+edit+'">'+edit+'</a><a id="dl" href="/luomansi/index.php/Admin/Maintain/download/id/'+key+'" value="'+key+'" data-title="下载">下载</a></td></tr>';
                 tableHtml2 = tableHtml+tableHtml2;
             }
             $('#body').append(tableHtml2);
@@ -394,7 +401,8 @@
       });
       
     }
-    fenye(1);
+    //fenye(1);
+    $('#cx').click();
 
     $('#body').on('click','.maintainUpdate',function(){
         var id = $(this).attr('value');
@@ -412,7 +420,7 @@
                 data : {id:id},
                 dataType : "json",
                 timeout : 10000,
-                success : function(data){
+                success : function(x,data){
                     $('.meng00').hide();
                     if (data.code == 1) {
                         alert('删除成功');

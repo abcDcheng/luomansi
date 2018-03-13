@@ -45,6 +45,7 @@
         <div class="sc_body">
             <form action="<{:U('Code/codeRecord')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+                <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>新增产品识别码</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
@@ -83,7 +84,7 @@
                                 
                                 <table border="1" cellpadding="15">
                                     <thead>
-                                        <tr><td>型号</td><td>规格</td><td>产品识别码</td></tr>
+                                        <tr><td>型号</td><td>规格</td><td>产品识别码</td><td>安装状态</td></tr>
                                     </thead>
                                     <tbody id="dataView">
                                         
@@ -122,8 +123,13 @@
                 var table = '';
                 var info = res.info;
                 for (var i = 0;i < info.length;i++) {
+                    if (info[i]['install'] == 1) {
+                        var install = '已安装';
+                    } else {
+                        var install = '未安装';
+                    }
                     table += '<tr>' +
-                             '<td>'+info[i]['goods']+'</td><td>'+info[i]['goodsModel']+'</td><td>'+info[i]['goodsCode']+'</td>'+
+                             '<td>'+info[i]['goods']+'</td><td>'+info[i]['goodsModel']+'</td><td>'+info[i]['goodsCode']+'</td><td>'+install+'</td>'+
                              '</tr>';
                 }
                 $('#dataView').empty();

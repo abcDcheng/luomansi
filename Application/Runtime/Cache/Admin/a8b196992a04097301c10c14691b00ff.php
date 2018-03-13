@@ -46,10 +46,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -146,6 +150,7 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
+        <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
             <h5>维护管理</h5>
              <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/salemanAdd');?>"><i class="layui-icon"></i> 生成新订单</a>        </div> 
@@ -177,7 +182,7 @@
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
                         <col width="80">
-                        <col width="100">
+                        <col width="120">
                         <col width="200">
                         <col width="100">
                         <col>
@@ -313,7 +318,8 @@
                 } else {
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
-                tableHtml+='<td><a class="maintainUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><a class="maintaindel" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
+                tableHtml+='<td><a class="maintainUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a></td></tr>';
+                //<a class="maintaindel" href="javascript:;" value="'+key+'" data-title="删除">删除</a>
                 tableHtml2 = tableHtml+tableHtml2;
             }
             $('#body').append(tableHtml2);
@@ -399,7 +405,7 @@
 
         $('#body').on('click','.maintainUpdate',function(){
             var id = $(this).attr('value');
-            window.location.href="/luomansi/index.php/Admin/Maintain/update/mod/index/id/"+id;
+            window.location.href="/luomansi/index.php/Admin/Maintain/salemanUpdate/mod/index/id/"+id;
         });
         $('#body').on('click','.maintaindel',function(){
             if (confirm('确定删除该数据吗？')) {
@@ -421,9 +427,9 @@
                             alert(data.msg);
                         }
                     },
-                    error : function(data){
+                    error : function(x,data){
                         $('.meng00').hide();
-                        if (data.status == 'timeout') {
+                        if (data == 'timeout') {
                             alert('连接超时，请重试');
                         }
                     }

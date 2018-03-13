@@ -227,6 +227,12 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label">受理人员</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="无" value="<?php echo ($info["statususer"]); ?>" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label">回访状态</label>
                                 <div class="layui-input-block">
                                 <?php if($info["status"] == 1): ?><input type="text" name="entime" class="layui-input" autocomplete="off" value="已回访" disabled="disabled" style="color: green">
@@ -239,7 +245,7 @@
                             >
                                 <label class="layui-form-label">信息反馈</label>
                                 <div class="layui-input-block">
-                                    <textarea name="msg" class="layui-textarea"><?php echo ($info["msg"]); ?></textarea>
+                                    <textarea name="msg" class="layui-textarea" disabled="disabled" placeholder="无"><?php echo ($info["msg"]); ?></textarea>
                                 </div>
                             </div>
                         </div>

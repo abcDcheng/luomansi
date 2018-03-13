@@ -25,7 +25,7 @@ class CodeController extends Controller {
                 //查询数据总数
                 $count = $Model_data->table('saleman_code')->where('goodsCode!="" '.$csql)->count();
                 //查询数据
-                $order = $Model_data->table('saleman_code')->where('goodsCode!="" '.$csql)->order('id desc')->limit($first,$pageNum)->getField('id,goods,goodsModel,goodsCode');
+                $order = $Model_data->table('saleman_code')->where('goodsCode!="" '.$csql)->order('id desc')->limit($first,$pageNum)->getField('id,goods,goodsModel,goodsCode,install');
                 
                 $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
                 //var_dump($res);
@@ -47,6 +47,7 @@ class CodeController extends Controller {
                 $goods = I('goods');
                 $goodsModel = I('goodsModel');
                 $goodsCode = I('goodsCode');
+                $install = intval(I('install'));
                 $Model_data = M('code');
                 //判断产品码是否已录入
                 $count = $Model_data->where("goodsCode='$goodsCode'")->count();
@@ -56,6 +57,7 @@ class CodeController extends Controller {
                     $insertData = array('goods'=>$goods,
                                         'goodsModel'=>$goodsModel,
                                         'goodsCode'=>$goodsCode,
+                                        'install'=>$install,
                                         'createTime'=>date('Y-m-d H:i:s'));
                     //var_dump($insertData);
                     $res = $Model_data->add($insertData);
@@ -83,24 +85,29 @@ class CodeController extends Controller {
                     $goods = I('goods');
                     $goodsModel = I('goodsModel');
                     $goodsCode = I('goodsCode');
+                    $oldCode = I('oldCode');
+                    $install = intval(I('install'));
                     $Model_data = M('code');
-                    //判断产品码是否已注册
-                    $count = $Model_data->where("goodsCode='$goodsCode'")->count();
-                    if ($count > 0) {
-                        $this->error('该识别码已存在',U('Code/index'));
-                    } else {
-                        $insertData = array('goods'=>$goods,
-                                            'goodsModel'=>$goodsModel,
-                                            'goodsCode'=>$goodsCode,
-                                            'createTime'=>date('Y-m-d H:i:s'));
-                        //var_dump($insertData);
-                        $res = $Model_data->where('id='.$id)->save($insertData);
-                        if ($res) {
-                            $this->success('提交成功',U('Code/index'),'add');
-                        } else {
-                            $this->error('添加失败，请重试或联系技术人员解决');
+                    if ($goodsCode != $oldCode) {
+                        //判断产品码是否已注册
+                        $count = $Model_data->where("goodsCode='$goodsCode'")->count();
+                        if ($count > 0) {
+                            $this->error('该识别码已存在',U('Code/index'));
                         }
                     }
+                    $insertData = array('goods'=>$goods,
+                                        'goodsModel'=>$goodsModel,
+                                        'goodsCode'=>$goodsCode,
+                                        'install'=>$install,
+                                        'createTime'=>date('Y-m-d H:i:s'));
+                    //var_dump($insertData);
+                    $res = $Model_data->where('id='.$id)->save($insertData);
+                    if ($res) {
+                        $this->success('修改成功',U('Code/index'),'add');
+                    } else {
+                        $this->error('修改失败，请重试或联系技术人员解决');
+                    }
+                    
                 } else {
                     //查询识别码信息
                     $Model_data = M('code');
@@ -181,6 +188,7 @@ class CodeController extends Controller {
                     $data_p[$j]['goods'] =$PHPExcel->getActiveSheet()->getCell("A" . $i)->getValue();
                     $data_p[$j]['goodsModel'] =$PHPExcel->getActiveSheet()->getCell("B" .$i)->getValue();
                     $data_p[$j]['goodsCode'] =$PHPExcel->getActiveSheet()->getCell("C" .$i)->getValue();
+                    $data_p[$j]['install'] =$PHPExcel->getActiveSheet()->getCell("D" .$i)->getValue();
                     $data_p[$j]['enTime'] = date('Y-m-d H:i:s');
                 }
                 $res['allRow'] = $allRow - 1;

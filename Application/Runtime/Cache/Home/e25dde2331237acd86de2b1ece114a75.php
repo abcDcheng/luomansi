@@ -47,7 +47,7 @@
 		<ul class="maintain-complete maintain-style" style="display: block">
 			<?php if($hasInfo == 1): if(is_array($info)): foreach($info as $k=>$value): ?><li>
 				<div class="query-list-img-bg">
-					<img src="/luomansi/Application/Home/Public/img/product1.jpg" alt="">
+					<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5><?php echo ($value["goods"]); ?></h5>
@@ -88,9 +88,13 @@
 				<p>联系电话：<con id="phone"></con></p>
 				<p>维护地址：<con id="address"></con></p>
 				<p>客户说明：<con id="clientbak"></con></p>
-
+				<p>维护日志：<br/><textarea id="serLog" style="width:99%;height: 200px;font-size: 27px;" readonly=""></textarea></p>
 				<div class="maintain-complete-imgbg">
-					<img id="img" src="/luomansi/Application/Home/Public/img/complete-img.jpg" alt="" class="complete-img">
+				<p style="margin-bottom: 15px;">设备显示识别码照片</p>
+					<img id="photo" src="" alt="" class="complete-img">
+					<br/>
+				<p style="margin-bottom: 15px;">安装智能锁门的全景照片</p>
+					<img id="img" src="" alt="" class="complete-img">	
 					<!-- <img src="/luomansi/Application/Home/Public/img/icon12.png" alt="" class="icon12"> -->
 				</div>
 				<button id="return" class="maintain-executable-date-btn">返回</button>
@@ -151,7 +155,9 @@
 			} else {
 				$('#clientbak').text('无');
 			}
-			$('.complete-img').attr('src',imgSrc+info[i]['comimg']);
+			$('#serLog').text(info[i]['serlog']);
+			$('#img').attr('src',imgSrc+info[i]['comimg']);
+			$('#photo').attr('src',imgSrc+info[i]['comphoto']);
 			$('.maintain-complete').hide();
 			$('.maintain-complete-date-wrap').show();
 		});

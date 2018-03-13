@@ -43,10 +43,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -144,9 +148,10 @@
         <div class="sc_body">
             <form action="<?php echo U('Maintain/update');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+        <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>维护管理</h5>
                     <div class="sc_title_btn">
-                        <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
+                    <?php if(($info["statususer"] == $user and $info["status"] != 1) or $group == 99): ?><button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button><?php endif; ?>
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="javascript:history.back();"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
@@ -158,72 +163,81 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">创建人员</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="username" class="layui-input" autocomplete="off" value="<?php echo ($info["username"]); ?>" disabled="disabled">
+                                    <input type="text" name="username" class="layui-input" autocomplete="off" value="<?php echo ($info["username"]); ?>" readonly="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">客户姓名</label>
+                                <label class="layui-form-label <?php echo ($require); ?>">客户姓名</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="*2-30" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!"  value="<?php echo ($info["name"]); ?>">
+                                    <input type="text" name="name" class="layui-input" autocomplete="off" placeholder="客户姓名" datatype="*2-30" errormsg="客户姓名至少2个字符!" nullmsg="请输入客户姓名!"  value="<?php echo ($info["name"]); ?>" <?php echo ($disabled); ?>>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">联系方式</label>
+                                <label class="layui-form-label <?php echo ($require); ?>">联系方式</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="phone" class="layui-input" autocomplete="off" datatype="*2-30" errormsg="请输入正确的联系方式" placeholder="联系方式" nullmsg="请输入联系方式!" value="<?php echo ($info["phone"]); ?>">
+                                    <input type="text" name="phone" class="layui-input" autocomplete="off" datatype="*2-30" errormsg="请输入正确的联系方式" placeholder="联系方式" nullmsg="请输入联系方式!" value="<?php echo ($info["phone"]); ?>" <?php echo ($disabled); ?>>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">详细地址</label>
+                                <label class="layui-form-label <?php echo ($require); ?>">详细地址</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="address" class="layui-input" autocomplete="off" datatype="*2-255" errormsg="请输入正确的详细地址" placeholder="详细地址" nullmsg="请输入详细地址!" value="<?php echo ($info["address"]); ?>">
+                                    <input type="text" name="address" class="layui-input" autocomplete="off" datatype="*2-255" errormsg="请输入正确的详细地址" placeholder="详细地址" nullmsg="请输入详细地址!" value="<?php echo ($info["address"]); ?>" <?php echo ($disabled); ?>>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">产品名称</label>
+                                <label class="layui-form-label <?php echo ($require); ?>">产品名称</label>
                                 <div class="layui-input-block">
-                                    <select id="goods" name="goods" class="layui-select">
+                                <?php if($disabled == ''): ?><select id="goods" name="goods" class="layui-select">
                                         <?php if(is_array($goods)): foreach($goods as $k=>$value): ?><option value="<?php echo ($k); ?>"><?php echo ($value); ?></option><?php endforeach; endif; ?>
                                     </select>
+                                <?php else: ?>
+                                    <input type="text" name="goodsName" class="layui-input" autocomplete="off" value="<?php echo ($info["goods"]); ?>" readonly="">
+                                    <input name="goods" type="hidden" value="<?php echo ($info["goodsid"]); ?>"><?php endif; ?>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">产品规格</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="goodsModel" class="layui-input" autocomplete="off"  placeholder="产品规格，未知可不填" value="<?php echo ($info["goodsmodel"]); ?>">
+                                    <input type="text" name="goodsModel" class="layui-input" autocomplete="off"  placeholder="未知" value="<?php echo ($info["goodsmodel"]); ?>" <?php echo ($disabled); ?>>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">安装时间</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="installTime" placeholder="安装时间，未知可不选" value="<?php echo ($info["installtime"]); ?>" class="layui-input sc_form_date" readonly="">
+                                    <input type="text" name="installTime" placeholder="未知" value="<?php echo ($info["installtime"]); ?>" class="layui-input sc_form_date" readonly="" <?php echo ($disabled); ?>>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">维护信息</label>
+                                <label class="layui-form-label <?php echo ($require); ?>">维护信息</label>
                                 <div class="layui-input-block">
-                                    <textarea id="msg" name="msg" class="layui-textarea" datatype="*2-2000" nullmsg="请输入维护信息!" placeholder="维护信息"><?php echo ($info["msg"]); ?></textarea>
+                                    <textarea id="msg" name="msg" class="layui-textarea" datatype="*2-2000" nullmsg="请输入维护信息!" placeholder="维护信息" <?php echo ($disabled); ?>><?php echo ($info["msg"]); ?></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">客户说明</label>
                                 <div class="layui-input-block">
-                                    <textarea id="clientBak" name="clientBak" class="layui-textarea" placeholder="客户说明"><?php echo ($info["clientbak"]); ?></textarea>
+                                    <textarea id="clientBak" name="clientBak" class="layui-textarea" placeholder="客户说明" <?php echo ($disabled); ?>><?php echo ($info["clientbak"]); ?></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">订单要求</label>
+                                <label class="layui-form-label <?php echo ($require); ?>">订单要求</label>
                                 <div class="layui-input-block">
-                                    <select id="level" name="level" class="layui-select">
+                                <?php if($disabled == ''): ?><select id="level" name="level" class="layui-select">
                                         <option value="1">紧急服务</option>
                                         <option value="2">预约服务</option>
                                     </select>
+                                <?php else: ?>
+                                    <?php if($info["level"] == 1): ?><input type="hidden" name="level" class="layui-input" autocomplete="off" value="<?php echo ($info["level"]); ?>" readonly="">
+                                    <input type="text" name="levelcon" class="layui-input" autocomplete="off" value="紧急服务" readonly="">
+                                    <?php else: ?>
+                                    <input type="hidden" name="level" class="layui-input" autocomplete="off" value="<?php echo ($info["level"]); ?>" readonly="">
+                                    <input type="text" name="levelcon" class="layui-input" autocomplete="off" value="预约服务" readonly=""><?php endif; endif; ?>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label">所在省市</label>
+                                <label class="layui-form-label">所属省市</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="province" class="layui-input" autocomplete="off" value="<?php echo ($info["province"]); echo ($info["city"]); ?>" disabled="disabled">
+                                    <input type="text" name="province" class="layui-input" autocomplete="off" value="<?php echo ($info["province"]); echo ($info["city"]); ?>" readonly="" placeholder="未知">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -231,21 +245,24 @@
                                 <?php if($group == 1): ?><label class="layui-form-label">负责代理商</label>
                                 <div class="layui-input-block">
                                     <input id="saleman" type="hidden" name="saleman">
-                                    <input type="text" class="layui-input" autocomplete="off" value="<?php echo ($info["saleman"]); ?>" disabled="disabled">
+                                    <input type="text" class="layui-input" autocomplete="off" value="<?php echo ($info["saleman"]); ?>" readonly="">
                                 <?php else: ?>
-                                <label class="layui-form-label label-required">负责代理商</label>
+                                <label class="layui-form-label">负责代理商</label>
                                 <div class="layui-input-block">
-                                    <select id="saleman" name="saleman" class="layui-select">
+                                <?php if($disabled == ''): ?><select id="saleman" name="saleman" class="layui-select" >
                                         <option value="">选择代理商</option>
                                         <?php if(is_array($saleman)): foreach($saleman as $key=>$value): ?><option value="<?php echo ($value["id"]); ?>"><?php echo ($value["name"]); ?>(<?php echo ($value["province"]); echo ($value["city"]); ?>)</option><?php endforeach; endif; ?>
                                     </select>
+                                <?php else: ?>
+                                    <input class="layui-input" type="text" value="<?php echo ($info["saleman"]); ?>" readonly="" placeholder="无">
+                                    <input id="saleman" name="saleman" type="hidden" value="<?php echo ($info["salemanid"]); ?>"><?php endif; ?>
                                     <input name="oldSaleman" type="hidden" value="<?php echo ($info["salemanid"]); ?>"><?php endif; ?>
                                 </div>
                             </div>
                             
                             <div class="layui-form-item">
                                 
-                                <?php if($group == 1): ?><label class="layui-form-label label-required">维护人员</label>
+                                <?php if($group == 1): ?><label class="layui-form-label">维护人员</label>
                                 <div class="layui-input-block">
                                     <select id="serviceName" name="servicer" class="layui-select">
                                         <option value="">选择维护人员</option>
@@ -255,15 +272,15 @@
                                 <?php else: ?>
                                 <label class="layui-form-label">维护人员</label>
                                 <div class="layui-input-block">
-                                    <?php if($info["servicename"] != ''): ?><input type="text" name="serviceName" class="layui-input" autocomplete="off" value="<?php echo ($info["servicename"]); ?>(<?php echo ($info["servicephone"]); ?>)" disabled="disabled">
+                                    <?php if($info["servicename"] != ''): ?><input type="text" name="serviceName" class="layui-input" autocomplete="off" value="<?php echo ($info["servicename"]); ?>(<?php echo ($info["servicephone"]); ?>)" readonly="">
                                     <?php else: ?>
-                                    <input type="text" name="serviceName" class="layui-input" autocomplete="off" value="" disabled="disabled"><?php endif; endif; ?>
+                                    <input type="text" name="serviceName" class="layui-input" autocomplete="off" value="" placeholder="无" readonly=""><?php endif; endif; ?>
                                 </div>
                             </div>
                             <?php if($info['serlog'] != ''): ?><div class="layui-form-item">
                                 <label class="layui-form-label">维护追踪</label>
                                 <div class="layui-input-block">
-                                    <textarea name="serLog" class="layui-textarea" autocomplete="off" value="<?php echo ($info["serlog"]); ?>" disabled="disabled" style="height: 300px;"><?php echo ($info["serlog"]); ?></textarea>
+                                    <textarea name="serLog" class="layui-textarea" autocomplete="off" value="<?php echo ($info["serlog"]); ?>" readonly="" style="height: 300px;"><?php echo ($info["serlog"]); ?></textarea>
                                 </div>
                             </div><?php endif; ?>
                             <?php if($info['servicestatus'] != 0 and $info['comimg'] != ''): ?><div class="layui-form-item from_item_image">
@@ -283,15 +300,36 @@
                                 </div>
                             </div><?php endif; ?>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">回访状态</label>
+                                <label class="layui-form-label">受理人员</label>
                                 <div class="layui-input-block">
-                                    <select id="status" name="status" class="layui-select">
+                                    <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="无" value="<?php echo ($info["statususer"]); ?>" readonly="">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label <?php echo ($require); ?>">回访状态</label>
+                                <div class="layui-input-block">
+                                <?php if(($info["statususer"] == $user and $info["status"] != 1) or $group == 99): ?><select id="status" name="status" class="layui-select" lay-filter="status">
                                         <option value="0">未回访</option>
                                         <option value="1">已回访</option>
                                         <option value="2">服务异常</option>
                                     </select>
+                                <?php else: ?>
+                                    <?php if($info['status'] == 0): ?><input type="text" name="statuscon" class="layui-input" autocomplete="off" value="未回访" readonly="">
+                                    <?php elseif($info['status'] == 1): ?>
+                                    <input type="text" name="statuscon" class="layui-input" autocomplete="off" value="已回访" readonly="">
+                                    <?php else: ?>
+                                    <input type="text" name="statuscon" class="layui-input" autocomplete="off" value="服务异常" readonly=""><?php endif; ?>
+                                    <input id="status" name="status" type="hidden" value="<?php echo ($info["status"]); ?>"><?php endif; ?>
                                 </div>
                             </div>
+                            <?php if($info["statususer"] == $user or $group == 99): ?><div id="statusmsg" class="layui-form-item" 
+                            <?php if($info['status'] != 2): ?>style="display: none"<?php endif; ?>
+                            >
+                                <label class="layui-form-label">回访信息</label>
+                                <div class="layui-input-block">
+                                    <textarea name="serMsg" class="layui-textarea"></textarea>
+                                </div>
+                            </div><?php endif; ?>
                         </div>
                     </section>
                 </div>
@@ -312,10 +350,33 @@
         $('#save').click(function(){
             var saleman = $('#saleman').val();
             if (!saleman) {
-                alert('请选择代理商');
-                return false;
+                if(!confirm('未选择负责代理商，确定修改吗？')){
+                    return false;
+                }
             }
+            <?php if($group == 1): ?>var servicer = $('#serviceName').val();
+            if (!servicer) {
+                if(!confirm('未选择维护人员，确定修改吗？')){
+                    return false;
+                }
+            }<?php endif; ?>
         });
+
+        layui.use(['layer', 'form'], function(){
+        var form = layui.form;
+        form.on('select(status)', function(data){
+            //alert($(data.elem).val());
+            if (data.value != 0) {
+                $('#statusmsg').show();
+                $(window).scrollTop( $(".sc_editor_content").height());
+            } else {
+                $('#statusmsg').hide();
+            }
+          //console.log(data.elem); //得到select原始DOM对象
+         // console.log(data.value); //得到被选中的值
+          //console.log(data.othis); //得到美化后的DOM对象
+        }); 
+        }); 
     });
     
 

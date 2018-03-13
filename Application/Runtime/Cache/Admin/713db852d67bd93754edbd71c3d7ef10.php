@@ -43,10 +43,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -72,7 +76,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
-				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/ad');?>">广告宣传语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -144,9 +148,10 @@
         <div class="sc_body">
             <form action="<?php echo U('Install/update');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+                <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>新用户信息管理</h5>
                     <div class="sc_title_btn">
-                        <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
+                    <?php if(($info["statususer"] == $user and $info["status"] != 1) or $group == 99): ?><button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button><?php endif; ?>
                         <a class='layui-btn layui-btn-sm layui-btn-primary' href="javascript:history.back()"><i class="layui-icon">&#x1006;</i> 返回</a>
                     </div>
                 </div>
@@ -226,29 +231,35 @@
                                     <input type="text" name="entime" class="layui-input" autocomplete="off" value="<?php echo ($info["entime"]); ?>" disabled="disabled">
                                 </div>
                             </div>
-                            <?php if($info["statususer"] == $user): ?><div class="layui-form-item">
-                                <label class="layui-form-label label-required">回访状态</label>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">受理人员</label>
                                 <div class="layui-input-block">
-                                    <select id="status" name="status" class="layui-select">
+                                    <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="无" value="<?php echo ($info["statususer"]); ?>" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label <?php echo ($require); ?>">回访状态</label>
+                                <div class="layui-input-block">
+                                <?php if(($info["statususer"] == $user and $info["status"] != 1) or $group == 99): ?><select id="status" name="status" class="layui-select" lay-filter="status">
                                         <option value="0">未回访</option>
                                         <option value="1">已回访</option>
                                     </select>
-                                </div>
-                            </div><?php endif; ?>
-                            <?php if($info['status'] == 1): ?><div class="layui-form-item">
-                                <label class="layui-form-label">回访人员</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="statusUser" class="layui-input" autocomplete="off" value="<?php echo ($info["statususer"]); ?>" disabled="disabled">
-                                </div>
-                            </div><?php endif; ?>
-                            <div id="msg" class="layui-form-item" 
-                            <?php if($info['status'] != 1): ?>style="display: none"<?php endif; ?>
-                            >
-                                <label class="layui-form-label">信息反馈</label>
-                                <div class="layui-input-block">
-                                    <textarea name="msg" class="layui-textarea"><?php echo ($info["msg"]); ?></textarea>
+                                <?php else: ?>
+                                    <?php if($info['status'] == 0): ?><input type="text" name="statuscon" class="layui-input" autocomplete="off" value="未回访" disabled="disabled">
+                                    <?php else: ?>
+                                    <input type="text" name="statuscon" class="layui-input" autocomplete="off" value="已回访" disabled="disabled"><?php endif; ?>
+                                    <input id="status" name="status" type="hidden" value="<?php echo ($info["status"]); ?>"><?php endif; ?>
                                 </div>
                             </div>
+                            <?php if($info["statususer"] == $user or $group == 99): ?><div id="msg" class="layui-form-item" 
+                            <?php if($info['status'] == 0): ?>style="display: none"<?php endif; ?>
+                            >
+                                <label class="layui-form-label">回访信息</label>
+                                <div class="layui-input-block">
+                                    <textarea placeholder="无" name="msg" class="layui-textarea"
+                                    <?php if($info['status'] == 1): ?>readonly=""<?php endif; ?>><?php echo ($info["msg"]); ?></textarea>
+                                </div>
+                            </div><?php endif; ?>
                         </div>
                     </section>
                 </div>
@@ -272,6 +283,7 @@
             //alert($(data.elem).val());
             if (data.value == 1) {
                 $('#msg').show();
+                $(window).scrollTop( $(".sc_editor_content").height());
             } else {
                 $('#msg').hide();
             }

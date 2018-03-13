@@ -144,6 +144,7 @@
         var canClick = 0;
         var imgUrl1 = '';
         var imgUrl2 = '';
+        //var xml = 0;
         $('#comfirm').click(function(){
             if (canClick) {
                 window.location.href = "<?php echo U('Login/installLogin');?>";
@@ -151,10 +152,10 @@
             
         });
         $('.btn-registration').click(function(){
-            // if (!imgUrl1 || !imgUrl2) {
-            //     alert('请上传门锁照片和识别码照片！');
-            //     return false;
-            // }
+            if (!imgUrl1 || !imgUrl2) {
+                alert('请上传门锁照片和识别码照片！');
+                return false;
+            }
             var name = $.trim($('#name').val());
             var phone = $.trim($('#phone').val());
             var address = $.trim($('#address').val());
@@ -183,7 +184,7 @@
                 type : "post",
                 data : {imgUrl1:imgUrl1,imgUrl2:imgUrl2,goodsCode:goodsCode,name:name,phone : phone,address:address,area:area},
                 dataType : "json",
-                timeout : 30000,
+                timeout : 60000,
                 success : function(data){
                     $('.meng00').hide();
                     if (data.code == 1) {
@@ -199,13 +200,14 @@
                         $('.btn-registration').html("确认提交").removeAttr('disabled');
                     }
                 },
-                error : function(data){
+                error : function(x,status){
                     $('.meng00').hide();
-                    if (data.status == 'timeout') {
+                    if (status == 'timeout') {
                         alert("连接超时，请重试");
                     } else {
                         alert("连接超时，请保持网络良好重试");
                     }
+                    //xml = x.readyState;
                     $('.btn-registration').html("确认提交").removeAttr('disabled');
                 }
             });

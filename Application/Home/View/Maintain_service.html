@@ -59,6 +59,7 @@
 				<p>联系电话：<con id="phone"></con></p>
 				<p>维护地址：<con id="address"></con></p>
 				<p>客户说明：<con id="clientbak"></con></p>
+				<p id="log">维护日志：<br/><textarea id="serLog" style="width:99%;height: 200px;font-size: 27px;" readonly=""></textarea></p>
 			</div>
 			<button id="return" class="maintain-executable-date-btn">返回</button>
 		</div>
@@ -68,7 +69,7 @@
 			<{foreach name="info" item="value" key='k'}>
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="__UPLOADS__/<{$value.goodsimg}>" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5><{$value.goods}></h5>
@@ -195,6 +196,13 @@
 				$('#clientbak').text(info[i]['clientbak']);
 			} else {
 				$('#clientbak').text('无');
+			}
+			if (info[i]['serlog']) {
+				$('#serLog').val(info[i]['serlog']);
+				$('#log').show();
+			} else {
+				$('#serLog').val('');
+				$('#log').hide();
 			}
 			$('.maintain-ing').hide();
 			$('.maintain-executable-date-wrap').show();
@@ -329,7 +337,7 @@
 		            type : "post",
 		            data : {orderId:orderId,imgUrl1:imgUrl1,imgUrl2:imgUrl2,goodsCode:goodsCode,serDate:serDate,serStartTime:serStartTime,serEndTime:serEndTime,serStatus:serStatus,serBak:serBak},
 		            dataType : "json",
-		            timeout : 30000,
+		            timeout : 60000,
 		            success : function(data) {
 		            	$('.meng00').hide();
 		            	if (data.code == 1) {
@@ -343,6 +351,13 @@
 		            	} else {
 		            		alert(data.msg);
 		            	}
+		            },
+		            error : function(x,data){
+		            	$('.meng00').hide();
+		            	if (data == 'timeout') {
+		            		alert('请求超时，请确认网络良好并重试');
+		            	}
+		            	//$('#service').text('执行维护').removeAttr('disabled');
 		            }
 				});
 			}

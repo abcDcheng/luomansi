@@ -142,7 +142,7 @@ class SalemanController extends Controller {
                         $modelId = I('goodsInfo');
                         $is_status = intval(I('status'));
                         if ($repwd) {
-                            $password = md5("123456");
+                            $password = md5("a123456");
                         } else {
                             $password = $info['password'];
                         }
@@ -257,10 +257,10 @@ class SalemanController extends Controller {
                 $admin_id = intval($_SESSION['admin_id']);
                 $Model_data = M('ServiceAdmin');
                 //查询已有代理商人员账户数量
-                $count = $Model_data->where("salemanId='$admin_id'")->count();
-                if ($count>=5) {
-                    $this->error('每位代理商限定只能有5个下属人员账户');
-                }
+                // $count = $Model_data->where("salemanId='$admin_id'")->count();
+                // if ($count>=5) {
+                //     $this->error('每位代理商限定只能有5个下属人员账户');
+                // }
                 $username = I('username');
                 $pwd = md5(I('pwd'));
                 $name = I('name');

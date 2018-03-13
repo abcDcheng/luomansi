@@ -19,7 +19,7 @@ layui.use(['element','layer','form','laydate'], function(){
             if (data.code == 1) {
                 alert(data.msg);
                 //console.log(data.url);
-                window.location.href = data.url;
+               window.location.href = data.url;
             } else {
                 alert(data.msg);
             }

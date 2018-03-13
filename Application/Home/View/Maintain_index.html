@@ -48,7 +48,7 @@
 			<{foreach name="info" item="value" key='k'}>
 			<li>
 				<div class="query-list-img-bg">
-					<img src="__IMAGES__/product1.jpg" alt="">
+					<img src="__UPLOADS__/<{$value.goodsimg}>" alt="">
 				</div>
 				<div class="query-list-message">
 					<h5><{$value.goods}></h5>
@@ -136,8 +136,8 @@
 			            		alert(data.msg);
 			            	}
 			            },
-			            error : function(data){
-			            	if (data.status == 'timeout') {
+			            error : function(x,data){
+			            	if (data == 'timeout') {
 			            		alert('请求超时，请确认网络良好并重试');
 			            	}
 			            	$('#service').text('执行维护').removeAttr('disabled');

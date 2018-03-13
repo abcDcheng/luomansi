@@ -45,6 +45,7 @@
         <div class="sc_body">
             <form action="<{:U('Admin/add')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+                <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>新增专员</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
@@ -73,6 +74,12 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                              <label class="layui-form-label label-required">联系方式</label>
+                              <div class="layui-input-block">
+                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="n11-11" errormsg="联系方式必须为手机号!" nullmsg="请输入联系方式!">
+                              </div>
+                          </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label label-required">类别</label>
                                 <div class="layui-input-block">
                                     <select name="group" placeholder="类别" class="layui-select">
@@ -94,6 +101,11 @@
     $('#save').click(function(){
         var pwd = $('#pwd').val();
         var repwd = $('#repwd').val();
+        var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
+        if (!reg.test(pwd)) {
+            alert('密码必须为字母数字组合');
+            return false;
+        }
         if (pwd != repwd) {
             alert('两次输入的密码不一致');
             return false;

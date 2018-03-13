@@ -45,6 +45,7 @@
         <div class="sc_body">
             <form action="<{:U('Index/pwd')}>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+                <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>密码修改</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>
@@ -86,6 +87,11 @@
         var oldpwd = $('#oldpwd').val();
         var pwd = $('#pwd').val();
         var repwd = $('#repwd').val();
+        var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
+        if (!reg.test(pwd)) {
+            alert('密码必须为字母数字组合');
+            return false;
+        }
         if (pwd != repwd) {
             alert('两次输入的新密码不一致');
             return false;

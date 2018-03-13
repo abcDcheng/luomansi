@@ -46,10 +46,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -75,7 +79,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
-				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/ad');?>">广告宣传语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -146,6 +150,7 @@
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
         <div class="sc_title sc_body_title">
+        <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
             <h5>新用户管理</h5>
             <!-- <div class="sc_title_btn">
                 <a class="layui-btn layui-btn-sm" href="<?php echo U('Maintain/add');?>"><i class="layui-icon"></i> 新增</a>        </div> -->
@@ -171,7 +176,10 @@
                     </div>
                 </div>
                 <button id="cx" class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
-                <input type="hidden" name="nid" value="5">
+                <div class="layui-input-inline">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="only" type="checkbox" name="only" value="" class="layui-input" lay-skin="primary" title="只看我受理的">
+                </div>
+
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
                         <col width="100">
@@ -181,7 +189,7 @@
                         <col width="120">
                         <col>
                         <col>
-                        <col width="145">
+                        <col width="150">
                         <col>
                         <col>
                         <col width="80">
@@ -196,7 +204,7 @@
                             <th>地区</th>
                             <th>详细地址</th>
                             <th>完成时间</th>
-                            <th>受理客服</th>
+                            <th>受理人员</th>
                             <th>状态</th>
                             <!-- <th>回访时间</th> -->
                             
@@ -247,6 +255,12 @@
         var str='';
         var page = 1;
         var saleman = '';
+        var ischecked = 0;
+        // if ($('#only').is(':checked')) {
+        //     ischecked = 1;
+        // } else {
+        //     ischecked = 0;
+        // }
         $('#cx').click(function(){
             //re= /,|\(|\)|#|'|"|=|;|>|<|%|\\/i;
             saleman = $('#saleman').val();
@@ -256,7 +270,12 @@
             }else{
                 firsttime=$('#firsttime').val();
                 lasttime=$('#lasttime').val();
-            }             
+            }        
+            if ($('#only').is(':checked')) {
+                ischecked = 1;
+            } else {
+                ischecked = 0;
+            }
             str='';
             fenye(1);
     });
@@ -283,7 +302,7 @@
         type: "post",
         timeout:5000,//设置超时时间为5秒
         url: "<?php echo U('Install/index');?>",
-        data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page},
+        data: {saleman:saleman,firsttime:firsttime,lasttime:lasttime,page:page,ischecked:ischecked},
         dataType: "json",
         success:function(data){
             $('#an').text(data[0]);
@@ -305,7 +324,7 @@
                     tableHtml += '<td class="layui-elip"><span style="color:red">未回访</span></td>';
                 }
                 //tableHtml += '<td class="layui-elip" title="'+order[key]['msg']+'">'+order[key]['msg']+'</td>';
-                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="差看详情">查看详情</a><br/><a href="/luomansi/index.php/Admin/Install/download/mod/index/id/'+key+'" class="download" data-confirm="#" value="'+key+'">下载</a>';
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="查看详情">查看详情</a><br/><a href="/luomansi/index.php/Admin/Install/download/mod/index/id/'+key+'" class="download" data-confirm="#" value="'+key+'">下载</a>';
                 if (order[key]['statususer']) {
                     tableHtml += '<br/><a href="javascript:;" style="color:green;">已受理</a>'; 
                 } else {
@@ -393,7 +412,8 @@
       });
       
     }
-    fenye(1);
+    //fenye(1);
+    $('#cx').click();
 
     $('#body').on('click','.orderUpdate',function(){
         var id = $(this).attr('value');
@@ -451,9 +471,9 @@
                         alert(data.msg);
                     }
                 },
-                error : function(data){
+                error : function(x,data){
                     $('.meng00').hide();
-                    if (data.status == 'timeout') {
+                    if (data == 'timeout') {
                         alert('连接超时，请重试');
                     }
                 }

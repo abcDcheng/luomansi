@@ -120,8 +120,8 @@
 	            		$('.sign-in-btn').val("登录").removeAttr('disabled');
 	            	}
 	            },
-	            error : function(data){
-	            	if (data.status == 'timeout') {
+	            error : function(x,status){
+	            	if (status == 'timeout') {
 	            		alert("连接超时，请重试");
 	            	}
 	            	$('.sign-in-btn').val("登录").removeAttr('disabled');

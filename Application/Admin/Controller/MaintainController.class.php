@@ -5,6 +5,7 @@ class MaintainController extends Controller {
     //获取
     public function index(){
     	if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
+            $group = intval($_SESSION['group']);
             if (IS_AJAX) {
                 $csql='';
                 $ra=array();
@@ -41,27 +42,34 @@ class MaintainController extends Controller {
                         $csql.="and enTime<='$lastttime' ";
                     }
                 }
+                if (isset($_POST['ischecked'])) {
+                    $ischecked = intval($_POST['ischecked']);
+                    if ($ischecked) {
+                        $csql.=" and statusUser='".$_SESSION['username']."' ";
+                    }
+                }
                 if(isset($_POST['page'])){
                     $page=$_POST['page'];
                 }
-                if ($_SESSION['group'] == 3) {
-                    $username = $_SESSION['username'];
-                    $csql = " and username = '$username'";
-                }
+                // if ($_SESSION['group'] == 3) {
+                //     $username = $_SESSION['username'];
+                //     $csql = " and username = '$username'";
+                // }
                 //echo $csql;
                 $pageNum = 12;//分页每页数量
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_maintain')->where('status!=1 '.$csql)->count();
-                $order = $Model_data->table('saleman_maintain')->where('status!=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,name,phone,address,goods,enTime,serviceName,serviceStatus,status,msg');
-                
+                $order = $Model_data->table('saleman_maintain')->where('status!=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,name,phone,address,goods,enTime,serviceName,serviceStatus,statusUser,status,msg');
                 $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
                 //var_dump($res);
                 $this->ajaxReturn($res);
             } else {
+
                 $Model_data = M('SysAdmin');
                 $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
                 $this->assign('saleman',$saleman);
+                $this->assign('group',$group);
                 $this->display();
             }
             
@@ -85,39 +93,46 @@ class MaintainController extends Controller {
                 $level = I('level');
                 $salemanId = intval(I('saleman'));
                 $username = $_SESSION['username'];
-                //获取选择的代理商信息
                 $Model_data = M();
-                $info = $Model_data->table('saleman_sys_admin')->where('id='.$salemanId)->getField('id,name,phone,province,city');
+                if ($salemanId) {   //获取选择的代理商信息
+                    $info = $Model_data->table('saleman_sys_admin')->where('id='.$salemanId)->field('id,name,phone,province,city')->find();
+                } else {    //未选择代理商
+                    $info = array(
+                                'name'       =>'',
+                                'phone'      =>'',
+                                'province'   =>'',
+                                'city'       =>'' 
+                                );
+                }
                 $goodsInfo = $Model_data->table('saleman_goods')->where('id='.$goods)->field('goodsName,goodsImg')->find();
-                if (!empty($info)) {
-                    $data = array(
-                        'username'      => $username,
-                        'name'          => $name,
-                        'phone'         => $phone,
-                        'address'       => $address,
-                        'goodsId'       => $goods,
-                        'goods'         => $goodsInfo['goodsname'],
-                        'goodsModel'    => $goodsModel,
-                        'goodsImg'      => $goodsInfo['goodsimg'],
-                        'msg'           => $msg,
-                        'level'         => $level,
-                        'clientBak'     => $clientBak,
-                        'installTime'   => $installTime,
-                        'salemanId'     => $salemanId,
-                        'saleman'       => $info[$salemanId]['name'],
-                        'salemanPhone'  => $info[$salemanId]['phone'],
-                        'province'      => $info[$salemanId]['province'],
-                        'city'          => $info[$salemanId]['city'],
-                        'enTime'        => date('Y-m-d H:i:s')
-                        );
-                    $res = $Model_data->table('saleman_maintain')->data($data)->add();
-                    if ($res) {
-                        $this->success('成功生成维护订单',U('Maintain/index'));
-                    } else {
-                        $this->error('生成维护订单失败');
-                    }
-                } else {
+                if (empty($info) && $salemanId) {
                     $this->error('查找不到负责代理商的信息，请重试');
+                }
+                $data = array(
+                    'username'      => $username,
+                    'name'          => $name,
+                    'phone'         => $phone,
+                    'address'       => $address,
+                    'goodsId'       => $goods,
+                    'goods'         => $goodsInfo['goodsname'],
+                    'goodsModel'    => $goodsModel,
+                    'goodsImg'      => $goodsInfo['goodsimg'],
+                    'msg'           => $msg,
+                    'level'         => $level,
+                    'clientBak'     => $clientBak,
+                    'installTime'   => $installTime,
+                    'salemanId'     => $salemanId,
+                    'saleman'       => $info['name'],
+                    'salemanPhone'  => $info['phone'],
+                    'province'      => $info['province'],
+                    'city'          => $info['city'],
+                    'enTime'        => date('Y-m-d H:i:s')
+                    );
+                $res = $Model_data->table('saleman_maintain')->data($data)->add();
+                if ($res) {
+                    $this->success('成功生成维护订单',U('Maintain/index'));
+                } else {
+                    $this->error('生成维护订单失败');
                 }
             } else {
                 $goods = M('goods')->getField('id,goodsName');
@@ -134,7 +149,7 @@ class MaintainController extends Controller {
     }
     //维护数据更新
     public function update(){
-        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3 || $_SESSION['group'] == 1)) {
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
             //判断是来自维护管理的请求还是维护统计的请求，给返回链接用
             if (isset($_REQUEST['mod'])) {
                 $mod = $_REQUEST['mod'];
@@ -176,77 +191,107 @@ class MaintainController extends Controller {
                     if ($group == 1) {
                         $serviceId = intval(I('servicer'));
                         $oldServicer = intval(I('oldServicer'));
-                        //查找新维护人员信息
-                        $info = $Model_data->table('saleman_service_admin')->where('id='.$serviceId)->find();
-                        if (!empty($info)) {
-                                $data['serviceName'] = $info['name'];
-                                $data['servicePhone'] = $info['phone'];
-                                $data['serviceId'] = $serviceId;
-                            
-                        } else {
-                            $this->error('查无该维护人员信息，请重试');
+                        if ($serviceId) {
+                            //查找新维护人员信息
+                            $info = $Model_data->table('saleman_service_admin')->where('id='.$serviceId)->find();
+                            if (!empty($info)) {
+                                    $data['serviceName'] = $info['name'];
+                                    $data['servicePhone'] = $info['phone'];
+                                    $data['serviceId'] = $serviceId;
+                                
+                            } else {
+                                $this->error('查无该维护人员信息，请重试');
+                            }
+                        } else {    //未选择维护人员，信息置空
+                            $data['serviceName'] = '';
+                            $data['servicePhone'] = '';
+                            $data['serviceId'] = '';
                         }
+                        
                     } else {
                         $salemanId = intval(I('saleman'));
                         $oldSaleman = intval(I('oldSaleman'));
                         //若更换代理商
                         if ($salemanId != $oldSaleman) {
-                            $info = $Model_data->table('saleman_sys_admin')->where('id='.$salemanId)->getField('id,name,phone,province,city');
-                            if (!empty($info)) {
-                                $data['salemanId'] = $salemanId;
-                                $data['saleman'] = $info[$salemanId]['name'];
-                                $data['salemanPhone'] = $info[$salemanId]['phone'];
-                                $data['province'] = $info[$salemanId]['province'];
-                                $data['city'] = $info[$salemanId]['city'];
+                            if ($salemanId) {
+                                $info = $Model_data->table('saleman_sys_admin')->where('id='.$salemanId)->field('id,name,phone,province,city')->find();
+                                if (!empty($info)) {
+                                    $data['salemanId'] = $salemanId;
+                                    $data['saleman'] = $info['name'];
+                                    $data['salemanPhone'] = $info['phone'];
+                                    $data['province'] = $info['province'];
+                                    $data['city'] = $info['city'];
+                                    $data['serviceId'] = '';
+                                    $data['serviceName'] = '';
+                                    $data['servicePhone'] = '';
+                                    $data['serviceStatus'] = 0;
+                                    $data['serStartTime'] = "0000-00-00 00:00:00";
+                                    $data['serEndTime'] = "0000-00-00 00:00:00";
+                                } else {
+                                    $this->error('查找不到负责代理商的信息，请重试');
+                                }
+                            } else {
+                                $data['salemanId'] = '';
+                                $data['saleman'] = '';
+                                $data['salemanPhone'] = '';
+                                $data['province'] = '';
+                                $data['city'] = '';
                                 $data['serviceId'] = '';
                                 $data['serviceName'] = '';
                                 $data['servicePhone'] = '';
                                 $data['serviceStatus'] = 0;
                                 $data['serStartTime'] = "0000-00-00 00:00:00";
                                 $data['serEndTime'] = "0000-00-00 00:00:00";
-                            } else {
-                                $this->error('查找不到负责代理商的信息，请重试');
                             }
+                            
                         }
                     }
                     
                     //查询维护追踪
                     $ser = $Model_data->table('saleman_maintain')->where('id='.$id)->field('id,status,serLog')->find();
                     //服务异常，将订单重置为维护中状态
+                    $serMsg = I('serMsg');
+                    if (!$serMsg) {
+                        $serMsg = '无';
+                    }
                     if ($status == 2) {
                         if ($group == 1) {
                             $admin_id = intval($_SESSION['admin_id']);
                             $info = $Model_data->table('saleman_sys_admin')->where('id='.$admin_id)->field('id,name,phone,province,city')->find();
-                            $data['statusUser'] = $info['name'].'(代理商)';
+                            $statusUser = $info['name'].'(代理商)';
                         } elseif ($group == 3) {
-                            $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username'].'(客服)':'';
+                            $statusUser = isset($_SESSION['username'])?$_SESSION['username']:'客服专员';
                         } elseif ($group == 99) {
-                            $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username'].'(管理员)':'';
+                            $statusUser = isset($_SESSION['username'])?$_SESSION['username']:'管理员';
                         }
                         $data['serviceStatus'] = 1;
                         $data['serEndTime'] = "0000-00-00 00:00:00";
                         $data['endTime'] = "0000-00-00 00:00:00";
+                        
                         $data['serLog'] .= $ser['serlog'] . 
                                            "时间：".date('Y-m-d H:i:s')."\n".
-                                           "回访者：".$data['statusUser']."\n".
-                                           "回访获悉服务异常，重新执行维护"."\n\n";
+                                           "回访人员：".$statusUser."\n".
+                                           "回访状态：服务异常\n".
+                                           "回访信息：".$serMsg."\n\n";
                     } elseif ($status == 1 && $ser['status'] != 1) {   //正常回访
                         $data['endTime'] = date('Y-m-d H:i:s');
+                        $data['serviceStatus'] = 2;
                         if ($group == 1) {
                             $admin_id = intval($_SESSION['admin_id']);
                             $info = $Model_data->table('saleman_sys_admin')->where('id='.$admin_id)->field('id,name,phone,province,city')->find();
-                            $data['statusUser'] = $info['name'].'(代理商)';
+                            $statusUser = $info['name'].'(代理商)';
                         } elseif ($group == 3) {
-                            $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username'].'(客服)':'';
+                            $statusUser = isset($_SESSION['username'])?$_SESSION['username']:'客服专员';
                         } elseif ($group == 99) {
-                            $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username'].'(管理员)':'';
+                            $statusUser = isset($_SESSION['username'])?$_SESSION['username']:'管理员';
                         }
                         
                         if ($ser['status'] != 1) {
                             $data['serLog'] .= $ser['serlog'] . 
                                                "时间：".date('Y-m-d H:i:s')."\n".
-                                               "回访者：".$data['statusUser']."\n".
-                                               "已回访"."\n\n";
+                                               "回访者：".$statusUser."\n".
+                                               "回访状态：回访完成\n".
+                                               "回访信息：".$serMsg."\n\n";
                         }
                         
                     }
@@ -276,11 +321,34 @@ class MaintainController extends Controller {
                         $Model_data = M('SysAdmin');
                         $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->getField('id,name,province,city');
                         $this->assign('saleman',$saleman);
+                        $user = isset($_SESSION['username'])?$_SESSION['username']:'客服专员';
+                        if ($group != 99) {
+                            if($info['servicestatus']!=0 || $info['statususer'] != $user) {
+                                $disabled = 'readonly=""';
+                                $require = '';
+
+                            } else {
+                                $disabled = '';
+                                $require = 'label-required';
+                            }
+                            if ($info['status'] == 1) {
+                                $display = 'style="display:none"';
+                            }
+
+                        } else {
+                            $require = 'label-required';
+                            $disabled = '';
+                            $display = '';
+                        }
+                        $this->assign('disabled',$disabled);
+                        $this->assign('require',$require);
+                        $this->assign('display',$display);
                     }
                     if (!empty($info)) {
+                        
                         $this->assign('mod',$mod);
                         $this->assign('goods',$goods);
-                        
+                        $this->assign('user',$user);
                         $this->assign('info',$info);
                         $this->assign('group',$group);
                         $this->display();
@@ -386,12 +454,18 @@ class MaintainController extends Controller {
                 $level = I('level');
                 $servicer = intval(I('servicer'));
                 $Model_data = M();
-                //查找新维护人员信息
-                $info = $Model_data->table('saleman_service_admin')->where('id='.$servicer)->find();
-                if (empty($info)) {
-                    $this->error('查找不到维护人员信息，请重试');
-                    exit();
+                if ($servicer) {
+                    //查找新维护人员信息
+                    $info = $Model_data->table('saleman_service_admin')->where('id='.$servicer)->find();
+                    if (empty($info)) {
+                        $this->error('查找不到维护人员信息，请重试');
+                        exit();
+                    }
+                } else {//未选择维护人员
+                    $info = array('name'   => '',
+                                  'phone'  => '');
                 }
+                
                 $username = $saleman['name'].'(代理商)';
                 //获取选择的代理商信息
                 $goodsInfo = $Model_data->table('saleman_goods')->where('id='.$goods)->field('goodsName,goodsImg')->find();
@@ -539,7 +613,7 @@ class MaintainController extends Controller {
                 $first=$pageNum*($page - 1);
                 $Model_data = M();
                 $count = $Model_data->table('saleman_maintain')->where('status=1 '.$csql)->count();
-                $order = $Model_data->table('saleman_maintain')->where('status=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,name,phone,address,goods,enTime,serviceName,serviceStatus,status,msg');
+                $order = $Model_data->table('saleman_maintain')->where('status=1 '.$csql)->order('enTime desc')->limit($first,$pageNum)->getField('id,saleman,name,phone,address,goods,enTime,serviceName,serviceStatus,statusUser,status,msg');
                 
                 $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
                 //var_dump($res);
@@ -552,6 +626,53 @@ class MaintainController extends Controller {
             }
         }
     }
+
+    //受理维护管理信息
+    public function getStatus(){
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
+            if (IS_AJAX) {
+                $id = intval(I('id'));
+                if ($id) {
+                    $Model_data = M('maintain');
+                    $info = $Model_data->where('id='.$id)->find();
+                    if (!empty($info)) {
+                        if ($info['statususer']) {
+                            $res = array();
+                            $res['code'] = 1;
+                            $res['msg'] = '该信息已被'.$info['statususer'].'受理';
+                            $res['statusUser'] = $info['statususer'];
+                            $this->ajaxReturn($res);
+                        } else {
+                            if (isset($_SESSION['username']) && $_SESSION['username']!='') {
+                                $statusUser = $_SESSION['username'];
+                                $res = $Model_data->where('id='.$id)->save(array('statusUser'=>$statusUser));
+                                if ($res) {
+                                    $res = array();
+                                    $res['code'] = 1;
+                                    $res['msg'] = '成功受理';
+                                    $res['statusUser'] = $statusUser;
+                                    $this->ajaxReturn($res);
+                                } else {
+                                    $this->error('受理失败');
+                                }
+                                
+                            }
+                            
+                        }
+                    } else {
+                        $this->error("未找到数据");
+                    }
+                } else {
+                    $this->error("未知的操作");
+                }
+            } else {
+                $this->error("未知的操作");
+            }
+        } else {
+            $this->error("未登录或未授权",U("Login/index"),1);
+        } 
+    }
+
     //导出EXCEL
     public function download(){
         if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3)) {
@@ -597,7 +718,7 @@ class MaintainController extends Controller {
                 //创建PHPExcel对象，注意，不能少了\
                 $objPHPExcel = new \PHPExcel();
                 $objProps = $objPHPExcel->getProperties();
-                $headArr = array('发布人','用户姓名','联系方式','详细地址','维护产品','产品安装时间','维护信息','客户说明','负责代理商','代理商电话','省份','城市','创建时间','维护人员','维护人员电话','维护状态','回访状态','回访人员','回访时间','维护日志');
+                $headArr = array('发布人','用户姓名','联系方式','详细地址','维护产品','产品安装时间','维护信息','客户说明','负责代理商','代理商电话','省份','城市','创建时间','维护人员','维护人员电话','维护状态','回访状态','受理人员','回访时间','维护日志');
                 //设置表头
                 $key = ord("A");
                 foreach($headArr as $v){

@@ -2,10 +2,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('__IMAGES__/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('__IMAGES__/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -41,7 +45,7 @@
 				<{php}>	
 					} elseif ($group == 99) {
 				<{/php}>	
-				<dd><a href="<{:U('Admin/ad')}>">手机广告语</a></dd>
+				<dd><a href="<{:U('Admin/ad')}>">广告宣传语</a></dd>
 				<dd><a href="<{:U('Admin/index')}>">专员管理</a></dd>
 				<dd><a href="<{:U('Saleman/index')}>">代理商管理</a></dd>
 				<dd><a href="<{:U('Admin/servicer')}>">代理商人员</a></dd>
