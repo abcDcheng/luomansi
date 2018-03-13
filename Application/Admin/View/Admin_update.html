@@ -65,9 +65,15 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">重置密码</label>
                                 <div class="layui-input-block">
-                                    <input name="repwd" type="checkbox" value="1">(不重置密码则不必勾选此项，若重置则默认密码为a123456，再由改账户人员自行修改)
+                                    <input name="repwd" type="checkbox" value="1">(不重置密码则不必勾选此项，若重置则默认密码为a123456，再由该账户人员自行修改)
                                 </div>
                             </div>
+                            <div class="layui-form-item">
+                              <label class="layui-form-label label-required">联系方式</label>
+                              <div class="layui-input-block">
+                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="n11-11" errormsg="联系方式必须为手机号!" nullmsg="请输入联系方式!" value="<{$info['phone']}>">
+                              </div>
+                          </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">类别</label>
                                 <div class="layui-input-block">

@@ -76,7 +76,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
-				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/ad');?>">广告宣传语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -177,6 +177,12 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                              <label class="layui-form-label label-required">联系方式</label>
+                              <div class="layui-input-block">
+                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="n11-11" errormsg="联系方式必须为手机号!" nullmsg="请输入联系方式!">
+                              </div>
+                          </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label label-required">类别</label>
                                 <div class="layui-input-block">
                                     <select name="group" placeholder="类别" class="layui-select">
@@ -198,6 +204,11 @@
     $('#save').click(function(){
         var pwd = $('#pwd').val();
         var repwd = $('#repwd').val();
+        var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
+        if (!reg.test(pwd)) {
+            alert('密码必须为字母数字组合');
+            return false;
+        }
         if (pwd != repwd) {
             alert('两次输入的密码不一致');
             return false;

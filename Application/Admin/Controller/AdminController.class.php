@@ -27,6 +27,7 @@ class AdminController extends Controller {
                 $username = I('username');
                 $pwd = md5(I('pwd'));
                 $group = intval(I('group'));
+                $phone = I('phone');
                 $Model_data = M('SysAdmin');
                 //判断专员账号是否已注册
                 $count = $Model_data->where("username='$username'")->count();
@@ -35,6 +36,7 @@ class AdminController extends Controller {
                 } else {
                     $insertData = array('username'=>$username,
                                         'password'=>$pwd,
+                                        'phone'=>$phone,
                                         'group'=>$group,
                                         'createTime'=>date('Y-m-d H:i:s'));
                     //var_dump($insertData);
