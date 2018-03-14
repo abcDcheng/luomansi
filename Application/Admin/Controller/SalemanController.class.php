@@ -266,7 +266,21 @@ class SalemanController extends Controller {
                 $name = I('name');
                 $phone = I('phone');
                 $IDcard = I('IDcard');
-                
+                $tel = isset($_SESSION['tel1'])?$_SESSION['tel1']:'';
+                if ($username != $tel) {
+                    $this->error('用户名与获取验证码的手机号不一致');
+                    exit();
+                }
+                $yzm = I('yzm');
+                $code = isset($_SESSION['telcode1'])?$_SESSION['telcode1']:'';
+                if (!$code) {
+                    $this->error('请先获取手机验证码');
+                    exit();
+                }
+                if ($code != $yzm) {
+                    $this->error('手机验证码错误');
+                    exit();
+                }
                 $count = $Model_data->where("username='$username'")->count();
                 if ($count > 0) {
                     $this->error('该账户名已存在');
@@ -286,6 +300,9 @@ class SalemanController extends Controller {
                         //var_dump($insertData);
                         $res = $Model_data->add($insertData);
                         if ($res) {
+                            unset($_SESSION['telcode1']);
+                            unset($_SESSION['tel1']);
+
                             $this->success('提交成功',U('Saleman/staff'),'add');
                         } else {
                             $this->error('添加失败，请重试或联系技术人员解决');
@@ -331,6 +348,21 @@ class SalemanController extends Controller {
                                   'IDcard'=>$idcard,
                                   'status'=>$status);
                     if ($pwd) {
+                        $tel = isset($_SESSION['tel1'])?$_SESSION['tel1']:'';
+                        if ($username != $tel) {
+                            $this->error('用户名与获取验证码的手机号不一致');
+                            exit();
+                        }
+                        $yzm = I('yzm');
+                        $code = isset($_SESSION['telcode1'])?$_SESSION['telcode1']:'';
+                        if (!$code) {
+                            $this->error('请先获取手机验证码');
+                            exit();
+                        }
+                        if ($code != $yzm) {
+                            $this->error('手机验证码错误');
+                            exit();
+                        }
                         $data['password'] = md5($pwd);
                     }
                     $Model_data = M('ServiceAdmin');
@@ -338,6 +370,10 @@ class SalemanController extends Controller {
                     if ($res === false) {
                         $this->error('数据更新失败，请重试或联系技术人员解决');
                     } else {
+                        if ($pwd) {
+                            unset($_SESSION['telcode1']);
+                            unset($_SESSION['tel1']);
+                        }
                         $this->success('更新成功',U("Saleman/staff"));
                     }
                 } else {

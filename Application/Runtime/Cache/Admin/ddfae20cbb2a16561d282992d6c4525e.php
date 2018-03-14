@@ -91,6 +91,7 @@
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<dd><a href="<?php echo U('Admin/phone');?>">手机更换</a></dd>
 				<?php } } ?>
 				<dd><a href="<?php echo U('Index/pwd');?>">密码修改</a></dd>
 				<dd><a id="loginout" href="<?php echo U('Index/loginout');?>">退出登录</a></dd>
@@ -329,7 +330,7 @@
                 } else {
                     tableHtml += '<td class="layui-elip"><span style="color:red">未维护</span></td>';
                 }
-                tableHtml += '<td class="layui-elip" class="getStatusUser">'+order[key]['statususer']+'11</td>';
+                tableHtml += '<td class="layui-elip getStatusUser">'+order[key]['statususer']+'</td>';
                 if (parseInt(order[key]['status']) == 2) {
                     tableHtml += '<td class="layui-elip"><span style="color:red">服务异常</span></td>';
                 } else if (parseInt(order[key]['status']) == 1) {

@@ -49,8 +49,8 @@
 			<ul class="query-list-style query-all" style="display:block;">
 				<{if condition="$hasInfo eq 1"}>
 				<{foreach name="order" item="orderArr"}>
-				<li style="overflow: hidden;background:url('__IMAGES__/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
-					<div class="query-list-message">
+				<li>
+					<div class="query-list-message" style="overflow: hidden;background:url('__IMAGES__/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
 						<h5>订单号：<{$orderArr.ordercode}></h5>
 						<i><{$order.entime}></i>
 						<h4>商品数量：<{$orderArr.shopNum}></h4>

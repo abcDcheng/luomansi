@@ -308,6 +308,52 @@ class AdminController extends Controller {
                 $this->assign('ad',$ad);
                 $this->display();
             }
+        } else {
+            $this->error("不可用的授权",U("Login/index"),3);
+        }
+    }
+
+    public function phone() {
+        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+            $admin_id = intval($_SESSION['admin_id']);
+            if (IS_AJAX) {
+                $phone = I('phone');
+                $yzm = I('yzm');
+                $code = isset($_SESSION['telcode'])?$_SESSION['telcode']:'';
+                if (!$code) {
+                    $this->error('请先获取手机验证码');
+                    exit();
+                }
+                if ($code != $yzm) {
+                    $this->error('手机验证码错误');
+                    exit();
+                }
+                if ($phone) {
+                    $data = array('phone'=>$phone);
+                    $res = M('SysAdmin')->where('id='.$admin_id)->save($data);
+                    if ($res === false) {
+                        $this->error('修改失败');
+                    } else {
+                        unset($_SESSION['telcode']);
+                        $this->success('修改成功',U('Admin/phone'));
+                    }
+                } else {
+                    $this->error('请填写新绑定手机号');
+                }
+            } else {
+                $info = M('SysAdmin')->where('id='.$admin_id)->find();
+                if (!empty($info)) {
+                    $oldphone = $info['phone'];
+                    $phone = substr_replace($info['phone'], '****', 3, 4);
+                    $this->assign('oldphone',$oldphone);
+                    $this->assign('phone',$phone);
+                    $this->display();
+                } else {
+                    $this->error("未能查询到您的信息，请重新登录",U("Login/index"),3);
+                }
+            }
+        } else {
+            $this->error("不可用的授权",U("Login/index"),3);
         }
     }
 }

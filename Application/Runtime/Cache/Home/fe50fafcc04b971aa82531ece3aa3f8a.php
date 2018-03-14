@@ -48,7 +48,7 @@
 			<!-- 订单查询全部 -->
 			<ul class="query-list-style query-all" style="display:block;">
 				<?php if($hasInfo == 1): if(is_array($order)): foreach($order as $key=>$orderArr): ?><li>
-					<div class="query-list-message">
+					<div class="query-list-message" style="overflow: hidden;background:url('/luomansi/Application/Home/Public/img/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
 						<h5>订单号：<?php echo ($orderArr["ordercode"]); ?></h5>
 						<i><?php echo ($order["entime"]); ?></i>
 						<h4>商品数量：<?php echo ($orderArr["shopNum"]); ?></h4>
@@ -93,7 +93,7 @@
 			</ul>
 			<!-- 订单查询已受理 -->
 			<ul class="query-list-style query-already">
-				<?php if($orderStatus[1] != 0): if(is_array($order)): foreach($order as $key=>$orderArr): if($orderArr['status'] == 1): ?><li>
+				<?php if($orderStatus[1] != 0): if(is_array($order)): foreach($order as $key=>$orderArr): if($orderArr['status'] == 1): ?><li style="overflow: hidden;background:url('/luomansi/Application/Home/Public/img/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
 					<div class="query-list-message">
 						<h5>订单号：<?php echo ($orderArr["ordercode"]); ?></h5>
 						<i><?php echo ($order["entime"]); ?></i>
@@ -137,7 +137,7 @@
 			</ul>
 			<!-- 订单查询未受理 -->
 			<ul class="query-list-style query-stay">
-				<?php if($orderStatus[0] != 0): if(is_array($order)): foreach($order as $key=>$orderArr): if($orderArr['status'] == 0): ?><li>
+				<?php if($orderStatus[0] != 0): if(is_array($order)): foreach($order as $key=>$orderArr): if($orderArr['status'] == 0): ?><li style="overflow: hidden;background:url('/luomansi/Application/Home/Public/img/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
 					<div class="query-list-message">
 						<h5>订单号：<?php echo ($orderArr["ordercode"]); ?></h5>
 						<i><?php echo ($order["entime"]); ?></i>
@@ -181,7 +181,7 @@
 			</ul>
 			<!-- 订单查询未通过 -->
 			<ul class="query-list-style query-not-through">
-				<?php if($orderStatus[2] != 0): if(is_array($order)): foreach($order as $key=>$orderArr): if($orderArr['status'] == 2): ?><li>
+				<?php if($orderStatus[2] != 0): if(is_array($order)): foreach($order as $key=>$orderArr): if($orderArr['status'] == 2): ?><li style="overflow: hidden;background:url('/luomansi/Application/Home/Public/img/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
 					<div class="query-list-message">
 						<h5>订单号：<?php echo ($orderArr["ordercode"]); ?></h5>
 						<i><?php echo ($order["entime"]); ?></i>

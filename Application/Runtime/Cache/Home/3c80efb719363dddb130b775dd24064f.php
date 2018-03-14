@@ -111,6 +111,12 @@
 				<span>请再输入一遍:</span>
 				<input id="repwd" type="password"/>
 			</li>
+			<li style="position: relative;">
+				<span>请输入手机验证码</span>
+				<input id="yzm" type="tel" style="width:200px;">
+				<button id="getyzm" style="position: absolute;font-size:30px;background-color:#0b4268;border-radius: 8px;color:#ffffff;padding:8px 15px;width:150px;outline: none;border:0;right:15px;">获取</button>
+				<small id="tip" style='position: absolute;width:100%;color:red;font-size:20px;left:120px;bottom:5px;display: none;'>提示：验证码已发送至<con id="codePhone"></con></small>
+			</li>
 		</ul>
 
 		<button class="personal-modify-btn">确认修改</button>
@@ -157,14 +163,63 @@
 			$('.personal-center').hide();
 			$('.personal-modify-bg').show();
 		});
+
+		$('#getyzm').click(function(){
+			$(this).attr("disabled",true).text("获取中...");
+			$.ajax({
+				type: "post",
+    			timeout:5000,//设置超时时间为5秒
+    	        url: "<?php echo U('Person/getYZM');?>",
+    	        data: {telCode:1},
+    	        dataType: "json",
+    	        cache:false,
+    	        success:function(data){        	        
+					if(data.code==1){
+						$('#codePhone').text(data.tel);
+						$("#tip").show();
+						$("#getyzm").text("60s");
+						$("#getyzm").css("backgroundColor","grey");
+						var second=60;
+						telTimer=setInterval(function(){	//30秒倒计时重新获取验证码
+							if(second<=1){
+								clearInterval(telTimer);
+								$("#getyzm").removeAttr("disabled",true).text("获取").css("backgroundColor","#0b4268");
+								$('#tip').hide();
+							}else{										
+								second--;
+								$("#getyzm").text(second+"s");
+							}
+						},1000);
+					}else{
+						alert(data.msg);
+						$("#getyzm").removeAttr("disabled").text("获取").css("backgroundColor","#0b4268");
+						
+						return false;
+					}
+        	    },
+        	    error:function(x,status){
+					if(status=='timeout'){
+						alert("请求超时，请重试");
+						$("#getyzm").removeAttr("disabled").text("获取").css("backgroundColor","#0b4268");
+						return false;
+					}
+	        	}
+			});
+		});
+
 		/*确认修改*/
 		$('.personal-modify-btn').click(function(){
 			var newpwd = $('#newpwd').val();
 			var repwd = $('#repwd').val();
+			var yzm = $('#yzm').val();
+			if (!yzm) {
+				alert("请输入手机验证码");
+				return false;
+			}
 			if (newpwd == repwd) {
-				var tmp = /^[a-zA-Z0-9_]{6,16}$/;
+				var tmp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
 				if (!tmp.test(newpwd)) {
-					alert("新密码长度不得小于6位，由字母数字或下划线组成");
+					alert("新密码长度不得小于6位，由字母数字组成");
 					return false;
 				}
 				var oldpwd = hex_md5($('#oldpwd').val());
@@ -173,7 +228,7 @@
 				$.ajax({
 					url : "<?php echo U('Person/changePwd');?>",
 		            type : "post",
-		            data : {oldpwd:oldpwd,newpwd : newpwd},
+		            data : {oldpwd:oldpwd,newpwd : newpwd,yzm:yzm},
 		            dataType : "json",
 		            timeout : 5000,
 		            success : function(data){
@@ -185,8 +240,8 @@
 		            		$('.personal-modify-btn').val("确认修改").removeAttr('disable');
 		            	}
 		            },
-		            error : function(data){
-		            	if (data.status == 'timeout') {
+		            error : function(x,data){
+		            	if (data == 'timeout') {
 		            		alert("连接超时，请重试");
 		            	}
 		            	$('.personal-modify-btn').val("确认修改").removeAttr('disable');

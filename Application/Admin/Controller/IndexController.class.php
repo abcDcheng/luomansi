@@ -16,9 +16,19 @@ class IndexController extends Controller {
     public function pwd(){
         if (isset($_SESSION['admin_id'])) {
             if (IS_AJAX) {
-                $id = $_SESSION['admin_id'];
+                $id = intval($_SESSION['admin_id']);
                 $oldpwd = I('oldpwd');
                 $pwd = I('pwd');
+                $yzm = I('yzm');
+                $code = isset($_SESSION['telcode'])?$_SESSION['telcode']:'';
+                if (!$code) {
+                    $this->error('请先获取手机验证码');
+                    exit();
+                }
+                if ($code != $yzm) {
+                    $this->error('手机验证码错误');
+                    exit();
+                }
                 if ($oldpwd != $pwd) {
                     $Model_data = M('SysAdmin');
                     $info = $Model_data->where('id='.$id)->getField('password');
@@ -37,7 +47,16 @@ class IndexController extends Controller {
                     $this->error("新旧密码不能一致");
                 }
             } else {
-                $this->display();
+                $admin_id = intval($_SESSION['admin_id']);
+                $info = M('SysAdmin')->where('id='.$admin_id)->find();
+                if (!empty($info)) {
+                    $phone = substr_replace($info['phone'], '****', 3, 4);
+                    $this->assign('phone',$phone);
+                    $this->display();
+                } else {
+                    $this->error("未能查询到您的信息，请重新登录",U("Login/index"),1);
+                }
+                
             }
         } else {
             $this->error("未登录",U("Login/index"),1);

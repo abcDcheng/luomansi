@@ -196,6 +196,14 @@
                                 <{/if}>
                                 </div>
                             </div>
+                            <{if condition="$info.loc neq ''"}>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">维护定位</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="loc" class="layui-input" autocomplete="off" value="<{$info.loc}>" disabled="disabled">
+                                </div>
+                            </div>
+                            <{/if}>
                             <{if condition="$info['serlog'] neq ''"}>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">维护追踪</label>
@@ -227,8 +235,18 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">受理人员</label>
                                 <div class="layui-input-block">
+                                <{if condition="$group eq 99"}>
+                                    <select id="statusUser" name="statusUser" class="layui-select">
+                                        <option value="">无</option>
+                                    <{foreach name="statusUser" item="value"}>
+                                        <option value="<{$value.username}>"><{$value.username}></option>
+                                    <{/foreach}>
+                                    </select>
+                                <{else /}>
                                     <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="无" value="<{$info.statususer}>" readonly="">
+                                <{/if}>
                                 </div>
+
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label <{$require}>">回访状态</label>
@@ -280,6 +298,9 @@
         $('#clientBak').val('<{$info.clientbak}>');
         $('#level').val(parseInt('<{$info.level}>'));
         $('#goods').val(parseInt('<{$info.goodsid}>'));
+        <{if condition="$group eq 99"}>
+        $('#statusUser').val('<{$info.statususer}>');
+        <{/if}>
         $('#save').click(function(){
             var saleman = $('#saleman').val();
             if (!saleman) {

@@ -108,6 +108,7 @@
                                     <{/if}>
                                 </div>
                             </div>
+
                             <div class="layui-form-item">
                                 <label class="layui-form-label">维护信息</label>
                                 <div class="layui-input-block">
@@ -157,6 +158,14 @@
                                 <input name="oldServicer" type="hidden" value="<{$info.serviceid}>">
                             <{/if}>
                             </div>
+                            <{if condition="$info.loc neq ''"}>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">维护定位</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="loc" class="layui-input" autocomplete="off" value="<{$info.loc}>" disabled="disabled">
+                                </div>
+                            </div>
+                            <{/if}>
                             <{if condition="$info['serlog'] neq ''"}>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">维护追踪</label>
@@ -181,7 +190,7 @@
                                     <label>识别码照片</label>
                                 </div>
                                 <div id="thumb_view" class="img_item transition">
-                                    <img src="__UPLOADS__/<{$info['comimg']}>">
+                                    <img src="__UPLOADS__/<{$info['comphoto']}>">
                                 </div>
                             </div>
                             <{/if}>

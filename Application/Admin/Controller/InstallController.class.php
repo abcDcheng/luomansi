@@ -83,10 +83,15 @@ class InstallController extends Controller {
                 $id = I('id');
                 $status = intval(I('status'));
                 $msg = I('msg');
+                
                 $data = array(
                               'status'=>$status,
                               'msg'=>$msg
                             );
+                if ($group == 99) {
+                        $statusUser = I('statusUser');
+                        $data['statusUser'] = $statusUser;
+                    }
                 if ($status) {  //若有回访，记录回访时间
                     $data['statusTime'] = date('Y-m-d H:i:s');
                     if ($group == 99) {
@@ -110,6 +115,10 @@ class InstallController extends Controller {
                         $Model_data = M();
                         $order = $Model_data->table('saleman_install')->where('id='.$id)->find();
                         if (!empty($order)) {
+                            if ($group == 99) {
+                                $SU = M('SysAdmin')->field('id,username')->where('`group`=3')->select();
+                                $this->assign('statusUser',$SU);
+                            }
                             $username = isset($_SESSION['username'])?$_SESSION['username']:'1';
                             $this->assign('user',$username);
                             $this->assign('mod',$mod);

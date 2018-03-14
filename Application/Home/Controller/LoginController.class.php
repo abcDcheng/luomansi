@@ -19,7 +19,7 @@ class LoginController extends Controller {
             session('admin_id', $user['id']);
             session('group', $user['group']);
             if ($cookie) {
-                cookie('username',$username,3600 * 24 * 100);
+                cookie('username',$username,array('expire'=>3600 * 24 * 100));
             } else {
                 cookie('username',null);
             }
@@ -43,7 +43,7 @@ class LoginController extends Controller {
         // if (isset($_SESSION['service_id'])) {
         //     redirect(U("Install/index"));
         // } else {
-            $username = cookie('username');
+            $username = cookie('username1');
             if ($username) {
                 $cookie = 1;
             } else {
@@ -59,7 +59,7 @@ class LoginController extends Controller {
     }
     //维护管理登录页
     public function maintainLogin() {
-        $username = cookie('username');
+        $username = cookie('username2');
         if ($username) {
             $cookie = 1;
         } else {
@@ -77,7 +77,7 @@ class LoginController extends Controller {
         // }
     }
     //安装维护管理登录
-    public function serviceAdmin() {
+    public function serviceAdmin1() {
         if (IS_AJAX) {
             $Model_Data = M('ServiceAdmin');
             $username = trim(I('username'));
@@ -92,9 +92,9 @@ class LoginController extends Controller {
             $Model_Data->where(array('id'=>$user['id']))->setInc('login_num');
             session('service_id', $user['id']);
             if ($cookie) {
-                cookie('username',$username,3600 * 24 * 100);
+                cookie('username1',$username,array('expire'=>3600 * 24 * 100,'path'=>$_SERVER['HTTP_REFERER']));
             } else {
-                cookie('username',null);
+                cookie('username1',null);
             }
             $this->success('登录成功，正在进入系统...', '','login');
         } else {
@@ -102,6 +102,31 @@ class LoginController extends Controller {
         }
     }
 
+    //安装维护管理登录
+    public function serviceAdmin2() {
+        if (IS_AJAX) {
+            $Model_Data = M('ServiceAdmin');
+            $username = trim(I('username'));
+            $password = trim(I('password'));
+            $cookie = intval(I('cookie'));
+            $user = $Model_Data->where(array('username'=>$username,'group'=>2))->find();
+            empty($user) && $this->error('账号密码错误，请重新输入!');
+            $user['password'] !== md5($password) && $this->error('账号密码错误，请重新输入!');
+            $user['status'] == 0  && $this->error('此账号已被禁用，请联系超级管理员!');
+            //$log = array('username' => $user['username'], 'source' => get_client_ip(), 'add_time' => date("Y-m-d H:i:s"));
+            //M('SysAdminlog')->add($log);
+            $Model_Data->where(array('id'=>$user['id']))->setInc('login_num');
+            session('service_id', $user['id']);
+            if ($cookie) {
+                cookie('username2',$username,array('expire'=>3600 * 24 * 100));
+            } else {
+                cookie('username2',null);
+            }
+            $this->success('登录成功，正在进入系统...', '','login');
+        } else {
+            $this->display();
+        }
+    }
     //获取广告语
     public function getAD(){
         $con = M('ad')->where('id=1')->getField('ad');

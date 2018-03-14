@@ -345,8 +345,8 @@ $(function(){
             	}
             	$('.meng00').hide();
             },
-            error:function(data){
-            	if (data.status == 'timeout') {
+            error:function(x,data){
+            	if (data == 'timeout') {
             		alert('连接超时，请重试');
             	}
             	$('.meng00').hide();

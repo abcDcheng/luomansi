@@ -147,7 +147,7 @@
     </div>
     <div class="layui-body" id="sc_body">
         <div class="sc_body">
-            <form action="<?php echo U('Index/pwd');?>" id="form" class="layui-form layui-form-pane">
+            <form action="<?php echo U('Admin/phone');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
                 <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>密码修改</h5>
@@ -160,29 +160,18 @@
                     <section class="sc_layout_inner layui-clear">
                         <div class="sc_editor_content">
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">旧密码</label>
+                                <label class="layui-form-label">绑定手机号</label>
                                 <div class="layui-input-block">
-                                    <input id="oldpwd" type="password" name="oldpwd" placeholder="旧密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="旧密码范围在6~18位之间!" nullmsg="请输入旧密码!">
+                                    <input type="text" name="oldtel" placeholder="手机号码" class="layui-input" value="<?php echo ($phone); ?>" disabled="disabled">
+                                    <input id="oldtel" type="hidden" value="<?php echo ($oldphone); ?>"/>
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label label-required">新密码</label>
-                                <div class="layui-input-block">
-                                    <input id="pwd" type="password" name="pwd" placeholder="新密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="新密码范围在6~18位之间!" nullmsg="请输入新密码!">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label label-required">确认密码</label>
-                                <div class="layui-input-block">
-                                    <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">手机号码</label>
-                                <div class="layui-input-block">
-                                    <input id="oldtel" type="text" name="oldtel" placeholder="手机号码" class="layui-input" value="<?php echo ($phone); ?>" disabled="disabled">
-                                </div>
-                            </div>
+                              <label class="layui-form-label label-required">新绑定手机号</label>
+                              <div class="layui-input-block">
+                                  <input id="phone" type="text" name="phone" class="layui-input" autocomplete="off" placeholder="手机号" datatype="n11-11" errormsg="必须为手机号!" nullmsg="请输入手机号!">
+                              </div>
+                          </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">手机验证码</label>
                                 <div class="layui-input-block">
@@ -190,7 +179,7 @@
                                     <button type="button" class="layui-btn" id="getyzm">
                                       获取手机验证码
                                     </button>
-                                    <span id="tip" style="color: red;display: none">提示：验证码已发送</span>
+                                    <span id="tip" style="color: red;display: none">提示：验证码已发送至<con id="codePhone"></con></span>
                                 </div>
                             </div>
                         </div>
@@ -204,21 +193,10 @@
     UE.getEditor('content');
 
     $('#save').click(function(){
-        var oldpwd = $('#oldpwd').val();
-        var pwd = $('#pwd').val();
-        var repwd = $('#repwd').val();
-        var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
-        if (!reg.test(pwd)) {
-            alert('密码必须为字母数字组合');
-            return false;
-        }
-        if (pwd != repwd) {
-            alert('两次输入的新密码不一致');
-            return false;
-        }
-        if (pwd == oldpwd) {
-            alert('新旧密码不能一致');
-            return false;
+        var phone = $('#phone').val();
+        var oldtel = $('#oldtel').val();
+        if (phone == oldtel) {
+            alert('新绑定手机号不能与当前绑定手机号相同');
         }
         var yzm = $('#yzm').val();
         if (!yzm) {

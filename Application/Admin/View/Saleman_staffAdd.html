@@ -74,6 +74,16 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label label-required">手机验证码</label>
+                                <div class="layui-input-block">
+                                    <input id="yzm" type="text" name="yzm" placeholder="手机验证码" class="layui-input" autocomplete="off"  style="width: 100px;display: inline-block;">
+                                    <button type="button" class="layui-btn" id="getyzm">
+                                      获取手机验证码
+                                    </button>
+                                    <span id="tip" style="color: red;">提示：验证码将发送至用户名栏填写的手机号上</span>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label label-required">姓名</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="name" placeholder="姓名" class="layui-input" autocomplete="off" datatype="*1-30" errormsg="请输入正确姓名" nullmsg="请输入姓名!">
@@ -100,6 +110,7 @@
         var repwd = $('#repwd').val();
         var name=$.trim($('#username').val());
         var idcard = $.trim($('#idcard').val());
+        var yzm = $.trim($('#yzm').val());
         if(name){
             //判断手机格式
             if(!(/^1[0-9]\d{9,9}$/.test(name))){ 
@@ -107,7 +118,7 @@
                 return false;
             }
         }else{
-            alert("请输入您的手机号码");
+            alert("请输入员工手机号码");
             return false;
         }
         var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
@@ -124,6 +135,64 @@
             alert('身份证号不正确');
             return false;
         }
+        if (!yzm) {
+            alert('请输入手机验证码');
+            return false;
+        }
+    });
+
+    $('#getyzm').click(function(){
+        var tel=$.trim($('#username').val());
+        if(tel){
+            //判断手机格式
+            if(!(/^1[0-9]\d{9,9}$/.test(tel))){ 
+                alert('用户名必须为手机号');
+                return false;
+            }
+        }else{
+            alert("请输入员工手机号码");
+            return false;
+        }
+        $(this).attr("disabled",true).text("获取中...");
+        $.ajax({
+            type: "post",
+            timeout:5000,//设置超时时间为5秒
+            url: "<{:U('Common/staffYZM')}>",
+            data: {telCode:1,tel:tel},
+            dataType: "json",
+            cache:false,
+            success:function(data){                 
+                if(data.code==1){
+                    //$('#codePhone').text(data.tel);
+                    $("#tip").html('提示：验证码已发送至'+data.tel);
+                    $("#getyzm").text("60s");
+                    $("#getyzm").css("backgroundColor","grey");
+                    var second=60;
+                    telTimer=setInterval(function(){    //60秒倒计时重新获取验证码
+                        if(second<=1){
+                            clearInterval(telTimer);
+                            $("#getyzm").removeAttr("disabled",true).text("获取手机验证码").css("backgroundColor","#2bb0d4");
+                            //$('#tip').hide();
+                        }else{                                      
+                            second--;
+                            $("#getyzm").text(second+"s");
+                        }
+                    },1000);
+                }else{
+                    alert(data.msg);
+                    $("#getyzm").removeAttr("disabled").text("获取手机验证码").css("backgroundColor","#2bb0d4");
+                    
+                    return false;
+                }
+            },
+            error:function(x,status){
+                if(status=='timeout'){
+                    alert("请求超时，请重试");
+                    $("#getyzm").removeAttr("disabled").text("获取手机验证码").css("backgroundColor","#2bb0d4");
+                    return false;
+                }
+            }
+        });
     });
 </script>
 </body>

@@ -76,7 +76,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
-				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/ad');?>">广告宣传语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -88,6 +88,7 @@
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<dd><a href="<?php echo U('Admin/phone');?>">手机更换</a></dd>
 				<?php } } ?>
 				<dd><a href="<?php echo U('Index/pwd');?>">密码修改</a></dd>
 				<dd><a id="loginout" href="<?php echo U('Index/loginout');?>">退出登录</a></dd>
@@ -277,6 +278,12 @@
                                     <input type="text" name="serviceName" class="layui-input" autocomplete="off" value="" placeholder="无" readonly=""><?php endif; endif; ?>
                                 </div>
                             </div>
+                            <?php if($info["loc"] != ''): ?><div class="layui-form-item">
+                                <label class="layui-form-label">维护定位</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="loc" class="layui-input" autocomplete="off" value="<?php echo ($info["loc"]); ?>" disabled="disabled">
+                                </div>
+                            </div><?php endif; ?>
                             <?php if($info['serlog'] != ''): ?><div class="layui-form-item">
                                 <label class="layui-form-label">维护追踪</label>
                                 <div class="layui-input-block">
@@ -302,8 +309,14 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">受理人员</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="无" value="<?php echo ($info["statususer"]); ?>" readonly="">
+                                <?php if($group == 99): ?><select id="statusUser" name="statusUser" class="layui-select" lay-filter="status">
+                                        <option value="">无</option>
+                                    <?php if(is_array($statusUser)): foreach($statusUser as $key=>$value): ?><option value="<?php echo ($value["username"]); ?>"><?php echo ($value["username"]); ?></option><?php endforeach; endif; ?>
+                                    </select>
+                                <?php else: ?>
+                                    <input type="text" name="username" class="layui-input" autocomplete="off" placeholder="无" value="<?php echo ($info["statususer"]); ?>" readonly=""><?php endif; ?>
                                 </div>
+
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label <?php echo ($require); ?>">回访状态</label>
@@ -347,6 +360,7 @@
         $('#clientBak').val('<?php echo ($info["clientbak"]); ?>');
         $('#level').val(parseInt('<?php echo ($info["level"]); ?>'));
         $('#goods').val(parseInt('<?php echo ($info["goodsid"]); ?>'));
+        <?php if($group == 99): ?>$('#statusUser').val('<?php echo ($info["statususer"]); ?>');<?php endif; ?>
         $('#save').click(function(){
             var saleman = $('#saleman').val();
             if (!saleman) {

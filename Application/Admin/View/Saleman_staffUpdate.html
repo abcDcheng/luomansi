@@ -64,23 +64,12 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label">密码</label>
-                                <div class="layui-input-block">
-                                    <input id="pwd" type="password" name="pwd" placeholder="密码" class="layui-input" autocomplete="off" >
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">确认密码</label>
-                                <div class="layui-input-block">
-                                    <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
                                 <label class="layui-form-label label-required">姓名</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="name" placeholder="姓名" class="layui-input" autocomplete="off" datatype="*1-10" errormsg="请输入正确姓名" nullmsg="请输入姓名!" value="<{$info.name}>">
                                 </div>
                             </div>
+
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">身份证</label>
                                 <div class="layui-input-block">
@@ -100,8 +89,30 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label">密码</label>
+                                <div class="layui-input-block">
+                                    <input id="pwd" type="password" name="pwd" placeholder="密码" class="layui-input" autocomplete="off" >
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">确认密码</label>
+                                <div class="layui-input-block">
+                                    <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">手机验证码</label>
+                                <div class="layui-input-block">
+                                    <input id="yzm" type="text" name="yzm" placeholder="手机验证码" class="layui-input" autocomplete="off"  style="width: 100px;display: inline-block;">
+                                    <button type="button" class="layui-btn" id="getyzm">
+                                      获取手机验证码
+                                    </button>
+                                    <span id="tip" style="color: red;display: none">提示：验证码已发送至<con id="codePhone"></con></span>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <div class="layui-input-block" style="color: red">
-                            注：若不修改密码则密码框留空。
+                            注：若不修改密码则密码框留空。也不需获取手机验证码
                             </div>
                             </div>
                         </div>
@@ -139,6 +150,11 @@
                 alert('密码必须为字母数字组合');
                 return false;
             }
+            var yzm = $.trim($('#yzm').val());
+            if (!yzm) {
+                alert('请输入手机验证码');
+                return false;
+            }
         }
         
         //判断身份证格式
@@ -146,6 +162,60 @@
             alert('身份证号不正确');
             return false;
         }
+    });
+
+    $('#getyzm').click(function(){
+        var tel=$.trim($('#username').val());
+        if(tel){
+            //判断手机格式
+            if(!(/^1[0-9]\d{9,9}$/.test(tel))){ 
+                alert('用户名必须为手机号');
+                return false;
+            }
+        }else{
+            alert("请输入员工手机号码");
+            return false;
+        }
+        $(this).attr("disabled",true).text("获取中...");
+        $.ajax({
+            type: "post",
+            timeout:5000,//设置超时时间为5秒
+            url: "<{:U('Common/staffYZM')}>",
+            data: {telCode:1,tel:tel},
+            dataType: "json",
+            cache:false,
+            success:function(data){                 
+                if(data.code==1){
+                    //$('#codePhone').text(data.tel);
+                    $("#tip").html('提示：验证码已发送至'+data.tel);
+                    $("#getyzm").text("60s");
+                    $("#getyzm").css("backgroundColor","grey");
+                    var second=60;
+                    telTimer=setInterval(function(){    //60秒倒计时重新获取验证码
+                        if(second<=1){
+                            clearInterval(telTimer);
+                            $("#getyzm").removeAttr("disabled",true).text("获取手机验证码").css("backgroundColor","#2bb0d4");
+                            //$('#tip').hide();
+                        }else{                                      
+                            second--;
+                            $("#getyzm").text(second+"s");
+                        }
+                    },1000);
+                }else{
+                    alert(data.msg);
+                    $("#getyzm").removeAttr("disabled").text("获取手机验证码").css("backgroundColor","#2bb0d4");
+                    
+                    return false;
+                }
+            },
+            error:function(x,status){
+                if(status=='timeout'){
+                    alert("请求超时，请重试");
+                    $("#getyzm").removeAttr("disabled").text("获取手机验证码").css("backgroundColor","#2bb0d4");
+                    return false;
+                }
+            }
+        });
     });
 </script>
 </body>

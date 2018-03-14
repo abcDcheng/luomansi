@@ -76,7 +76,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
-				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/ad');?>">广告宣传语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -161,7 +161,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">用户名</label>
                                 <div class="layui-input-block">
-                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="员工手机号" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!">
+                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="员工手机号" datatype="n11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -174,6 +174,16 @@
                                 <label class="layui-form-label label-required">确认密码</label>
                                 <div class="layui-input-block">
                                     <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" datatype="*6-18" errormsg="密码范围在6~18位之间!" nullmsg="请输入密码!">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">手机验证码</label>
+                                <div class="layui-input-block">
+                                    <input id="yzm" type="text" name="yzm" placeholder="手机验证码" class="layui-input" autocomplete="off"  style="width: 100px;display: inline-block;">
+                                    <button type="button" class="layui-btn" id="getyzm">
+                                      获取手机验证码
+                                    </button>
+                                    <span id="tip" style="color: red;">提示：验证码将发送至用户名栏填写的手机号上</span>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -210,7 +220,12 @@
                 return false;
             }
         }else{
-            alert("请输入您的手机号码");
+            alert("请输入员工手机号码");
+            return false;
+        }
+        var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
+        if (!reg.test(pwd)) {
+            alert('密码必须为字母数字组合');
             return false;
         }
         if (pwd != repwd) {
@@ -222,6 +237,60 @@
             alert('身份证号不正确');
             return false;
         }
+    });
+
+    $('#getyzm').click(function(){
+        var tel=$.trim($('#username').val());
+        if(tel){
+            //判断手机格式
+            if(!(/^1[0-9]\d{9,9}$/.test(tel))){ 
+                alert('用户名必须为手机号');
+                return false;
+            }
+        }else{
+            alert("请输入员工手机号码");
+            return false;
+        }
+        $(this).attr("disabled",true).text("获取中...");
+        $.ajax({
+            type: "post",
+            timeout:5000,//设置超时时间为5秒
+            url: "<?php echo U('Common/staffYZM');?>",
+            data: {telCode:1,tel:tel},
+            dataType: "json",
+            cache:false,
+            success:function(data){                 
+                if(data.code==1){
+                    //$('#codePhone').text(data.tel);
+                    $("#tip").html('提示：验证码已发送至'+data.tel);
+                    $("#getyzm").text("60s");
+                    $("#getyzm").css("backgroundColor","grey");
+                    var second=60;
+                    telTimer=setInterval(function(){    //60秒倒计时重新获取验证码
+                        if(second<=1){
+                            clearInterval(telTimer);
+                            $("#getyzm").removeAttr("disabled",true).text("获取手机验证码").css("backgroundColor","#2bb0d4");
+                            //$('#tip').hide();
+                        }else{                                      
+                            second--;
+                            $("#getyzm").text(second+"s");
+                        }
+                    },1000);
+                }else{
+                    alert(data.msg);
+                    $("#getyzm").removeAttr("disabled").text("获取手机验证码").css("backgroundColor","#2bb0d4");
+                    
+                    return false;
+                }
+            },
+            error:function(x,status){
+                if(status=='timeout'){
+                    alert("请求超时，请重试");
+                    $("#getyzm").removeAttr("disabled").text("获取手机验证码").css("backgroundColor","#2bb0d4");
+                    return false;
+                }
+            }
+        });
     });
 </script>
 </body>

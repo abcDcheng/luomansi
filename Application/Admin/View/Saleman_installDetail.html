@@ -69,6 +69,14 @@
                                     <input type="text" name="orderCode" class="layui-input" autocomplete="off" value="<{$info.serphone}>" disabled="disabled">
                                 </div>
                             </div>
+                            <{if condition="$info.loc neq ''"}>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">安装定位</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="loc" class="layui-input" autocomplete="off" value="<{$info.loc}>" disabled="disabled">
+                                </div>
+                            </div>
+                            <{/if}>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">归属代理商</label>
                                 <div class="layui-input-block">

@@ -46,7 +46,7 @@
 					<span>
 						<img src="__IMAGES__/icon01.png" alt="">
 					</span>
-					<input id="account" type="text" placeholder='请输入账号' class="pushName">
+					<input id="account" type="text" placeholder='请输入账号' class="pushName" value="<{$username}>">
 					<small class='tips_name'>请输入正确账号</small>
 				</p>
 				<p>
@@ -58,7 +58,11 @@
 				</p>
 				<div style="width: 550px;margin:15px auto 0;">
 					<label>
-						<input type="checkbox" style="width:30px;height:30px;margin-right:10px;position: relative;top:3px;"><i style='font-size:30px;'>记住账号</i>
+					<{if condition="$cookie eq 1"}>
+						<input id="only" type="checkbox" style="width:30px;height:30px;margin-right:10px;position: relative;top:3px;" checked="checked"><i style='font-size:30px;'>记住账号</i>
+					<{else /}>
+						<input id="only" type="checkbox" style="width:30px;height:30px;margin-right:10px;position: relative;top:3px;"><i style='font-size:30px;'>记住账号</i>
+					<{/if}>
 					</label>
 				</div>
 				<input type="button" value="登录" class="sign-in-btn">
@@ -108,15 +112,22 @@
 
 				return false;
 			}
+			var only = 0;
+			if ($('#only').is(':checked')) {
+				only = 1;
+			} else {
+				only = 0;
+			}
 			$(this).val("登录中...").attr('disabled',true);
 			$.ajax({
-				url : "<{:U('Login/serviceAdmin')}>",
+				url : "<{:U('Login/serviceAdmin1')}>",
 	            type : "post",
-	            data : {username:username,password : password},
+	            data : {username:username,password : password,cookie:only},
 	            dataType : "json",
 	            timeout : 5000,
 	            success : function(data){
 	            	if (data.code == 1) {
+	            		$('.sign-in-btn').val("登录").removeAttr('disabled');
 	            		window.location.href = '<{:U('Install/index')}>';
 	            	} else {
 	            		alert(data.msg);

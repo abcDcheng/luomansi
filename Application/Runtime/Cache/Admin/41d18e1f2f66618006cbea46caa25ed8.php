@@ -186,7 +186,7 @@
                           <div class="layui-form-item">
                               <label class="layui-form-label label-required">联系方式</label>
                               <div class="layui-input-block">
-                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="*4-30" errormsg="联系方式至少4个字符!" nullmsg="请输入联系方式!">
+                                  <input type="text" name="phone" class="layui-input" autocomplete="off" placeholder="联系方式" datatype="n11-11" errormsg="联系方式必须为手机号!" nullmsg="请输入联系方式!">
                               </div>
                           </div>
                           <div class="layui-form-item">

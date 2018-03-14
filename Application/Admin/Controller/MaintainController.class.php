@@ -169,7 +169,14 @@ class MaintainController extends Controller {
                     $installTime = I('installTime');
                     $clientBak = I('clientBak');
                     $level = I('level');
-
+                    $userchange = 0;
+                    if ($group == 99) {
+                        $statusUser = I('statusUser');
+                        $infoUser = M('maintain')->where('id='.$id)->find();
+                        if ($infoUser['statususer'] != $statusUser) {
+                            $userchange = 1;
+                        }
+                    }
                     
                     $status = intval(I('status'));
                     $Model_data = M();
@@ -185,10 +192,11 @@ class MaintainController extends Controller {
                         'msg'           => $msg,
                         'level'         => $level,
                         'clientBak'     => $clientBak,
-                        'installTime'   => $installTime
+                        'installTime'   => $installTime,
+                        'statusUser'    => $statusUser
                         //'enTime'        => date('Y-m-d H:i:s')
                         );
-                    if ($group == 1) {
+                    if ($group == 1) {  //代理商更新（已失效）
                         $serviceId = intval(I('servicer'));
                         $oldServicer = intval(I('oldServicer'));
                         if ($serviceId) {
@@ -208,7 +216,7 @@ class MaintainController extends Controller {
                             $data['serviceId'] = '';
                         }
                         
-                    } else {
+                    } else {    //其他人更新
                         $salemanId = intval(I('saleman'));
                         $oldSaleman = intval(I('oldSaleman'));
                         //若更换代理商
@@ -267,12 +275,13 @@ class MaintainController extends Controller {
                         $data['serviceStatus'] = 1;
                         $data['serEndTime'] = "0000-00-00 00:00:00";
                         $data['endTime'] = "0000-00-00 00:00:00";
-                        
-                        $data['serLog'] .= $ser['serlog'] . 
+                        if (!$userchange) {
+                            $data['serLog'] .= $ser['serlog'] . 
                                            "时间：".date('Y-m-d H:i:s')."\n".
                                            "回访人员：".$statusUser."\n".
                                            "回访状态：服务异常\n".
                                            "回访信息：".$serMsg."\n\n";
+                        }
                     } elseif ($status == 1 && $ser['status'] != 1) {   //正常回访
                         $data['endTime'] = date('Y-m-d H:i:s');
                         $data['serviceStatus'] = 2;
@@ -287,11 +296,14 @@ class MaintainController extends Controller {
                         }
                         
                         if ($ser['status'] != 1) {
-                            $data['serLog'] .= $ser['serlog'] . 
+                            if (!$userchange) {
+                                $data['serLog'] .= $ser['serlog'] . 
                                                "时间：".date('Y-m-d H:i:s')."\n".
                                                "回访者：".$statusUser."\n".
                                                "回访状态：回访完成\n".
                                                "回访信息：".$serMsg."\n\n";
+                            }
+                            
                         }
                         
                     }
@@ -345,7 +357,12 @@ class MaintainController extends Controller {
                         $this->assign('display',$display);
                     }
                     if (!empty($info)) {
+                        if ($group == 99) {
+                            $SU = M('SysAdmin')->field('id,username')->where('`group`=3')->select();
+                            $this->assign('statusUser',$SU);
+                        }
                         
+                        //var_dump($SU);
                         $this->assign('mod',$mod);
                         $this->assign('goods',$goods);
                         $this->assign('user',$user);

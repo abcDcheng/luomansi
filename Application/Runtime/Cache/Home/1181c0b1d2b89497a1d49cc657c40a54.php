@@ -43,7 +43,7 @@
 		<!-- 购物车内容 -->
 		<div class="query-content">
 			<ul class="query-list-style" style="display:block;">
-			<?php if($hasShop == 1): if(is_array($shopcar)): foreach($shopcar as $key=>$value): ?><li>
+			<?php if($hasShop == 1): if(is_array($shopcar)): foreach($shopcar as $key=>$value): ?><li style="overflow: hidden;background:url('/luomansi/Application/Home/Public/img/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
 					<div class="query-list-img-bg">
 						<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="">
 					</div>
@@ -129,8 +129,8 @@
 		            	}
 		            	$('.meng00').hide();
 		            },
-		            error:function(data){
-		            	if (data.status == 'timeout') {
+		            error:function(x,data){
+		            	if (data == 'timeout') {
 		            		alert('连接超时，请重试');
 		            	}
 		            	$('.meng00').hide();

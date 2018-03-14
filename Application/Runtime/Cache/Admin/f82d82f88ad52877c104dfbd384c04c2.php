@@ -76,7 +76,7 @@
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
-				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/ad');?>">广告宣传语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -162,20 +162,8 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">用户名</label>
                                 <div class="layui-input-block">
-                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="*11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!" value="<?php echo ($info["username"]); ?>">
+                                    <input id="username" type="text" name="username" class="layui-input" autocomplete="off" placeholder="用户名" datatype="n11-11" errormsg="用户名必须为手机号" nullmsg="请输入用户名!" value="<?php echo ($info["username"]); ?>">
                                     <input name="oldUser" value="<?php echo ($info["username"]); ?>" type="hidden"/>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">密码</label>
-                                <div class="layui-input-block">
-                                    <input id="pwd" type="password" name="pwd" placeholder="密码" class="layui-input" autocomplete="off" >
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">确认密码</label>
-                                <div class="layui-input-block">
-                                    <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" autocomplete="off">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -184,6 +172,7 @@
                                     <input type="text" name="name" placeholder="姓名" class="layui-input" autocomplete="off" datatype="*1-10" errormsg="请输入正确姓名" nullmsg="请输入姓名!" value="<?php echo ($info["name"]); ?>">
                                 </div>
                             </div>
+
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">身份证</label>
                                 <div class="layui-input-block">
@@ -201,8 +190,30 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label">密码</label>
+                                <div class="layui-input-block">
+                                    <input id="pwd" type="password" name="pwd" placeholder="密码" class="layui-input" autocomplete="off" >
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">确认密码</label>
+                                <div class="layui-input-block">
+                                    <input id="repwd" type="password" name="repwd" placeholder="确认密码" class="layui-input" autocomplete="off" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">手机验证码</label>
+                                <div class="layui-input-block">
+                                    <input id="yzm" type="text" name="yzm" placeholder="手机验证码" class="layui-input" autocomplete="off"  style="width: 100px;display: inline-block;">
+                                    <button type="button" class="layui-btn" id="getyzm">
+                                      获取手机验证码
+                                    </button>
+                                    <span id="tip" style="color: red;display: none">提示：验证码已发送至<con id="codePhone"></con></span>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <div class="layui-input-block" style="color: red">
-                            注：若不修改密码则密码框留空。
+                            注：若不修改密码则密码框留空。也不需获取手机验证码
                             </div>
                             </div>
                         </div>
@@ -233,6 +244,11 @@
         if (pwd || repwd) {
             if (pwd != repwd) {
                 alert('两次输入的密码不一致');
+                return false;
+            }
+            var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
+            if (!reg.test(pwd)) {
+                alert('密码必须为字母数字组合');
                 return false;
             }
         }

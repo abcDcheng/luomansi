@@ -46,7 +46,7 @@
 					<span>
 						<img src="/luomansi/Application/Home/Public/img/icon01.png" alt="">
 					</span>
-					<input id="account" type="text" placeholder='请输入账号' class="pushName">
+					<input id="account" type="text" placeholder='请输入账号' class="pushName" value="<?php echo ($username); ?>">
 					<small class='tips_name'>请输入正确账号</small>
 				</p>
 				<p>
@@ -56,6 +56,13 @@
 					<input id="pwd" type="password" placeholder='请输入密码' class="pushPassword">
 					<small class='tips_password'>请输入正确密码</small>
 				</p>
+				<div style="width: 550px;margin:15px auto 0;">
+					<label>
+					<?php if($cookie == 1): ?><input id="only" type="checkbox" style="width:30px;height:30px;margin-right:10px;position: relative;top:3px;" checked="checked"><i style='font-size:30px;'>记住账号</i>
+					<?php else: ?>
+						<input id="only" type="checkbox" style="width:30px;height:30px;margin-right:10px;position: relative;top:3px;"><i style='font-size:30px;'>记住账号</i><?php endif; ?>
+					</label>
+				</div>
 				<input type="button" value="登录" class="sign-in-btn">
 
 			</div>
@@ -103,11 +110,17 @@
 
 				return false;
 			}
+			var only = 0;
+			if ($('#only').is(':checked')) {
+				only = 1;
+			} else {
+				only = 0;
+			}
 			$(this).val("登录中...").attr('disabled',true);
 			$.ajax({
-				url : "<?php echo U('Login/serviceAdmin');?>",
+				url : "<?php echo U('Login/serviceAdmin1');?>",
 	            type : "post",
-	            data : {username:username,password : password},
+	            data : {username:username,password : password,cookie:only},
 	            dataType : "json",
 	            timeout : 5000,
 	            success : function(data){
