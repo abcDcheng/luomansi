@@ -110,6 +110,10 @@
                 </div>
 
                 <button class="upload-btn" id="clipBtn2">确认上传</button>
+
+                <div class="maintain-upload-img clickBig" style="margin-top:60px;background: url(__IMAGES__/add-upImg2.jpg) center center no-repeat;background-size:cover">
+					<p style="position:absolute;width:100%;text-align:center;font-size:30px;top:-45px;left:10px;">示例图片</p>
+				</div>
 				
 				<div class="maintain-add">
 					<p>
@@ -160,6 +164,15 @@
 	</div>
 
 </div>
+
+<!-- 点击放大 -->
+<div class="click-bg" style="position: fixed;width: 100%;height: 100%;top:0;left: 0;background-color: rgba(0,0,0,0.8);z-index: 2;display:none;">
+    <div class="click-bg-con" style="position: absolute;width: 100%;height: 100%;top:0;left: 0;display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: center;-webkit-box-align: center;">
+        <img src="__IMAGES__/add-upImg2.jpg" alt="" style="height:800px;">
+    </div>
+    
+</div>
+
 <style type="text/css">
     .meng00{display:none;z-index:9999;width: 100%;height: 100%;position: fixed;left: 0;top:0;background:url('__IMAGES__/15.gif') center center no-repeat rgba(0,0,0,0.8);}
 </style>
@@ -207,6 +220,13 @@
 			$('.maintain-ing').hide();
 			$('.maintain-executable-date-wrap').show();
 		});
+
+		$('.clickBig').click(function(){
+            $('.click-bg').show();
+        });
+        $('.click-bg').click(function(){
+            $('.click-bg').hide();
+        });
 
 		$('#return').click(function(){
 			$('.maintain-ing').show();
