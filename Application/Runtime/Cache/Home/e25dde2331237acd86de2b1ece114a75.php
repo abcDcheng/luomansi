@@ -45,7 +45,7 @@
 
 		<!-- 订单已完成 -->
 		<ul class="maintain-complete maintain-style" style="display: block">
-			<?php if($hasInfo == 1): if(is_array($info)): foreach($info as $k=>$value): ?><li>
+			<?php if($hasInfo == 1): if(is_array($info)): foreach($info as $k=>$value): ?><li style="overflow: hidden;background:url('/luomansi/Application/Home/Public/img/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
 				<div class="query-list-img-bg">
 					<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="">
 				</div>

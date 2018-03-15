@@ -130,6 +130,7 @@
 	            timeout : 5000,
 	            success : function(data){
 	            	if (data.code == 1) {
+	            		$('.sign-in-btn').val("登录").removeAttr('disabled');
 	            		window.location.href = "<?php echo U('Maintain/index');?>";
 	            	} else {
 	            		alert(data.msg);

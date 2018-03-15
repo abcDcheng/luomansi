@@ -65,7 +65,7 @@
 		</div>
 		<!-- 订单执行中 -->
 		<ul class="maintain-ing maintain-style" style="display:block;">
-			<?php if($hasInfo == 1): if(is_array($info)): foreach($info as $k=>$value): ?><li>
+			<?php if($hasInfo == 1): if(is_array($info)): foreach($info as $k=>$value): ?><li style="overflow: hidden;background:url('/luomansi/Application/Home/Public/img/add-li-bg.png') center center no-repeat;background-size:100% 100%;margin-bottom:10px;">
 				<div class="query-list-img-bg">
 					<img src="/luomansi/Application/Upload/<?php echo ($value["goodsimg"]); ?>" alt="">
 				</div>
@@ -93,7 +93,8 @@
                     <div id="clipArea1"></div>
                     <img src="" alt="" class="uploadImg uploadImg1">
                     <input type="file" id="file1">
-                    <p id="ptitle1" style="position:absolute;width:100%;text-align:center;font-size:30px;top:10px;left:10px;font-weight: bold;">上传智能锁门全景照片</p>
+                    <p id="ptitle1" style="position:absolute;width:100%;text-align:center;font-size:30px;top:-20px;left:10px;font-weight: bold;">上传智能锁门全景照片</p>
+                    <p style="position:absolute;width:100%;text-align:center;font-size:30px;top:30px;left:10px;color:blue;text-decoration: underline;" class="clickBig1">(示例图片)</p>
                 </div>
 
                 <button class="upload-btn" id="clipBtn1">确认上传</button>
@@ -102,7 +103,8 @@
                     <div id="clipArea2"></div>
                     <img src="" alt="" class="uploadImg uploadImg2">
                     <input type="file" id="file2">
-                    <p id="ptitle2" style="position:absolute;width:100%;text-align:center;font-size:30px;top:10px;left:10px;font-weight: bold;">上传设备显示识别码图片</p>
+                    <p id="ptitle2" style="position:absolute;width:100%;text-align:center;font-size:30px;top:-20px;left:10px;font-weight: bold;">上传设备显示识别码图片</p>
+                    <p style="position:absolute;width:100%;text-align:center;font-size:30px;top:30px;left:10px;color:blue;text-decoration: underline;" class="clickBig2">(示例图片)</p>
                 </div>
 
                 <button class="upload-btn" id="clipBtn2">确认上传</button>
@@ -156,6 +158,17 @@
 	</div>
 
 </div>
+<div class="click-bg1" style="position: fixed;width: 100%;height: 100%;top:0;left: 0;background-color: rgba(0,0,0,0.8);z-index: 2;display:none;">
+    <div class="click-bg-con" style="position: absolute;width: 100%;height: 100%;top:0;left: 0;display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: center;-webkit-box-align: center;">
+        <img src="/luomansi/Application/Home/Public/img/add-upImg1.jpg" alt="" style="height:800px;">
+    </div>
+</div>
+<div class="click-bg2" style="position: fixed;width: 100%;height: 100%;top:0;left: 0;background-color: rgba(0,0,0,0.8);z-index: 2;display:none;">
+    <div class="click-bg-con" style="position: absolute;width: 100%;height: 100%;top:0;left: 0;display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-pack: center;-webkit-box-align: center;">
+        <img src="/luomansi/Application/Home/Public/img/add-upImg2.jpg" alt="" style="height:800px;">
+    </div>
+</div>
+
 <style type="text/css">
     .meng00{display:none;z-index:9999;width: 100%;height: 100%;position: fixed;left: 0;top:0;background:url('/luomansi/Application/Home/Public/img/15.gif') center center no-repeat rgba(0,0,0,0.8);}
 </style>
@@ -220,6 +233,19 @@
 			
 		// });
 
+		$('.clickBig1').click(function(){
+            $('.click-bg1').show();
+        });
+        $('.click-bg1').click(function(){
+            $('.click-bg1').hide();
+        });
+        $('.clickBig2').click(function(){
+            $('.click-bg2').show();
+        });
+        $('.click-bg2').click(function(){
+            $('.click-bg2').hide();
+        });
+
 		/*<!-- 订单已完成详情 -->*/
 		$('.maintain-complete a').click(function(){
 			$('.maintain-complete').hide();
@@ -237,7 +263,7 @@
             },
             loadComplete: function() {
                 console.log("照片读取完成");
-                $('#file1,#ptitle1').hide();
+                $('#file1,#ptitle1,.clickBig1').hide();
                 imgUrl1 = '';
             },
             clipFinish: function(dataURL) {
@@ -268,7 +294,7 @@
             },
             loadComplete: function() {
                 console.log("照片读取完成");
-                $('#file2,#ptitle2').hide();
+                $('#file2,#ptitle2,.clickBig2').hide();
                 imgUrl2 = '';
             },
             clipFinish: function(dataURL) {
