@@ -131,7 +131,7 @@
 	            success : function(data){
 	            	if (data.code == 1) {
 	            		$('.sign-in-btn').val("登录").removeAttr('disabled');
-	            		window.location.href = "<?php echo U('Maintain/index');?>";
+	            		window.location.href = "<?php echo U('Login/maintainredirect');?>";
 	            	} else {
 	            		alert(data.msg);
 	            		$('.sign-in-btn').val("登录").removeAttr('disabled');

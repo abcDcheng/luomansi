@@ -188,6 +188,7 @@ class CodeController extends Controller {
                     $data_p[$j]['goods'] =$PHPExcel->getActiveSheet()->getCell("A" . $i)->getValue();
                     $data_p[$j]['goodsModel'] =$PHPExcel->getActiveSheet()->getCell("B" .$i)->getValue();
                     $data_p[$j]['goodsCode'] =$PHPExcel->getActiveSheet()->getCell("C" .$i)->getValue();
+                    $data_p[$j]['goodsCode'] = str_replace(' ','',$data_p[$j]['goodsCode']);
                     $data_p[$j]['install'] =$PHPExcel->getActiveSheet()->getCell("D" .$i)->getValue();
                     $data_p[$j]['enTime'] = date('Y-m-d H:i:s');
                 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>安装管理登录</title>
+	<title>保修登记登录</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -40,7 +40,7 @@
 			
 			<div class="sign-in-content">
 				
-				<h2 class="add-words" style="font-size: 37px;width:550px;margin:-30px auto 0;font-weight: 300;">安装管理</h2>
+				<h2 class="add-words" style="font-size: 37px;width:550px;margin:-30px auto 0;font-weight: 300;">保修登记</h2>
 
 				<p>
 					<span>
@@ -125,7 +125,8 @@
 	            timeout : 5000,
 	            success : function(data){
 	            	if (data.code == 1) {
-	            		window.location.href = '<?php echo U('Install/index');?>';
+	            		$('.sign-in-btn').val("登录").removeAttr('disabled');
+	            		window.location.href = '<?php echo U('Login/installredirect');?>';
 	            	} else {
 	            		alert(data.msg);
 	            		$('.sign-in-btn').val("登录").removeAttr('disabled');

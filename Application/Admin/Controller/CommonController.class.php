@@ -28,6 +28,7 @@ class CommonController extends Controller {
                 } else {
                     file_put_contents("./Application/Error/telcode.txt", 
                         "时间：".date('Y-m-s H:i:s')."\r\n".
+                        "类型：验证码"."\r\n".
                         "手机号：".$tel."\r\n".
                         "返回结果：".$data['code']."   ".$data['msg']."\r\n\r\n",
                         FILE_APPEND);
@@ -61,9 +62,10 @@ class CommonController extends Controller {
                     $this->ajaxReturn($arr);
                 } else {
                     file_put_contents("./Application/Error/telcode.txt", 
-                        "时间：".date('Y-m-s H:i:s')."\n".
-                        "手机号：".$tel."\n".
-                        "返回结果：".$data['code']."   ".$data['msg']."\n\n",
+                        "时间：".date('Y-m-s H:i:s')."\r\n".
+                        "类型：验证码"."\r\n".
+                        "手机号：".$tel."\r\n".
+                        "返回结果：".$data['code']."   ".$data['msg']."\r\n",
                         FILE_APPEND);
                     if ($data['code'] == 'isv.BUSINESS_LIMIT_CONTROL') {
                         $this->error('获取验证码次数过多，请稍后再试');
@@ -77,6 +79,33 @@ class CommonController extends Controller {
             }
         } else {
         	$this->error('未知的操作');
+        }
+    }
+
+    public function maintainYZM($tel){
+        if (isset($_SESSION['admin_id']) && $tel) {
+            $data = json_decode(file_get_contents("http://shenzhen.luomansizs.com/api/aliyunsms/api_demo/maintain_sms.php?tel=$tel"),true);
+            if ($data['code'] == 'OK') {
+                //$telStr = substr_replace($tel, '****', 3, 4);
+                $arr = array('tel'=>$tel,'code'=>1);
+                //$this->ajaxReturn($arr);
+
+            } else {
+                $arr = array();
+                file_put_contents("./Application/Error/telcode.txt", 
+                    "时间：".date('Y-m-s H:i:s')."\r\n".
+                    "类型：维护通知"."\r\n".
+                    "手机号：".$tel."\r\n".
+                    "返回结果：".$data['code']."   ".$data['msg']."\r\n\r\n",
+                    FILE_APPEND);
+                if ($data['code'] == 'isv.BUSINESS_LIMIT_CONTROL') {
+                    $arr['msg'] = '发送短信频率超过限制，请另行通知';
+                } else {
+                    $arr['msg'] = '发送短信失败，请另行通知';
+                }
+                $arr['code'] = 0;
+            }
+            return $arr;
         }
     }
 }

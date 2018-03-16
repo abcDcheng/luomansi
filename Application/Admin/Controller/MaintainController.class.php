@@ -130,7 +130,17 @@ class MaintainController extends Controller {
                     );
                 $res = $Model_data->table('saleman_maintain')->data($data)->add();
                 if ($res) {
-                    $this->success('成功生成维护订单',U('Maintain/index'));
+                    $smsbak = '';
+                    if ($info['phone']) {
+                        $sms = A('Common');
+                        $arr = $sms->maintainYZM($info['phone']);
+                        if ($arr['code'] == 1) {
+                            $smsbak = '已短信通知负责代理商';
+                        } else {
+                            $smsbak = $arr['msg'];
+                        }
+                    }
+                    $this->success('成功生成维护订单。'.$smsbak,U('Maintain/index'));
                 } else {
                     $this->error('生成维护订单失败');
                 }
@@ -169,14 +179,7 @@ class MaintainController extends Controller {
                     $installTime = I('installTime');
                     $clientBak = I('clientBak');
                     $level = I('level');
-                    $userchange = 0;
-                    if ($group == 99) {
-                        $statusUser = I('statusUser');
-                        $infoUser = M('maintain')->where('id='.$id)->find();
-                        if ($infoUser['statususer'] != $statusUser) {
-                            $userchange = 1;
-                        }
-                    }
+                    
                     
                     $status = intval(I('status'));
                     $Model_data = M();
@@ -192,10 +195,19 @@ class MaintainController extends Controller {
                         'msg'           => $msg,
                         'level'         => $level,
                         'clientBak'     => $clientBak,
-                        'installTime'   => $installTime,
-                        'statusUser'    => $statusUser
+                        'installTime'   => $installTime
+                        //'statusUser'    => $statusUser
                         //'enTime'        => date('Y-m-d H:i:s')
                         );
+                    $userchange = 0;
+                    if ($group == 99) {
+                        $statusUser = I('statusUser');
+                        $infoUser = M('maintain')->where('id='.$id)->find();
+                        if ($infoUser['statususer'] != $statusUser) {
+                            $data['statusUser'] = $statusUser;
+                            $userchange = 1;
+                        }
+                    }
                     if ($group == 1) {  //代理商更新（已失效）
                         $serviceId = intval(I('servicer'));
                         $oldServicer = intval(I('oldServicer'));
@@ -219,6 +231,7 @@ class MaintainController extends Controller {
                     } else {    //其他人更新
                         $salemanId = intval(I('saleman'));
                         $oldSaleman = intval(I('oldSaleman'));
+                        $newsaleman = 0;
                         //若更换代理商
                         if ($salemanId != $oldSaleman) {
                             if ($salemanId) {
@@ -235,6 +248,8 @@ class MaintainController extends Controller {
                                     $data['serviceStatus'] = 0;
                                     $data['serStartTime'] = "0000-00-00 00:00:00";
                                     $data['serEndTime'] = "0000-00-00 00:00:00";
+                                    $newsaleman = 1;
+                                    $newsalemanphone = $info['phone'];
                                 } else {
                                     $this->error('查找不到负责代理商的信息，请重试');
                                 }
@@ -271,6 +286,7 @@ class MaintainController extends Controller {
                             $statusUser = isset($_SESSION['username'])?$_SESSION['username']:'客服专员';
                         } elseif ($group == 99) {
                             $statusUser = isset($_SESSION['username'])?$_SESSION['username']:'管理员';
+                            $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username']:'管理员';
                         }
                         $data['serviceStatus'] = 1;
                         $data['serEndTime'] = "0000-00-00 00:00:00";
@@ -293,6 +309,7 @@ class MaintainController extends Controller {
                             $statusUser = isset($_SESSION['username'])?$_SESSION['username']:'客服专员';
                         } elseif ($group == 99) {
                             $statusUser = isset($_SESSION['username'])?$_SESSION['username']:'管理员';
+                            $data['statusUser'] = isset($_SESSION['username'])?$_SESSION['username']:'管理员';
                         }
                         
                         if ($ser['status'] != 1) {
@@ -311,6 +328,18 @@ class MaintainController extends Controller {
                     
                     $res = $Model_data->table('saleman_maintain')->where('id='.$id)->data($data)->save();
                     if ($res) {
+                        if ($newsaleman) {
+                            $smsbak = '';
+                            if ($newsalemanphone) {
+                                $sms = A('Common');
+                                $arr = $sms->maintainYZM($newsalemanphone);
+                                if ($arr['code'] == 1) {
+                                    $smsbak = '已短信通知负责代理商';
+                                } else {
+                                    $smsbak = $arr['msg'];
+                                }
+                            }
+                        }
                         if ($group == 1) {
                             $this->success('修改成功',U('Maintain/salemanIndex'));
                         } else {
@@ -511,7 +540,17 @@ class MaintainController extends Controller {
                     );
                 $res = $Model_data->table('saleman_maintain')->data($data)->add();
                 if ($res) {
-                    $this->success('成功生成维护订单',U('Maintain/salemanIndex'));
+                    $smsbak = '';
+                    if ($info['phone']) {
+                        $sms = A('Common');
+                        $arr = $sms->maintainYZM($info['phone']);
+                        if ($arr['code'] == 1) {
+                            $smsbak = '已短信通知维护人员';
+                        } else {
+                            $smsbak = $arr['msg'];
+                        }
+                    }
+                    $this->success('成功生成维护订单。'.$smsbak,U('Maintain/salemanIndex'));
                 } else {
                     $this->error('生成维护订单失败');
                 }
@@ -548,6 +587,7 @@ class MaintainController extends Controller {
                     }
                     //echo $serviceId."   ".$oldServicer;
                     if ($serviceId != $oldServicer) {
+
                         //查找新维护人员信息
                         $info = $Model_data->table('saleman_service_admin')->where('id='.$serviceId)->find();
                         if (!empty($info)) {
@@ -558,13 +598,25 @@ class MaintainController extends Controller {
                                 );
                             $res = $Model_data->table('saleman_maintain')->where('id='.$id)->data($data)->save();
                             if ($res > 0) {
-                                $this->success('修改成功',U('Maintain/salemanIndex'));
+                                $smsbak = '';
+                                if ($info['phone']) {
+                                    $sms = A('Common');
+                                    $arr = $sms->maintainYZM($info['phone']);
+                                    if ($arr['code'] == 1) {
+                                        $smsbak = '已短信通知维护人员';
+                                    } else {
+                                        $smsbak = $arr['msg'];
+                                    }
+                                }
+                                $this->success('修改成功。'.$smsbak,U('Maintain/salemanIndex'));
                             } else {
                                 $this->error('修改失败');
                             }
                         } else {
                             $this->error('查无该维护人员信息，请重试');
                         }
+
+
                     } else {
                         $this->success('数据无修改',U('Maintain/salemanIndex'));
                     }

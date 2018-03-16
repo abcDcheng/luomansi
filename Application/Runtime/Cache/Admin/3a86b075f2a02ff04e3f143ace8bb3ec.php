@@ -43,10 +43,14 @@
 	.layui-nav-tree .layui-nav-child a{
 		height: 35px;
 	}
+	.layui-nav-child dd{
+		font-size: 20px;
+	}
 </style>
+	
     <ul class="layui-tab-title">
         <li class="layui-this">
-            <div class="sc_side_manage" style="background-image:url('/luomansi/Application/Admin/Public/images/male.png');"></div>
+            <div class="sc_side_manage" style="background:url('/luomansi/Application/Admin/Public/images/logo.png') no-repeat;"></div>
             
         </li>
         <style type="text/css">
@@ -61,18 +65,18 @@
 				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
 				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
 				<!-- <dd><a href="#">历史订单</a></dd> -->
-				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">保修登记</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
 				<?php } elseif ($group == 2) { ?>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<?php } elseif ($group == 3) { ?>	
-				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">保修登记<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
 				<?php } elseif ($group == 99) { ?>	
-				<dd><a href="<?php echo U('Admin/ad');?>">手机广告语</a></dd>
+				<dd><a href="<?php echo U('Admin/ad');?>">广告宣传语</a></dd>
 				<dd><a href="<?php echo U('Admin/index');?>">专员管理</a></dd>
 				<dd><a href="<?php echo U('Saleman/index');?>">代理商管理</a></dd>
 				<dd><a href="<?php echo U('Admin/servicer');?>">代理商人员</a></dd>
@@ -80,10 +84,11 @@
 				<dd><a href="<?php echo U('Code/index');?>">识别码管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
-				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">保修登记<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<dd><a href="<?php echo U('Admin/phone');?>">手机更换</a></dd>
 				<?php } } ?>
 				<dd><a href="<?php echo U('Index/pwd');?>">密码修改</a></dd>
 				<dd><a id="loginout" href="<?php echo U('Index/loginout');?>">退出登录</a></dd>
@@ -144,6 +149,7 @@
         <div class="sc_body">
             <form action="<?php echo U('Code/codeRecord');?>" id="form" class="layui-form layui-form-pane">
                 <div class="sc_title sc_body_title">
+                <img id="logo" src="/luomansi/Application/Admin/Public/images/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
                     <h5>新增产品识别码</h5>
                     <div class="sc_title_btn">
                         <button id="save" type="submit" class='layui-btn layui-btn-sm'><i class='layui-icon'>&#xe605;</i> 保存</button>

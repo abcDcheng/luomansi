@@ -62,13 +62,13 @@
 				<?php if (isset($_SESSION['group'])) { $group = $_SESSION['group']; if ($group == 1) { ?>
 				<dd><a href="<?php echo U('Saleman/staff');?>">人员管理</a></dd>
 				<!-- <dd><a href="#">历史订单</a></dd> -->
-				<dd><a href="<?php echo U('Saleman/installIndex');?>">安装管理</a></dd>
+				<dd><a href="<?php echo U('Saleman/installIndex');?>">保修登记</a></dd>
 				<dd><a href="<?php echo U('Maintain/salemanIndex');?>">维护管理</a></dd>
 				<?php } elseif ($group == 2) { ?>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
 				<?php } elseif ($group == 3) { ?>	
-				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">保修登记<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
@@ -81,10 +81,11 @@
 				<dd><a href="<?php echo U('Code/index');?>">识别码管理</a></dd>
 				<dd><a href="<?php echo U('Order/index');?>">订单管理<span id="orderNum"></span></a></dd>
 				<dd><a href="<?php echo U('Order/history');?>">历史订单</a></dd>
-				<dd><a href="<?php echo U('Install/index');?>">安装管理<span id="installNum"></span></a></dd>
+				<dd><a href="<?php echo U('Install/index');?>">保修登记<span id="installNum"></span></a></dd>
 				<dd><a href="<?php echo U('Install/history');?>">安装统计</a></dd>
 				<dd><a href="<?php echo U('Maintain/index');?>">维护管理</a></dd>
 				<dd><a href="<?php echo U('Maintain/history');?>">维护统计</a></dd>
+				<dd><a href="<?php echo U('Admin/phone');?>">手机更换</a></dd>
 				<?php } } ?>
 				<dd><a href="<?php echo U('Index/pwd');?>">密码修改</a></dd>
 				<dd><a id="loginout" href="<?php echo U('Index/loginout');?>">退出登录</a></dd>

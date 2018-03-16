@@ -38,6 +38,13 @@ class LoginController extends Controller {
     		$this->display();
     	}
     }
+
+    //中间过渡页，以防使用者不小心按返回键回到登录页得重新登录
+    public function indexredirect() {
+        //redirect(U("Shop/index"));
+        $this->display();
+    }
+
     //安装管理登录页
     public function installLogin() {
         // if (isset($_SESSION['service_id'])) {
@@ -101,6 +108,11 @@ class LoginController extends Controller {
             $this->display();
         }
     }
+    //中间过渡页，以防使用者不小心按返回键回到登录页得重新登录
+    public function installredirect() {
+        //redirect(U("Shop/index"));
+        $this->display();
+    }
 
     //安装维护管理登录
     public function serviceAdmin2() {
@@ -127,9 +139,17 @@ class LoginController extends Controller {
             $this->display();
         }
     }
+
+//中间过渡页，以防使用者不小心按返回键回到登录页得重新登录
+    public function maintainredirect() {
+        //redirect(U("Shop/index"));
+        $this->display();
+    }
+
     //获取广告语
     public function getAD(){
         $con = M('ad')->where('id=1')->getField('ad');
         return $con;
     }
+
 }

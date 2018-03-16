@@ -22,8 +22,9 @@ class InstallController extends Controller {
     //记录新用户数据
     public function record(){
     	if (isset($_SESSION['service_id']) && IS_AJAX) {
-            $goodsCode = I('goodsCode');
-            $count = M('code')->where(array('goodsCode'=>array('like','%'.$goodsCode.'%')))->find();
+            $goodsCode = trim(I('goodsCode'));
+            $goodsCode1 = str_replace(' ','',I('goodsCode'));
+            $count = M('code')->where(array('goodsCode'=>array('like','%'.$goodsCode1.'%')))->find();
             if (count($count) < 1) {
                 $this->error('查找不到该识别码，请确认识别码无误或将识别码发至出厂商确认');
                 exit();

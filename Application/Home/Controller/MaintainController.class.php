@@ -93,8 +93,9 @@ class MaintainController extends Controller {
     public function completeService(){
     	if (isset($_SESSION['service_id'])) {
     		if (isset($_POST['orderId']) && IS_AJAX) {
-                $goodsCode = I('goodsCode');
-                $count = M('code')->where(array('goodsCode'=>array('like','%'.$goodsCode.'%')))->count();
+                $goodsCode = trim(I('goodsCode'));
+                $goodsCode1 = str_replace(' ','',I('goodsCode'));
+                $count = M('code')->where(array('goodsCode'=>array('like','%'.$goodsCode1.'%')))->count();
                 if ($count < 1) {
                     $this->error('查找不到该识别码，请确认识别码无误或将识别码发至出厂商确认');
                     exit();
