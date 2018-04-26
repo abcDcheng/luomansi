@@ -16,6 +16,7 @@ return array(
    // 'URL_ROUTER_ON'   => true,
     // 显示页面Trace信息
 	//'SHOW_PAGE_TRACE' =>true,
+	'URL_CASE_INSENSITIVE' => false,
 	// URL模式
     'URL_MODEL' => 1,
 

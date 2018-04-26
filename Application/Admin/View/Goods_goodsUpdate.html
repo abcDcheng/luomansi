@@ -107,6 +107,18 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label label-required">状态</label>
+                                <div class="layui-input-block">
+                                    <{if condition="$goods.status eq 1"}>
+                                    <input name="status" type="radio" value="1" title="上架中" checked="checked"/>
+                                    <input name="status" type="radio" value="0" title="已下架"/>
+                                    <{else /}>
+                                    <input name="status" type="radio" value="1" title="上架中"/>
+                                    <input name="status" type="radio" value="0" title="已下架" checked="checked"/>
+                                    <{/if}>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <div class="layui-input-block">
                                     注：这里的下拉手和假锁选项表示产品是否具有该属性，若选择“无”则代理商下单时不会显示该属性。
                                 </div>

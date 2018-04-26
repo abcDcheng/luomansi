@@ -7,8 +7,8 @@ class AdminController extends Controller {
     	if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
     		//查询所有专员信息
             $Model_data = M('SysAdmin');
-    		$info = $Model_data->where('`group` in (2,3)')->getField('id,`group`,username,is_status,createTime');
-    		$groupName = array(2=>'订单专员',3=>'客服专员');
+    		$info = $Model_data->where('`group` in (2,3,4)')->getField('id,`group`,username,is_status,createTime');
+    		$groupName = array(2=>'订单专员',3=>'客服专员',4=>'仓库专员');
     		foreach ($info as $key=>$value) {
     			$info[$key]['groupName'] = $groupName[$value['group']];
     		}
@@ -30,10 +30,15 @@ class AdminController extends Controller {
                 $phone = I('phone');
                 $Model_data = M('SysAdmin');
                 //判断专员账号是否已注册
-                $count = $Model_data->where("username='$username'")->count();
+                $count = $Model_data->where("username='$username' or phone='$username'")->count();
                 if ($count > 0) {
                     $this->error('该用户名已存在',U('Admin/index'));
                 } else {
+                    $count = $Model_data->where("phone='$phone'")->count();
+                    if ($count > 0) {
+                        $this->error('该手机号已绑定其它账号',U('Admin/index'));
+                        exit();
+                    }
                     $insertData = array('username'=>$username,
                                         'password'=>$pwd,
                                         'phone'=>$phone,
@@ -69,13 +74,19 @@ class AdminController extends Controller {
                         $repwd = intval(I('repwd'));
                         $group = intval(I('group'));
                         $is_status = intval(I('status'));
+                        $phone = I('phone');
                         //若前端勾选了重置密码，则重置密码为a123456，否则照旧
                         if ($repwd) {
                             $password = md5("a123456");
                         } else {
                             $password = $info['password'];
                         }
-                        $data = array('password'=>$password,'group'=>$group,'is_status'=>$is_status);
+                        $count = $Model_data->where("phone='$phone' and id !=$id")->count();
+                        if ($count > 0) {
+                            $this->error('该手机号已绑定其它账号',U('Admin/index'));
+                            exit();
+                        }
+                        $data = array('password'=>$password,'group'=>$group,'phone'=>$phone,'is_status'=>$is_status);
                         $res = $Model_data->where('id='.$id)->save($data);
                         if ($res === false) {
                             $this->error('数据更新失败，请重试或联系技术人员解决');
@@ -150,8 +161,13 @@ class AdminController extends Controller {
                 //var_dump($res);
                 $this->ajaxReturn($res);
             } else {
-                $Model_data = M('ServiceAdmin');
-                $saleman = $Model_data->group('salemanId')->getField('salemanId,saleman,salemanPhone');
+                $Model_data = M('SysAdmin');
+                $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
+                $salemanArr = array();
+                foreach ($saleman as $key => $value) {
+                    $salemanArr[] = array('value'=>$value['name'],'label'=>$value['name'].'('.$value['province'].$value['city'].')','id'=>$value['id']);
+                }
+                $saleman = json_encode($salemanArr);
                 $this->assign('saleman',$saleman);
                 $this->display();
             }
@@ -206,7 +222,12 @@ class AdminController extends Controller {
                 }
             } else {
                 $Model_data = M('SysAdmin');
-                $saleman = $Model_data->where('`group`=1')->order('id asc')->getField('id,name,phone');
+                $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
+                $salemanArr = array();
+                foreach ($saleman as $key => $value) {
+                    $salemanArr[] = array('value'=>$value['name'],'label'=>$value['name'].'('.$value['province'].$value['city'].')','id'=>$value['id']);
+                }
+                $saleman = json_encode($salemanArr);
                 $this->assign('saleman',$saleman);
                 $this->display();
             }
@@ -277,7 +298,12 @@ class AdminController extends Controller {
                     $this->assign('id',$id);
                     $this->assign('info',$info);
                     $Model_data = M('SysAdmin');
-                    $saleman = $Model_data->where('`group`=1')->order('id asc')->getField('id,name,phone');
+                    $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
+                    $salemanArr = array();
+                    foreach ($saleman as $key => $value) {
+                        $salemanArr[] = array('value'=>$value['name'],'label'=>$value['name'].'('.$value['province'].$value['city'].')','id'=>$value['id']);
+                    }
+                    $saleman = json_encode($salemanArr);
                     $this->assign('saleman',$saleman);
                     $this->display();
                 }

@@ -9,7 +9,11 @@ class LoginController extends Controller {
             $password = trim(I('password'));
             $cookie = intval(I('cookie'));
             $user = $Model_Data->where(array('username'=>$username))->find();
-            empty($user) && $this->error('账号密码错误，请重新输入!');
+            //empty($user) && $this->error('账号密码错误，请重新输入!');
+            if (empty($user)) {
+                $user = $Model_Data->where(array('phone'=>$username))->find();
+                empty($user) && $this->error('账号密码错误，请重新输入!');
+            }
             $user['password'] !== md5($password) && $this->error('账号密码错误，请重新输入!');
             $user['is_status'] == 0  && $this->error('此账号已被禁用，请联系超级管理员!');
             //$log = array('username' => $user['username'], 'source' => get_client_ip(), 'add_time' => date("Y-m-d H:i:s"));

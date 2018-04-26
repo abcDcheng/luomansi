@@ -9,6 +9,13 @@ class SalemanController extends Controller {
                 $csql='';
                 $ra=array();
                 $page=1;
+                //是否按代理商查询
+                if(isset($_POST['saleman'])){
+                    $saleman=intval($_POST['saleman']);
+                    if($saleman){
+                        $csql.="and id='$saleman' ";
+                    }
+                }
                 //按省市查询
                 if(isset($_POST['province'])){
                     $province=trim($_POST['province']);
@@ -38,7 +45,14 @@ class SalemanController extends Controller {
                 //var_dump($res);
                 $this->ajaxReturn($res);
             } else {
-                
+                $Model_data = M('SysAdmin');
+                $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
+                $salemanArr = array();
+                foreach ($saleman as $key => $value) {
+                    $salemanArr[] = array('value'=>$value['name'],'label'=>$value['name'].'('.$value['province'].$value['city'].')','id'=>$value['id']);
+                }
+                $saleman = json_encode($salemanArr);
+                $this->assign('saleman',$saleman);
                 $this->display();
             }
             // if (isset($_GET['p'])) {
@@ -78,10 +92,15 @@ class SalemanController extends Controller {
                 $address = I('address');
                 $modelId = I('goodsInfo');
                 $Model_data = M('SysAdmin');
-                $count = $Model_data->where("username='$username'")->count();
+                $count = $Model_data->where("username='$username' or phone='$username'")->count();
                 if ($count > 0) {
-                    $this->error('该用户名已存在',U('Admin/index'));
+                    $this->error('该用户名或手机号已存在',U('Admin/index'));
                 } else {
+                    $count = $Model_data->where("phone='$phone'")->count();
+                    if ($count > 0) {
+                        $this->error('该手机号已绑定其它账号',U('Admin/index'));
+                        exit();
+                    }
                     $insertData = array('username'=>$username,
                                         'password'=>$pwd,
                                         'name'=>$name,
@@ -146,6 +165,11 @@ class SalemanController extends Controller {
                         } else {
                             $password = $info['password'];
                         }
+                        $count = $Model_data->where("phone='$phone' and id !=$id")->count();
+                        if ($count > 0) {
+                            $this->error('该手机号已绑定其它账号',U('Admin/index'));
+                            exit();
+                        }
                         $data = array('password'=>$password,
                                       'name'=>$name,
                                       'phone'=>$phone,
@@ -182,7 +206,7 @@ class SalemanController extends Controller {
                                         FROM saleman_goods_info
                                         WHERE id
                                         IN (".$goodsInfoId.")
-                                        ) and status = 1 order by id asc");
+                                        ) order by id asc");
                             $tmp = array();
                             for($i=0;$i<count($goodsper);$i++){
                                 $tmp[] = $goodsper[$i]['id'];

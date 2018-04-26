@@ -50,7 +50,10 @@
         <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
             <h5>产品识别码管理</h5>
             <div class="sc_title_btn">
-                <a class="layui-btn layui-btn-sm" href="<{:U('Code/add')}>"><i class="layui-icon"></i> 新增</a> &nbsp;<a class="layui-btn layui-btn-sm" href="<{:U('Code/import')}>"><i class="layui-icon"></i> 批量导入</a>       </div>
+            <{if condition="$group eq 99 or $group eq 4"}>
+                <a class="layui-btn layui-btn-sm" href="<{:U('Code/add')}>"><i class="layui-icon"></i> 新增</a> &nbsp;<a class="layui-btn layui-btn-sm" href="<{:U('Code/import')}>"><i class="layui-icon"></i> 批量导入</a>
+            <{/if}>
+            </div>
         </div>
         <div class="fadeInUp animated">
             <div id="form-list" class="layui-form">
@@ -66,19 +69,31 @@
                 <input type="hidden" name="nid" value="5">
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
+                        <col>
+                        <col>
+                        <col width="110">
                         <col width="150">
-                        <col width="200">
+                        <col width="250">
+                        <col width="80">
                         <col>
                         <col>
-                        <col width="130">
+                        <{if condition="$group eq 99"}>
+                        <col width="60">
+                        <{/if}>
                     </colgroup>
                     <thead>
                         <tr>
+                            <th>出货地区</th>
+                            <th>代理商</th>
                             <th>型号</th>
                             <th>规格</th>
                             <th>产品识别码</th>
                             <th>安装状态</th>
+                            <th>安装地区</th>
+                            <th>备注</th>
+                            <{if condition="$group eq 99"}>
                             <th>操作</th>
+                            <{/if}>
                         </tr>
                     </thead>
                     <tbody id="body">
@@ -160,14 +175,21 @@
             var tableHtml2 = '';
             var order = data['order'];
             for(key in order){
-                var tableHtml = '';
-                tableHtml += '<tr><td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip">'+order[key]['goodsmodel']+'</td><td class="layui-elip">'+order[key]['goodscode']+'</td>';
+                var tableHtml = '<tr>';
+                tableHtml += '<td class="layui-elip" title="'+order[key]['area']+'">'+order[key]['area']+'</td>';
+                tableHtml += '<td class="layui-elip" title="'+order[key]['saleman']+'">'+order[key]['saleman']+'</td>';
+                tableHtml += '<td class="layui-elip">'+order[key]['goods']+'</td><td class="layui-elip">'+order[key]['goodsmodel']+'</td><td class="layui-elip" title="'+order[key]['goodscode']+'">'+order[key]['goodscode']+'</td>';
                 if (order[key]['install'] == 1) {
                     tableHtml += '<td class="layui-elip" style="color:green">已安装</td>';
                 } else {
                     tableHtml += '<td class="layui-elip" style="color:red">未安装</td>';
                 }
-                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a>&nbsp;&nbsp;<a class="deleteId" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
+                
+                tableHtml += '<td class="layui-elip" title="'+order[key]['installAddr']+'">'+order[key]['installAddr']+'</td>';
+                tableHtml += '<td class="layui-elip" title="'+order[key]['bak']+'">'+order[key]['bak']+'</td>';
+                <{if condition="$group eq 99"}>
+                tableHtml+='<td><a class="orderUpdate" href="javascript:;" value="'+key+'" data-title="编辑">编辑</a><br/><a class="deleteId" href="javascript:;" value="'+key+'" data-title="删除">删除</a></td></tr>';
+                <{/if}>
                 tableHtml2 = tableHtml+tableHtml2;
             }
             $('#body').append(tableHtml2);

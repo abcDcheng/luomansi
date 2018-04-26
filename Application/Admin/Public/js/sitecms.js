@@ -1,10 +1,14 @@
 $(function(){
     $("#loginout").click(function(e){
     
-    if (!confirm("确定退出吗？")) {
-        return false;
-    }
-});
+        if (!confirm("确定退出吗？")) {
+            return false;
+        }
+    });
+
+
+
+
 });
 layui.use(['element','layer','form','laydate'], function(){
     var element = layui.element,

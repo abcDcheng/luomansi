@@ -76,6 +76,24 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
+                                <label class="layui-form-label label-required">出货地区</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="area" class="layui-input" autocomplete="off" placeholder="请输入出货地区" datatype="*2-30" errormsg="请输入出货地区" nullmsg="请输入出货地区!" value="<{$info['area']}>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label label-required">代理商</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="saleman" class="layui-input" autocomplete="off" placeholder="请输入代理商" datatype="*1-30" errormsg="请输入代理商" nullmsg="请输入代理商!" value="<{$info['saleman']}>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">备注</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="bak" class="layui-input" autocomplete="off" placeholder="请输入备注" value="<{$info['bak']}>">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
                                 <label class="layui-form-label label-required">安装状态</label>
                                 <div class="layui-input-block">
                                     <{if condition="$info['install'] eq 1"}>

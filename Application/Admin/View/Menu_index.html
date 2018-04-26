@@ -37,7 +37,8 @@
 				<dd><a href="<{:U('Order/history')}>">历史订单</a></dd>
 				<{php}>	
 					} elseif ($group == 3) {
-				<{/php}>	
+				<{/php}>
+				<dd><a href="<{:U('Code/index')}>">识别码管理</a></dd>
 				<dd><a href="<{:U('Install/index')}>">保修登记<span id="installNum"></span></a></dd>
 				<dd><a href="<{:U('Install/history')}>">安装统计</a></dd>
 				<dd><a href="<{:U('Maintain/index')}>">维护管理</a></dd>
@@ -59,6 +60,10 @@
 				<dd><a href="<{:U('Maintain/history')}>">维护统计</a></dd>
 				<dd><a href="<{:U('Admin/phone')}>">手机更换</a></dd>
 				<{php}>	
+					} else if ($group == 4) {
+				<{/php}>	
+					<dd><a href="<{:U('Code/index')}>">识别码管理</a></dd>
+				<{php}>		
 					}
 				}
 				<{/php}>

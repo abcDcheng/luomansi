@@ -56,10 +56,10 @@ em,i,small{font-style: normal;}
 .order-date li p input{width: 395px;height: 64px;background-color: #e2e2e2;font-size: 32px;color: #434343;box-sizing:border-box;-webkit-box-sizing:border-box;padding-left: 20px;border:0;}
 .order-date li label{margin-top: 30px;display: block;}
 .order-date li label small{display: inline-block;border:1px #959595 solid;padding: 15px 13px;font-size: 32px;margin-right: 20px;}
-.order-date li label .active{border:1px #37a7e9 solid;}
+.order-date li label .active{border:1px #37a7e9 solid;background-color:#37a7e9;color: #000}
 .chioceColor{overflow: hidden;margin-top: 15px;}
 .chioceColor span{box-sizing:border-box;-webkit-box-sizing:border-box;border:1px #959595 solid;float: left;padding: 15px 13px;color: #959595;font-size: 32px;margin-right: 8px;margin-top: 25px;}
-.chioceColor .active{border:1px #37a7e9 solid;}
+.chioceColor .active{border:1px #37a7e9 solid;background-color:#37a7e9;color: #000 }
 .order em{display: inline-block;width: 1em;}
 .chioceColor span i{display: inline-block;width: 31px;height: 31px;border-radius: 5px;position: relative;top:3px;}
 .order-date-btn{display: block;margin: 30px auto 0;background-color: #1a689d;width: 694px;height: 94px;border-radius: 10px;font-size: 37px;color: #ffffff;}

@@ -68,6 +68,11 @@ class MaintainController extends Controller {
 
                 $Model_data = M('SysAdmin');
                 $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
+                $salemanArr = array();
+                foreach ($saleman as $key => $value) {
+                    $salemanArr[] = array('value'=>$value['name'],'label'=>$value['name'].'('.$value['province'].$value['city'].')','id'=>$value['id']);
+                }
+                $saleman = json_encode($salemanArr);
                 $this->assign('saleman',$saleman);
                 $this->assign('group',$group);
                 $this->display();
@@ -148,6 +153,11 @@ class MaintainController extends Controller {
                 $goods = M('goods')->getField('id,goodsName');
                 $Model_data = M('SysAdmin');
                 $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->getField('id,name,province,city');
+                $salemanArr = array();
+                foreach ($saleman as $key => $value) {
+                    $salemanArr[] = array('value'=>$value['name'],'label'=>$value['name'].'('.$value['province'].$value['city'].')','id'=>$value['id']);
+                }
+                $saleman = json_encode($salemanArr);
                 $this->assign('goods',$goods);
                 $this->assign('saleman',$saleman);
                 $this->assign('username',$_SESSION['username']);
@@ -328,8 +338,8 @@ class MaintainController extends Controller {
                     
                     $res = $Model_data->table('saleman_maintain')->where('id='.$id)->data($data)->save();
                     if ($res) {
+                        $smsbak = '';
                         if ($newsaleman) {
-                            $smsbak = '';
                             if ($newsalemanphone) {
                                 $sms = A('Common');
                                 $arr = $sms->maintainYZM($newsalemanphone);
@@ -341,9 +351,9 @@ class MaintainController extends Controller {
                             }
                         }
                         if ($group == 1) {
-                            $this->success('修改成功',U('Maintain/salemanIndex'));
+                            $this->success('修改成功!'.$smsbak,U('Maintain/salemanIndex'));
                         } else {
-                            $this->success('修改成功',U('Maintain/'.$mod));
+                            $this->success('修改成功!'.$smsbak,U('Maintain/'.$mod));
                         }
                     } else {
                         $this->error('数据无更改或修改失败');
@@ -353,7 +363,7 @@ class MaintainController extends Controller {
                     
                     $Model_data = M('maintain');
                     $info = $Model_data->where('id='.$id)->find();
-                    if ($group == 1) {  //代理商更新
+                    if ($group == 1) {  //代理商更新(已失效)
                         $admin_id = intval($_SESSION['admin_id']);
                         $Model_data = M('ServiceAdmin');
                         $servicer = $Model_data->where('salemanId='.$admin_id)->order('id asc')->getField('id,name,phone');
@@ -361,6 +371,11 @@ class MaintainController extends Controller {
                     } else {    //管理员或客服更新
                         $Model_data = M('SysAdmin');
                         $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->getField('id,name,province,city');
+                        $salemanArr = array();
+                        foreach ($saleman as $key => $value) {
+                            $salemanArr[] = array('value'=>$value['name'],'label'=>$value['name'].'('.$value['province'].$value['city'].')','id'=>$value['id']);
+                        }
+                        $saleman = json_encode($salemanArr);
                         $this->assign('saleman',$saleman);
                         $user = isset($_SESSION['username'])?$_SESSION['username']:'客服专员';
                         if ($group != 99) {
@@ -387,7 +402,7 @@ class MaintainController extends Controller {
                     }
                     if (!empty($info)) {
                         if ($group == 99) {
-                            $SU = M('SysAdmin')->field('id,username')->where('`group`=3')->select();
+                            $SU = M('SysAdmin')->field('id,username')->where('`group`=3 or id=2')->select();
                             $this->assign('statusUser',$SU);
                         }
                         
@@ -690,7 +705,13 @@ class MaintainController extends Controller {
             } else {
                 $Model_data = M('SysAdmin');
                 $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
+                $salemanArr = array();
+                foreach ($saleman as $key => $value) {
+                    $salemanArr[] = array('value'=>$value['name'],'label'=>$value['name'].'('.$value['province'].$value['city'].')','id'=>$value['id']);
+                }
+                $saleman = json_encode($salemanArr);
                 $this->assign('saleman',$saleman);
+
                 $this->display();
             }
         }
@@ -786,16 +807,29 @@ class MaintainController extends Controller {
                 $fileName .= "_{$date}.xls";
                 //创建PHPExcel对象，注意，不能少了\
                 $objPHPExcel = new \PHPExcel();
+                // 图片生成
+                $objDrawing = new \PHPExcel_Worksheet_Drawing();
+                $objDrawing->setPath('./Application/Admin/Public/download/xlstitle.jpg');
+                // 设置宽度高度
+                $objDrawing->setWidth(500); //照片宽度
+                $objDrawing->setHeight(46);//照片高度
+                $objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(35);
+                /*设置图片要插入的单元格*/
+                $objDrawing->setCoordinates('A1');
+                // 图片偏移距离
+                //$objDrawing->setOffsetX(12);
+                //$objDrawing->setOffsetY(12);
+                $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
                 $objProps = $objPHPExcel->getProperties();
                 $headArr = array('发布人','用户姓名','联系方式','详细地址','维护产品','产品安装时间','维护信息','客户说明','负责代理商','代理商电话','省份','城市','创建时间','维护人员','维护人员电话','维护状态','回访状态','受理人员','回访时间','维护日志');
                 //设置表头
                 $key = ord("A");
                 foreach($headArr as $v){
                     $colum = chr($key);
-                    $objPHPExcel->setActiveSheetIndex(0) ->setCellValue($colum.'1', $v);
+                    $objPHPExcel->setActiveSheetIndex(0) ->setCellValue($colum.'2', $v);
                     $key += 1;
                 }
-                $i = 2;
+                $i = 3;
                 //$objActSheet = $objPHPExcel->getActiveSheet();
                 foreach($info as $key => $row){ //行写入
                     $objPHPExcel->getActiveSheet()->setCellValue('A'.$i,$row['username']);

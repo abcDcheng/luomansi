@@ -108,4 +108,25 @@ class CommonController extends Controller {
             return $arr;
         }
     }
+
+    public function downloadFile($file,$filename){
+        if (isset($_SESSION['admin_id'])) {
+            if ($file) {
+                //导入下载类
+                //import('Org.Net.Http');
+               //Http::download($file,$filename);
+                $res = new \Org\Net\Http;
+                $res->download($file,$filename);
+            } else {
+                $this->error('未获取到文件，请重试');
+            }
+        } else {
+            $this->error('未知的操作');
+        }
+    }
+
+    public function getsaleman(){
+        $arr = array(array('title'=>1),array('title'=>2));
+        $this->ajaxReturn($arr);
+    }
 }

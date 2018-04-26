@@ -74,6 +74,11 @@ class OrderController extends Controller {
                 $Model_data->where('isNew=0')->data(array('isNew'=>1))->save();
                 $Model_data = M('SysAdmin');
                 $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
+                $salemanArr = array();
+                foreach ($saleman as $key => $value) {
+                    $salemanArr[] = array('value'=>$value['name'],'label'=>$value['name'].'('.$value['province'].$value['city'].')','id'=>$value['id']);
+                }
+                $saleman = json_encode($salemanArr);
                 $this->assign('saleman',$saleman);
                 $this->display();
             }
@@ -217,6 +222,11 @@ class OrderController extends Controller {
             } else {
                 $Model_data = M('SysAdmin');
                 $saleman = $Model_data->where('`group`=1')->order('province asc,city asc')->field('id,name,province,city')->select();
+                $salemanArr = array();
+                foreach ($saleman as $key => $value) {
+                    $salemanArr[] = array('value'=>$value['name'],'label'=>$value['name'].'('.$value['province'].$value['city'].')','id'=>$value['id']);
+                }
+                $saleman = json_encode($salemanArr);
                 $this->assign('$group',$group);
                 $this->assign('saleman',$saleman);
                 $this->display();
@@ -284,19 +294,35 @@ class OrderController extends Controller {
                 for($j = 0;$j < count($shop);$j++){
                     $info[$shop[$j]['orderid']]['detail'][] = $shop[$j];
                 }
-                //var_dump($info);
                 //创建PHPExcel对象，注意，不能少了\
                 $objPHPExcel = new \PHPExcel();
+                //var_dump($info);
+                // 图片生成
+                $objDrawing = new \PHPExcel_Worksheet_Drawing();
+                $objDrawing->setPath('./Application/Admin/Public/download/xlstitle.jpg');
+                // 设置宽度高度
+                $objDrawing->setWidth(500); //照片宽度
+                $objDrawing->setHeight(46);//照片高度
+                $objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(35);
+                /*设置图片要插入的单元格*/
+                $objDrawing->setCoordinates('A1');
+                // 图片偏移距离
+                //$objDrawing->setOffsetX(12);
+                //$objDrawing->setOffsetY(12);
+                $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+                
                 $objProps = $objPHPExcel->getProperties();
                 $headArr = array('订单号','代理商','联系方式','送货地址','订单详情','订单备注','下单时间','受理状态','受理时间','信息反馈','回访人员');
                 //设置表头
                 $key = ord("A");
                 foreach($headArr as $v){
                     $colum = chr($key);
-                    $objPHPExcel->setActiveSheetIndex(0) ->setCellValue($colum.'1', $v);
+                    $objPHPExcel->setActiveSheetIndex(0) ->setCellValue($colum.'2', $v);
                     $key += 1;
                 }
-                $i = 2;
+                //$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(13);
+                //$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(16);
+                $i = 3;
                 //$objActSheet = $objPHPExcel->getActiveSheet();
                 foreach($info as $key => $row){ //行写入
                     $objPHPExcel->getActiveSheet()->setCellValue('A'.$i,$row['ordercode']);

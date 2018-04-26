@@ -58,12 +58,14 @@ class GoodsController extends Controller {
                     $goodsDes = I('goodsDes');
                     $hand = I('hand');
                     $falseLock = I('falseLock');
+                    $status = I('status');
                     $Model_data = M('goods');
                     $data = array('goodsName'=>$goodsname,
                                   'goodsImg'=>$photo,
                                   'goodsDes'=>$goodsDes,
                                   'hasHand'=>$hand,
                                   'hasLock'=>$falseLock,
+                                  'status'=>$status,
                                   'enTime'=>date('Y-m-d H:i:s')
                             );
                     $res = $Model_data->where('id='.$id)->data($data)->save();
@@ -77,8 +79,10 @@ class GoodsController extends Controller {
                         $this->error('修改失败',U('Goods/index'));
                     }
                 } else {
+
                     $goods = M('goods')->where('id='.$id)->find();
                     if (!empty($goods)) {
+                        var_dump($goods);
                         $this->assign('goods',$goods);
                         $this->display();
                     } else {
@@ -95,7 +99,7 @@ class GoodsController extends Controller {
     }
 
     //删除产品
-    public function del(){
+    public function goodsDel(){
         if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
             if (IS_AJAX) {
                 if (isset($_POST['id'])) {

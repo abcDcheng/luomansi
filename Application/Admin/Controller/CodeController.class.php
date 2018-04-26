@@ -3,7 +3,8 @@ namespace Admin\Controller;
 use Think\Controller;
 class CodeController extends Controller {
     public function index(){
-        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 3 || $_SESSION['group'] == 4)) {
+            $group = intval($_SESSION['group']);
             if (IS_AJAX) {
                 $csql='';
                 $ra=array();
@@ -25,13 +26,24 @@ class CodeController extends Controller {
                 //查询数据总数
                 $count = $Model_data->table('saleman_code')->where('goodsCode!="" '.$csql)->count();
                 //查询数据
-                $order = $Model_data->table('saleman_code')->where('goodsCode!="" '.$csql)->order('id desc')->limit($first,$pageNum)->getField('id,goods,goodsModel,goodsCode,install');
-                
+                $order = $Model_data->table('saleman_code')->where('goodsCode!="" '.$csql)->order('id desc')->limit($first,$pageNum)->getField('id,goods,goodsModel,goodsCode,install,area,saleman,bak');
+                foreach ($order as $key => $value) {
+                    if ($value['install']) {
+                        $address = M('install')->field('loc')->where(array('goodsCode'=>array('like','%'.$value['goodscode'].'%')))->find();
+                        if (!empty($address)) {
+                            $order[$key]['installAddr'] = $address['loc'];
+                        } else {
+                            $order[$key]['installAddr'] = '';
+                        }
+                    } else {
+                        $order[$key]['installAddr'] = '';
+                    }
+                }
                 $res = array('num'=>$count,'order'=>$order,'page'=>$page,'pageNum'=>$pageNum);
                 //var_dump($res);
                 $this->ajaxReturn($res);
             } else {
-                
+                $this->assign('group',$group);
                 $this->display();
             }
     		
@@ -42,12 +54,16 @@ class CodeController extends Controller {
 
     //新增产品码
     public function add(){
-        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 4)) {
             if (IS_AJAX) {
                 $goods = I('goods');
                 $goodsModel = I('goodsModel');
                 $goodsCode = I('goodsCode');
                 $install = intval(I('install'));
+                $province = I('province');
+                $city = I('city');
+                $saleman = I('saleman');
+                $bak = I('bak');
                 $Model_data = M('code');
                 //判断产品码是否已录入
                 $count = $Model_data->where("goodsCode='$goodsCode'")->count();
@@ -58,6 +74,9 @@ class CodeController extends Controller {
                                         'goodsModel'=>$goodsModel,
                                         'goodsCode'=>$goodsCode,
                                         'install'=>$install,
+                                        'area'=>$province.$city,
+                                        'saleman'=>$saleman,
+                                        'bak'=>$bak,
                                         'createTime'=>date('Y-m-d H:i:s'));
                     //var_dump($insertData);
                     $res = $Model_data->add($insertData);
@@ -87,6 +106,9 @@ class CodeController extends Controller {
                     $goodsCode = I('goodsCode');
                     $oldCode = I('oldCode');
                     $install = intval(I('install'));
+                    $area = I('area');
+                    $saleman = I('saleman');
+                    $bak = I('bak');
                     $Model_data = M('code');
                     if ($goodsCode != $oldCode) {
                         //判断产品码是否已注册
@@ -99,6 +121,9 @@ class CodeController extends Controller {
                                         'goodsModel'=>$goodsModel,
                                         'goodsCode'=>$goodsCode,
                                         'install'=>$install,
+                                        'area'=>$area,
+                                        'saleman'=>$saleman,
+                                        'bak'=>$bak,
                                         'createTime'=>date('Y-m-d H:i:s'));
                     //var_dump($insertData);
                     $res = $Model_data->where('id='.$id)->save($insertData);
@@ -144,8 +169,11 @@ class CodeController extends Controller {
     }
 
     //使用exccel导入识别码
-    public function export(){
-        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+    public function import(){
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 4)) {
+            if (isset($_SESSION['codeData'])) {
+                unset($_SESSION['codeData']);
+            }
             $this->display();
         } else {
             $this->error("未授权",U("Login/index"),3);
@@ -154,7 +182,10 @@ class CodeController extends Controller {
 
     //获取上传的excel
     public function excelUpload(){
-        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 4)) {
+            if (isset($_SESSION['codeData'])) {
+                unset($_SESSION['codeData']);
+            }
             $upload = new \Think\Upload();// 实例化上传类
             $upload->maxSize   =     10485760 ;// 设置附件上传大小
             $upload->exts      =     array('xls','xlsx');// 设置附件上传类型
@@ -176,20 +207,30 @@ class CodeController extends Controller {
                 } elseif ($exts == 'xlsx') {
                     import("Org.Util.PHPExcel.Reader.Excel2007");
                     $PHPReader = new \PHPExcel_Reader_Excel2007();
+                } else {
+                    $this->error('获取文件格式失败');
+                    exit();
                 }
                 //import("Org.Util.PHPExcel.IOFactory.php");
 
                 $PHPExcel=$PHPReader->load($filename);
-                $currentSheet = $PHPExcel->getSheet(0);                      // 获取表中的第一个工作表，如果要获取第二个，把0改为1，依次类推
+                // 获取表中的第一个工作表，如果要获取第二个，把0改为1，依次类推
+                $currentSheet = $PHPExcel->getSheet(0);
                 $allColumn = $currentSheet->getHighestColumn();              // 获取总列数
                 $allRow = $currentSheet->getHighestRow();                    // 获取总行数
                 $data_p = array();
                 for ($i = 2,$j = 0; $i <= $allRow; $i++,$j++) {
-                    $data_p[$j]['goods'] =$PHPExcel->getActiveSheet()->getCell("A" . $i)->getValue();
-                    $data_p[$j]['goodsModel'] =$PHPExcel->getActiveSheet()->getCell("B" .$i)->getValue();
-                    $data_p[$j]['goodsCode'] =$PHPExcel->getActiveSheet()->getCell("C" .$i)->getValue();
+                    $data_p[$j]['goods'] =$PHPExcel->getActiveSheet()->getCell("C" . $i)->getValue();
+                    $data_p[$j]['goodsModel'] =$PHPExcel->getActiveSheet()->getCell("D" .$i)->getValue();
+                    $data_p[$j]['goodsCode'] =$PHPExcel->getActiveSheet()->getCell("E" .$i)->getValue();
                     $data_p[$j]['goodsCode'] = str_replace(' ','',$data_p[$j]['goodsCode']);
-                    $data_p[$j]['install'] =$PHPExcel->getActiveSheet()->getCell("D" .$i)->getValue();
+                    //$data_p[$j]['install'] =$PHPExcel->getActiveSheet()->getCell("D" .$i)->getValue();
+                    $data_p[$j]['area'] =$PHPExcel->getActiveSheet()->getCell("A" .$i)->getValue();
+                    $data_p[$j]['saleman'] =$PHPExcel->getActiveSheet()->getCell("B" .$i)->getValue();
+                    $data_p[$j]['bak'] =$PHPExcel->getActiveSheet()->getCell("F" .$i)->getValue();
+                    if (!$data_p[$j]['bak']) {
+                        !$data_p[$j]['bak'] = '';
+                    }
                     $data_p[$j]['enTime'] = date('Y-m-d H:i:s');
                 }
                 $res['allRow'] = $allRow - 1;
@@ -206,7 +247,7 @@ class CodeController extends Controller {
     }
 
     public function codeRecord(){
-        if (isset($_SESSION['admin_id']) && $_SESSION['group'] == 99) {
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 4)) {
             if (isset($_SESSION['codeData']) && !empty($_SESSION['codeData'])) {
                 $code = $_SESSION['codeData'];
                 $res = M('code')->addAll($code);
@@ -221,6 +262,21 @@ class CodeController extends Controller {
             }
         } else {
             $this->error("未授权",U("Login/index"),3);
+        }
+    }
+
+    //下载示例文件
+    public function dle(){
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99 || $_SESSION['group'] == 4)) {
+
+            $download = A('Common');
+            $file = "./Application/Admin/Public/download/exm.xls";
+            $filename = '产品识别码导入模板.xls';
+            $encoded_filename = urlencode( $filename );
+           $encoded_filename = str_replace( "+" , "%20" , $encoded_filename );
+            //echo $file."<br/>";
+            //var_dump(is_file($file)) ;
+           $download->downloadFile($file,$encoded_filename);
         }
     }
 }

@@ -127,7 +127,8 @@
 	            timeout : 5000,
 	            success : function(data){
 	            	if (data.code == 1) {
-	            		window.location.href = "<?php echo U('Shop/index');?>";
+	            		$('.sign-in-btn').val("登录").removeAttr('disabled');
+	            		window.location.href = "<?php echo U('Login/indexredirect');?>";
 	            	} else {
 	            		alert(data.msg);
 	            		$('.sign-in-btn').val("登录").removeAttr('disabled');

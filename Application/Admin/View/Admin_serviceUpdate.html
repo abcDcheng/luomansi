@@ -18,14 +18,21 @@
     <link rel="stylesheet" href="__CSS__/font-awesome.min.css">
     <link rel="stylesheet" href="__CSS__/animate.css">
     <link rel="stylesheet" href="__CSS__/sitecms.css">
+    <link rel="stylesheet" href="__CSS__/jquery.autocompleter.css">
     <script src="__PLUGS__/layui/layui.js"></script>
     <script src="__PLUGS__/ueditor/ueditor.config.js"></script>
     <script src="__PLUGS__/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript">
+        var getsaleman = <{$saleman}>;
+    </script>
     <!-- <script src="__PLUGS__/static/base/js/jquery.cookie.js"></script> -->
     <script src="__JS__/jquery.min.js"></script>
     <!-- <script src="__PLUGS__/uploadify/jquery.uploadify.min.js"></script> -->
     <script src="__JS__/validform.js"></script>
+    <script src="__JS__/jquery.autocompleter.js" type="text/javascript"></script>
     <script src="__JS__/sitecms.js"></script>
+    <script src="__JS__/main.js"></script>
+
     <script src="__PLUGS__/layui/lay/modules/laydate.js"></script>
 
     <!-- 让IE8/9支持媒体查询 -->
@@ -60,12 +67,14 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label label-required">代理商</label>
                                 <div class="layui-input-block">
-                                    <select id="saleman" name="saleman" class="layui-select">
+                                    <!-- <select id="saleman" name="saleman" class="layui-select">
                                         <option value="">选择代理商</option>
                                         <{foreach name="saleman" item="value"}>
                                         <option value="<{$value.id}>"><{$value.name}>(<{$value.phone}>)</option>
                                         <{/foreach}>
-                                    </select>
+                                    </select> -->
+                                    <input id="salemancx" type="text" placeholder="选择代理商" class="layui-input" value="<{$info.saleman}>">
+                                    <input id="saleman" type="hidden" name="saleman" value="<{$info.salemanid}>"/>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -126,12 +135,17 @@
 <script>
     UE.getEditor('content');
     $(function(){
-        $('#saleman').val(parseInt('<{$info.salemanid}>'));
+        //$('#saleman').val(parseInt('<{$info.salemanid}>'));
         $('#save').click(function(){
+            var saleman = $('#saleman').val();
             var pwd = $('#pwd').val();
             var repwd = $('#repwd').val();
             var name=$.trim($('#username').val());
             var idcard = $.trim($('#idcard').val());
+            if (!saleman) {
+                alert('请选择代理商!');
+                return false;
+            }
             if(name){
                 //判断手机格式
                 if(!(/^1[0-9]\d{9,9}$/.test(name))){ 

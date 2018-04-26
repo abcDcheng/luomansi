@@ -62,6 +62,9 @@
                                       <i class="layui-icon">&#xe67c;</i>上传excel文件
                                     </button>
                                     <span id="phototext"></span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="<{:U('Code/dle')}>" style="text-decoration: underline;color: blue;">下载导入模板</a>
+                                    
                                 </div>
                             </div>
                             <style type="text/css">
@@ -84,7 +87,7 @@
                                 
                                 <table border="1" cellpadding="15">
                                     <thead>
-                                        <tr><td>型号</td><td>规格</td><td>产品识别码</td><td>安装状态</td></tr>
+                                        <tr><td>区域</td><td>代理商</td><td>型号</td><td>规格</td><td>产品识别码</td><td>备注</td></tr>
                                     </thead>
                                     <tbody id="dataView">
                                         
@@ -123,13 +126,13 @@
                 var table = '';
                 var info = res.info;
                 for (var i = 0;i < info.length;i++) {
-                    if (info[i]['install'] == 1) {
-                        var install = '已安装';
-                    } else {
-                        var install = '未安装';
-                    }
+                    // if (info[i]['install'] == 1) {
+                    //     var install = '已安装';
+                    // } else {
+                    //     var install = '未安装';
+                    // }
                     table += '<tr>' +
-                             '<td>'+info[i]['goods']+'</td><td>'+info[i]['goodsModel']+'</td><td>'+info[i]['goodsCode']+'</td><td>'+install+'</td>'+
+                             '<td>'+info[i]['area']+'</td><td>'+info[i]['saleman']+'</td><td>'+info[i]['goods']+'</td><td>'+info[i]['goodsModel']+'</td><td>'+info[i]['goodsCode']+'</td><td>'+info[i]['bak']+'</td>'+
                              '</tr>';
                 }
                 $('#dataView').empty();
