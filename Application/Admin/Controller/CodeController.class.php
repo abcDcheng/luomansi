@@ -43,6 +43,14 @@ class CodeController extends Controller {
                 //var_dump($res);
                 $this->ajaxReturn($res);
             } else {
+                $Model_data = M('client');
+                $open = $Model_data->where('id=1')->find();
+                if (!empty($open)) {
+                    $open = $open['scanopen'];
+                } else {
+                    $open = 0;
+                }
+                $this->assign('open',$open);
                 $this->assign('group',$group);
                 $this->display();
             }
@@ -50,6 +58,25 @@ class CodeController extends Controller {
     	} else {
     		$this->error("未登录或未授权",U("Login/index"),1);
     	}
+    }
+
+    //手机客户端扫码功能开关
+    public function scanopen(){
+        if (isset($_SESSION['admin_id']) && ($_SESSION['group'] == 99)) {
+            if (IS_AJAX) {
+                $open = intval(I('open'));
+                $Model_data = M('client');
+                $res = $Model_data->where('id=1')->save(array('scanopen'=>$open,'enTime'=>date('Y-m-d H:i:s')));
+                if ($res) {
+                    $this->success('操作成功');
+                } else {
+                    $this->error('操作失败');
+                }
+            } else {
+                $this->error('未知操作');
+            }
+            
+        }
     }
 
     //新增产品码
@@ -219,21 +246,26 @@ class CodeController extends Controller {
                 $allColumn = $currentSheet->getHighestColumn();              // 获取总列数
                 $allRow = $currentSheet->getHighestRow();                    // 获取总行数
                 $data_p = array();
-                for ($i = 2,$j = 0; $i <= $allRow; $i++,$j++) {
-                    $data_p[$j]['goods'] =$PHPExcel->getActiveSheet()->getCell("C" . $i)->getValue();
-                    $data_p[$j]['goodsModel'] =$PHPExcel->getActiveSheet()->getCell("D" .$i)->getValue();
-                    $data_p[$j]['goodsCode'] =$PHPExcel->getActiveSheet()->getCell("E" .$i)->getValue();
-                    $data_p[$j]['goodsCode'] = str_replace(' ','',$data_p[$j]['goodsCode']);
-                    //$data_p[$j]['install'] =$PHPExcel->getActiveSheet()->getCell("D" .$i)->getValue();
-                    $data_p[$j]['area'] =$PHPExcel->getActiveSheet()->getCell("A" .$i)->getValue();
-                    $data_p[$j]['saleman'] =$PHPExcel->getActiveSheet()->getCell("B" .$i)->getValue();
-                    $data_p[$j]['bak'] =$PHPExcel->getActiveSheet()->getCell("F" .$i)->getValue();
-                    if (!$data_p[$j]['bak']) {
-                        !$data_p[$j]['bak'] = '';
+                for ($i = 2,$j = 0; $i <= $allRow; $i++) {
+                    $tmpgoodsCode = $PHPExcel->getActiveSheet()->getCell("E" .$i)->getValue();
+                    if ($tmpgoodsCode) {
+                        $data_p[$j]['goods'] =$PHPExcel->getActiveSheet()->getCell("C" . $i)->getValue();
+                        $data_p[$j]['goodsModel'] =$PHPExcel->getActiveSheet()->getCell("D" .$i)->getValue();
+                        $data_p[$j]['goodsCode'] = $tmpgoodsCode;
+                        $data_p[$j]['goodsCode'] = str_replace(' ','',$data_p[$j]['goodsCode']);
+                        //$data_p[$j]['install'] =$PHPExcel->getActiveSheet()->getCell("D" .$i)->getValue();
+                        $data_p[$j]['area'] =$PHPExcel->getActiveSheet()->getCell("A" .$i)->getValue();
+                        $data_p[$j]['saleman'] =$PHPExcel->getActiveSheet()->getCell("B" .$i)->getValue();
+                        $data_p[$j]['bak'] =$PHPExcel->getActiveSheet()->getCell("F" .$i)->getValue();
+                        if (!$data_p[$j]['bak']) {
+                            !$data_p[$j]['bak'] = '';
+                        }
+                        $data_p[$j]['enTime'] = date('Y-m-d H:i:s');
+                        $j++;
                     }
-                    $data_p[$j]['enTime'] = date('Y-m-d H:i:s');
+                    
                 }
-                $res['allRow'] = $allRow - 1;
+                $res['allRow'] = $j;
                 $res['code'] = 1;
                 $res['info'] = $data_p;
                 session('codeData',$data_p);

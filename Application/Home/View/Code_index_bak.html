@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>归属地查询</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="__CSS__/code.css">
+    <!-- JQ -->
+    <script type="text/javascript" src="__JS__/jquery-1.11.0.min.js"></script>
+    <!--移动端版本兼容 -->
+    <script type="text/javascript" src='__JS__/resize.js'></script>
+    <!-- mian -->
+    <script type="text/javascript" src='__JS__/code.js'></script>
+</head>
+<body>
+
+<!-- <img src="__IMAGES__/yue.png" alt="" class="mus rotate"> -->
+
+<div class="wrap">
+    
+    <!-- <div class="head_bg">
+        <a href="javascript:;">
+            <img src="__IMAGES__/back.png" alt="" class="back">
+        </a>
+        <h4>罗曼斯</h4>
+        <a href="javascript:;">
+            <img src="__IMAGES__/account.png" alt="" class="account">
+        </a>
+    </div> -->
+
+    <div class="banner">
+        
+        <img src="__IMAGES__/add-logo.png" alt="" class="add-logo">
+        <img src="__IMAGES__/title.png" alt="" class="title">
+
+    </div>
+
+    <div class="content">
+        <p class="words">欢迎您使用智能锁著名品牌罗曼斯<br/>我们将竭诚为您服务！</p>
+        
+        <div class="entry">
+            <p>
+                <span>请输入识别码</span>
+                <input id="code" type="text">
+            </p>
+
+            <img src="__IMAGES__/scanning.png" alt="" class="scanning">
+        </div>
+
+        <button class="lookup">归属地查询</button>
+
+    </div>
+
+    <p class="footer-w">让天下没有被盗的家庭</p>
+
+</div>
+
+<div class="mask">
+    <!-- <div class="head_bg">
+        <a href="javascript:;">
+            <img src="__IMAGES__/back.png" alt="" class="back">
+        </a>
+        <h4>用户资料登记</h4>
+        <a href="javascript:;">
+            <img src="__IMAGES__/account.png" alt="" class="account">
+        </a>
+    </div> -->
+
+    <div class="frame">
+        <img src="__IMAGES__/add-logo2.png" alt="" class="add-logo2">
+        <hr/>
+        <ul>
+            <li>
+                <span class='w1'>识别码：</span>
+                <i>1H809809809832097247</i>
+            </li>
+            <li>
+                <span class='w2'>产   品：</span>
+                <i>锁匙锁芯</i>
+            </li>
+            <li>
+                <span class='w2'>颜   色：</span>
+                <i>古红</i>
+            </li>
+            <li>
+                <span class='w1'>归属地：</span>
+                <i>内蒙古自治区</i>
+            </li>
+        </ul>
+
+        <button class="btn-return">返  回</button>
+    </div>
+</div>
+<style type="text/css">
+    .meng00{display:none;z-index:9999;width: 100%;height: 100%;position: fixed;left: 0;top:0;background:url('__IMAGES__/15.gif') center center no-repeat rgba(0,0,0,0.8);}
+</style>
+<script type="text/javascript">
+    $(function(){
+    $('.lookup').click(function(){
+        var code = $('#code').val();
+        if (!code) {
+            alert('请输入识别码');
+            return false;
+        }
+        $('.meng00').show();
+        $.ajax({
+            url : "<{:U('Code/codesearch')}>",
+            type : "post",
+            data : {code:code},
+            dataType : "json",
+            timeout : 5000,
+            success : function(data){
+                $('.meng00').hide();
+                if (data.code == 1) {
+
+                } else {
+                    alert(data.msg);
+                }
+            },
+            error : function(x,status){
+                $('.meng00').hide();
+                if (status == 'timeout') {
+                    alert("连接超时，请重试");
+                } else {
+                    alert("连接超时，请保持网络良好重试");
+                }
+            }
+        });
+        $('.mask').show();
+    });
+    });
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  /*
+   * 注意：
+   * 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
+   * 2. 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+   * 3. 常见问题及完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+   *
+   * 开发中遇到问题详见文档“附录5-常见错误及解决办法”解决，如仍未能解决可通过以下渠道反馈：
+   * 邮箱地址：weixin-open@qq.com
+   * 邮件主题：【微信JS-SDK反馈】具体问题
+   * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
+   */
+  wx.config({
+    //debug: true,
+    appId: '<{$jssdk.appId}>',
+    timestamp: <{$jssdk.timestamp}>,
+    nonceStr: '<{$jssdk.nonceStr}>',
+    signature: '<{$jssdk.signature}>',
+    jsApiList: [
+      // 所有要调用的 API 都要加到这个列表中
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'hideMenuItems',
+                'showMenuItems',
+                'hideAllNonBaseMenuItem',
+                'showAllNonBaseMenuItem',
+                'translateVoice',
+                'startRecord',
+                'stopRecord',
+                'onRecordEnd',
+                'playVoice',
+                'pauseVoice',
+                'stopVoice',
+                'uploadVoice',
+                'downloadVoice',
+                'chooseImage',
+                'previewImage',
+                'uploadImage',
+                'downloadImage',
+                'getNetworkType',
+                'openLocation',
+                'getLocation',
+                'hideOptionMenu',
+                'showOptionMenu',
+                'closeWindow',
+                'scanQRCode',
+                'chooseWXPay',
+                'openProductSpecificView',
+                'addCard',
+                'chooseCard',
+                'openCard' 
+    ]
+  });
+    wx.ready(function () {
+        $('#scan').click(function(){
+            goodsScan();
+        });
+    });
+function goodsScan(){
+    //alert(1);
+    var open = parseInt('<{$open}>');
+    if (!open) {
+        alert('此功能暂未开放');
+        return false;
+    }
+    wx.scanQRCode({
+        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+        scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+        success: function (res) {
+            var serialNumber = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+            //alert(serialNumber);
+            var serial = serialNumber.split(",");
+            serialNumber = serial[serial.length-1];
+            $('#goodsCode').val(serialNumber);
+        }
+    });
+}
+</script>
+
+</body>
+
+</html>

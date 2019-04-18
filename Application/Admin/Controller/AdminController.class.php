@@ -30,7 +30,7 @@ class AdminController extends Controller {
                 $phone = I('phone');
                 $Model_data = M('SysAdmin');
                 //判断专员账号是否已注册
-                $count = $Model_data->where("username='$username' or phone='$username'")->count();
+                $count = $Model_data->where("username='$username'")->count();
                 if ($count > 0) {
                     $this->error('该用户名已存在',U('Admin/index'));
                 } else {
@@ -184,7 +184,7 @@ class AdminController extends Controller {
                 $saleman = M('SysAdmin')->where('id='.$salemanId)->find();
                 if (!empty($saleman)) {
                     //查询已有代理商下属人员数量，最多不能超过5个
-                    // $Model_data = M('ServiceAdmin');
+                     $Model_data = M('ServiceAdmin');
                     // $count = $Model_data->where("salemanId='$salemanId'")->count();
                     // if ($count>=5) {
                     //     $this->error('每位代理商限定只能有5个下属人员账户');

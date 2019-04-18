@@ -24,6 +24,10 @@ class InstallController extends Controller {
     	if (isset($_SESSION['service_id']) && IS_AJAX) {
             $goodsCode = trim(I('goodsCode'));
             $goodsCode1 = str_replace(' ','',I('goodsCode'));
+            $goodsCode1 = str_replace('%','',$goodsCode1);
+            if (strlen($goodsCode1)<10) {
+                $this->error('产品码长度必须大于10');
+            }
             $count = M('code')->where(array('goodsCode'=>array('like','%'.$goodsCode1.'%')))->find();
             if (count($count) < 1) {
                 $this->error('查找不到该识别码，请确认识别码无误或将识别码发至出厂商确认');

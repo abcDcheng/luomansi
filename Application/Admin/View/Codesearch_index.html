@@ -36,7 +36,7 @@
         <script src="./js/html5shiv.min.js"></script>
         <script src="./js/respond.min.js"></script>
     <![endif]-->
-    <title>产品识别码管理</title>
+    <title>归属地查询</title>
 </head>
 <body>
 
@@ -48,10 +48,10 @@
         <div class="sc_body">
         <div class="sc_title sc_body_title">
         <img id="logo" src="__IMAGES__/logo.png" style="width: 100px;height: 30px;margin-left: 5px;">
-            <h5>产品识别码管理</h5>
+            <h5>归属地查询管理</h5>
             <div class="sc_title_btn">
             <{if condition="$group eq 99 or $group eq 4"}>
-                <a class="layui-btn layui-btn-sm" href="<{:U('Code/add')}>"><i class="layui-icon"></i> 新增</a> &nbsp;<a class="layui-btn layui-btn-sm" href="<{:U('Code/import')}>"><i class="layui-icon"></i> 批量导入</a>
+                <a class="layui-btn layui-btn-sm" href="<{:U('Codesearch/add')}>"><i class="layui-icon"></i> 新增</a> &nbsp;<a class="layui-btn layui-btn-sm" href="<{:U('Codesearch/import')}>"><i class="layui-icon"></i> 批量导入</a>
             <{/if}>
             </div>
         </div>
@@ -67,20 +67,15 @@
                 </div>
                 <button id="cx" class="layui-btn layui-btn-danger sc_btn_search">搜索</button>
                 <{if condition="$group eq 99"}>
-                
                 <div class="layui-inline" style="float: right;">
                     <div class="layui-input-inline">
-                    <div style="display: inline-block;width: 100px;position: relative;font-size: 14px;">
-                    <label style="position: absolute;top:-8px;">移动端扫码功能</label>
-                    </div>
                     <{if condition="$open eq 1"}>
-                        <input name="scan" type="checkbox" value="1" lay-skin="switch" lay-text="开|关" checked="checked" lay-filter="scan">
+                        <input name="scan" type="checkbox" value="1" lay-skin="switch" lay-text="扫码|扫码" checked="checked" lay-filter="scan">
                     <{else /}>
-                        <input name="scan" id="scan" type="checkbox" value="1" lay-skin="switch" lay-text="开|关" lay-filter="scan">
+                        <input name="scan" id="scan" type="checkbox" value="1" lay-skin="switch" lay-text="扫码|扫码" lay-filter="scan">
                     <{/if}>
                     </div>
                 </div>
-                
                 <{/if}>
                 <input type="hidden" name="nid" value="5">
                 <table style="table-layout: fixed;" class="layui-table" lay-even="" lay-skin="nob">
@@ -177,7 +172,7 @@
         //contentType:false,
         type: "post",
         timeout:5000,//设置超时时间为5秒
-        url: "<{:U('Code/index')}>",
+        url: "<{:U('Codesearch/index')}>",
         data: {goodsCode:goodsCode,page:page},
         dataType: "json",
         success:function(data){
@@ -299,7 +294,7 @@
             //alert(id);
             $('.meng00').show();
             $.ajax({
-                url : "<{:U('Code/del')}>",
+                url : "<{:U('Codesearch/del')}>",
                 type : "post",
                 data : {id:id},
                 dataType : "json",
@@ -332,7 +327,7 @@
                 var open = 0;
             }
             $.ajax({
-                url : "<{:U('Code/scanopen')}>",
+                url : "<{:U('Codesearch/scanopen')}>",
                 type : "post",
                 data : {open:open},
                 dataType : "json",
@@ -356,5 +351,8 @@
         });
     });
     });
+
+
+
 </script>
 </html>
